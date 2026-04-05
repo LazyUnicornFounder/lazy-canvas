@@ -293,7 +293,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
                   fontStyle: isItalic ? "italic" : undefined,
                 }}
               >
-                {renderColoredQuote(quote, coloredWords)}
+                {renderColoredQuote(quote, coloredWords, showQuotationMarks)}
               </p>
               {!isDetached && authorBlock}
             </div>
