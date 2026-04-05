@@ -1001,7 +1001,7 @@ const BUILTIN_TEMPLATES: Template[] = [
   {
     id: "science-chemistry", name: "Chemistry", category: "science",
     editorState: {
-      font: "dm-sans", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.8,
+      font: "inter", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.8,
       textColor: "#0e7490", authorFont: "heading", authorColor: "#0891b2", authorFontSize: 0.7,
       isBold: false, isItalic: false, backgroundColor: "#ecfeff", textShadow: "none", showQuotationMarks: false,
       backgroundImage: PEXELS_IMAGES["science-chemistry"], backgroundOpacity: 0.3,
@@ -1204,7 +1204,7 @@ const BUILTIN_TEMPLATES: Template[] = [
   {
     id: "business-startup", name: "Startup", category: "business",
     editorState: {
-      font: "dm-sans", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.8,
+      font: "inter", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.8,
       textColor: "#7c3aed", authorFont: "heading", authorColor: "#8b5cf6", authorFontSize: 0.7,
       isBold: false, isItalic: false, backgroundColor: "#f5f3ff", textShadow: "none", showQuotationMarks: false,
       backgroundImage: PEXELS_IMAGES["business-startup"], backgroundOpacity: 0.3,
