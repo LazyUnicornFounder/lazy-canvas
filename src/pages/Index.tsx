@@ -92,6 +92,15 @@ const Index = () => {
             >
               Pricing
             </button>
+            <button
+              onClick={() => {
+                const el = document.getElementById("editor-section");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="px-4 py-2 bg-foreground text-background font-heading text-xs font-medium rounded-md hover:opacity-90 transition-opacity"
+            >
+              Create your quote
+            </button>
             {user ? (
               <>
                 <span className="text-xs text-muted-foreground hidden sm:block">{user.email}</span>
@@ -133,7 +142,7 @@ const Index = () => {
         </section>
       )}
 
-      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 py-4 sm:py-6">
+      <main id="editor-section" className="max-w-[1600px] mx-auto px-4 sm:px-6 py-4 sm:py-6">
         <div className="flex gap-6 items-start">
           {/* Controls */}
           <div className="flex-1 min-w-0">
