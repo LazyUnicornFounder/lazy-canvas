@@ -378,15 +378,18 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             <div
               className="absolute bottom-0 right-0 z-20 font-heading"
               style={{
-                padding: "clamp(4px, 1.5%, 10px) clamp(6px, 2%, 14px)",
+                margin: "clamp(4px, 1.5%, 8px)",
+                padding: "clamp(2px, 0.8%, 5px) clamp(4px, 1.2%, 8px)",
                 fontSize: "clamp(6px, 1.8%, 11px)",
-                color: t.muted,
-                opacity: 0.6,
+                backgroundColor: "rgba(0,0,0,0.55)",
+                color: "rgba(255,255,255,0.85)",
+                borderRadius: "clamp(2px, 0.5%, 4px)",
                 letterSpacing: "0.02em",
+                lineHeight: 1.4,
               }}
             >
               <span>Made with </span>
-              <span style={{ fontWeight: 600, color: t.text, opacity: 0.5 }}>Lazy Quotes</span>
+              <span style={{ fontWeight: 600 }}>Lazy Quotes</span>
             </div>
           )}
         </div>
