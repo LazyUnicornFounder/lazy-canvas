@@ -106,23 +106,25 @@ const shadowStyles: Record<TextShadow, string> = {
 
 // Render quote text with colored words
 const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = []) => {
-  if (!coloredWords.length) return <>&ldquo;{text}&rdquo;</>;
+  const activeColoredWords = coloredWords
+    .map((word) => ({ ...word, text: word.text.trim() }))
+    .filter((word) => word.text.length > 0);
 
-  // Build segments by finding colored words (case-insensitive)
+  if (!activeColoredWords.length) return <>&ldquo;{text}&rdquo;</>;
+
   const segments: { text: string; color?: string }[] = [];
   let remaining = text;
 
   while (remaining.length > 0) {
-    let earliest = -1;
     let earliestIdx = Infinity;
     let matchedWord: ColoredWord | null = null;
 
-    for (let i = 0; i < coloredWords.length; i++) {
-      const idx = remaining.toLowerCase().indexOf(coloredWords[i].text.toLowerCase());
+    for (let i = 0; i < activeColoredWords.length; i++) {
+      const currentWord = activeColoredWords[i];
+      const idx = remaining.toLowerCase().indexOf(currentWord.text.toLowerCase());
       if (idx !== -1 && idx < earliestIdx) {
         earliestIdx = idx;
-        earliest = i;
-        matchedWord = coloredWords[i];
+        matchedWord = currentWord;
       }
     }
 
@@ -130,6 +132,12 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = []) => {
       if (earliestIdx > 0) {
         segments.push({ text: remaining.slice(0, earliestIdx) });
       }
+
+      if (matchedWord.text.length === 0) {
+        segments.push({ text: remaining });
+        break;
+      }
+
       segments.push({
         text: remaining.slice(earliestIdx, earliestIdx + matchedWord.text.length),
         color: matchedWord.color,
