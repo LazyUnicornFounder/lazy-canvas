@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import html2canvas from "html2canvas";
-import { Download } from "lucide-react";
+import { Download, LogOut, User } from "lucide-react";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import QuotePreview, {
   type SocialPlatform,
@@ -10,13 +10,24 @@ import QuoteEditor, {
   DEFAULT_EDITOR_STATE,
   SOCIAL_PLATFORMS,
 } from "@/components/QuoteEditor";
+import AuthModal from "@/components/AuthModal";
+import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
+  const { user, signOut } = useAuth();
   const [editorState, setEditorState] = useState<QuoteEditorState>(DEFAULT_EDITOR_STATE);
   const [downloading, setDownloading] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
+  // Free tier always shows watermark
+  const isFreeUser = true; // TODO: check paid status
+
   const handleDownload = useCallback(async () => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
     if (!previewRef.current) return;
     setDownloading(true);
     try {
@@ -36,7 +47,7 @@ const Index = () => {
     } finally {
       setDownloading(false);
     }
-  }, []);
+  }, [user]);
 
   const socials = [
     editorState.socialUsername
@@ -55,14 +66,36 @@ const Index = () => {
           <h1 className="font-heading text-lg font-semibold tracking-tight text-foreground">
             Lazy Quotes
           </h1>
-          <button
-            onClick={handleDownload}
-            disabled={downloading}
-            className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
-          >
-            <Download className="w-4 h-4" />
-            {downloading ? "Exporting…" : "Download"}
-          </button>
+          <div className="flex items-center gap-3">
+            {user ? (
+              <>
+                <span className="text-xs text-muted-foreground hidden sm:block">{user.email}</span>
+                <button
+                  onClick={signOut}
+                  className="p-2 hover:bg-accent rounded-md transition-colors"
+                  title="Sign out"
+                >
+                  <LogOut className="w-4 h-4 text-muted-foreground" />
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="flex items-center gap-2 px-3 py-2 text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <User className="w-3.5 h-3.5" />
+                Sign in
+              </button>
+            )}
+            <button
+              onClick={handleDownload}
+              disabled={downloading}
+              className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
+            >
+              <Download className="w-4 h-4" />
+              {downloading ? "Exporting…" : "Download"}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -136,12 +169,19 @@ const Index = () => {
                   isBold={editorState.isBold}
                   isItalic={editorState.isItalic}
                   coloredWords={editorState.coloredWords}
+                  showWatermark={isFreeUser}
                 />
               </div>
             </div>
           </div>
         </div>
       </main>
+
+      <AuthModal
+        open={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={handleDownload}
+      />
     </div>
   );
 };

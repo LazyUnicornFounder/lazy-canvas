@@ -55,6 +55,7 @@ interface QuotePreviewProps {
   isBold: boolean;
   isItalic: boolean;
   coloredWords?: ColoredWord[];
+  showWatermark?: boolean;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
@@ -168,7 +169,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = []) => {
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor, isBold, isItalic, coloredWords }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
@@ -289,6 +290,22 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           {isDetached && authorBlock && (
             <div className="relative z-10 pt-2">
               {authorBlock}
+            </div>
+          )}
+          {/* Watermark */}
+          {showWatermark && (
+            <div
+              className="absolute bottom-0 right-0 z-20 flex items-center gap-1 font-heading"
+              style={{
+                padding: "clamp(4px, 1.5%, 10px) clamp(6px, 2%, 14px)",
+                fontSize: "clamp(6px, 1.8%, 11px)",
+                color: t.muted,
+                opacity: 0.6,
+                letterSpacing: "0.04em",
+              }}
+            >
+              <span>made with</span>
+              <span style={{ fontWeight: 600, color: t.text, opacity: 0.5 }}>Lazy Quotes</span>
             </div>
           )}
         </div>
