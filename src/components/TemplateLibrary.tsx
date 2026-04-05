@@ -709,7 +709,9 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
           const s = template.editorState;
           const textCol = s.textColor || "#1a1a1a";
           const fontClass = FONT_CLASS_MAP[s.font || "playfair"] || "font-playfair";
-          const previewText = PREVIEW_QUOTES[template.id] || "the quick fox";
+          const quoteData = PREVIEW_QUOTES[template.id];
+          const previewText = quoteData?.text || "the quick fox";
+          const previewAuthor = quoteData?.author || "";
           const bgImage = TEMPLATE_IMAGES[template.id];
 
           return (
