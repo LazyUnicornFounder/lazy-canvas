@@ -30,9 +30,18 @@ const FORMAT_GROUPS: { label: string; options: { value: AspectRatio; label: stri
     ],
   },
   {
+    label: "A-Series",
+    options: [
+      { value: "a0", label: "A0" },
+      { value: "a1", label: "A1" },
+      { value: "a2", label: "A2" },
+      { value: "a3", label: "A3" },
+      { value: "a4", label: "A4" },
+    ],
+  },
+  {
     label: "Print",
     options: [
-      { value: "a4", label: "A-Series" },
       { value: "letter", label: "Letter" },
       { value: "legal", label: "Legal" },
       { value: "tabloid", label: "Tabloid" },
