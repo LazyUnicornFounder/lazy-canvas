@@ -468,8 +468,8 @@ const Index = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setShowProUpgradePrompt(false)}>
-              Maybe later
+            <AlertDialogCancel onClick={() => { setShowProUpgradePrompt(false); performDownloadOnly(3); }}>
+              Download
             </AlertDialogCancel>
             <AlertDialogAction onClick={() => { setShowProUpgradePrompt(false); navigate("/pricing"); }}>
               Upgrade to Pro
@@ -488,8 +488,8 @@ const Index = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setShowProSignupPrompt(false)}>
-              Maybe later
+            <AlertDialogCancel onClick={() => { setShowProSignupPrompt(false); performDownloadOnly(3); }}>
+              Download
             </AlertDialogCancel>
             <AlertDialogAction onClick={() => { setShowProSignupPrompt(false); setShowAuthModal(true); }}>
               Sign up free
