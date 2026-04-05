@@ -172,7 +172,7 @@ const Index = () => {
               <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none rounded-b-[2.8rem]" />
             </div>
             <button
-              onClick={handleDownload}
+              onClick={handleDownloadClick}
               disabled={downloading}
               className="flex items-center justify-center gap-2 w-full py-2.5 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
             >
@@ -206,6 +206,11 @@ const Index = () => {
       <AuthModal
         open={showAuthModal}
         onClose={() => setShowAuthModal(false)}
+      />
+      <GalleryPromptDialog
+        open={showGalleryPrompt}
+        onClose={() => setShowGalleryPrompt(false)}
+        onConfirm={performDownload}
       />
     </div>
   );
