@@ -28,10 +28,6 @@ const Create = () => {
   const isFreeUser = true;
 
   const handleDownload = useCallback(async () => {
-    if (!user) {
-      setShowAuthModal(true);
-      return;
-    }
     if (!previewRef.current) return;
     setDownloading(true);
     try {
@@ -165,7 +161,7 @@ const Create = () => {
                 className="flex items-center justify-center gap-2 w-full py-2.5 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
               >
                 <Download className="w-4 h-4" />
-                {downloading ? "Exporting…" : user ? "Download PNG" : "Sign up to download"}
+                {downloading ? "Exporting…" : "Download PNG"}
               </button>
           </div>
         </div>
