@@ -89,6 +89,14 @@ const DIGITAL_FORMAT_GROUPS: { label: string; options: { value: AspectRatio; lab
       { value: "app-icon", label: "Icon" },
     ],
   },
+  {
+    label: "Phone Backgrounds",
+    options: [
+      { value: "iphone-wallpaper", label: "iPhone" },
+      { value: "android-wallpaper", label: "Android" },
+      { value: "lock-screen", label: "Lock Screen" },
+    ],
+  },
 ];
 
 const PHYSICAL_FORMAT_GROUPS: { label: string; options: { value: AspectRatio; label: string }[] }[] = [
