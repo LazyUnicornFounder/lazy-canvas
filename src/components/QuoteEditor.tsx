@@ -1158,7 +1158,6 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
           ))}
         </div>
       </ControlSection>
-      </div>
     </div>
   );
 };
