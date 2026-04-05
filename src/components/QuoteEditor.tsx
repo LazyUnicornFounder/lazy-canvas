@@ -1046,6 +1046,8 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                           a4: [210, 297], a3: [297, 420], a2: [420, 594], a1: [594, 841], a0: [841, 1189],
                           letter: [8.5, 11], legal: [8.5, 14], tabloid: [11, 17],
                           "poster-18x24": [18, 24], "poster-24x36": [24, 36], "banner-2x5": [2, 5],
+                          "ios-screenshot": [1290, 2796], "ios-ipad": [2048, 2732], "android-phone": [1080, 1920],
+                          "android-tablet": [1920, 1200], "mac-screenshot": [2880, 1800], "app-icon": [1, 1],
                         };
                         const sizeMap: Record<string, string> = {
                           square: "1080 × 1080 px",
@@ -1072,6 +1074,12 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                           "poster-18x24": "5400 × 7200 px",
                           "poster-24x36": "7200 × 10800 px",
                           "banner-2x5": "3600 × 9000 px",
+                          "ios-screenshot": "1290 × 2796 px",
+                          "ios-ipad": "2048 × 2732 px",
+                          "android-phone": "1080 × 1920 px",
+                          "android-tablet": "1920 × 1200 px",
+                          "mac-screenshot": "2880 × 1800 px",
+                          "app-icon": "1024 × 1024 px",
                         };
                         const [w, h] = ratioMap[opt.value] || opt.value.split(":").map(Number);
                         const maxDim = 36;
