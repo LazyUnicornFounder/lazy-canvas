@@ -3254,7 +3254,7 @@ export default function TemplateLibrary({ onApply, backgroundOpacity, onOpacityC
 
       {/* Opacity slider */}
       <div className="flex items-center gap-3">
-        <span className="text-xs text-muted-foreground whitespace-nowrap">Opacity</span>
+        <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
         <input
           type="range"
           min={0}
