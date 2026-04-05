@@ -94,6 +94,7 @@ export interface QuoteEditorState {
   isBold: boolean;
   isItalic: boolean;
   coloredWords: ColoredWord[];
+  showQuotationMarks: boolean;
 }
 
 
