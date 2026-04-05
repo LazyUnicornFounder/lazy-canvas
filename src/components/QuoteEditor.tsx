@@ -49,9 +49,18 @@ const CURSIVE_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
   { value: "pacifico", label: "Pacifico", preview: "font-pacifico" },
   { value: "great-vibes", label: "Great Vibes", preview: "font-great-vibes" },
   { value: "satisfy", label: "Satisfy", preview: "font-satisfy" },
+  { value: "caveat", label: "Caveat", preview: "font-caveat" },
+  { value: "permanent-marker", label: "Marker", preview: "font-permanent-marker" },
+  { value: "shadows-into-light", label: "Shadows", preview: "font-shadows-into-light" },
 ];
 
-const FONT_OPTIONS = [...SERIF_FONTS, ...SANS_FONTS, ...CURSIVE_FONTS];
+const FUTURISTIC_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
+  { value: "orbitron", label: "Orbitron", preview: "font-orbitron" },
+  { value: "rajdhani", label: "Rajdhani", preview: "font-rajdhani" },
+  { value: "audiowide", label: "Audiowide", preview: "font-audiowide" },
+];
+
+const FONT_OPTIONS = [...SERIF_FONTS, ...SANS_FONTS, ...CURSIVE_FONTS, ...FUTURISTIC_FONTS];
 
 const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string }[] = [
   { value: "light", label: "Light", swatch: "#FFFFFF" },

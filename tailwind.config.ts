@@ -33,6 +33,12 @@ export default {
         pacifico: ['Pacifico', 'cursive'],
         'great-vibes': ['Great Vibes', 'cursive'],
         satisfy: ['Satisfy', 'cursive'],
+        caveat: ['Caveat', 'cursive'],
+        'permanent-marker': ['Permanent Marker', 'cursive'],
+        'shadows-into-light': ['Shadows Into Light', 'cursive'],
+        orbitron: ['Orbitron', 'sans-serif'],
+        rajdhani: ['Rajdhani', 'sans-serif'],
+        audiowide: ['Audiowide', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

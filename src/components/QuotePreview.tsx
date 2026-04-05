@@ -57,7 +57,7 @@ const socialIcons: Record<SocialPlatform, IconComponent> = {
 };
 
 export type AspectRatio = "square" | "3:4" | "2:3" | "9:16" | "1:2" | "4:3" | "3:2" | "16:9" | "2:1";
-export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading" | "lora" | "inter" | "oswald" | "merriweather" | "raleway" | "dancing" | "archivo" | "crimson" | "montserrat" | "poppins" | "pacifico" | "great-vibes" | "satisfy";
+export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading" | "lora" | "inter" | "oswald" | "merriweather" | "raleway" | "dancing" | "archivo" | "crimson" | "montserrat" | "poppins" | "pacifico" | "great-vibes" | "satisfy" | "caveat" | "permanent-marker" | "shadows-into-light" | "orbitron" | "rajdhani" | "audiowide";
 export type QuoteTheme = "light" | "dark" | "cream" | "ink";
 export type TextShadow = "none" | "soft" | "hard" | "glow" | "outline" | "neon";
 export type AuthorPosition = "below-quote" | "bottom-left" | "bottom-center" | "bottom-right";
@@ -128,6 +128,12 @@ const fontClasses: Record<QuoteFont, string> = {
   pacifico: "font-pacifico",
   "great-vibes": "font-great-vibes",
   satisfy: "font-satisfy",
+  caveat: "font-caveat",
+  "permanent-marker": "font-permanent-marker",
+  "shadows-into-light": "font-shadows-into-light",
+  orbitron: "font-orbitron uppercase tracking-wider",
+  rajdhani: "font-rajdhani",
+  audiowide: "font-audiowide uppercase tracking-wider",
 };
 
 const themeStyles: Record<QuoteTheme, { bg: string; text: string; muted: string; border: string }> = {
