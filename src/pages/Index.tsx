@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { LogOut, User, Download, Shield } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
 import GalleryPromptDialog from "@/components/GalleryPromptDialog";
+import { MainNav, LogoWithTagline } from "@/components/MainNav";
 import { useAuth } from "@/hooks/useAuth";
 import QuoteEditor, { type QuoteEditorState, DEFAULT_EDITOR_STATE, SOCIAL_PLATFORMS } from "@/components/QuoteEditor";
 import QuotePreview, { type SocialPlatform } from "@/components/QuotePreview";
