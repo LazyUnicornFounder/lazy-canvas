@@ -1128,8 +1128,15 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             </div>
           ))}
         </ControlSection>
+      </div>
 
-      {/* Theme */}
+      {/* Unit Calculator */}
+      <div className="md:col-span-2">
+        <ControlSection label="Calculator">
+          <UnitCalculator />
+        </ControlSection>
+      </div>
+
       <ControlSection label="Theme">
         <div className="flex gap-3">
           {THEME_OPTIONS.map((opt) => (
@@ -1152,6 +1159,94 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
         </div>
       </ControlSection>
       </div>
+    </div>
+  );
+};
+
+const UNIT_OPTIONS = [
+  { value: "px", label: "Pixels" },
+  { value: "cm", label: "Centimeters" },
+  { value: "in", label: "Inches" },
+  { value: "mm", label: "Millimeters" },
+] as const;
+
+type Unit = typeof UNIT_OPTIONS[number]["value"];
+
+const convertUnit = (value: number, from: Unit, to: Unit, dpi: number): number => {
+  // Convert to pixels first
+  let px = value;
+  if (from === "cm") px = value * dpi / 2.54;
+  else if (from === "in") px = value * dpi;
+  else if (from === "mm") px = value * dpi / 25.4;
+
+  // Convert from pixels to target
+  if (to === "px") return Math.round(px * 100) / 100;
+  if (to === "cm") return Math.round(px * 2.54 / dpi * 100) / 100;
+  if (to === "in") return Math.round(px / dpi * 100) / 100;
+  if (to === "mm") return Math.round(px * 25.4 / dpi * 100) / 100;
+  return value;
+};
+
+const UnitCalculator = () => {
+  const [inputValue, setInputValue] = useState("1080");
+  const [fromUnit, setFromUnit] = useState<Unit>("px");
+  const [toUnit, setToUnit] = useState<Unit>("cm");
+  const [dpi, setDpi] = useState("300");
+
+  const numValue = parseFloat(inputValue) || 0;
+  const numDpi = parseInt(dpi) || 300;
+  const result = convertUnit(numValue, fromUnit, toUnit, numDpi);
+
+  return (
+    <div className="space-y-3">
+      <div className="flex gap-2 items-end">
+        <div className="flex-1">
+          <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">Value</label>
+          <input
+            type="number"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
+          />
+        </div>
+        <div className="flex-1">
+          <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">From</label>
+          <select
+            value={fromUnit}
+            onChange={(e) => setFromUnit(e.target.value as Unit)}
+            className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
+          >
+            {UNIT_OPTIONS.map((u) => <option key={u.value} value={u.value}>{u.label}</option>)}
+          </select>
+        </div>
+        <span className="text-muted-foreground text-sm pb-1.5">→</span>
+        <div className="flex-1">
+          <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">To</label>
+          <select
+            value={toUnit}
+            onChange={(e) => setToUnit(e.target.value as Unit)}
+            className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
+          >
+            {UNIT_OPTIONS.map((u) => <option key={u.value} value={u.value}>{u.label}</option>)}
+          </select>
+        </div>
+      </div>
+      <div className="flex gap-2 items-end">
+        <div className="w-24">
+          <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">DPI</label>
+          <input
+            type="number"
+            value={dpi}
+            onChange={(e) => setDpi(e.target.value)}
+            className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
+          />
+        </div>
+        <div className="flex-1 px-3 py-1.5 bg-foreground/5 border border-border rounded-md">
+          <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Result</span>
+          <p className="text-sm font-heading font-semibold text-foreground">{result} {toUnit}</p>
+        </div>
+      </div>
+      <p className="text-[10px] text-muted-foreground">Convert between pixels, centimeters, inches, and millimeters. DPI affects physical size conversions.</p>
     </div>
   );
 };
