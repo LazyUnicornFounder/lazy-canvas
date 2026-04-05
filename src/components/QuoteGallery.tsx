@@ -74,7 +74,7 @@ const QuoteGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
     const fetchAll = async () => {
       const [slideshowRes, submissionsRes] = await Promise.all([
         supabase.from("slideshow_quotes").select("*").order("display_order", { ascending: true }),
-        supabase.from("gallery_submissions").select("*").order("created_at", { ascending: false }),
+        supabase.from("gallery_submissions").select("*").eq("status", "approved").order("created_at", { ascending: false }),
       ]);
 
       const slideshowQuotes: GalleryQuote[] = (slideshowRes.data || []).map((q: any) => ({
