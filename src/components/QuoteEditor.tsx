@@ -525,7 +525,6 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                   <p className="text-[9px] text-muted-foreground">Photos by <a href="https://www.pexels.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Pexels</a></p>
                 )}
               </div>
-              </div>
             )}
           </div>
           {state.backgroundImage && (
