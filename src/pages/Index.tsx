@@ -278,7 +278,7 @@ const Index = () => {
             customHeight={editorState.customHeight}
           />
         </div>
-        <div className="relative w-full mt-2">
+        <div className="relative w-full mt-2 max-w-[280px] mx-auto">
           <div className="flex w-full">
             <button
               onClick={() => handleDownloadClick(3)}
