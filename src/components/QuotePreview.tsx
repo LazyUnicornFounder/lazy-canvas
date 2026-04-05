@@ -57,7 +57,7 @@ const socialIcons: Record<SocialPlatform, IconComponent> = {
   snapchat: SnapchatIcon,
 };
 
-export type AspectRatio = "square" | "3:4" | "2:3" | "9:16" | "1:2" | "4:3" | "3:2" | "16:9" | "2:1" | "1.91:1" | "3:1" | "4:1" | "820:312" | "a0" | "a1" | "a2" | "a3" | "a4" | "letter" | "legal" | "tabloid" | "poster-18x24" | "poster-24x36" | "banner-2x5";
+export type AspectRatio = "square" | "3:4" | "2:3" | "9:16" | "1:2" | "4:3" | "3:2" | "16:9" | "2:1" | "1.91:1" | "3:1" | "4:1" | "820:312" | "a0" | "a1" | "a2" | "a3" | "a4" | "letter" | "legal" | "tabloid" | "poster-18x24" | "poster-24x36" | "banner-2x5" | "ios-screenshot" | "ios-ipad" | "android-phone" | "android-tablet" | "mac-screenshot" | "app-icon";
 export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading" | "lora" | "inter" | "oswald" | "merriweather" | "raleway" | "dancing" | "archivo" | "crimson" | "montserrat" | "poppins" | "pacifico" | "great-vibes" | "satisfy" | "caveat" | "permanent-marker" | "shadows-into-light" | "orbitron" | "rajdhani" | "audiowide";
 export type QuoteTheme = "light" | "dark" | "cream" | "ink";
 export type TextShadow = "none" | "soft" | "hard" | "glow" | "outline" | "neon";
@@ -126,6 +126,12 @@ const aspectClasses: Record<AspectRatio, string> = {
   "poster-18x24": "aspect-[18/24]",
   "poster-24x36": "aspect-[24/36]",
   "banner-2x5": "aspect-[2/5]",
+  "ios-screenshot": "aspect-[1290/2796]",
+  "ios-ipad": "aspect-[2048/2732]",
+  "android-phone": "aspect-[1080/1920]",
+  "android-tablet": "aspect-[1920/1200]",
+  "mac-screenshot": "aspect-[2880/1800]",
+  "app-icon": "aspect-[1/1]",
 };
 
 const fontClasses: Record<QuoteFont, string> = {
