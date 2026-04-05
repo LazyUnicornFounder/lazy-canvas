@@ -1753,7 +1753,7 @@ export default function TemplateLibrary({ onApply, backgroundOpacity, onOpacityC
   return (
     <div className="space-y-3">
       {/* Category pills */}
-      <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+      <div className="flex gap-1.5 overflow-x-auto pb-0 scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         {CATEGORIES.map((cat) => (
           <button
             key={cat.value}
