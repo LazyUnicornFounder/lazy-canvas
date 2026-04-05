@@ -97,7 +97,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           <div style={{ textAlign, maxWidth: "85%", transform: `scale(${scale})`, transformOrigin: "center center" }}>
             <p
               ref={textRef}
-              className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""}`}
+              className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""} whitespace-pre-wrap`}
               style={{
                 fontSize: `${fontSize}rem`,
                 letterSpacing: `${letterSpacing}em`,
