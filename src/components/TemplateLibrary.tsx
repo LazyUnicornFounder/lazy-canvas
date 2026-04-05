@@ -86,6 +86,8 @@ const BUILTIN_TEMPLATES: Template[] = [
       textShadow: "none",
       backgroundFilter: "none",
       showQuotationMarks: false,
+      backgroundImage: imgWhisper,
+      backgroundOpacity: 0.3,
     },
   },
   {
