@@ -24,9 +24,16 @@ const ASPECT_OPTIONS: { value: AspectRatio; label: string; row: number }[] = [
 const FONT_OPTIONS: { value: QuoteFont; label: string; preview: string }[] = [
   { value: "playfair", label: "Playfair", preview: "font-playfair italic" },
   { value: "cormorant", label: "Cormorant", preview: "font-cormorant" },
+  { value: "lora", label: "Lora", preview: "font-lora" },
+  { value: "merriweather", label: "Merriweather", preview: "font-merriweather" },
   { value: "bebas", label: "Bebas", preview: "font-bebas" },
-  { value: "mono", label: "Mono", preview: "font-mono" },
+  { value: "oswald", label: "Oswald", preview: "font-oswald" },
+  { value: "archivo", label: "Archivo", preview: "font-archivo" },
   { value: "heading", label: "Grotesk", preview: "font-heading font-semibold" },
+  { value: "inter", label: "Inter", preview: "font-inter" },
+  { value: "raleway", label: "Raleway", preview: "font-raleway" },
+  { value: "dancing", label: "Dancing", preview: "font-dancing" },
+  { value: "mono", label: "Mono", preview: "font-mono" },
 ];
 
 const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string }[] = [

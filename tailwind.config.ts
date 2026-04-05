@@ -20,6 +20,13 @@ export default {
         mono: ['IBM Plex Mono', 'monospace'],
         cormorant: ['Cormorant Garamond', 'serif'],
         bebas: ['Bebas Neue', 'sans-serif'],
+        lora: ['Lora', 'serif'],
+        inter: ['Inter', 'sans-serif'],
+        oswald: ['Oswald', 'sans-serif'],
+        merriweather: ['Merriweather', 'serif'],
+        raleway: ['Raleway', 'sans-serif'],
+        dancing: ['Dancing Script', 'cursive'],
+        archivo: ['Archivo Black', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

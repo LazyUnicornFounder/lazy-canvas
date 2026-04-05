@@ -1,7 +1,7 @@
 import { forwardRef, useRef, useEffect, useState } from "react";
 
 export type AspectRatio = "square" | "3:4" | "2:3" | "9:16" | "1:2" | "4:3" | "3:2" | "16:9" | "2:1";
-export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading";
+export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading" | "lora" | "inter" | "oswald" | "merriweather" | "raleway" | "dancing" | "archivo";
 export type QuoteTheme = "light" | "dark" | "cream" | "ink";
 export type TextShadow = "none" | "soft" | "hard" | "glow" | "outline";
 export type AuthorPosition = "below-quote" | "bottom-left" | "bottom-center" | "bottom-right";
@@ -46,6 +46,13 @@ const fontClasses: Record<QuoteFont, string> = {
   bebas: "font-bebas tracking-wider uppercase",
   mono: "font-mono",
   heading: "font-heading font-semibold",
+  lora: "font-lora",
+  inter: "font-inter",
+  oswald: "font-oswald uppercase",
+  merriweather: "font-merriweather",
+  raleway: "font-raleway",
+  dancing: "font-dancing",
+  archivo: "font-archivo uppercase",
 };
 
 const themeStyles: Record<QuoteTheme, { bg: string; text: string; muted: string; border: string }> = {
