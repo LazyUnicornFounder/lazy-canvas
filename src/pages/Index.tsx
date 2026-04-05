@@ -534,9 +534,25 @@ const Index = () => {
           </div>
 
           {/* Preview */}
-          <div className="order-1 lg:order-2 lg:sticky lg:top-8">
-            <div className="flex justify-center items-start" style={{ maxHeight: "calc(100vh - 6rem)" }}>
-              <div className="shadow-xl" style={{ maxHeight: "calc(100vh - 6rem)", width: "100%", maxWidth: "32rem" }}>
+          <div className="order-1 lg:order-2 lg:sticky lg:top-4">
+            <div className="flex justify-center items-start" style={{ maxHeight: "calc(100vh - 4rem)" }}>
+              <div
+                className="shadow-xl"
+                style={{
+                  width: "100%",
+                  maxWidth: (() => {
+                    const ratioMap: Record<string, number> = {
+                      "square": 1, "3:4": 3/4, "2:3": 2/3, "9:16": 9/16, "1:2": 1/2,
+                      "4:3": 4/3, "3:2": 3/2, "16:9": 16/9, "2:1": 2/1,
+                    };
+                    const ratio = ratioMap[aspectRatio] || 1;
+                    if (ratio <= 1) {
+                      return `min(32rem, calc((100vh - 4rem) * ${ratio}))`;
+                    }
+                    return "32rem";
+                  })(),
+                }}
+              >
                 <QuotePreview
                   ref={previewRef}
                   quote={quote}
