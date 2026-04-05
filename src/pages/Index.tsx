@@ -116,8 +116,8 @@ const Index = () => {
           </div>
           {/* Phone — right */}
           <div className="hidden lg:flex flex-shrink-0 flex-col gap-3 sticky top-6 self-start" style={{ width: "clamp(260px, 25vw, 320px)" }}>
-            <div className="relative flex items-center justify-center">
-              <div className="w-full">
+            <div className="relative border border-foreground/20 rounded-[2.8rem] p-3 flex items-center justify-center">
+              <div className="w-full overflow-hidden rounded-[2rem]">
                 <QuotePreview
                   ref={previewRef}
                   quote={editorState.quote}
