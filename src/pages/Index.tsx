@@ -91,7 +91,7 @@ const Index = () => {
       <header className="border-b border-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <h1 className="font-heading text-lg font-semibold tracking-tight text-foreground">
-            quotecraft
+            Lazy Quotes
           </h1>
           <button
             onClick={handleDownload}
