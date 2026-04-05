@@ -855,35 +855,48 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
       {/* Format + Theme grouped */}
       <div className="space-y-4">
         <ControlSection label="Format" pro={!isPro} onProClick={goToPricing}>
-          <div className="flex flex-wrap gap-2">
-            {ASPECT_OPTIONS.map((opt) => {
-              const [w, h] = opt.value === "square" ? [1, 1] : opt.value.split(":").map(Number);
-              const maxDim = 36;
-              const scale = maxDim / Math.max(w, h);
-              const boxW = Math.round(w * scale);
-              const boxH = Math.round(h * scale);
-              const isActive = state.aspectRatio === opt.value;
-              return (
-                <button
-                  key={opt.value}
-                  onClick={() => set("aspectRatio", opt.value)}
-                  className={`flex flex-col items-center gap-1 p-1.5 rounded-md border transition-all ${
-                    isActive
-                      ? "border-foreground bg-foreground/5"
-                      : "border-border hover:border-foreground/30"
-                  }`}
-                  title={opt.label}
-                >
-                  <div
-                    className={`border ${isActive ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`}
-                    style={{ width: boxW, height: boxH }}
-                  />
-                  <span className={`text-[9px] font-heading ${isActive ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
-                    {opt.label}
-                  </span>
-                </button>
-              );
-            })}
+          <div className="space-y-3">
+            {FORMAT_GROUPS.map((group) => (
+              <div key={group.label}>
+                <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1.5">{group.label}</p>
+                <div className="flex flex-wrap gap-2">
+                  {group.options.map((opt) => {
+                    const ratioMap: Record<string, [number, number]> = {
+                      square: [1, 1],
+                      a4: [210, 297], a3: [297, 420], a1: [594, 841], a0: [841, 1189],
+                      letter: [8.5, 11], legal: [8.5, 14], tabloid: [11, 17],
+                      "poster-18x24": [18, 24], "poster-24x36": [24, 36], "banner-2x5": [2, 5],
+                    };
+                    const [w, h] = ratioMap[opt.value] || opt.value.split(":").map(Number);
+                    const maxDim = 36;
+                    const scale = maxDim / Math.max(w, h);
+                    const boxW = Math.round(w * scale);
+                    const boxH = Math.round(h * scale);
+                    const isActive = state.aspectRatio === opt.value;
+                    return (
+                      <button
+                        key={opt.value}
+                        onClick={() => set("aspectRatio", opt.value)}
+                        className={`flex flex-col items-center gap-1 p-1.5 rounded-md border transition-all ${
+                          isActive
+                            ? "border-foreground bg-foreground/5"
+                            : "border-border hover:border-foreground/30"
+                        }`}
+                        title={opt.label}
+                      >
+                        <div
+                          className={`border ${isActive ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`}
+                          style={{ width: boxW, height: boxH }}
+                        />
+                        <span className={`text-[9px] font-heading ${isActive ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
+                          {opt.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </div>
         </ControlSection>
 
