@@ -380,6 +380,28 @@ const Index = () => {
         </div>
       </section>
 
+const ASPECT_RATIOS: Record<string, number> = {
+  square: 1, "3:4": 3/4, "2:3": 2/3, "9:16": 9/16, "1:2": 1/2,
+  "4:3": 4/3, "3:2": 3/2, "16:9": 16/9, "2:1": 2, "1.91:1": 1.91,
+  "3:1": 3, "4:1": 4, "820:312": 820/312,
+  a0: 841/1189, a1: 594/841, a2: 420/594, a3: 297/420, a4: 210/297,
+  letter: 8.5/11, legal: 8.5/14, tabloid: 11/17,
+  "poster-18x24": 18/24, "poster-24x36": 24/36, "banner-2x5": 2/5,
+  "ios-screenshot": 1290/2796, "ios-ipad": 2048/2732, "android-phone": 1080/1920,
+  "android-tablet": 1920/1200, "mac-screenshot": 2880/1800, "app-icon": 1,
+  "iphone-wallpaper": 1179/2556, "android-wallpaper": 1080/2400, "lock-screen": 1170/2532,
+};
+
+const getPreviewWidth = (aspectRatio: string, customW?: number, customH?: number): string => {
+  let ratio = ASPECT_RATIOS[aspectRatio];
+  if (aspectRatio === "custom" && customW && customH) ratio = customW / customH;
+  if (!ratio) ratio = 1;
+  if (ratio >= 2) return "clamp(320px, 35vw, 450px)";
+  if (ratio >= 1.5) return "clamp(300px, 30vw, 400px)";
+  if (ratio >= 1) return "clamp(260px, 25vw, 340px)";
+  if (ratio >= 0.6) return "clamp(240px, 22vw, 300px)";
+  return "clamp(200px, 18vw, 260px)";
+};
 
 
       {/* About */}
