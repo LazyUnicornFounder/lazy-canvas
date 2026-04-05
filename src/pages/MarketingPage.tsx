@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import TemplateLibrary from "@/components/TemplateLibrary";
+import { MainNav, LogoWithTagline } from "@/components/MainNav";
 import type { QuoteEditorState } from "@/components/QuoteEditor";
 
 interface Feature {
@@ -41,13 +42,10 @@ const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
       {/* Header */}
       <header className="border-b border-border">
         <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1400px] mx-auto">
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span className="font-orbitron text-sm font-bold tracking-widest text-foreground uppercase">Lazy Faceless</span>
-          </button>
+          <div className="flex items-center gap-6">
+            <LogoWithTagline />
+            <MainNav />
+          </div>
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate("/pricing")}
