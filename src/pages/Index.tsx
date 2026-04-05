@@ -42,14 +42,9 @@ const getPreviewContainerWidth = (aspectRatio: string, customW?: number, customH
   let ratio = ASPECT_RATIOS[aspectRatio];
   if (aspectRatio === "custom" && customW && customH) ratio = customW / customH;
   if (!ratio) ratio = 1;
-  // Target: preview fills ~(100vh - 180px) in height
-  // width = availableHeight * ratio, capped at 500px, min 180px
-  // Available height ≈ window viewport minus header+padding (~180px)
-  // Use CSS clamp with vw approximation: 1vh ≈ aspect of height
-  const heightVh = 100; // vh units for available height
-  const offsetPx = 180;
-  // clamp(180px, (Hvh - offset) * ratio, 500px)
-  return `clamp(180px, calc((${heightVh}vh - ${offsetPx}px) * ${ratio.toFixed(4)}), 500px)`;
+  // Height-first: fill viewport height, compute width from ratio
+  const offsetPx = 100;
+  return `clamp(180px, calc((100vh - ${offsetPx}px) * ${ratio.toFixed(4)}), 500px)`;
 };
 
 const Index = () => {
