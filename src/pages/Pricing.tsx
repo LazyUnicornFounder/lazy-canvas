@@ -89,6 +89,12 @@ const Pricing = () => {
           <p className="text-muted-foreground text-lg max-w-lg mx-auto">
             Start for free. Upgrade when you need to remove the watermark or unlock premium tools.
           </p>
+          <p className="text-sm text-muted-foreground">
+            All plans include unlimited quote designs. No credit card required for Free.
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Secure payments with Polar and Stripe.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
@@ -151,14 +157,6 @@ const Pricing = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12 space-y-2">
-          <p className="text-sm text-muted-foreground">
-          All plans include unlimited quote designs. No credit card required for Free.
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Secure payments with Polar and Stripe.
-          </p>
-        </div>
       </main>
 
       <AuthModal open={showAuthModal} onClose={() => setShowAuthModal(false)} />
