@@ -442,8 +442,8 @@ const ControlSection = ({
   label: string;
   children: React.ReactNode;
 }) => (
-  <div className="space-y-2.5">
-    <label className="text-xs font-heading font-medium uppercase tracking-widest text-muted-foreground">
+  <div className="space-y-3">
+    <label className="text-sm font-heading font-semibold uppercase tracking-widest text-foreground">
       {label}
     </label>
     {children}
