@@ -40,6 +40,10 @@ const Index = () => {
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [backgroundOpacity, setBackgroundOpacity] = useState(0.4);
   const [fontSize, setFontSize] = useState(1.4);
+  const [textAlign, setTextAlign] = useState<"left" | "center" | "right">("center");
+  const [letterSpacing, setLetterSpacing] = useState(0);
+  const [lineHeight, setLineHeight] = useState(1.6);
+  const [textColor, setTextColor] = useState("");
 
   const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -216,7 +220,67 @@ const Index = () => {
                 />
                 <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{fontSize.toFixed(1)}</span>
               </div>
-            </ControlSection>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Spacing</span>
+                <input
+                  type="range"
+                  min={-0.05}
+                  max={0.3}
+                  step={0.005}
+                  value={letterSpacing}
+                  onChange={(e) => setLetterSpacing(parseFloat(e.target.value))}
+                  className="flex-1 accent-foreground h-1"
+                />
+                <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{letterSpacing.toFixed(2)}</span>
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Leading</span>
+                <input
+                  type="range"
+                  min={1}
+                  max={3}
+                  step={0.05}
+                  value={lineHeight}
+                  onChange={(e) => setLineHeight(parseFloat(e.target.value))}
+                  className="flex-1 accent-foreground h-1"
+                />
+                <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{lineHeight.toFixed(1)}</span>
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
+                <input
+                  type="color"
+                  value={textColor || "#1a1a1a"}
+                  onChange={(e) => setTextColor(e.target.value)}
+                  className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent"
+                />
+                {textColor && (
+                  <button
+                    onClick={() => setTextColor("")}
+                    className="text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Reset
+                  </button>
+                )}
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Align</span>
+                <div className="flex gap-1.5">
+                  {(["left", "center", "right"] as const).map((a) => (
+                    <button
+                      key={a}
+                      onClick={() => setTextAlign(a)}
+                      className={`px-3 py-1.5 text-[10px] font-heading font-medium rounded-md border transition-all capitalize ${
+                        textAlign === a
+                          ? "bg-foreground text-background border-foreground"
+                          : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                      }`}
+                    >
+                      {a}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
             {/* Theme */}
             <ControlSection label="Theme">
@@ -304,6 +368,10 @@ const Index = () => {
                   backgroundImage={backgroundImage}
                   backgroundOpacity={backgroundOpacity}
                   fontSize={fontSize}
+                  textAlign={textAlign}
+                  letterSpacing={letterSpacing}
+                  lineHeight={lineHeight}
+                  textColor={textColor}
                 />
               </div>
             </div>

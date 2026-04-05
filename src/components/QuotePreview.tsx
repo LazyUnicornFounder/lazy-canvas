@@ -15,6 +15,10 @@ interface QuotePreviewProps {
   backgroundImage: string | null;
   backgroundOpacity: number;
   fontSize: number;
+  textAlign: "left" | "center" | "right";
+  letterSpacing: number;
+  lineHeight: number;
+  textColor: string;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
@@ -39,7 +43,7 @@ const themeStyles: Record<QuoteTheme, { bg: string; text: string; muted: string;
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor }, ref) => {
     const t = themeStyles[theme];
     const displayQuote = quote || "Type your quote here...";
     const isPlaceholder = !quote;
@@ -64,12 +68,14 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         )}
         {/* Quote content */}
         <div className="flex-1 flex items-center justify-center p-8 sm:p-12 relative z-10">
-          <div className="text-center max-w-[85%]">
+          <div style={{ textAlign, maxWidth: "85%" }}>
             <p
-              className={`${fontClasses[font]} leading-relaxed ${isPlaceholder ? "opacity-40" : ""}`}
+              className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""}`}
               style={{
                 fontSize: `${fontSize}rem`,
-                letterSpacing: font === "bebas" ? "0.1em" : undefined,
+                letterSpacing: `${letterSpacing}em`,
+                lineHeight,
+                color: textColor || undefined,
               }}
             >
               &ldquo;{displayQuote}&rdquo;
