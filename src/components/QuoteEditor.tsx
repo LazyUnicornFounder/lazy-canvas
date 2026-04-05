@@ -1264,17 +1264,19 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 <input
                   type="number"
                   min={1}
-                  value={state.customWidth}
+                  defaultValue={state.customWidth}
+                  key={`w-${state.aspectRatio === "custom" ? "" : state.customWidth}`}
                   onChange={(e) => {
                     const val = parseInt(e.target.value);
                     if (!isNaN(val) && val >= 1) {
-                      set("customWidth", val);
-                      set("aspectRatio", "custom");
+                      onChange({ ...state, customWidth: val, aspectRatio: "custom" });
                     }
                   }}
                   onBlur={(e) => {
                     const val = parseInt(e.target.value);
-                    if (isNaN(val) || val < 1) set("customWidth", 1080);
+                    if (isNaN(val) || val < 1) {
+                      e.target.value = String(state.customWidth);
+                    }
                   }}
                   className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
                 />
@@ -1284,17 +1286,19 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 <input
                   type="number"
                   min={1}
-                  value={state.customHeight}
+                  defaultValue={state.customHeight}
+                  key={`h-${state.aspectRatio === "custom" ? "" : state.customHeight}`}
                   onChange={(e) => {
                     const val = parseInt(e.target.value);
                     if (!isNaN(val) && val >= 1) {
-                      set("customHeight", val);
-                      set("aspectRatio", "custom");
+                      onChange({ ...state, customHeight: val, aspectRatio: "custom" });
                     }
                   }}
                   onBlur={(e) => {
                     const val = parseInt(e.target.value);
-                    if (isNaN(val) || val < 1) set("customHeight", 1080);
+                    if (isNaN(val) || val < 1) {
+                      e.target.value = String(state.customHeight);
+                    }
                   }}
                   className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
                 />
