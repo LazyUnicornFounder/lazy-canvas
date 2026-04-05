@@ -50,7 +50,7 @@ serve(async (req) => {
       throw new Error(`Remove.bg returned ${response.status}: ${errorText}`);
     }
 
-    const resultBytes = new Uint8Array(resultBuffer);
+    const resultBytes = new Uint8Array(await response.arrayBuffer());
     let binary = "";
     const chunkSize = 8192;
     for (let i = 0; i < resultBytes.length; i += chunkSize) {
