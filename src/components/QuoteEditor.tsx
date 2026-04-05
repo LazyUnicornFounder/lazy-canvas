@@ -1011,7 +1011,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
         </div>
       </ControlSection>
 
-      <div className="space-y-4">
+      <div className="space-y-4 md:col-span-2">
         <ControlSection label="Format" pro={!isPro} onProClick={goToPricing}>
           <div className="space-y-3">
             {FORMAT_GROUPS.map((group) => (
