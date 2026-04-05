@@ -86,7 +86,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         {/* Author section */}
         <div
           className="flex items-center gap-3 px-8 pb-6 sm:px-12 sm:pb-8 relative z-10"
-          style={{ borderTop: `1px solid ${t.border}`, paddingTop: "1.25rem" }}
+          style={{ paddingTop: "1.25rem" }}
         >
           {authorPhoto && (
             <img
