@@ -255,16 +255,16 @@ const Index = () => {
 
             {/* Format */}
             <ControlSection label="Format">
-              <div className="flex gap-2">
+              <div className="grid grid-cols-5 gap-1.5">
                 {ASPECT_OPTIONS.map((opt) => (
                   <button
                     key={opt.value}
                     onClick={() => setAspectRatio(opt.value)}
-                    className={`px-4 py-2 text-xs font-heading font-medium rounded-md border transition-all ${
+                    className={`px-2 py-2 text-xs font-heading font-medium rounded-md border transition-all ${
                       aspectRatio === opt.value
                         ? "bg-foreground text-background border-foreground"
                         : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                    }`}
+                    } ${opt.value === "square" ? "col-span-1 row-span-2" : ""}`}
                   >
                     {opt.label}
                   </button>
