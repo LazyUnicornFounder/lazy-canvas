@@ -818,7 +818,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
       <div className="md:col-span-2">
         <ControlSection label="Word Colors" pro={!isPro} onProClick={goToPricing}>
           <p className="text-[10px] text-muted-foreground mb-2">
-            Color specific words or phrases in your quote.
+            Color specific words or phrases in your text.
           </p>
           <div className="space-y-2">
             {(state.coloredWords || []).map((cw, i) => (
