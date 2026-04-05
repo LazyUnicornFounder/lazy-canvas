@@ -1056,6 +1056,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                           "poster-18x24": [18, 24], "poster-24x36": [24, 36], "banner-2x5": [2, 5],
                           "ios-screenshot": [1290, 2796], "ios-ipad": [2048, 2732], "android-phone": [1080, 1920],
                           "android-tablet": [1920, 1200], "mac-screenshot": [2880, 1800], "app-icon": [1, 1],
+                          "iphone-wallpaper": [1179, 2556], "android-wallpaper": [1080, 2400], "lock-screen": [1170, 2532],
                         };
                         const sizeMap: Record<string, string> = {
                           square: "1080 × 1080 px",
