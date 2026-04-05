@@ -103,10 +103,73 @@ const shadowStyles: Record<TextShadow, string> = {
   neon: "0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa",
 };
 
+// Render quote text with colored words
+const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = []) => {
+  if (!coloredWords.length) return <>&ldquo;{text}&rdquo;</>;
+
+  // Build segments by finding colored words (case-insensitive)
+  const segments: { text: string; color?: string }[] = [];
+  let remaining = text;
+
+  while (remaining.length > 0) {
+    let earliest = -1;
+    let earliestIdx = Infinity;
+    let matchedWord: ColoredWord | null = null;
+
+    for (let i = 0; i < coloredWords.length; i++) {
+      const idx = remaining.toLowerCase().indexOf(coloredWords[i].text.toLowerCase());
+      if (idx !== -1 && idx < earliestIdx) {
+        earliestIdx = idx;
+        earliest = i;
+        matchedWord = coloredWords[i];
+      }
+    }
+
+    if (matchedWord && earliestIdx !== Infinity) {
+      if (earliestIdx > 0) {
+        segments.push({ text: remaining.slice(0, earliestIdx) });
+      }
+      segments.push({
+        text: remaining.slice(earliestIdx, earliestIdx + matchedWord.text.length),
+        color: matchedWord.color,
+      });
+      remaining = remaining.slice(earliestIdx + matchedWord.text.length);
+    } else {
+      segments.push({ text: remaining });
+      break;
+    }
+  }
+
+  return (
+    <>
+      &ldquo;
+      {segments.map((seg, i) => {
+        if (!seg.color) return <span key={i}>{seg.text}</span>;
+        if (seg.color === "rainbow") {
+          return (
+            <span
+              key={i}
+              style={{
+                backgroundImage: "linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #00cc00, #0088ff, #8800ff)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              {seg.text}
+            </span>
+          );
+        }
+        return <span key={i} style={{ color: seg.color }}>{seg.text}</span>;
+      })}
+      &rdquo;
+    </>
+  );
+};
+
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor, isBold, isItalic }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor, isBold, isItalic, coloredWords }, ref) => {
     const t = themeStyles[theme];
-    const displayQuote = quote;
     const isPlaceholder = !quote;
 
     const containerRef = useRef<HTMLDivElement>(null);
