@@ -717,7 +717,7 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
           return (
             <button
               key={template.id}
-              onClick={() => onApply(template.editorState)}
+              onClick={() => onApply({ ...template.editorState, quote: previewText, authorName: previewAuthor })}
               className="group relative rounded-xl overflow-hidden border border-border/50 hover:border-foreground/20 transition-all duration-200 hover:shadow-lg hover:scale-[1.03] active:scale-[0.97]"
               style={{ aspectRatio: "3/4" }}
             >
