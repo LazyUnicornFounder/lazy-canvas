@@ -222,6 +222,29 @@ const Index = () => {
                   </button>
                 )}
               </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Position</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {([
+                    { value: "below-quote" as const, label: "Below Quote" },
+                    { value: "bottom-left" as const, label: "Bottom Left" },
+                    { value: "bottom-center" as const, label: "Bottom Center" },
+                    { value: "bottom-right" as const, label: "Bottom Right" },
+                  ]).map((pos) => (
+                    <button
+                      key={pos.value}
+                      onClick={() => setAuthorPosition(pos.value)}
+                      className={`px-3 py-1.5 text-[10px] font-heading font-medium rounded-md border transition-all ${
+                        authorPosition === pos.value
+                          ? "bg-foreground text-background border-foreground"
+                          : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                      }`}
+                    >
+                      {pos.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </ControlSection>
 
             {/* Format */}
@@ -447,6 +470,8 @@ const Index = () => {
                   authorFontSize={authorFontSize}
                   authorColor={authorColor}
                   authorFont={authorFont}
+                  textShadow={textShadow}
+                  authorPosition={authorPosition}
                 />
               </div>
             </div>
