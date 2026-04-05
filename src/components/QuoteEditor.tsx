@@ -46,6 +46,9 @@ const SANS_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
 
 const CURSIVE_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
   { value: "dancing", label: "Dancing", preview: "font-dancing" },
+  { value: "pacifico", label: "Pacifico", preview: "font-pacifico" },
+  { value: "great-vibes", label: "Great Vibes", preview: "font-great-vibes" },
+  { value: "satisfy", label: "Satisfy", preview: "font-satisfy" },
 ];
 
 const FONT_OPTIONS = [...SERIF_FONTS, ...SANS_FONTS, ...CURSIVE_FONTS];
