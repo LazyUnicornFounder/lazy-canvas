@@ -23,16 +23,19 @@ const ASPECT_OPTIONS: { value: AspectRatio; label: string; row: number }[] = [
 ];
 
 const FONT_OPTIONS: { value: QuoteFont; label: string; preview: string }[] = [
-  { value: "playfair", label: "Playfair", preview: "font-playfair italic" },
+  { value: "playfair", label: "Playfair", preview: "font-playfair" },
   { value: "cormorant", label: "Cormorant", preview: "font-cormorant" },
   { value: "lora", label: "Lora", preview: "font-lora" },
   { value: "merriweather", label: "Merriweather", preview: "font-merriweather" },
+  { value: "crimson", label: "Crimson", preview: "font-crimson" },
   { value: "bebas", label: "Bebas", preview: "font-bebas" },
   { value: "oswald", label: "Oswald", preview: "font-oswald" },
   { value: "archivo", label: "Archivo", preview: "font-archivo" },
-  { value: "heading", label: "Grotesk", preview: "font-heading font-semibold" },
+  { value: "heading", label: "Grotesk", preview: "font-heading" },
   { value: "inter", label: "Inter", preview: "font-inter" },
   { value: "raleway", label: "Raleway", preview: "font-raleway" },
+  { value: "montserrat", label: "Montserrat", preview: "font-montserrat" },
+  { value: "poppins", label: "Poppins", preview: "font-poppins" },
   { value: "dancing", label: "Dancing", preview: "font-dancing" },
   { value: "mono", label: "Mono", preview: "font-mono" },
 ];
@@ -82,6 +85,8 @@ const Index = () => {
   const [authorFont, setAuthorFont] = useState<QuoteFont>("playfair");
   const [textShadow, setTextShadow] = useState<TextShadow>("none");
   const [authorPosition, setAuthorPosition] = useState<AuthorPosition>("below-quote");
+  const [isBold, setIsBold] = useState(false);
+  const [isItalic, setIsItalic] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emojiCategory, setEmojiCategory] = useState(0);
 
@@ -244,6 +249,28 @@ const Index = () => {
                     {opt.label}
                   </button>
                 ))}
+              </div>
+              <div className="flex items-center gap-2 mt-3">
+                <button
+                  onClick={() => setIsBold(!isBold)}
+                  className={`px-3 py-1.5 text-sm rounded-md border font-bold transition-all ${
+                    isBold
+                      ? "bg-foreground text-background border-foreground"
+                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                  }`}
+                >
+                  B
+                </button>
+                <button
+                  onClick={() => setIsItalic(!isItalic)}
+                  className={`px-3 py-1.5 text-sm rounded-md border italic transition-all ${
+                    isItalic
+                      ? "bg-foreground text-background border-foreground"
+                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                  }`}
+                >
+                  I
+                </button>
               </div>
               <div className="flex items-center gap-3 mt-3">
                 <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-10">Size</span>
@@ -632,6 +659,8 @@ const Index = () => {
                   textShadow={textShadow}
                   authorPosition={authorPosition}
                   backgroundColor={backgroundColor}
+                  isBold={isBold}
+                  isItalic={isItalic}
                 />
               </div>
             </div>

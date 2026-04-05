@@ -12,7 +12,7 @@ const socialIcons: Partial<Record<SocialPlatform, React.ForwardRefExoticComponen
 };
 
 export type AspectRatio = "square" | "3:4" | "2:3" | "9:16" | "1:2" | "4:3" | "3:2" | "16:9" | "2:1";
-export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading" | "lora" | "inter" | "oswald" | "merriweather" | "raleway" | "dancing" | "archivo";
+export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading" | "lora" | "inter" | "oswald" | "merriweather" | "raleway" | "dancing" | "archivo" | "crimson" | "montserrat" | "poppins";
 export type QuoteTheme = "light" | "dark" | "cream" | "ink";
 export type TextShadow = "none" | "soft" | "hard" | "glow" | "outline" | "neon";
 export type AuthorPosition = "below-quote" | "bottom-left" | "bottom-center" | "bottom-right";
@@ -39,6 +39,8 @@ interface QuotePreviewProps {
   textShadow: TextShadow;
   authorPosition: AuthorPosition;
   backgroundColor: string;
+  isBold: boolean;
+  isItalic: boolean;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
@@ -54,11 +56,11 @@ const aspectClasses: Record<AspectRatio, string> = {
 };
 
 const fontClasses: Record<QuoteFont, string> = {
-  playfair: "font-playfair italic",
+  playfair: "font-playfair",
   cormorant: "font-cormorant",
   bebas: "font-bebas tracking-wider uppercase",
   mono: "font-mono",
-  heading: "font-heading font-semibold",
+  heading: "font-heading",
   lora: "font-lora",
   inter: "font-inter",
   oswald: "font-oswald uppercase",
@@ -66,6 +68,9 @@ const fontClasses: Record<QuoteFont, string> = {
   raleway: "font-raleway",
   dancing: "font-dancing",
   archivo: "font-archivo uppercase",
+  crimson: "font-crimson",
+  montserrat: "font-montserrat",
+  poppins: "font-poppins",
 };
 
 const themeStyles: Record<QuoteTheme, { bg: string; text: string; muted: string; border: string }> = {
@@ -85,7 +90,7 @@ const shadowStyles: Record<TextShadow, string> = {
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor, isBold, isItalic }, ref) => {
     const t = themeStyles[theme];
     const displayQuote = quote;
     const isPlaceholder = !quote;
@@ -194,6 +199,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
                   textShadow: shadowStyles[textShadow],
                   overflowWrap: "break-word",
                   wordBreak: "break-word",
+                  fontWeight: isBold ? 700 : undefined,
+                  fontStyle: isItalic ? "italic" : undefined,
                 }}
               >
                 &ldquo;{displayQuote}&rdquo;

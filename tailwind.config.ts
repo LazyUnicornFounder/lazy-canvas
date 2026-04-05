@@ -27,6 +27,9 @@ export default {
         raleway: ['Raleway', 'sans-serif'],
         dancing: ['Dancing Script', 'cursive'],
         archivo: ['Archivo Black', 'sans-serif'],
+        crimson: ['Crimson Text', 'serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
