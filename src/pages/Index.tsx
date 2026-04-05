@@ -620,7 +620,7 @@ const Index = () => {
           </div>
 
           {/* Preview */}
-          <div className="hidden lg:block sticky top-4 flex-shrink-0" style={{ width: "clamp(280px, 30vw, 420px)" }}>
+          <div className="hidden lg:block sticky top-4 flex-shrink-0" style={{ width: "clamp(280px, 28vw, 400px)" }}>
             <div className="flex justify-center items-start" style={{ maxHeight: "calc(100vh - 4rem)" }}>
               <div
                 className="shadow-xl"
