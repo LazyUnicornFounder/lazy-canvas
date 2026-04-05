@@ -38,7 +38,7 @@ const themeStyles: Record<QuoteTheme, { bg: string; text: string; muted: string;
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity }, ref) => {
     const t = themeStyles[theme];
     const displayQuote = quote || "Type your quote here...";
     const isPlaceholder = !quote;
@@ -49,6 +49,18 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         className={`${aspectClasses[aspectRatio]} w-full max-w-lg relative overflow-hidden flex flex-col justify-between`}
         style={{ backgroundColor: t.bg, color: t.text, borderRadius: "2px" }}
       >
+        {backgroundImage && (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${backgroundImage})`,
+              opacity: backgroundOpacity,
+            }}
+          />
+        )}
+        {backgroundImage && (
+          <div className="absolute inset-0" style={{ backgroundColor: t.bg, opacity: 1 - backgroundOpacity }} />
+        )}
         {/* Quote content */}
         <div className="flex-1 flex items-center justify-center p-8 sm:p-12">
           <div className="text-center max-w-[85%]">
