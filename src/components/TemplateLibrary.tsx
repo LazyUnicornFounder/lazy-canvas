@@ -1666,7 +1666,7 @@ const BUILTIN_TEMPLATES: Template[] = [
   {
     id: "minimal-air", name: "Air", category: "minimal",
     editorState: {
-      font: "dm-sans", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.02, lineHeight: 2.0,
+      font: "inter", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.02, lineHeight: 2.0,
       textColor: "#71717a", authorFont: "heading", authorColor: "#a1a1aa", authorFontSize: 0.65,
       isBold: false, isItalic: false, backgroundColor: "#ffffff", textShadow: "none", showQuotationMarks: false,
       backgroundImage: PEXELS_IMAGES["minimal-air"], backgroundOpacity: 0.2,
@@ -1927,7 +1927,7 @@ const BUILTIN_TEMPLATES: Template[] = [
   {
     id: "ai-data", name: "Data Flow", category: "ai",
     editorState: {
-      font: "space-grotesk", theme: "ink", fontSize: 1.2, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.9,
+      font: "rajdhani", theme: "ink", fontSize: 1.2, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.9,
       textColor: "#f472b6", authorFont: "heading", authorColor: "#ec4899", authorFontSize: 0.65,
       isBold: false, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
       backgroundImage: PEXELS_IMAGES["ai-data"], backgroundOpacity: 0.3,

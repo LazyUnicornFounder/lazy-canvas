@@ -362,12 +362,12 @@ const Index = () => {
                   customHeight={editorState.customHeight}
                 />
             </div>
-            <div className="relative w-full">
-              <div className="flex w-full">
+            <div className="relative w-fit">
+              <div className="flex w-fit">
                 <button
                   onClick={() => handleDownloadClick(3)}
                   disabled={downloading}
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-l-md hover:opacity-90 transition-opacity disabled:opacity-50"
+                  className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-l-md hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
                   <Download className="w-4 h-4" />
                   {downloading ? "Exporting…" : "Download"}
