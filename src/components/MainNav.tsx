@@ -10,6 +10,8 @@ const DIGITAL_LINKS = [
   { label: "Pinterest", href: "/pinterest" },
   { label: "LinkedIn", href: "/linkedin" },
   { label: "X", href: "/twitter" },
+  { label: "App Store", href: "/app-store" },
+  { label: "Google Play", href: "/google-play" },
   { label: "Banners", href: "/banners" },
   { label: "Posts", href: "/posts" },
 ];

@@ -200,4 +200,32 @@ export const MARKETING_PAGES: Config[] = [
     ],
     templateCategory: "playful",
   },
+  {
+    slug: "app-store",
+    title: "Create App Store Screenshots | Lazy Faceless",
+    headline: "Create App Store Screenshots That Convert",
+    subheadline: "Design stunning screenshots for iOS App Store and Google Play that drive downloads.",
+    description: "Professional app store assets in seconds. iPhone, iPad, Android, and Mac screenshot formats ready to upload.",
+    ctaText: "Create App Screenshots",
+    features: [
+      { icon: "📱", title: "Every Device Size", description: "iPhone 6.7\", iPad 12.9\", Android phone, tablet, and Mac — all required sizes covered." },
+      { icon: "🎯", title: "Conversion-Optimized", description: "Bold typography and clean layouts designed to maximize download rates." },
+      { icon: "⚡", title: "Upload-Ready", description: "Pixel-perfect dimensions that meet Apple and Google's exact requirements." },
+    ],
+    templateCategory: "bold",
+  },
+  {
+    slug: "google-play",
+    title: "Create Google Play Screenshots | Lazy Faceless",
+    headline: "Create Google Play Graphics That Get Downloads",
+    subheadline: "Design feature graphics, screenshots, and promo images for your Android app.",
+    description: "Stand out on Google Play with professional screenshots and feature graphics. All required formats included.",
+    ctaText: "Create for Google Play",
+    features: [
+      { icon: "🤖", title: "Android Formats", description: "Phone (1080×1920) and tablet (1920×1200) screenshots sized to Google Play specs." },
+      { icon: "🖼️", title: "Feature Graphics", description: "Eye-catching 1024×500 feature graphics that showcase your app's best features." },
+      { icon: "🎨", title: "Consistent Branding", description: "Keep your app's visual identity consistent across all store listing assets." },
+    ],
+    templateCategory: "trendy",
+  },
 ];
