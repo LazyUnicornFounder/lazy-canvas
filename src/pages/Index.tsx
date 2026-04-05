@@ -55,6 +55,7 @@ const Index = () => {
   const [downloading, setDownloading] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [backgroundOpacity, setBackgroundOpacity] = useState(0.4);
+  const [backgroundColor, setBackgroundColor] = useState("");
   const [fontSize, setFontSize] = useState(1.4);
   const [textAlign, setTextAlign] = useState<"left" | "center" | "right">("center");
   const [letterSpacing, setLetterSpacing] = useState(0);
@@ -498,6 +499,24 @@ const Index = () => {
                 className="hidden"
               />
               <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
+                  <input
+                    type="color"
+                    value={backgroundColor || "#ffffff"}
+                    onChange={(e) => setBackgroundColor(e.target.value)}
+                    className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent"
+                  />
+                  {backgroundColor && (
+                    <button
+                      onClick={() => setBackgroundColor("")}
+                      className="text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      Reset
+                    </button>
+                  )}
+                </div>
+              </div>
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => bgInputRef.current?.click()}
