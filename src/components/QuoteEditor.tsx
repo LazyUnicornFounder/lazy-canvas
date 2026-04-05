@@ -704,7 +704,7 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
                   title={opt.label}
                 >
                   <div
-                    className={`rounded-sm border ${isActive ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`}
+                    className={`border ${isActive ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`}
                     style={{ width: boxW, height: boxH }}
                   />
                   <span className={`text-[9px] font-heading ${isActive ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
