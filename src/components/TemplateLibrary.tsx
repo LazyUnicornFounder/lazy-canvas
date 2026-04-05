@@ -3,13 +3,65 @@ import { Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { QuoteEditorState } from "@/components/QuoteEditor";
 
+// Template background images
+import imgWhisper from "@/assets/templates/whisper.jpg";
+import imgMonochrome from "@/assets/templates/monochrome.jpg";
+import imgPaper from "@/assets/templates/paper.jpg";
+import imgGoldenHour from "@/assets/templates/golden-hour.jpg";
+import imgBlush from "@/assets/templates/blush.jpg";
+import imgMatcha from "@/assets/templates/matcha.jpg";
+import imgLavender from "@/assets/templates/lavender.jpg";
+import imgOcean from "@/assets/templates/ocean.jpg";
+import imgImpact from "@/assets/templates/impact.jpg";
+import imgElectric from "@/assets/templates/electric.jpg";
+import imgFire from "@/assets/templates/fire.jpg";
+import imgAcid from "@/assets/templates/acid.jpg";
+import imgPolaroid from "@/assets/templates/polaroid.jpg";
+import imgTypewriter from "@/assets/templates/typewriter.jpg";
+import imgCinema from "@/assets/templates/cinema.jpg";
+import imgSepia from "@/assets/templates/sepia.jpg";
+import imgGoldNoir from "@/assets/templates/gold-noir.jpg";
+import imgMarble from "@/assets/templates/marble.jpg";
+import imgChampagne from "@/assets/templates/champagne.jpg";
+import imgMidnight from "@/assets/templates/midnight.jpg";
+import imgMarker from "@/assets/templates/marker.jpg";
+import imgBubblegum from "@/assets/templates/bubblegum.jpg";
+import imgSunshine from "@/assets/templates/sunshine.jpg";
+
 interface Template {
   id: string;
   name: string;
   category: string;
   editorState: Partial<QuoteEditorState>;
+  previewImage?: string;
   isDb?: boolean;
 }
+
+const TEMPLATE_IMAGES: Record<string, string> = {
+  whisper: imgWhisper,
+  monochrome: imgMonochrome,
+  paper: imgPaper,
+  "sunset-gradient": imgGoldenHour,
+  "aesthetic-pink": imgBlush,
+  matcha: imgMatcha,
+  "lavender-dream": imgLavender,
+  "ocean-mist": imgOcean,
+  impact: imgImpact,
+  electric: imgElectric,
+  fire: imgFire,
+  acid: imgAcid,
+  polaroid: imgPolaroid,
+  typewriter: imgTypewriter,
+  cinema: imgCinema,
+  sepia: imgSepia,
+  "gold-noir": imgGoldNoir,
+  marble: imgMarble,
+  champagne: imgChampagne,
+  midnight: imgMidnight,
+  marker: imgMarker,
+  bubblegum: imgBubblegum,
+  sunshine: imgSunshine,
+};
 
 const BUILTIN_TEMPLATES: Template[] = [
   // ── MINIMAL ──
@@ -652,14 +704,13 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
         ))}
       </div>
 
-      {/* Template grid — larger cards with real preview text */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
         {filtered.map((template) => {
           const s = template.editorState;
-          const bg = s.backgroundColor || "#ffffff";
           const textCol = s.textColor || "#1a1a1a";
           const fontClass = FONT_CLASS_MAP[s.font || "playfair"] || "font-playfair";
           const previewText = PREVIEW_QUOTES[template.id] || "the quick fox";
+          const bgImage = TEMPLATE_IMAGES[template.id];
 
           return (
             <button
@@ -668,13 +719,23 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
               className="group relative rounded-xl overflow-hidden border border-border/50 hover:border-foreground/20 transition-all duration-200 hover:shadow-lg hover:scale-[1.03] active:scale-[0.97]"
               style={{ aspectRatio: "3/4" }}
             >
-              {/* Preview area */}
-              <div
-                className="absolute inset-0 flex items-center justify-center p-3"
-                style={{ backgroundColor: bg }}
-              >
+              {/* Background image */}
+              {bgImage && (
+                <img
+                  src={bgImage}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
+
+              {/* Dark overlay for readability */}
+              <div className="absolute inset-0 bg-black/20" />
+
+              {/* Preview text */}
+              <div className="absolute inset-0 flex items-center justify-center p-3 z-10">
                 <span
-                  className={`${fontClass} text-center leading-tight`}
+                  className={`${fontClass} text-center leading-tight drop-shadow-md`}
                   style={{
                     color: textCol,
                     fontSize: "0.7rem",
@@ -687,10 +748,8 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
                     textAlign: (s.textAlign as CanvasTextAlign) || "center",
                     textShadow:
                       s.textShadow === "glow"
-                        ? `0 0 8px ${textCol}44`
-                        : s.textShadow === "soft"
-                          ? `0 1px 3px rgba(0,0,0,0.3)`
-                          : undefined,
+                        ? `0 0 10px ${textCol}66`
+                        : `0 1px 4px rgba(0,0,0,0.5)`,
                   }}
                 >
                   {s.showQuotationMarks ? "\u201C" : ""}
@@ -700,7 +759,7 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
               </div>
 
               {/* Name label */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent pt-6 pb-2 px-2">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-6 pb-2 px-2 z-10">
                 <span className="text-[0.65rem] text-white font-medium tracking-wide">
                   {template.name}
                 </span>
@@ -708,7 +767,7 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
 
               {/* DB badge */}
               {template.isDb && (
-                <div className="absolute top-1.5 right-1.5">
+                <div className="absolute top-1.5 right-1.5 z-10">
                   <Sparkles className="w-3 h-3 text-amber-400 drop-shadow" />
                 </div>
               )}
