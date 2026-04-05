@@ -229,7 +229,7 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {/* Templates */}
       <div className="md:col-span-2">
-        <ControlSection label="Templates">
+        <ControlSection label="Templates" pro={!isPro} onProClick={goToPricing}>
           <TemplateLibrary
             onApply={(partial) => {
               onChange({
