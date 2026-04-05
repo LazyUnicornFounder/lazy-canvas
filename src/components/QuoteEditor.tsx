@@ -9,6 +9,7 @@ import type {
   AuthorPosition,
   SocialPlatform,
 } from "@/components/QuotePreview";
+import type { ColoredWord } from "@/components/QuotePreview";
 
 const ASPECT_OPTIONS: { value: AspectRatio; label: string; row: number }[] = [
   { value: "square", label: "1:1", row: 0 },
