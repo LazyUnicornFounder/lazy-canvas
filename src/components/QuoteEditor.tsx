@@ -455,11 +455,11 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             <>
               <div className="flex items-center gap-3">
                 <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
-                <input type="range" min={0.1} max={1} step={0.05} value={state.backgroundOpacity} onChange={(e) => set("backgroundOpacity", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
+                <input type="range" min={0.1} max={1} step={0.05} value={state.backgroundOpacity} onChange={(e) => set("backgroundOpacity", parseFloat(e.target.value))} className="w-1/2 accent-foreground h-1" />
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Blur</span>
-                <input type="range" min={0} max={20} step={1} value={state.backgroundBlur} onChange={(e) => set("backgroundBlur", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
+                <input type="range" min={0} max={20} step={1} value={state.backgroundBlur} onChange={(e) => set("backgroundBlur", parseFloat(e.target.value))} className="w-1/2 accent-foreground h-1" />
               </div>
               <div>
                 <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest mb-1.5 block">Filter</span>
@@ -672,17 +672,17 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
           </div>
           <div className="flex items-center gap-3 mt-3">
             <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-10">Size</span>
-            <input type="range" min={0.8} max={6} step={0.05} value={state.fontSize} onChange={(e) => set("fontSize", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
+            <input type="range" min={0.8} max={6} step={0.05} value={state.fontSize} onChange={(e) => set("fontSize", parseFloat(e.target.value))} className="w-1/2 accent-foreground h-1" />
             <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.fontSize.toFixed(1)}</span>
           </div>
           <div className="flex items-center gap-3 mt-3">
             <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Spacing</span>
-            <input type="range" min={-0.05} max={0.3} step={0.005} value={state.letterSpacing} onChange={(e) => set("letterSpacing", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
+            <input type="range" min={-0.05} max={0.3} step={0.005} value={state.letterSpacing} onChange={(e) => set("letterSpacing", parseFloat(e.target.value))} className="w-1/2 accent-foreground h-1" />
             <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.letterSpacing.toFixed(2)}</span>
           </div>
           <div className="flex items-center gap-3 mt-3">
             <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Leading</span>
-            <input type="range" min={1} max={3} step={0.05} value={state.lineHeight} onChange={(e) => set("lineHeight", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
+            <input type="range" min={1} max={3} step={0.05} value={state.lineHeight} onChange={(e) => set("lineHeight", parseFloat(e.target.value))} className="w-1/2 accent-foreground h-1" />
             <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.lineHeight.toFixed(1)}</span>
           </div>
           <div className="flex items-center gap-3 mt-3">
@@ -713,7 +713,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
           {state.textShadow !== "none" && (
             <div className="flex items-center gap-3 mt-3">
               <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
-              <input type="range" min={0.1} max={1} step={0.05} value={state.shadowOpacity} onChange={(e) => set("shadowOpacity", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
+              <input type="range" min={0.1} max={1} step={0.05} value={state.shadowOpacity} onChange={(e) => set("shadowOpacity", parseFloat(e.target.value))} className="w-1/2 accent-foreground h-1" />
               <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{(state.shadowOpacity * 100).toFixed(0)}%</span>
             </div>
           )}
@@ -919,7 +919,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
         </div>
         <div className="flex items-center gap-3 mt-3">
           <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-10">Size</span>
-          <input type="range" min={0.5} max={3} step={0.05} value={state.authorFontSize} onChange={(e) => set("authorFontSize", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
+          <input type="range" min={0.5} max={3} step={0.05} value={state.authorFontSize} onChange={(e) => set("authorFontSize", parseFloat(e.target.value))} className="w-1/2 accent-foreground h-1" />
           <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.authorFontSize.toFixed(1)}</span>
         </div>
         <div className="flex items-center gap-3 mt-3">
