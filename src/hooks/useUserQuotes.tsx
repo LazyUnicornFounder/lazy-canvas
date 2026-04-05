@@ -35,7 +35,7 @@ export function useUserQuotes() {
     if (id) {
       const { data } = await supabase
         .from("user_quotes")
-        .update({ title, editor_state: editorState as unknown as Record<string, unknown> })
+        .update({ title, editor_state: JSON.parse(JSON.stringify(editorState)) })
         .eq("id", id)
         .eq("user_id", user.id)
         .select()
@@ -45,7 +45,7 @@ export function useUserQuotes() {
     } else {
       const { data } = await supabase
         .from("user_quotes")
-        .insert({ user_id: user.id, title, editor_state: editorState as unknown as Record<string, unknown> })
+        .insert([{ user_id: user.id, title, editor_state: JSON.parse(JSON.stringify(editorState)) }])
         .select()
         .single();
       await fetchQuotes();
