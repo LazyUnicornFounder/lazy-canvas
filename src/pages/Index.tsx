@@ -156,35 +156,8 @@ const Index = () => {
       <header className="border-b border-border">
         <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1600px] mx-auto">
           <div className="flex items-center gap-6">
-            <div className="flex flex-col">
-              <h1 className="font-orbitron text-lg sm:text-xl font-bold text-foreground select-none uppercase tracking-widest leading-tight">
-                Lazy Faceless
-              </h1>
-              <span className="text-[10px] text-muted-foreground font-heading tracking-wide">Create content for anything.</span>
-            </div>
-            <nav className="hidden md:flex items-center gap-4">
-              {[
-                { label: "Instagram", href: "/instagram" },
-                { label: "YouTube", href: "/youtube" },
-                { label: "TikTok", href: "/tiktok" },
-                { label: "Facebook", href: "/facebook" },
-                { label: "Pinterest", href: "/pinterest" },
-                { label: "LinkedIn", href: "/linkedin" },
-                { label: "X", href: "/twitter" },
-                { label: "Banners", href: "/banners" },
-                { label: "Posts", href: "/posts" },
-                { label: "Posters", href: "/posters" },
-                { label: "Print", href: "/print" },
-              ].map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => navigate(link.href)}
-                  className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </button>
-              ))}
-            </nav>
+            <LogoWithTagline />
+            <MainNav />
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
             <button
