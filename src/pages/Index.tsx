@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, User, Download } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
@@ -7,16 +7,33 @@ import QuoteEditor, { type QuoteEditorState, DEFAULT_EDITOR_STATE, SOCIAL_PLATFO
 import QuotePreview, { type SocialPlatform } from "@/components/QuotePreview";
 import html2canvas from "html2canvas";
 
+const DRAFT_KEY = "lazy-quotes-draft";
+
 const Index = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [editorState, setEditorState] = useState<QuoteEditorState>(DEFAULT_EDITOR_STATE);
+  const [editorState, setEditorState] = useState<QuoteEditorState>(() => {
+    try {
+      const saved = localStorage.getItem(DRAFT_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return DEFAULT_EDITOR_STATE;
+  });
   const [downloading, setDownloading] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
+  // Clear draft from localStorage once user is logged in and state is restored
+  useEffect(() => {
+    if (user) {
+      localStorage.removeItem(DRAFT_KEY);
+    }
+  }, [user]);
+
   const handleDownload = useCallback(async () => {
     if (!user) {
+      // Save current design before showing auth modal
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(editorState));
       setShowAuthModal(true);
       return;
     }
