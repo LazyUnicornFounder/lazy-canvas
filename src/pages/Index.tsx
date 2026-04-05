@@ -38,18 +38,18 @@ const ASPECT_RATIOS: Record<string, number> = {
   "iphone-wallpaper": 1179/2556, "android-wallpaper": 1080/2400, "lock-screen": 1170/2532,
 };
 
-const getPreviewContainerStyle = (aspectRatio: string, customW?: number, customH?: number): React.CSSProperties => {
+const getPreviewContainerWidth = (aspectRatio: string, customW?: number, customH?: number): string => {
   let ratio = ASPECT_RATIOS[aspectRatio];
   if (aspectRatio === "custom" && customW && customH) ratio = customW / customH;
   if (!ratio) ratio = 1;
-  // Height-first: fill viewport height, compute width from ratio
-  // For very wide ratios, cap width; for very tall, cap height
-  const maxH = 'calc(100vh - 180px)';
-  return {
-    width: ratio >= 1 ? `min(${Math.round(ratio * 100)}vh - ${Math.round(ratio * 180)}px, 500px)` : undefined,
-    maxWidth: '500px',
-    minWidth: '180px',
-  };
+  // Target: preview fills ~(100vh - 180px) in height
+  // width = availableHeight * ratio, capped at 500px, min 180px
+  // Available height ≈ window viewport minus header+padding (~180px)
+  // Use CSS clamp with vw approximation: 1vh ≈ aspect of height
+  const heightVh = 100; // vh units for available height
+  const offsetPx = 180;
+  // clamp(180px, (Hvh - offset) * ratio, 500px)
+  return `clamp(180px, calc((${heightVh}vh - ${offsetPx}px) * ${ratio.toFixed(4)}), 500px)`;
 };
 
 const Index = () => {
