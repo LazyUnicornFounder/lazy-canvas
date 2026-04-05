@@ -16,7 +16,56 @@ import type { ColoredWord } from "@/components/QuotePreview";
 
 const FORMAT_GROUPS: { label: string; options: { value: AspectRatio; label: string }[] }[] = [
   {
-    label: "Social",
+    label: "Instagram",
+    options: [
+      { value: "square", label: "Post" },
+      { value: "9:16", label: "Story/Reel" },
+      { value: "1.91:1", label: "Landscape" },
+    ],
+  },
+  {
+    label: "X (Twitter)",
+    options: [
+      { value: "16:9", label: "Post" },
+      { value: "3:1", label: "Header" },
+    ],
+  },
+  {
+    label: "LinkedIn",
+    options: [
+      { value: "square", label: "Post" },
+      { value: "1.91:1", label: "Landscape" },
+      { value: "4:1", label: "Banner" },
+    ],
+  },
+  {
+    label: "Facebook",
+    options: [
+      { value: "1.91:1", label: "Post" },
+      { value: "9:16", label: "Story" },
+      { value: "820:312", label: "Cover" },
+    ],
+  },
+  {
+    label: "YouTube",
+    options: [
+      { value: "16:9", label: "Thumbnail" },
+    ],
+  },
+  {
+    label: "TikTok",
+    options: [
+      { value: "9:16", label: "Video" },
+    ],
+  },
+  {
+    label: "Pinterest",
+    options: [
+      { value: "2:3", label: "Pin" },
+    ],
+  },
+  {
+    label: "General",
     options: [
       { value: "square", label: "1:1" },
       { value: "3:4", label: "3:4" },
@@ -938,6 +987,7 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
                   {group.options.map((opt) => {
                     const ratioMap: Record<string, [number, number]> = {
                       square: [1, 1],
+                      "1.91:1": [1.91, 1], "3:1": [3, 1], "4:1": [4, 1], "820:312": [820, 312],
                       a4: [210, 297], a3: [297, 420], a2: [420, 594], a1: [594, 841], a0: [841, 1189],
                       letter: [8.5, 11], legal: [8.5, 14], tabloid: [11, 17],
                       "poster-18x24": [18, 24], "poster-24x36": [24, 36], "banner-2x5": [2, 5],
