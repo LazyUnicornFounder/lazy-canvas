@@ -285,7 +285,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
               style={{
                 fontSize: `${authorFontSize}rem`,
                 color: authorColor || textColor || undefined,
-                textShadow: shadowStyles[textShadow],
+                textShadow: getShadowStyle(textShadow, shadowOpacity),
               }}
             >
               {authorName}
@@ -331,7 +331,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
                   letterSpacing: `${letterSpacing}em`,
                   lineHeight,
                   color: textColor || undefined,
-                  textShadow: shadowStyles[textShadow],
+                  textShadow: getShadowStyle(textShadow, shadowOpacity),
                   overflowWrap: "break-word",
                   wordBreak: "break-word",
                   fontWeight: isBold ? 700 : undefined,
