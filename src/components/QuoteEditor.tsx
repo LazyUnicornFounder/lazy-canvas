@@ -90,6 +90,7 @@ export interface QuoteEditorState {
   authorColor: string;
   authorFont: QuoteFont;
   textShadow: TextShadow;
+  shadowOpacity: number;
   authorPosition: AuthorPosition;
   isBold: boolean;
   isItalic: boolean;
@@ -120,6 +121,7 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   authorColor: "",
   authorFont: "playfair",
   textShadow: "none",
+  shadowOpacity: 1,
   authorPosition: "below-quote",
   isBold: false,
   isItalic: false,
@@ -361,6 +363,13 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
               ))}
             </div>
           </div>
+          {state.textShadow !== "none" && (
+            <div className="flex items-center gap-3 mt-3">
+              <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
+              <input type="range" min={0.1} max={1} step={0.05} value={state.shadowOpacity} onChange={(e) => set("shadowOpacity", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
+              <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{(state.shadowOpacity * 100).toFixed(0)}%</span>
+            </div>
+          )}
           <div className="flex items-center gap-3 mt-3">
             <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Align</span>
             <div className="flex gap-1.5">
