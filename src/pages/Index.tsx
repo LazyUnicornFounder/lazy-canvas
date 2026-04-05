@@ -185,12 +185,6 @@ const Index = () => {
             <MainNav />
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
-            <button
-              onClick={() => navigate("/pricing")}
-              className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Pricing
-            </button>
             {user ? (
               <>
                 {isAdmin && (
