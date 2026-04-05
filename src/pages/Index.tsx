@@ -35,14 +35,7 @@ const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string }[] = [
   { value: "cream", label: "Cream", swatch: "#F5F0E8" },
   { value: "ink", label: "Ink", swatch: "#0d1117" },
 ];
-
-const EMOJI_LIST = [
-  "✨", "🔥", "💡", "❤️", "💪", "🎯", "🚀", "⭐",
-  "🌟", "💎", "🏆", "👑", "🎨", "📚", "🌈", "☀️",
-  "🌙", "⚡", "🍀", "🦋", "🌸", "🎶", "💫", "🌊",
-  "🤔", "😊", "😎", "🥰", "😤", "💀", "🙏", "👏",
-  "✅", "❌", "⬆️", "➡️", "💬", "📌", "🔑", "🎉",
-];
+import { EMOJI_CATEGORIES } from "@/data/emojis";
 
 const Index = () => {
   const [quote, setQuote] = useState("");
@@ -66,6 +59,7 @@ const Index = () => {
   const [textShadow, setTextShadow] = useState<TextShadow>("none");
   const [authorPosition, setAuthorPosition] = useState<AuthorPosition>("below-quote");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [emojiCategory, setEmojiCategory] = useState(0);
 
   const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
