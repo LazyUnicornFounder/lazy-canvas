@@ -116,6 +116,18 @@ export interface QuoteEditorState {
   showQuotationMarks: boolean;
 }
 
+export const BG_FILTERS: { value: string; label: string; css: string }[] = [
+  { value: "none", label: "None", css: "" },
+  { value: "vintage", label: "Vintage", css: "sepia(0.4) contrast(1.1) brightness(0.95) saturate(0.8)" },
+  { value: "film", label: "Film", css: "contrast(1.15) brightness(0.9) saturate(0.85) sepia(0.15)" },
+  { value: "noir", label: "Noir", css: "grayscale(1) contrast(1.2) brightness(0.9)" },
+  { value: "warm", label: "Warm", css: "sepia(0.25) saturate(1.3) brightness(1.05)" },
+  { value: "cool", label: "Cool", css: "saturate(0.8) brightness(1.05) hue-rotate(15deg)" },
+  { value: "faded", label: "Faded", css: "contrast(0.85) brightness(1.1) saturate(0.6)" },
+  { value: "vivid", label: "Vivid", css: "saturate(1.6) contrast(1.1)" },
+  { value: "dramatic", label: "Dramatic", css: "contrast(1.4) brightness(0.85) saturate(1.2)" },
+];
+
 
 export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   quote: "",
