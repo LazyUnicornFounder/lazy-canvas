@@ -140,6 +140,8 @@ interface QuoteEditorProps {
 }
 
 const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
+  const navigate = useNavigate();
+  const goToPricing = () => navigate("/pricing");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emojiCategory, setEmojiCategory] = useState(0);
   const quoteTextareaRef = useRef<HTMLTextAreaElement>(null);
