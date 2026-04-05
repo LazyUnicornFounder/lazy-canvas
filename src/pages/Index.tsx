@@ -160,6 +160,7 @@ const Index = () => {
                   authorColor={editorState.authorColor}
                   authorFont={editorState.authorFont}
                   textShadow={editorState.textShadow}
+                  shadowOpacity={editorState.shadowOpacity}
                   authorPosition={editorState.authorPosition}
                   backgroundColor={editorState.backgroundColor}
                   isBold={editorState.isBold}
