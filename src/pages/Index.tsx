@@ -36,6 +36,7 @@ const Index = () => {
   const [downloading, setDownloading] = useState(false);
   const [showGalleryPrompt, setShowGalleryPrompt] = useState(false);
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
+  const [showProUpgradePrompt, setShowProUpgradePrompt] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const mobilePreviewRef = useRef<HTMLDivElement>(null);
 
@@ -46,18 +47,45 @@ const Index = () => {
     }
   }, [user]);
 
+  const usesProFeatures = useCallback((state: QuoteEditorState) => {
+    return (
+      (state.coloredWords && state.coloredWords.length > 0) ||
+      !!state.backgroundImage ||
+      (state.aspectRatio !== "square")
+    );
+  }, []);
+
   const handleDownloadClick = useCallback(() => {
+    const hasPro = usesProFeatures(editorState);
+
     if (!user) {
-      // Non-logged-in: download then prompt signup
+      if (hasPro) {
+        // Not logged in + pro features → must sign up first
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(editorState));
+        setShowAuthModal(true);
+        return;
+      }
+      // No pro features, not logged in → download then prompt signup
       performDownloadOnly();
     } else if (isPro) {
-      // Pro users: just download, no gallery
+      // Pro users: just download
       performDownloadOnly();
+    } else if (hasPro) {
+      // Free logged-in user with pro features
+      const trialUsed = localStorage.getItem("lazy-quotes-pro-trial-used");
+      if (trialUsed) {
+        // Already used free pro trial → prompt to pay
+        setShowProUpgradePrompt(true);
+      } else {
+        // First time → allow download, mark trial used
+        localStorage.setItem("lazy-quotes-pro-trial-used", "true");
+        performDownloadOnly();
+      }
     } else {
-      // Free logged-in users: offer gallery share
+      // Free logged-in user, no pro features → offer gallery share
       setShowGalleryPrompt(true);
     }
-  }, [user, isPro]);
+  }, [user, isPro, editorState, usesProFeatures]);
 
   const performDownloadOnly = useCallback(async () => {
     const target = previewRef.current || mobilePreviewRef.current;
