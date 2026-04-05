@@ -26,6 +26,7 @@ const Index = () => {
   const [downloading, setDownloading] = useState(false);
   const [showGalleryPrompt, setShowGalleryPrompt] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
+  const mobilePreviewRef = useRef<HTMLDivElement>(null);
 
   // Clear draft from localStorage once user is logged in and state is restored
   useEffect(() => {
@@ -45,7 +46,8 @@ const Index = () => {
 
   const performDownload = useCallback(async (shareToGallery: boolean) => {
     setShowGalleryPrompt(false);
-    if (!previewRef.current) return;
+    const target = previewRef.current || mobilePreviewRef.current;
+    if (!target) return;
     setDownloading(true);
     try {
       if (shareToGallery && user) {
@@ -54,7 +56,7 @@ const Index = () => {
           editor_state: editorState as any,
         });
       }
-      const canvas = await html2canvas(previewRef.current, {
+      const canvas = await html2canvas(target, {
         scale: 3, useCORS: true, logging: false, backgroundColor: null,
       });
       const link = document.createElement("a");
@@ -117,6 +119,50 @@ const Index = () => {
           </div>
         </div>
       </header>
+
+      {/* Mobile sticky preview */}
+      <div className="lg:hidden sticky top-0 z-20 bg-background border-b border-border px-4 py-3">
+        <div className="max-w-[280px] mx-auto">
+          <QuotePreview
+            ref={mobilePreviewRef}
+            quote={editorState.quote}
+            authorName={editorState.authorName}
+            authorPhoto={editorState.authorPhoto}
+            socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
+            socials={socials}
+            aspectRatio={editorState.aspectRatio}
+            font={editorState.font}
+            theme={editorState.theme}
+            backgroundImage={editorState.backgroundImage}
+            backgroundOpacity={editorState.backgroundOpacity}
+            fontSize={editorState.fontSize}
+            textAlign={editorState.textAlign}
+            letterSpacing={editorState.letterSpacing}
+            lineHeight={editorState.lineHeight}
+            textColor={editorState.textColor}
+            authorFontSize={editorState.authorFontSize}
+            authorColor={editorState.authorColor}
+            authorFont={editorState.authorFont}
+            textShadow={editorState.textShadow}
+            shadowOpacity={editorState.shadowOpacity}
+            authorPosition={editorState.authorPosition}
+            backgroundColor={editorState.backgroundColor}
+            isBold={editorState.isBold}
+            isItalic={editorState.isItalic}
+            coloredWords={editorState.coloredWords}
+            showWatermark={isFreeUser}
+            showQuotationMarks={editorState.showQuotationMarks}
+          />
+        </div>
+        <button
+          onClick={handleDownloadClick}
+          disabled={downloading}
+          className="flex items-center justify-center gap-2 w-full mt-2 py-2 bg-primary text-primary-foreground font-heading text-xs font-medium rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
+        >
+          <Download className="w-3.5 h-3.5" />
+          {downloading ? "Exporting…" : user ? "Download PNG" : "Sign up to download"}
+        </button>
+      </div>
 
       <section className="min-h-[calc(100vh-4rem)] flex px-4 sm:px-6">
         <div className="max-w-[1400px] mx-auto w-full flex gap-8 lg:gap-12 py-6">
