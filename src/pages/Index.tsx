@@ -107,34 +107,60 @@ const Index = () => {
   const [downloadMenuOpen, setDownloadMenuOpen] = useState(false);
   const [mobileDownloadMenuOpen, setMobileDownloadMenuOpen] = useState(false);
 
-  const performDownloadOnly = useCallback(async (scale: number = 3) => {
+  const downloadBlob = useCallback((blob: Blob, filename: string) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.download = filename;
+    link.href = url;
+    link.rel = "noopener";
+    document.body.appendChild(link);
+
+    requestAnimationFrame(() => {
+      link.click();
+      document.body.removeChild(link);
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  }, []);
+
+  const renderPreviewBlob = useCallback(async (target: HTMLElement, scale: number) => {
+    const canvas = await html2canvas(target, {
+      scale,
+      useCORS: true,
+      logging: false,
+      backgroundColor: null,
+    });
+
+    return await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (blob) {
+          resolve(blob);
+          return;
+        }
+
+        reject(new Error("Failed to create PNG"));
+      }, "image/png");
+    });
+  }, []);
+
+  const performDownloadOnly = useCallback(async (scale: number = 3, showGuestPrompt = true) => {
     const target = previewRef.current || mobilePreviewRef.current;
     if (!target) return;
+
     setDownloading(true);
     try {
-      const canvas = await html2canvas(target, {
-        scale, useCORS: true, logging: false, backgroundColor: null,
-      });
-      canvas.toBlob((blob) => {
-        if (!blob) return;
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        const suffix = scale > 3 ? "-print" : "";
-        link.download = `quote${suffix}-${Date.now()}.png`;
-        link.href = url;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
-      }, "image/png");
-    } catch (err) { console.error("Failed to export", err); }
-    finally {
-      setDownloading(false);
-      if (!user) {
-        setShowSignupPrompt(true);
+      const blob = await renderPreviewBlob(target, scale);
+      const suffix = scale > 3 ? "-print" : "";
+      downloadBlob(blob, `quote${suffix}-${Date.now()}.png`);
+
+      if (!user && showGuestPrompt) {
+        window.setTimeout(() => setShowSignupPrompt(true), 300);
       }
+    } catch (err) {
+      console.error("Failed to export", err);
+    } finally {
+      setDownloading(false);
     }
-  }, [user]);
+  }, [downloadBlob, renderPreviewBlob, user]);
 
   const handleDownloadClick = useCallback((scale: number = 3) => {
     const hasPro = usesProFeatures(editorState);
@@ -165,6 +191,7 @@ const Index = () => {
     setShowGalleryPrompt(false);
     const target = previewRef.current || mobilePreviewRef.current;
     if (!target) return;
+
     setDownloading(true);
     try {
       if (shareToGallery && user) {
@@ -173,23 +200,15 @@ const Index = () => {
           editor_state: editorState as any,
         });
       }
-      const canvas = await html2canvas(target, {
-        scale: 3, useCORS: true, logging: false, backgroundColor: null,
-      });
-      canvas.toBlob((blob) => {
-        if (!blob) return;
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.download = `quote-${Date.now()}.png`;
-        link.href = url;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
-      }, "image/png");
-    } catch (err) { console.error("Failed to export", err); }
-    finally { setDownloading(false); }
-  }, [user, editorState]);
+
+      const blob = await renderPreviewBlob(target, 3);
+      downloadBlob(blob, `quote-${Date.now()}.png`);
+    } catch (err) {
+      console.error("Failed to export", err);
+    } finally {
+      setDownloading(false);
+    }
+  }, [downloadBlob, renderPreviewBlob, user, editorState]);
 
   const handleSignupAccept = useCallback(() => {
     setShowSignupPrompt(false);
@@ -197,9 +216,10 @@ const Index = () => {
     setShowAuthModal(true);
   }, [editorState]);
 
-  const handleSignupDecline = useCallback(() => {
+  const handleSignupDownload = useCallback(() => {
     setShowSignupPrompt(false);
-  }, []);
+    performDownloadOnly(3, false);
+  }, [performDownloadOnly]);
 
   const socials = [
     editorState.socialUsername
@@ -448,8 +468,8 @@ const Index = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setShowSignupPrompt(false)}>
-              Continue without signing up
+            <AlertDialogCancel onClick={handleSignupDownload}>
+              Download
             </AlertDialogCancel>
             <AlertDialogAction onClick={handleSignupAccept}>
               Sign up free
