@@ -124,6 +124,7 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   isBold: false,
   isItalic: false,
   coloredWords: [],
+  showQuotationMarks: false,
 };
 
 interface QuoteEditorProps {
