@@ -90,6 +90,33 @@ const PEXELS_IMAGES: Record<string, string> = {
   "photography-portrait": "https://images.pexels.com/photos/18535941/pexels-photo-18535941.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
   "photography-landscape": "https://images.pexels.com/photos/26872995/pexels-photo-26872995.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
   "photography-street": "https://images.pexels.com/photos/20598236/pexels-photo-20598236.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "aviation-cockpit": "https://images.pexels.com/photos/2026324/pexels-photo-2026324.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "aviation-sky": "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "aviation-sunset": "https://images.pexels.com/photos/1089306/pexels-photo-1089306.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "maritime-ocean": "https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "maritime-ship": "https://images.pexels.com/photos/813011/pexels-photo-813011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "maritime-lighthouse": "https://images.pexels.com/photos/1532771/pexels-photo-1532771.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "law-justice": "https://images.pexels.com/photos/5668882/pexels-photo-5668882.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "law-gavel": "https://images.pexels.com/photos/5669619/pexels-photo-5669619.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "law-books": "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "baking-bread": "https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "baking-pastry": "https://images.pexels.com/photos/205961/pexels-photo-205961.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "baking-kitchen": "https://images.pexels.com/photos/3992131/pexels-photo-3992131.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "banking-vault": "https://images.pexels.com/photos/259027/pexels-photo-259027.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "banking-finance": "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "banking-coins": "https://images.pexels.com/photos/3943716/pexels-photo-3943716.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "funny-laugh": "https://images.pexels.com/photos/1820559/pexels-photo-1820559.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "funny-silly": "https://images.pexels.com/photos/1683545/pexels-photo-1683545.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "funny-comedy": "https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "farming-field": "https://images.pexels.com/photos/440731/pexels-photo-440731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "farming-harvest": "https://images.pexels.com/photos/2933243/pexels-photo-2933243.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "farming-barn": "https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "history-ruins": "https://images.pexels.com/photos/1797161/pexels-photo-1797161.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "history-ancient": "https://images.pexels.com/photos/2225442/pexels-photo-2225442.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "history-medieval": "https://images.pexels.com/photos/2611686/pexels-photo-2611686.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "autonomy-robot": "https://images.pexels.com/photos/8566526/pexels-photo-8566526.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "autonomy-drone": "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "autonomy-selfdriving": "https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
 };
 
 const BUILTIN_TEMPLATES: Template[] = [
@@ -1239,6 +1266,267 @@ const BUILTIN_TEMPLATES: Template[] = [
       backgroundImage: PEXELS_IMAGES["photography-street"], backgroundOpacity: 0.4,
     },
   },
+
+  // ── AVIATION ──
+  {
+    id: "aviation-cockpit", name: "Cockpit", category: "aviation",
+    editorState: {
+      font: "orbitron", theme: "dark", fontSize: 1.1, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.9,
+      textColor: "#38bdf8", authorFont: "heading", authorColor: "#7dd3fc", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0c1222", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["aviation-cockpit"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "aviation-sky", name: "Sky High", category: "aviation",
+    editorState: {
+      font: "bebas", theme: "light", fontSize: 1.8, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.5,
+      textColor: "#ffffff", authorFont: "raleway", authorColor: "#e0f2fe", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#1e40af", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["aviation-sky"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "aviation-sunset", name: "Horizon", category: "aviation",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#fef3c7", authorFont: "heading", authorColor: "#fbbf24", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#1a1a2e", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["aviation-sunset"], backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── MARITIME ──
+  {
+    id: "maritime-ocean", name: "Deep Blue", category: "maritime",
+    editorState: {
+      font: "cormorant", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#bae6fd", authorFont: "heading", authorColor: "#7dd3fc", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#0a1628", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["maritime-ocean"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "maritime-ship", name: "Voyage", category: "maritime",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 1.8, textAlign: "center", letterSpacing: 0.1, lineHeight: 1.4,
+      textColor: "#ffffff", authorFont: "raleway", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#0f172a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["maritime-ship"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "maritime-lighthouse", name: "Lighthouse", category: "maritime",
+    editorState: {
+      font: "lora", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#fef9c3", authorFont: "heading", authorColor: "#fde68a", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["maritime-lighthouse"], backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── LAW ──
+  {
+    id: "law-justice", name: "Justice", category: "law",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.8,
+      textColor: "#d4af37", authorFont: "heading", authorColor: "#b8860b", authorFontSize: 0.75,
+      isBold: false, isItalic: true, backgroundColor: "#1a1a1a", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["law-justice"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "law-gavel", name: "Gavel", category: "law",
+    editorState: {
+      font: "cormorant", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.7,
+      textColor: "#e2e8f0", authorFont: "raleway", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#27272a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["law-gavel"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "law-books", name: "Statute", category: "law",
+    editorState: {
+      font: "merriweather", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.9,
+      textColor: "#fef3c7", authorFont: "heading", authorColor: "#d97706", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["law-books"], backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── BAKING ──
+  {
+    id: "baking-bread", name: "Artisan", category: "baking",
+    editorState: {
+      font: "caveat", theme: "light", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#78350f", authorFont: "heading", authorColor: "#92400e", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#fef3c7", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["baking-bread"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "baking-pastry", name: "Pastry", category: "baking",
+    editorState: {
+      font: "dancing", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.6,
+      textColor: "#be185d", authorFont: "raleway", authorColor: "#9d174d", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fff1f2", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["baking-pastry"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "baking-kitchen", name: "Kitchen", category: "baking",
+    editorState: {
+      font: "lora", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.8,
+      textColor: "#451a03", authorFont: "heading", authorColor: "#78350f", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#fffbeb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["baking-kitchen"], backgroundOpacity: 0.3,
+    },
+  },
+
+  // ── BANKING ──
+  {
+    id: "banking-vault", name: "Vault", category: "banking",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.7,
+      textColor: "#d4af37", authorFont: "heading", authorColor: "#b8860b", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["banking-vault"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "banking-finance", name: "Finance", category: "banking",
+    editorState: {
+      font: "inter", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.9,
+      textColor: "#22c55e", authorFont: "raleway", authorColor: "#4ade80", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#0f172a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["banking-finance"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "banking-coins", name: "Wealth", category: "banking",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#fef3c7", authorFont: "heading", authorColor: "#fbbf24", authorFontSize: 0.75,
+      isBold: false, isItalic: true, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["banking-coins"], backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── FUNNY ──
+  {
+    id: "funny-laugh", name: "LOL", category: "funny",
+    editorState: {
+      font: "permanent-marker", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.6,
+      textColor: "#dc2626", authorFont: "heading", authorColor: "#ef4444", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#fef9c3", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["funny-laugh"], backgroundOpacity: 0.25,
+    },
+  },
+  {
+    id: "funny-silly", name: "Silly", category: "funny",
+    editorState: {
+      font: "caveat", theme: "light", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#7c3aed", authorFont: "raleway", authorColor: "#8b5cf6", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fef3c7", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["funny-silly"], backgroundOpacity: 0.25,
+    },
+  },
+  {
+    id: "funny-comedy", name: "Comedy", category: "funny",
+    editorState: {
+      font: "archivo", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.7,
+      textColor: "#fbbf24", authorFont: "heading", authorColor: "#f59e0b", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#18181b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["funny-comedy"], backgroundOpacity: 0.3,
+    },
+  },
+
+  // ── FARMING ──
+  {
+    id: "farming-field", name: "Golden Field", category: "farming",
+    editorState: {
+      font: "lora", theme: "light", fontSize: 1.4, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.7,
+      textColor: "#365314", authorFont: "heading", authorColor: "#4d7c0f", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#fefce8", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["farming-field"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "farming-harvest", name: "Harvest", category: "farming",
+    editorState: {
+      font: "merriweather", theme: "light", fontSize: 1.2, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.9,
+      textColor: "#78350f", authorFont: "raleway", authorColor: "#92400e", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fffbeb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["farming-harvest"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "farming-barn", name: "Barn", category: "farming",
+    editorState: {
+      font: "caveat", theme: "dark", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#fef3c7", authorFont: "heading", authorColor: "#fde68a", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["farming-barn"], backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── HISTORY ──
+  {
+    id: "history-ruins", name: "Ruins", category: "history",
+    editorState: {
+      font: "cormorant", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#d4af37", authorFont: "heading", authorColor: "#b8860b", authorFontSize: 0.75,
+      isBold: false, isItalic: true, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["history-ruins"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "history-ancient", name: "Ancient", category: "history",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#fef3c7", authorFont: "raleway", authorColor: "#fbbf24", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["history-ancient"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "history-medieval", name: "Medieval", category: "history",
+    editorState: {
+      font: "merriweather", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.9,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#1a1a2e", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["history-medieval"], backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── AUTONOMY ──
+  {
+    id: "autonomy-robot", name: "Robot", category: "autonomy",
+    editorState: {
+      font: "orbitron", theme: "dark", fontSize: 1.1, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.9,
+      textColor: "#22d3ee", authorFont: "heading", authorColor: "#67e8f9", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["autonomy-robot"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "autonomy-drone", name: "Drone", category: "autonomy",
+    editorState: {
+      font: "rajdhani", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.6,
+      textColor: "#a5f3fc", authorFont: "raleway", authorColor: "#67e8f9", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0c4a6e", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["autonomy-drone"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "autonomy-selfdriving", name: "Self-Driving", category: "autonomy",
+    editorState: {
+      font: "audiowide", theme: "dark", fontSize: 1.1, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.8,
+      textColor: "#e0f2fe", authorFont: "heading", authorColor: "#7dd3fc", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#0f172a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["autonomy-selfdriving"], backgroundOpacity: 0.35,
+    },
+  },
 ];
 
 const CATEGORIES = [
@@ -1280,6 +1568,15 @@ const CATEGORIES = [
   { value: "motivation", label: "Motivation" },
   { value: "business", label: "Business" },
   { value: "photography", label: "Photography" },
+  { value: "aviation", label: "Aviation" },
+  { value: "maritime", label: "Maritime" },
+  { value: "law", label: "Law" },
+  { value: "baking", label: "Baking" },
+  { value: "banking", label: "Banking" },
+  { value: "funny", label: "Funny" },
+  { value: "farming", label: "Farming" },
+  { value: "history", label: "History" },
+  { value: "autonomy", label: "Autonomy" },
 ];
 
 const FONT_CLASS_MAP: Record<string, string> = {
@@ -1387,6 +1684,33 @@ const PREVIEW_QUOTES: Record<string, { text: string; author: string }> = {
   "photography-portrait": { text: "A portrait is not made in the camera but on either side of it.", author: "Edward Steichen" },
   "photography-landscape": { text: "In every walk with nature one receives far more than he seeks.", author: "John Muir" },
   "photography-street": { text: "Photography is the story I fail to put into words.", author: "Destin Sparks" },
+  "aviation-cockpit": { text: "ONCE YOU HAVE TASTED FLIGHT, YOU WILL FOREVER WALK THE EARTH WITH YOUR EYES TURNED SKYWARD.", author: "Leonardo da Vinci" },
+  "aviation-sky": { text: "THE ENGINE IS THE HEART OF AN AIRPLANE, BUT THE PILOT IS ITS SOUL.", author: "Walter Raleigh" },
+  "aviation-sunset": { text: "For once you have tasted flight you will walk the earth with your eyes turned skywards.", author: "Leonardo da Vinci" },
+  "maritime-ocean": { text: "The sea, once it casts its spell, holds one in its net of wonder forever.", author: "Jacques Cousteau" },
+  "maritime-ship": { text: "A SHIP IN HARBOR IS SAFE, BUT THAT IS NOT WHAT SHIPS ARE BUILT FOR.", author: "John A. Shedd" },
+  "maritime-lighthouse": { text: "A lighthouse is not interested in who gets its light. It just gives it without thinking.", author: "Mehmet Murat Ildan" },
+  "law-justice": { text: "Injustice anywhere is a threat to justice everywhere.", author: "Martin Luther King Jr." },
+  "law-gavel": { text: "The law is reason, free from passion.", author: "Aristotle" },
+  "law-books": { text: "Where there is no law, there is no freedom.", author: "John Locke" },
+  "baking-bread": { text: "Baking is love made edible.", author: "Anonymous" },
+  "baking-pastry": { text: "Life is uncertain. Eat dessert first.", author: "Ernestine Ulmer" },
+  "baking-kitchen": { text: "In baking, follow directions. In cooking, go by your own taste.", author: "Laiko Bahrs" },
+  "banking-vault": { text: "A BANK IS A PLACE THAT WILL LEND YOU MONEY IF YOU CAN PROVE THAT YOU DON'T NEED IT.", author: "Bob Hope" },
+  "banking-finance": { text: "Compound interest is the eighth wonder of the world.", author: "Albert Einstein" },
+  "banking-coins": { text: "Money is only a tool. It will take you wherever you wish, but it will not replace you as the driver.", author: "Ayn Rand" },
+  "funny-laugh": { text: "I'M NOT SUPERSTITIOUS, BUT I AM A LITTLE STITIOUS.", author: "Michael Scott" },
+  "funny-silly": { text: "Behind every great man is a woman rolling her eyes.", author: "Jim Carrey" },
+  "funny-comedy": { text: "I USED TO THINK I WAS INDECISIVE. BUT NOW I'M NOT SO SURE.", author: "Unknown" },
+  "farming-field": { text: "The farmer is the only man in our economy who buys everything at retail and sells everything at wholesale.", author: "John F. Kennedy" },
+  "farming-harvest": { text: "Agriculture is the most healthful, most useful, and most noble employment of man.", author: "George Washington" },
+  "farming-barn": { text: "To plant a garden is to believe in tomorrow.", author: "Audrey Hepburn" },
+  "history-ruins": { text: "Those who cannot remember the past are condemned to repeat it.", author: "George Santayana" },
+  "history-ancient": { text: "History is written by the victors.", author: "Winston Churchill" },
+  "history-medieval": { text: "The more you know about the past, the better prepared you are for the future.", author: "Theodore Roosevelt" },
+  "autonomy-robot": { text: "THE QUESTION IS NOT WHETHER MACHINES THINK BUT WHETHER MEN DO.", author: "B.F. Skinner" },
+  "autonomy-drone": { text: "THE BEST WAY TO PREDICT THE FUTURE IS TO CREATE IT.", author: "Peter Drucker" },
+  "autonomy-selfdriving": { text: "Technology is best when it brings people together.", author: "Matt Mullenweg" },
 };
 
 interface TemplateLibraryProps {
