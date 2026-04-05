@@ -130,4 +130,18 @@ export const MARKETING_PAGES: Config[] = [
     ],
     templateCategory: "bold",
   },
+  {
+    slug: "posters",
+    title: "Create Posters & Flyers | Lazy Faceless",
+    headline: "Create Posters & Flyers That Demand Attention",
+    subheadline: "Design printable posters, event flyers, and wall art — bold typography, zero design skills.",
+    description: "From motivational wall art to event announcements, create stunning posters in seconds.",
+    ctaText: "Create a Poster",
+    features: [
+      { icon: "🖨️", title: "Print-Ready Sizes", description: "A4, A3, and US Letter formats optimized for crisp, high-quality printing." },
+      { icon: "🎭", title: "Event & Promo Flyers", description: "Eye-catching designs for concerts, launches, sales, and community events." },
+      { icon: "🖼️", title: "Wall Art & Quotes", description: "Turn your favorite quotes into frameable art with elegant layouts and typography." },
+    ],
+    templateCategory: "elegant",
+  },
 ];
