@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { Check, X, ArrowLeft, Sparkles } from "lucide-react";
+import { Check, X, Sparkles } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { MainNav, LogoWithTagline } from "@/components/MainNav";
 import AuthModal from "@/components/AuthModal";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -114,14 +115,11 @@ const Pricing = () => {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span className="font-orbitron text-sm font-bold tracking-widest text-foreground uppercase">Lazy Faceless</span>
-          </button>
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <LogoWithTagline />
+            <MainNav />
+          </div>
         </div>
       </header>
 
