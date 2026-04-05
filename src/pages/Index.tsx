@@ -178,7 +178,7 @@ const Index = () => {
   const pageContent = (
     <div className={user ? "flex-1 flex flex-col min-w-0 bg-background" : "min-h-screen bg-background"}>
       <header className="border-b border-border">
-        <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1600px] mx-auto">
+        <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1400px] mx-auto">
           <div className="flex items-center gap-6">
             {user && <SidebarTrigger />}
             <LogoWithTagline />

@@ -49,10 +49,10 @@ const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
           </div>
           <div className="flex items-center gap-4">
             <button
-              onClick={() => navigate("/pricing")}
-              className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
+              onClick={() => navigate("/")}
+              className="px-4 py-2 bg-foreground text-background font-heading text-xs font-medium rounded-md hover:opacity-90 transition-opacity"
             >
-              Pricing
+              Open Editor
             </button>
             <button
               onClick={() => navigate("/")}
