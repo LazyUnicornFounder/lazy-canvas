@@ -30,6 +30,9 @@ export default {
         crimson: ['Crimson Text', 'serif'],
         montserrat: ['Montserrat', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
+        pacifico: ['Pacifico', 'cursive'],
+        'great-vibes': ['Great Vibes', 'cursive'],
+        satisfy: ['Satisfy', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",
