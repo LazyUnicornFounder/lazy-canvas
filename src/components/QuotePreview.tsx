@@ -1,6 +1,6 @@
 import { forwardRef, useRef, useEffect, useState } from "react";
 
-export type AspectRatio = "vertical" | "square" | "landscape";
+export type AspectRatio = "square" | "3:4" | "2:3" | "9:16" | "1:2" | "4:3" | "3:2" | "16:9" | "2:1";
 export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading";
 export type QuoteTheme = "light" | "dark" | "cream" | "ink";
 export type TextShadow = "none" | "soft" | "hard" | "glow" | "outline";
@@ -29,9 +29,15 @@ interface QuotePreviewProps {
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
-  vertical: "aspect-[3/4]",
-  square: "aspect-square",
-  landscape: "aspect-[4/3]",
+  "square": "aspect-square",
+  "3:4": "aspect-[3/4]",
+  "2:3": "aspect-[2/3]",
+  "9:16": "aspect-[9/16]",
+  "1:2": "aspect-[1/2]",
+  "4:3": "aspect-[4/3]",
+  "3:2": "aspect-[3/2]",
+  "16:9": "aspect-[16/9]",
+  "2:1": "aspect-[2/1]",
 };
 
 const fontClasses: Record<QuoteFont, string> = {

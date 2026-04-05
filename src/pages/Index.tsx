@@ -9,10 +9,16 @@ import QuotePreview, {
   type AuthorPosition,
 } from "@/components/QuotePreview";
 
-const ASPECT_OPTIONS: { value: AspectRatio; label: string }[] = [
-  { value: "vertical", label: "3:4" },
-  { value: "square", label: "1:1" },
-  { value: "landscape", label: "4:3" },
+const ASPECT_OPTIONS: { value: AspectRatio; label: string; row: number }[] = [
+  { value: "square", label: "1:1", row: 0 },
+  { value: "3:4", label: "3:4", row: 0 },
+  { value: "2:3", label: "2:3", row: 0 },
+  { value: "9:16", label: "9:16", row: 0 },
+  { value: "1:2", label: "1:2", row: 0 },
+  { value: "4:3", label: "4:3", row: 1 },
+  { value: "3:2", label: "3:2", row: 1 },
+  { value: "16:9", label: "16:9", row: 1 },
+  { value: "2:1", label: "2:1", row: 1 },
 ];
 
 const FONT_OPTIONS: { value: QuoteFont; label: string; preview: string }[] = [
