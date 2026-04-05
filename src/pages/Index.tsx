@@ -125,7 +125,6 @@ const Index = () => {
         <div className="max-w-[280px] mx-auto">
           <QuotePreview
             ref={mobilePreviewRef}
-            ref={previewRef}
             quote={editorState.quote}
             authorName={editorState.authorName}
             authorPhoto={editorState.authorPhoto}
