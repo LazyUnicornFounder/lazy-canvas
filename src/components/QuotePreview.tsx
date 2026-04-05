@@ -169,7 +169,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = []) => {
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor, isBold, isItalic, coloredWords }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
