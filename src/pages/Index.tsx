@@ -212,7 +212,7 @@ const Index = () => {
                 <input
                   type="range"
                   min={0.8}
-                  max={3}
+                  max={6}
                   step={0.05}
                   value={fontSize}
                   onChange={(e) => setFontSize(parseFloat(e.target.value))}
