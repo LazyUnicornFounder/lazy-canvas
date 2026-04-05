@@ -146,6 +146,7 @@ const HeroPhoneMockup = () => {
           </div>
         </div>
       </div>
+      </div>
     </div>
   );
 };
