@@ -537,7 +537,7 @@ const Index = () => {
           <AlertDialogHeader>
             <AlertDialogTitle className="font-heading">Nice design! 🎨</AlertDialogTitle>
             <AlertDialogDescription className="text-sm text-muted-foreground">
-              You created a design with PRO features, but the first one is on us. Sign up for free to download it.
+              Your first PRO design is on us. Sign up for free to download it.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
