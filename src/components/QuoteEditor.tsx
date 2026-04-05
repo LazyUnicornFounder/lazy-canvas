@@ -126,6 +126,12 @@ const PHYSICAL_FORMAT_GROUPS: { label: string; options: { value: AspectRatio; la
       { value: "banner-2x5", label: "Banner" },
     ],
   },
+  {
+    label: "Business",
+    options: [
+      { value: "business-card", label: "Card" },
+    ],
+  },
 ];
 
 const SERIF_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
@@ -1168,10 +1174,10 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             <div key={heading}>
               {sectionIdx > 0 && <hr className="my-3 border-border" />}
               <p className="text-[11px] font-heading font-semibold text-foreground uppercase tracking-wider mb-2">{heading}</p>
-              <div className="space-y-3">
+              <div className="flex flex-wrap gap-x-6 gap-y-3">
                 {groups.map((group) => (
-                  <div key={group.label}>
-                    <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1.5">{group.label}</p>
+                  <div key={group.label} className="min-w-fit">
+                    <p className="text-[10px] text-foreground/70 uppercase tracking-wider mb-1.5">{group.label}</p>
                     <div className="flex flex-wrap gap-2">
                       {group.options.map((opt) => {
                         const ratioMap: Record<string, [number, number]> = {

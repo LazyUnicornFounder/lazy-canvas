@@ -57,7 +57,7 @@ const socialIcons: Record<SocialPlatform, IconComponent> = {
   snapchat: SnapchatIcon,
 };
 
-export type AspectRatio = "square" | "3:4" | "2:3" | "9:16" | "1:2" | "4:3" | "3:2" | "16:9" | "2:1" | "1.91:1" | "3:1" | "4:1" | "820:312" | "a0" | "a1" | "a2" | "a3" | "a4" | "letter" | "legal" | "tabloid" | "poster-18x24" | "poster-24x36" | "banner-2x5" | "ios-screenshot" | "ios-ipad" | "android-phone" | "android-tablet" | "mac-screenshot" | "app-icon" | "iphone-wallpaper" | "android-wallpaper" | "lock-screen" | "custom";
+export type AspectRatio = "square" | "3:4" | "2:3" | "9:16" | "1:2" | "4:3" | "3:2" | "16:9" | "2:1" | "1.91:1" | "3:1" | "4:1" | "820:312" | "a0" | "a1" | "a2" | "a3" | "a4" | "letter" | "legal" | "tabloid" | "poster-18x24" | "poster-24x36" | "banner-2x5" | "ios-screenshot" | "ios-ipad" | "android-phone" | "android-tablet" | "mac-screenshot" | "app-icon" | "iphone-wallpaper" | "android-wallpaper" | "lock-screen" | "business-card" | "custom";
 export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading" | "lora" | "inter" | "oswald" | "merriweather" | "raleway" | "dancing" | "archivo" | "crimson" | "montserrat" | "poppins" | "pacifico" | "great-vibes" | "satisfy" | "caveat" | "permanent-marker" | "shadows-into-light" | "orbitron" | "rajdhani" | "audiowide";
 export type QuoteTheme = "light" | "dark" | "cream" | "ink";
 export type TextShadow = "none" | "soft" | "hard" | "glow" | "outline" | "neon";
@@ -137,6 +137,7 @@ const aspectClasses: Record<AspectRatio, string> = {
   "iphone-wallpaper": "aspect-[1179/2556]",
   "android-wallpaper": "aspect-[1080/2400]",
   "lock-screen": "aspect-[1170/2532]",
+  "business-card": "aspect-[3.5/2]",
   "custom": "",
 };
 
