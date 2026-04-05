@@ -23,23 +23,28 @@ const ASPECT_OPTIONS: { value: AspectRatio; label: string; row: number }[] = [
   { value: "2:1", label: "2:1", row: 1 },
 ];
 
-const FONT_OPTIONS: { value: QuoteFont; label: string; preview: string }[] = [
+const SERIF_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
   { value: "playfair", label: "Playfair", preview: "font-playfair" },
   { value: "cormorant", label: "Cormorant", preview: "font-cormorant" },
   { value: "lora", label: "Lora", preview: "font-lora" },
   { value: "merriweather", label: "Merriweather", preview: "font-merriweather" },
   { value: "crimson", label: "Crimson", preview: "font-crimson" },
-  { value: "bebas", label: "Bebas", preview: "font-bebas" },
-  { value: "oswald", label: "Oswald", preview: "font-oswald" },
-  { value: "archivo", label: "Archivo", preview: "font-archivo" },
+  { value: "dancing", label: "Dancing", preview: "font-dancing" },
+];
+
+const SANS_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
   { value: "heading", label: "Grotesk", preview: "font-heading" },
   { value: "inter", label: "Inter", preview: "font-inter" },
   { value: "raleway", label: "Raleway", preview: "font-raleway" },
   { value: "montserrat", label: "Montserrat", preview: "font-montserrat" },
   { value: "poppins", label: "Poppins", preview: "font-poppins" },
-  { value: "dancing", label: "Dancing", preview: "font-dancing" },
+  { value: "oswald", label: "Oswald", preview: "font-oswald" },
+  { value: "bebas", label: "Bebas", preview: "font-bebas" },
+  { value: "archivo", label: "Archivo", preview: "font-archivo" },
   { value: "mono", label: "Mono", preview: "font-mono" },
 ];
+
+const FONT_OPTIONS = [...SERIF_FONTS, ...SANS_FONTS];
 
 const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string }[] = [
   { value: "light", label: "Light", swatch: "#FFFFFF" },
