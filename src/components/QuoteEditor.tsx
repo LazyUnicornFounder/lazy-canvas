@@ -251,7 +251,9 @@ interface QuoteEditorProps {
   isPro?: boolean;
 }
 
-const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
+const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorProps) => {
+  // Normalize state to handle old saved states missing new fields
+  const state: QuoteEditorState = { ...DEFAULT_EDITOR_STATE, ...rawState, coloredWords: rawState.coloredWords || [], photoShape: rawState.photoShape || "circle" };
   const navigate = useNavigate();
   const goToPricing = () => navigate("/pricing");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
