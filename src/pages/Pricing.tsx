@@ -31,7 +31,7 @@ const tiers = [
     period: "/month",
     description: "Remove the watermark and unlock premium tools.",
     cta: "Upgrade to Pro",
-    highlighted: true,
+    highlighted: false,
     features: [
       { text: "Everything in Free", included: true },
       { text: "No watermark on downloads", included: true },
