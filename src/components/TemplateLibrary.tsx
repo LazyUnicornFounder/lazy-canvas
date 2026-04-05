@@ -33,8 +33,35 @@ interface Template {
   name: string;
   category: string;
   editorState: Partial<QuoteEditorState>;
+  previewImage?: string;
   isDb?: boolean;
 }
+
+const TEMPLATE_IMAGES: Record<string, string> = {
+  whisper: imgWhisper,
+  monochrome: imgMonochrome,
+  paper: imgPaper,
+  "sunset-gradient": imgGoldenHour,
+  "aesthetic-pink": imgBlush,
+  matcha: imgMatcha,
+  "lavender-dream": imgLavender,
+  "ocean-mist": imgOcean,
+  impact: imgImpact,
+  electric: imgElectric,
+  fire: imgFire,
+  acid: imgAcid,
+  polaroid: imgPolaroid,
+  typewriter: imgTypewriter,
+  cinema: imgCinema,
+  sepia: imgSepia,
+  "gold-noir": imgGoldNoir,
+  marble: imgMarble,
+  champagne: imgChampagne,
+  midnight: imgMidnight,
+  marker: imgMarker,
+  bubblegum: imgBubblegum,
+  sunshine: imgSunshine,
+};
 
 const BUILTIN_TEMPLATES: Template[] = [
   // ── MINIMAL ──
