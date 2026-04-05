@@ -183,7 +183,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         <div className="absolute inset-0 flex flex-col" style={{ padding: "clamp(12px, 4%, 32px)" }}>
           {/* Quote content */}
           <div ref={containerRef} className="flex-1 flex items-center justify-center relative z-10 overflow-hidden">
-            <div ref={contentRef} style={{ textAlign, maxWidth: "90%", transform: `scale(${scale})`, transformOrigin: "center center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+            <div ref={contentRef} style={{ textAlign, maxWidth: "90%", width: "90%", transform: `scale(${scale})`, transformOrigin: "center center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
               <p
                 className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""} whitespace-pre-wrap break-words`}
                 style={{
@@ -192,6 +192,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
                   lineHeight,
                   color: textColor || undefined,
                   textShadow: shadowStyles[textShadow],
+                  overflowWrap: "break-word",
+                  wordBreak: "break-word",
                 }}
               >
                 &ldquo;{displayQuote}&rdquo;
