@@ -55,6 +55,7 @@ interface QuotePreviewProps {
   isBold: boolean;
   isItalic: boolean;
   coloredWords?: ColoredWord[];
+  showWatermark?: boolean;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
