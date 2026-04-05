@@ -275,7 +275,7 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
       </div>
       {/* Quote */}
       <div className="md:col-span-2">
-        <ControlSection label="Quote">
+        <ControlSection label="Text">
           <div className="relative">
             <textarea
               ref={quoteTextareaRef}
