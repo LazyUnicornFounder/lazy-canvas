@@ -142,7 +142,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     return (
       <div
         ref={ref}
-        className={`${aspectClasses[aspectRatio]} w-full max-w-lg relative overflow-hidden flex flex-col`}
+        className={`${aspectClasses[aspectRatio]} w-full max-w-lg max-h-full relative overflow-hidden flex flex-col`}
         style={{ backgroundColor: t.bg, color: t.text, borderRadius: "2px" }}
       >
         {backgroundImage && (
