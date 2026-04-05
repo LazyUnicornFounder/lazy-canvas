@@ -113,6 +113,7 @@ const AdminGallery = () => {
                       coloredWords={Array.isArray(s.coloredWords) ? s.coloredWords : []}
                       showWatermark={false}
                       showQuotationMarks={s.showQuotationMarks || false}
+                      socials=""
                     />
                   </div>
                 </div>
