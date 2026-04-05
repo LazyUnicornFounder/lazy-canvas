@@ -25,6 +25,7 @@ const Index = () => {
   });
   const [downloading, setDownloading] = useState(false);
   const [showGalleryPrompt, setShowGalleryPrompt] = useState(false);
+  const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const mobilePreviewRef = useRef<HTMLDivElement>(null);
 
