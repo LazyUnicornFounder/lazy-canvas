@@ -33,7 +33,10 @@ const Index = () => {
   const [editorState, setEditorState] = useState<QuoteEditorState>(() => {
     try {
       const saved = localStorage.getItem(DRAFT_KEY);
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        localStorage.removeItem(DRAFT_KEY);
+        return { ...DEFAULT_EDITOR_STATE, ...JSON.parse(saved) };
+      }
     } catch {}
     return DEFAULT_EDITOR_STATE;
   });
