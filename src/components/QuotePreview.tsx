@@ -412,14 +412,13 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           {/* Overflow nudge */}
           {isOverflowing && (
             <div
-              className="absolute top-2 left-1/2 -translate-x-1/2 z-30 px-3 py-1.5 rounded-full flex items-center gap-1.5 animate-fade-in"
+              className="absolute top-0 left-0 right-0 z-30 px-3 py-2 flex items-center justify-center gap-1.5 animate-fade-in"
               style={{
                 backgroundColor: "rgba(0,0,0,0.75)",
                 backdropFilter: "blur(8px)",
-                animation: "fade-in 0.3s ease-out, nudge-bounce 1.5s ease-in-out 0.3s",
               }}
             >
-              <span style={{ fontSize: "clamp(8px, 2%, 12px)", color: "#fbbf24", fontWeight: 600, whiteSpace: "nowrap" }}>
+              <span style={{ fontSize: "clamp(9px, 2.5%, 13px)", color: "#fbbf24", fontWeight: 600, whiteSpace: "nowrap" }}>
                 ⚠ Text too large or too much text.
               </span>
             </div>
