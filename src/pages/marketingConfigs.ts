@@ -186,4 +186,18 @@ export const MARKETING_PAGES: Config[] = [
     ],
     templateCategory: "minimal",
   },
+  {
+    slug: "stickers",
+    title: "Create Stickers | Lazy Faceless",
+    headline: "Create Custom Stickers in Seconds",
+    subheadline: "Design fun, bold stickers for laptops, water bottles, packaging, and merch — print or cut-ready.",
+    description: "Turn quotes, logos, and designs into sticker-ready artwork. Download high-res files for printing at home or with any sticker service.",
+    ctaText: "Create a Sticker",
+    features: [
+      { icon: "🏷️", title: "Sticker-Ready Sizes", description: "Square and circle formats sized perfectly for die-cut stickers, labels, and decals." },
+      { icon: "🎨", title: "Bold & Fun Templates", description: "Eye-catching designs with vibrant colors, playful fonts, and standout typography." },
+      { icon: "🖨️", title: "High-Res Download", description: "Export at print-ready resolution for crisp results on vinyl, paper, or holographic stock." },
+    ],
+    templateCategory: "playful",
+  },
 ];

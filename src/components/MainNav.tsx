@@ -18,6 +18,7 @@ const PHYSICAL_LINKS = [
   { label: "Posters", href: "/posters" },
   { label: "Flyers", href: "/flyers" },
   { label: "Business Cards", href: "/business-cards" },
+  { label: "Stickers", href: "/stickers" },
   { label: "Print", href: "/print" },
 ];
 
