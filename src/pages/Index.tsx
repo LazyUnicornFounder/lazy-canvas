@@ -546,11 +546,8 @@ const Index = () => {
                       "4:3": 4/3, "3:2": 3/2, "16:9": 16/9, "2:1": 2/1,
                     };
                     const ratio = ratioMap[aspectRatio] || 1;
-                    // For tall ratios, cap width so height fits viewport
-                    const maxH = "calc(100vh - 4rem)";
                     if (ratio <= 1) {
-                      // tall or square — width = height * ratio
-                      return `min(32rem, (100vh - 4rem) * ${ratio})`;
+                      return `min(32rem, calc((100vh - 4rem) * ${ratio}))`;
                     }
                     return "32rem";
                   })(),
