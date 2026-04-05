@@ -9,6 +9,7 @@ interface AuthContextType {
   isAdmin: boolean;
   isPro: boolean;
   signOut: () => Promise<void>;
+  refreshProStatus: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -18,6 +19,7 @@ const AuthContext = createContext<AuthContextType>({
   isAdmin: false,
   isPro: false,
   signOut: async () => {},
+  refreshProStatus: async () => {},
 });
 
 const ADMIN_EMAIL = "lazy@lazyunicorn.ai";
@@ -48,20 +50,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Check pro role
-  useEffect(() => {
+  const refreshProStatus = async () => {
     if (!user) {
       setIsPro(false);
       return;
     }
-    supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .then(({ data }) => {
-        const roles = (data || []).map((r) => r.role);
-        setIsPro(roles.includes("pro") || roles.includes("admin"));
-      });
+    try {
+      const { data, error } = await supabase.functions.invoke("check-pro-status");
+      if (!error && data) {
+        setIsPro(data.isPro === true);
+      }
+    } catch {
+      // Fallback to user_roles check
+      const { data: roles } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id);
+      const roleList = (roles || []).map((r) => r.role);
+      setIsPro(roleList.includes("pro") || roleList.includes("admin"));
+    }
+  };
+
+  // Check pro status when user changes
+  useEffect(() => {
+    refreshProStatus();
   }, [user]);
 
   // Auto-assign admin role when admin logs in
@@ -89,7 +101,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, isAdmin, isPro, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, isAdmin, isPro, signOut, refreshProStatus }}>
       {children}
     </AuthContext.Provider>
   );

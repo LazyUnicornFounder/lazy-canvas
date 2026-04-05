@@ -3,6 +3,10 @@ import { Check, X, ArrowLeft, Sparkles } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/AuthModal";
 import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+
+const POLAR_PRO_PRODUCT_ID = "5513f675-e192-4626-815d-375b75d84e43";
 
 const tiers = [
   {
@@ -14,10 +18,8 @@ const tiers = [
     highlighted: false,
     features: [
       { text: "Unlimited quote designs", included: true },
-      
       { text: "PNG download", included: true },
       { text: "Save unlimited quotes", included: true },
-      
       { text: "Word colors", included: false },
       { text: "Text formatting", included: false },
       { text: "Background image upload", included: false },
@@ -34,9 +36,7 @@ const tiers = [
     features: [
       { text: "Everything in Free", included: true },
       { text: "Word colors", included: true },
-      
       { text: "Background image upload", included: true },
-      
       { text: "No watermark", included: true },
       { text: "Save and re-edit your quotes", included: true },
     ],
@@ -45,8 +45,9 @@ const tiers = [
 
 const Pricing = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isPro } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -56,6 +57,36 @@ const Pricing = () => {
     return () => window.removeEventListener("keydown", handleKey);
   }, [navigate]);
 
+  const handleCheckout = async () => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+
+    if (isPro) {
+      toast.info("You're already a Pro subscriber!");
+      return;
+    }
+
+    setCheckoutLoading(true);
+    try {
+      const successUrl = `${window.location.origin}/pricing?checkout=success&checkout_id={CHECKOUT_ID}`;
+      const { data, error } = await supabase.functions.invoke("polar-checkout", {
+        body: { productId: POLAR_PRO_PRODUCT_ID, successUrl },
+      });
+
+      if (error) throw error;
+      if (data?.url) {
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      console.error("Checkout error:", err);
+      toast.error("Failed to start checkout. Please try again.");
+    } finally {
+      setCheckoutLoading(false);
+    }
+  };
+
   const handleCta = (tierName: string) => {
     if (tierName === "Free") {
       if (user) {
@@ -64,12 +95,19 @@ const Pricing = () => {
         setShowAuthModal(true);
       }
     } else {
-      // TODO: integrate payments
-      if (!user) {
-        setShowAuthModal(true);
-      }
+      handleCheckout();
     }
   };
+
+  // Handle return from checkout
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("checkout") === "success") {
+      toast.success("Welcome to Pro! 🎉 Your subscription is now active.");
+      // Clean URL
+      window.history.replaceState({}, "", "/pricing");
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -133,9 +171,14 @@ const Pricing = () => {
 
               <button
                 onClick={() => handleCta(tier.name)}
-                className="w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 mb-6 bg-foreground text-background"
+                disabled={checkoutLoading && tier.name === "Pro"}
+                className="w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 mb-6 bg-foreground text-background disabled:opacity-50"
               >
-                {tier.cta}
+                {tier.name === "Pro" && isPro
+                  ? "Current Plan"
+                  : tier.name === "Pro" && checkoutLoading
+                  ? "Loading..."
+                  : tier.cta}
               </button>
 
               <ul className="space-y-2.5 flex-1">
