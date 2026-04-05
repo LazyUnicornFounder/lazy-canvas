@@ -11,6 +11,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useNavigate } from "react-router-dom";
 import { LogOut, User, Download, Shield } from "lucide-react";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
+import type { UserQuote } from "@/hooks/useUserQuotes";
 import AuthModal from "@/components/AuthModal";
 import GalleryPromptDialog from "@/components/GalleryPromptDialog";
 import { MainNav, LogoWithTagline } from "@/components/MainNav";
@@ -39,8 +42,23 @@ const Index = () => {
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [showProUpgradePrompt, setShowProUpgradePrompt] = useState(false);
   const [showProSignupPrompt, setShowProSignupPrompt] = useState(false);
+  const [activeQuoteId, setActiveQuoteId] = useState<string | null>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const mobilePreviewRef = useRef<HTMLDivElement>(null);
+
+  const handleSelectQuote = (quote: UserQuote) => {
+    if (!isPro) {
+      import("sonner").then(({ toast }) => toast.error("Re-editing saved quotes is a Pro feature."));
+      return;
+    }
+    setActiveQuoteId(quote.id);
+    setEditorState(quote.editor_state);
+  };
+
+  const handleNewQuote = () => {
+    setActiveQuoteId(null);
+    setEditorState(DEFAULT_EDITOR_STATE);
+  };
 
   // Clear draft from localStorage once user is logged in and state is restored
   useEffect(() => {
@@ -152,11 +170,12 @@ const Index = () => {
 
   const isFreeUser = !isPro;
 
-  return (
-    <div className="min-h-screen bg-background">
+  const pageContent = (
+    <div className={user ? "flex-1 flex flex-col min-w-0 bg-background" : "min-h-screen bg-background"}>
       <header className="border-b border-border">
         <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1600px] mx-auto">
           <div className="flex items-center gap-6">
+            {user && <SidebarTrigger />}
             <LogoWithTagline />
             <MainNav />
           </div>
@@ -391,6 +410,24 @@ const Index = () => {
       </AlertDialog>
     </div>
   );
+
+  if (user) {
+    return (
+      <SidebarProvider>
+        <div className="min-h-screen flex w-full">
+          <AppSidebar
+            activeQuoteId={activeQuoteId}
+            onSelectQuote={handleSelectQuote}
+            onNewQuote={handleNewQuote}
+            currentEditorState={editorState}
+          />
+          {pageContent}
+        </div>
+      </SidebarProvider>
+    );
+  }
+
+  return pageContent;
 };
 
 export default Index;
