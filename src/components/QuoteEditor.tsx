@@ -217,13 +217,20 @@ const QuoteEditor = ({ state, onChange }: QuoteEditorProps) => {
       <div className="md:col-span-2">
         <ControlSection label="Quote">
           <div className="relative">
+            {!state.quote && (
+              <div
+                className="absolute inset-0 px-4 py-3 text-sm text-muted-foreground pointer-events-none font-body transition-opacity duration-300"
+                style={{ opacity: placeholderFade ? 1 : 0 }}
+              >
+                {ROTATING_QUOTES[placeholderIndex]}
+              </div>
+            )}
             <textarea
               ref={quoteTextareaRef}
               value={state.quote}
               onChange={(e) => set("quote", e.target.value)}
-              placeholder="The only way to do great work is to love what you do."
               rows={3}
-              className="w-full bg-transparent border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 resize-none font-body"
+              className="w-full bg-transparent border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-transparent focus:outline-none focus:ring-1 focus:ring-foreground/20 resize-none font-body"
             />
             <div className="absolute bottom-2 right-2">
               <button
