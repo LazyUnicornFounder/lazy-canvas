@@ -131,7 +131,7 @@ const BUILTIN_TEMPLATES: Template[] = [
     name: "Matcha",
     category: "trendy",
     editorState: {
-      font: "dm-sans",
+      font: "heading",
       theme: "light",
       fontSize: 1.3,
       textAlign: "center",
