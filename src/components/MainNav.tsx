@@ -1,6 +1,8 @@
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 
-const NAV_LINKS = [
+const DIGITAL_LINKS = [
   { label: "Instagram", href: "/instagram" },
   { label: "YouTube", href: "/youtube" },
   { label: "TikTok", href: "/tiktok" },
@@ -10,24 +12,57 @@ const NAV_LINKS = [
   { label: "X", href: "/twitter" },
   { label: "Banners", href: "/banners" },
   { label: "Posts", href: "/posts" },
+];
+
+const PHYSICAL_LINKS = [
   { label: "Posters", href: "/posters" },
   { label: "Print", href: "/print" },
 ];
 
-export function MainNav() {
+function NavDropdown({ label, links }: { label: string; links: { label: string; href: string }[] }) {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1 text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
+      >
+        {label}
+        <ChevronDown className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 mt-2 min-w-[140px] bg-popover border border-border rounded-md shadow-lg z-50 py-1">
+          {links.map((link) => (
+            <button
+              key={link.href}
+              onClick={() => { setOpen(false); navigate(link.href); }}
+              className="w-full px-3 py-2 text-xs text-left font-heading text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+            >
+              {link.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function MainNav() {
+  return (
     <nav className="hidden md:flex items-center gap-4">
-      {NAV_LINKS.map((link) => (
-        <button
-          key={link.href}
-          onClick={() => navigate(link.href)}
-          className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
-        >
-          {link.label}
-        </button>
-      ))}
+      <NavDropdown label="Digital" links={DIGITAL_LINKS} />
+      <NavDropdown label="Physical" links={PHYSICAL_LINKS} />
     </nav>
   );
 }
