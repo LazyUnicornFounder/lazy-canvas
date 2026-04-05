@@ -684,20 +684,35 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
       {/* Format + Theme grouped */}
       <div className="space-y-4">
         <ControlSection label="Format" pro={!isPro} onProClick={goToPricing}>
-          <div className="flex flex-wrap gap-1.5">
-            {ASPECT_OPTIONS.map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => set("aspectRatio", opt.value)}
-                className={`px-3 py-1.5 text-xs font-heading font-medium rounded-md border transition-all ${
-                  state.aspectRatio === opt.value
-                    ? "bg-foreground text-background border-foreground"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
+          <div className="flex flex-wrap gap-2">
+            {ASPECT_OPTIONS.map((opt) => {
+              const [w, h] = opt.value === "square" ? [1, 1] : opt.value.split(":").map(Number);
+              const maxDim = 36;
+              const scale = maxDim / Math.max(w, h);
+              const boxW = Math.round(w * scale);
+              const boxH = Math.round(h * scale);
+              const isActive = state.aspectRatio === opt.value;
+              return (
+                <button
+                  key={opt.value}
+                  onClick={() => set("aspectRatio", opt.value)}
+                  className={`flex flex-col items-center gap-1 p-1.5 rounded-md border transition-all ${
+                    isActive
+                      ? "border-foreground bg-foreground/5"
+                      : "border-border hover:border-foreground/30"
+                  }`}
+                  title={opt.label}
+                >
+                  <div
+                    className={`rounded-sm border ${isActive ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`}
+                    style={{ width: boxW, height: boxH }}
+                  />
+                  <span className={`text-[9px] font-heading ${isActive ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
+                    {opt.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </ControlSection>
 
