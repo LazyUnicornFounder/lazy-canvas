@@ -44,6 +44,19 @@ const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string }[] = [
 ];
 import { EMOJI_CATEGORIES } from "@/data/emojis";
 
+const SOCIAL_PLATFORMS = [
+  { value: "instagram", label: "Instagram", prefix: "@" },
+  { value: "twitter", label: "X / Twitter", prefix: "@" },
+  { value: "tiktok", label: "TikTok", prefix: "@" },
+  { value: "youtube", label: "YouTube", prefix: "@" },
+  { value: "linkedin", label: "LinkedIn", prefix: "" },
+  { value: "threads", label: "Threads", prefix: "@" },
+  { value: "bluesky", label: "Bluesky", prefix: "@" },
+  { value: "facebook", label: "Facebook", prefix: "" },
+  { value: "pinterest", label: "Pinterest", prefix: "@" },
+  { value: "snapchat", label: "Snapchat", prefix: "@" },
+];
+
 const Index = () => {
   const [quote, setQuote] = useState("");
   const [authorName, setAuthorName] = useState("");
