@@ -72,7 +72,7 @@ const shadowStyles: Record<TextShadow, string> = {
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor }, ref) => {
     const t = themeStyles[theme];
     const displayQuote = quote;
     const isPlaceholder = !quote;
@@ -151,7 +151,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       <div
         ref={ref}
         className={`${aspectClasses[aspectRatio]} w-full max-w-lg max-h-full relative overflow-hidden`}
-        style={{ backgroundColor: t.bg, color: t.text, borderRadius: "2px" }}
+        style={{ backgroundColor: backgroundColor || t.bg, color: t.text, borderRadius: "2px" }}
       >
         {backgroundImage && (
           <div
