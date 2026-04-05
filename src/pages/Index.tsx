@@ -105,7 +105,7 @@ const Index = () => {
         </div>
       </header>
 
-      <section className="min-h-[calc(100vh-4rem)] flex px-4 sm:px-6 overflow-hidden">
+      <section className="min-h-[calc(100vh-4rem)] flex px-4 sm:px-6">
         <div className="max-w-[1400px] mx-auto w-full flex gap-8 lg:gap-12 py-6">
           {/* Left — text + editor */}
           <div className="flex-1 min-w-0 flex flex-col">
