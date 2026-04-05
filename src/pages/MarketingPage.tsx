@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import TemplateLibrary from "@/components/TemplateLibrary";
@@ -26,6 +26,7 @@ const DRAFT_KEY = "lazy-quotes-draft";
 
 const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
   const navigate = useNavigate();
+  const [bgOpacity, setBgOpacity] = useState(0.4);
 
   useEffect(() => {
     document.title = config.title;
@@ -105,8 +106,8 @@ const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
           <div className="border border-border rounded-lg p-4 bg-card">
             <TemplateLibrary
               onApply={handleApplyTemplate}
-              backgroundOpacity={0.4}
-              onOpacityChange={() => {}}
+              backgroundOpacity={bgOpacity}
+              onOpacityChange={setBgOpacity}
               defaultCategory={config.templateCategory}
             />
           </div>
