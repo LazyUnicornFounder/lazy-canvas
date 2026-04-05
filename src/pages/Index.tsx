@@ -1,7 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, User, Download } from "lucide-react";
-import HeroPhoneMockup from "@/components/HeroPhoneMockup";
 import AuthModal from "@/components/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
 import QuoteEditor, { type QuoteEditorState, DEFAULT_EDITOR_STATE, SOCIAL_PLATFORMS } from "@/components/QuoteEditor";
@@ -58,12 +57,6 @@ const Index = () => {
             >
               Pricing
             </button>
-            <button
-              onClick={() => navigate("/create")}
-              className="px-4 py-2 bg-foreground text-background font-heading text-xs font-medium rounded-md hover:opacity-90 transition-opacity"
-            >
-              Create your quote
-            </button>
             {user ? (
               <>
                 <span className="text-xs text-muted-foreground hidden sm:block">{user.email}</span>
@@ -103,13 +96,6 @@ const Index = () => {
             <div className="flex-1 min-h-0">
               <QuoteEditor state={editorState} onChange={setEditorState} />
             </div>
-            <p className="text-[11px] text-muted-foreground/60 pt-4">
-              Built with{" "}
-              <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-muted-foreground transition-colors">Lovable</a>
-              . Payments by{" "}
-              <a href="https://polar.sh" target="_blank" rel="noopener noreferrer" className="underline hover:text-muted-foreground transition-colors">Polar</a>
-              .
-            </p>
           </div>
           {/* Phone — right */}
           <div className="hidden lg:flex flex-shrink-0 flex-col gap-3" style={{ width: "clamp(260px, 25vw, 320px)" }}>
@@ -156,6 +142,24 @@ const Index = () => {
               {downloading ? "Exporting…" : user ? "Download PNG" : "Sign up to download"}
             </button>
           </div>
+        </div>
+      </section>
+
+      {/* About */}
+      <section className="border-t border-border px-4 sm:px-6 py-8">
+        <div className="max-w-[1400px] mx-auto">
+          <p className="text-xs text-muted-foreground">
+            Lazy Quotes is part of{" "}
+            <a
+              href="https://lazyfactoryventures.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-foreground transition-colors"
+            >
+              Lazy Factory Ventures
+            </a>
+            .
+          </p>
         </div>
       </section>
 
