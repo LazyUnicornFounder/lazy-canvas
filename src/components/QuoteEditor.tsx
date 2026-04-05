@@ -407,7 +407,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
       </div>
 
       {/* Background — PRO */}
-      <div className="md:col-span-2">
+      <div>
       <ControlSection label="Background" pro={!isPro} onProClick={goToPricing}>
         <input ref={bgInputRef} type="file" accept="image/*" onChange={handleBgUpload} className="hidden" />
         <div className="space-y-3">
@@ -488,6 +488,29 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
         </div>
       </ControlSection>
       </div>
+
+      {/* Theme */}
+      <ControlSection label="Theme">
+        <div className="flex flex-wrap gap-3">
+          {THEME_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => set("theme", opt.value)}
+              className="flex flex-col items-center gap-1.5 group"
+            >
+              <div
+                className={`w-10 h-10 rounded-full border-2 transition-all ${
+                  state.theme === opt.value
+                    ? "border-foreground scale-110"
+                    : "border-border group-hover:border-foreground/30"
+                }`}
+                style={{ backgroundColor: opt.swatch }}
+              />
+              <span className="text-[10px] font-heading text-muted-foreground">{opt.label}</span>
+            </button>
+          ))}
+        </div>
+      </ControlSection>
       {/* Quote */}
       <div className="md:col-span-2">
         <ControlSection label="Text">
@@ -1189,27 +1212,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
         </ControlSection>
       </div>
 
-      <ControlSection label="Theme">
-        <div className="flex gap-3">
-          {THEME_OPTIONS.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => set("theme", opt.value)}
-              className="flex flex-col items-center gap-1.5 group"
-            >
-              <div
-                className={`w-10 h-10 rounded-full border-2 transition-all ${
-                  state.theme === opt.value
-                    ? "border-foreground scale-110"
-                    : "border-border group-hover:border-foreground/30"
-                }`}
-                style={{ backgroundColor: opt.swatch }}
-              />
-              <span className="text-[10px] font-heading text-muted-foreground">{opt.label}</span>
-            </button>
-          ))}
-        </div>
-      </ControlSection>
+
     </div>
   );
 };
