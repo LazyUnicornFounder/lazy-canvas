@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { X } from "lucide-react";
@@ -15,6 +15,15 @@ const AuthModal = ({ open, onClose, onSuccess }: AuthModalProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, onClose]);
 
   if (!open) return null;
 
@@ -52,6 +61,7 @@ const AuthModal = ({ open, onClose, onSuccess }: AuthModalProps) => {
       toast.error("Google sign in failed");
     }
   };
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
