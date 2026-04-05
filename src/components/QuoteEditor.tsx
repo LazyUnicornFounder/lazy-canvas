@@ -235,8 +235,6 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
               onChange({
                 ...state,
                 ...partial,
-                quote: state.quote,
-                authorName: state.authorName,
                 socialPlatform: state.socialPlatform,
                 socialUsername: state.socialUsername,
                 website: state.website,

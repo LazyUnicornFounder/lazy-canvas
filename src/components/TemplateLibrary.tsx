@@ -625,30 +625,30 @@ const FONT_CLASS_MAP: Record<string, string> = {
   audiowide: "font-audiowide",
 };
 
-const PREVIEW_QUOTES: Record<string, string> = {
-  whisper: "less is more",
-  monochrome: "NO LIMITS.",
-  paper: "words have power",
-  "sunset-gradient": "chase the light",
-  "aesthetic-pink": "be gentle with yourself",
-  matcha: "grow through it",
-  "lavender-dream": "dream in color",
-  "ocean-mist": "find your calm",
-  impact: "MAKE IT HAPPEN",
-  electric: "POWER UP",
-  fire: "BURN BRIGHT",
-  acid: "BREAK FREE",
-  polaroid: "remember this moment",
-  typewriter: "once upon a time...",
-  cinema: "the end is just the beginning",
-  sepia: "timeless wisdom",
-  "gold-noir": "elegance is attitude",
-  marble: "CARVED IN STONE",
-  champagne: "celebrate every win",
-  midnight: "written in the stars",
-  marker: "BE LOUD!",
-  bubblegum: "stay sweet",
-  sunshine: "hello sunshine",
+const PREVIEW_QUOTES: Record<string, { text: string; author: string }> = {
+  whisper: { text: "Less is more.", author: "Ludwig Mies van der Rohe" },
+  monochrome: { text: "BE YOURSELF. EVERYONE ELSE IS TAKEN.", author: "Oscar Wilde" },
+  paper: { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+  "sunset-gradient": { text: "Not all those who wander are lost.", author: "J.R.R. Tolkien" },
+  "aesthetic-pink": { text: "She believed she could, so she did.", author: "R.S. Grey" },
+  matcha: { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
+  "lavender-dream": { text: "We are such stuff as dreams are made on.", author: "William Shakespeare" },
+  "ocean-mist": { text: "The cure for anything is salt water: sweat, tears, or the sea.", author: "Isak Dinesen" },
+  impact: { text: "DO OR DO NOT. THERE IS NO TRY.", author: "Yoda" },
+  electric: { text: "THE FUTURE BELONGS TO THOSE WHO BELIEVE IN THE BEAUTY OF THEIR DREAMS.", author: "Eleanor Roosevelt" },
+  fire: { text: "SET YOUR LIFE ON FIRE. SEEK THOSE WHO FAN YOUR FLAMES.", author: "Rumi" },
+  acid: { text: "STAY HUNGRY. STAY FOOLISH.", author: "Steve Jobs" },
+  polaroid: { text: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
+  typewriter: { text: "There is no greater agony than bearing an untold story inside you.", author: "Maya Angelou" },
+  cinema: { text: "After all, tomorrow is another day.", author: "Scarlett O'Hara" },
+  sepia: { text: "The only true wisdom is in knowing you know nothing.", author: "Socrates" },
+  "gold-noir": { text: "Elegance is not standing out, but being remembered.", author: "Giorgio Armani" },
+  marble: { text: "SIMPLICITY IS THE ULTIMATE SOPHISTICATION.", author: "Leonardo da Vinci" },
+  champagne: { text: "I drink champagne when I win, to celebrate… and when I lose, to console myself.", author: "Napoleon Bonaparte" },
+  midnight: { text: "We are all in the gutter, but some of us are looking at the stars.", author: "Oscar Wilde" },
+  marker: { text: "ART IS NOT WHAT YOU SEE, BUT WHAT YOU MAKE OTHERS SEE.", author: "Edgar Degas" },
+  bubblegum: { text: "Be happy for this moment. This moment is your life.", author: "Omar Khayyam" },
+  sunshine: { text: "Keep your face always toward the sunshine and shadows will fall behind you.", author: "Walt Whitman" },
 };
 
 interface TemplateLibraryProps {
@@ -709,13 +709,15 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
           const s = template.editorState;
           const textCol = s.textColor || "#1a1a1a";
           const fontClass = FONT_CLASS_MAP[s.font || "playfair"] || "font-playfair";
-          const previewText = PREVIEW_QUOTES[template.id] || "the quick fox";
+          const quoteData = PREVIEW_QUOTES[template.id];
+          const previewText = quoteData?.text || "the quick fox";
+          const previewAuthor = quoteData?.author || "";
           const bgImage = TEMPLATE_IMAGES[template.id];
 
           return (
             <button
               key={template.id}
-              onClick={() => onApply(template.editorState)}
+              onClick={() => onApply({ ...template.editorState, quote: previewText, authorName: previewAuthor })}
               className="group relative rounded-xl overflow-hidden border border-border/50 hover:border-foreground/20 transition-all duration-200 hover:shadow-lg hover:scale-[1.03] active:scale-[0.97]"
               style={{ aspectRatio: "3/4" }}
             >
@@ -732,19 +734,18 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
               {/* Dark overlay for readability */}
               <div className="absolute inset-0 bg-black/20" />
 
-              {/* Preview text */}
-              <div className="absolute inset-0 flex items-center justify-center p-3 z-10">
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-3 z-10 gap-1">
                 <span
                   className={`${fontClass} text-center leading-tight drop-shadow-md`}
                   style={{
                     color: textCol,
-                    fontSize: "0.7rem",
+                    fontSize: "0.55rem",
                     fontWeight: s.isBold ? "bold" : "normal",
                     fontStyle: s.isItalic ? "italic" : "normal",
                     letterSpacing: s.letterSpacing
-                      ? `${Math.min(s.letterSpacing, 3)}px`
+                      ? `${Math.min(s.letterSpacing, 2)}px`
                       : undefined,
-                    lineHeight: s.lineHeight ? Math.min(s.lineHeight, 1.8) : undefined,
+                    lineHeight: s.lineHeight ? Math.min(s.lineHeight, 1.6) : undefined,
                     textAlign: (s.textAlign as CanvasTextAlign) || "center",
                     textShadow:
                       s.textShadow === "glow"
@@ -756,6 +757,18 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
                   {previewText}
                   {s.showQuotationMarks ? "\u201D" : ""}
                 </span>
+                {previewAuthor && (
+                  <span
+                    className="text-center drop-shadow-md"
+                    style={{
+                      color: s.authorColor || textCol,
+                      fontSize: "0.4rem",
+                      opacity: 0.8,
+                    }}
+                  >
+                    — {previewAuthor}
+                  </span>
+                )}
               </div>
 
               {/* Name label */}
