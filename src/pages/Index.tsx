@@ -145,54 +145,38 @@ const Index = () => {
           </div>
 
           {/* Preview */}
-          <div className="hidden lg:block sticky top-4 flex-shrink-0" style={{ width: "clamp(280px, 28vw, 400px)" }}>
+          <div className="hidden lg:block sticky top-4 flex-shrink-0" style={{ width: "clamp(300px, 30vw, 360px)" }}>
             <div className="flex flex-col gap-3">
-              <div className="flex justify-center items-start" style={{ maxHeight: "calc(100vh - 7rem)" }}>
-                <div
-                  className="shadow-xl"
-                  style={{
-                    width: "100%",
-                    maxWidth: (() => {
-                      const ratioMap: Record<string, number> = {
-                        "square": 1, "3:4": 3/4, "2:3": 2/3, "9:16": 9/16, "1:2": 1/2,
-                        "4:3": 4/3, "3:2": 3/2, "16:9": 16/9, "2:1": 2/1,
-                      };
-                      const ratio = ratioMap[editorState.aspectRatio] || 1;
-                      if (ratio <= 1) return `min(32rem, calc((100vh - 7rem) * ${ratio}))`;
-                      return "32rem";
-                    })(),
-                  }}
-                >
-                  <QuotePreview
-                    ref={previewRef}
-                    quote={editorState.quote}
-                    authorName={editorState.authorName}
-                    authorPhoto={editorState.authorPhoto}
-                    socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
-                    socials={socials}
-                    aspectRatio={editorState.aspectRatio}
-                    font={editorState.font}
-                    theme={editorState.theme}
-                    backgroundImage={editorState.backgroundImage}
-                    backgroundOpacity={editorState.backgroundOpacity}
-                    fontSize={editorState.fontSize}
-                    textAlign={editorState.textAlign}
-                    letterSpacing={editorState.letterSpacing}
-                    lineHeight={editorState.lineHeight}
-                    textColor={editorState.textColor}
-                    authorFontSize={editorState.authorFontSize}
-                    authorColor={editorState.authorColor}
-                    authorFont={editorState.authorFont}
-                    textShadow={editorState.textShadow}
-                    authorPosition={editorState.authorPosition}
-                    backgroundColor={editorState.backgroundColor}
-                    isBold={editorState.isBold}
-                    isItalic={editorState.isItalic}
-                    coloredWords={editorState.coloredWords}
-                    showWatermark={isFreeUser}
-                  />
-                </div>
-              </div>
+              <PhoneMockup authorName={editorState.authorName || "lazyquotes"}>
+                <QuotePreview
+                  ref={previewRef}
+                  quote={editorState.quote}
+                  authorName={editorState.authorName}
+                  authorPhoto={editorState.authorPhoto}
+                  socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
+                  socials={socials}
+                  aspectRatio="square"
+                  font={editorState.font}
+                  theme={editorState.theme}
+                  backgroundImage={editorState.backgroundImage}
+                  backgroundOpacity={editorState.backgroundOpacity}
+                  fontSize={editorState.fontSize}
+                  textAlign={editorState.textAlign}
+                  letterSpacing={editorState.letterSpacing}
+                  lineHeight={editorState.lineHeight}
+                  textColor={editorState.textColor}
+                  authorFontSize={editorState.authorFontSize}
+                  authorColor={editorState.authorColor}
+                  authorFont={editorState.authorFont}
+                  textShadow={editorState.textShadow}
+                  authorPosition={editorState.authorPosition}
+                  backgroundColor={editorState.backgroundColor}
+                  isBold={editorState.isBold}
+                  isItalic={editorState.isItalic}
+                  coloredWords={editorState.coloredWords}
+                  showWatermark={isFreeUser}
+                />
+              </PhoneMockup>
               <button
                 onClick={handleDownload}
                 disabled={downloading}
