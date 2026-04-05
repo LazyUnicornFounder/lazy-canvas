@@ -1,5 +1,6 @@
 import { forwardRef, useRef, useEffect, useState } from "react";
 import { Instagram, Youtube, Linkedin, Facebook, type LucideProps } from "lucide-react";
+import { BG_FILTERS } from "@/components/QuoteEditor";
 
 export type SocialPlatform = "instagram" | "twitter" | "tiktok" | "youtube" | "linkedin" | "threads" | "bluesky" | "facebook" | "pinterest" | "snapchat";
 
@@ -324,7 +325,10 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             style={{
               backgroundImage: `url(${backgroundImage})`,
               opacity: backgroundOpacity,
-              filter: backgroundBlur > 0 ? `blur(${backgroundBlur}px)` : undefined,
+              filter: [
+                backgroundBlur > 0 ? `blur(${backgroundBlur}px)` : "",
+                BG_FILTERS.find(f => f.value === backgroundFilter)?.css || "",
+              ].filter(Boolean).join(" ") || undefined,
               transform: backgroundBlur > 0 ? "scale(1.05)" : undefined,
             }}
           />
