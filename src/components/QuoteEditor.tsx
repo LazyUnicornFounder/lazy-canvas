@@ -758,11 +758,8 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
   );
 };
 
-const ControlSection = ({ label, children, pro = false, onProClick }: { label: string; children: React.ReactNode; pro?: boolean; onProClick?: () => void }) => (
-  <div
-    className={`border border-border rounded-lg p-4 space-y-2.5 bg-card ${pro ? "cursor-pointer" : ""}`}
-    onClick={pro ? onProClick : undefined}
-  >
+const ControlSection = ({ label, children, pro = false }: { label: string; children: React.ReactNode; pro?: boolean; onProClick?: () => void }) => (
+  <div className="border border-border rounded-lg p-4 space-y-2.5 bg-card">
     <div className="flex items-center gap-2">
       <label className="text-sm font-heading font-semibold uppercase tracking-widest text-foreground">{label}</label>
       {pro && (
@@ -771,11 +768,7 @@ const ControlSection = ({ label, children, pro = false, onProClick }: { label: s
         </span>
       )}
     </div>
-    {pro ? (
-      <div className="opacity-40 pointer-events-none select-none">{children}</div>
-    ) : (
-      children
-    )}
+    {children}
   </div>
 );
 
