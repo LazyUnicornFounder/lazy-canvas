@@ -36,6 +36,14 @@ const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string }[] = [
   { value: "ink", label: "Ink", swatch: "#0d1117" },
 ];
 
+const EMOJI_LIST = [
+  "✨", "🔥", "💡", "❤️", "💪", "🎯", "🚀", "⭐",
+  "🌟", "💎", "🏆", "👑", "🎨", "📚", "🌈", "☀️",
+  "🌙", "⚡", "🍀", "🦋", "🌸", "🎶", "💫", "🌊",
+  "🤔", "😊", "😎", "🥰", "😤", "💀", "🙏", "👏",
+  "✅", "❌", "⬆️", "➡️", "💬", "📌", "🔑", "🎉",
+];
+
 const Index = () => {
   const [quote, setQuote] = useState("");
   const [authorName, setAuthorName] = useState("");
