@@ -96,6 +96,20 @@ export interface QuoteEditorState {
   coloredWords: ColoredWord[];
 }
 
+export const ROTATING_QUOTES = [
+  "Float like a butterfly, sting like a bee.",
+  "Think like a founder, ship like a machine.",
+  "Dream like a visionary, execute like a robot.",
+  "Move like water, strike like lightning.",
+  "Plan like a strategist, launch like a maniac.",
+  "Learn like a student, build like a master.",
+  "Patience of a monk, speed of a startup.",
+  "Calm like the ocean, relentless like the tide.",
+  "Silent like a shadow, loud like the results.",
+  "Simple like a tweet, powerful like a movement.",
+  "Lazy like a unicorn, rich like a kingdom.",
+];
+
 export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   quote: "",
   authorName: "",
@@ -132,10 +146,23 @@ interface QuoteEditorProps {
 const QuoteEditor = ({ state, onChange }: QuoteEditorProps) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emojiCategory, setEmojiCategory] = useState(0);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [placeholderFade, setPlaceholderFade] = useState(true);
   const quoteTextareaRef = useRef<HTMLTextAreaElement>(null);
   const emojiPickerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const bgInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPlaceholderFade(false);
+      setTimeout(() => {
+        setPlaceholderIndex((prev) => (prev + 1) % ROTATING_QUOTES.length);
+        setPlaceholderFade(true);
+      }, 300);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
 
   const set = <K extends keyof QuoteEditorState>(key: K, value: QuoteEditorState[K]) => {
     onChange({ ...state, [key]: value });
