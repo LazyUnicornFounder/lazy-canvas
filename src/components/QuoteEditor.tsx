@@ -241,6 +241,8 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
                 authorPhoto: state.authorPhoto,
               });
             }}
+            backgroundOpacity={state.backgroundOpacity}
+            onOpacityChange={(v) => set("backgroundOpacity", v)}
           />
         </ControlSection>
       </div>
