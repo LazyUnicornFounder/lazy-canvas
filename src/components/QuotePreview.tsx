@@ -72,6 +72,7 @@ interface QuotePreviewProps {
   quote: string;
   authorName: string;
   authorPhoto: string | null;
+  photoShape?: "circle" | "square" | "rectangle" | "rounded-square" | "oval" | "hexagon";
   socials: string;
   socialPlatform?: SocialPlatform;
   aspectRatio: AspectRatio;
