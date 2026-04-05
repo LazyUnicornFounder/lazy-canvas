@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Check, X, ArrowLeft, Sparkles } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/AuthModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const tiers = [
   {
@@ -51,6 +51,14 @@ const Pricing = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") navigate("/");
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [navigate]);
 
   const handleCta = (tierName: string) => {
     if (tierName === "Free") {
