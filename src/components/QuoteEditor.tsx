@@ -30,9 +30,18 @@ const FORMAT_GROUPS: { label: string; options: { value: AspectRatio; label: stri
     ],
   },
   {
+    label: "A-Series",
+    options: [
+      { value: "a0", label: "A0" },
+      { value: "a1", label: "A1" },
+      { value: "a2", label: "A2" },
+      { value: "a3", label: "A3" },
+      { value: "a4", label: "A4" },
+    ],
+  },
+  {
     label: "Print",
     options: [
-      { value: "a4", label: "A-Series" },
       { value: "letter", label: "Letter" },
       { value: "legal", label: "Legal" },
       { value: "tabloid", label: "Tabloid" },
@@ -929,7 +938,7 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
                   {group.options.map((opt) => {
                     const ratioMap: Record<string, [number, number]> = {
                       square: [1, 1],
-                      a4: [210, 297], a3: [297, 420], a1: [594, 841], a0: [841, 1189],
+                      a4: [210, 297], a3: [297, 420], a2: [420, 594], a1: [594, 841], a0: [841, 1189],
                       letter: [8.5, 11], legal: [8.5, 14], tabloid: [11, 17],
                       "poster-18x24": [18, 24], "poster-24x36": [24, 36], "banner-2x5": [2, 5],
                     };
