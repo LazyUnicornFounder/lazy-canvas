@@ -130,9 +130,10 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
 interface QuoteEditorProps {
   state: QuoteEditorState;
   onChange: (state: QuoteEditorState) => void;
+  isPro?: boolean;
 }
 
-const QuoteEditor = ({ state, onChange }: QuoteEditorProps) => {
+const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emojiCategory, setEmojiCategory] = useState(0);
   const quoteTextareaRef = useRef<HTMLTextAreaElement>(null);
@@ -381,9 +382,9 @@ const QuoteEditor = ({ state, onChange }: QuoteEditorProps) => {
         </ControlSection>
       </div>
 
-      {/* Word Colors */}
+      {/* Word Colors — PRO */}
       <div className="md:col-span-2">
-        <ControlSection label="Word Colors">
+        <ControlSection label="Word Colors" pro={!isPro}>
           <p className="text-[10px] text-muted-foreground mb-2">
             Color specific words or phrases in your quote.
           </p>
@@ -589,8 +590,8 @@ const QuoteEditor = ({ state, onChange }: QuoteEditorProps) => {
         </div>
       </ControlSection>
 
-      {/* Format */}
-      <ControlSection label="Format">
+      {/* Format — PRO */}
+      <ControlSection label="Format" pro={!isPro}>
         <div className="grid grid-cols-5 gap-1.5">
           {ASPECT_OPTIONS.map((opt) => (
             <button
@@ -631,8 +632,8 @@ const QuoteEditor = ({ state, onChange }: QuoteEditorProps) => {
         </div>
       </ControlSection>
 
-      {/* Background */}
-      <ControlSection label="Background">
+      {/* Background — PRO */}
+      <ControlSection label="Background" pro={!isPro}>
         <input ref={bgInputRef} type="file" accept="image/*" onChange={handleBgUpload} className="hidden" />
         <div className="space-y-3">
           <div className="flex items-center gap-3">
@@ -666,10 +667,31 @@ const QuoteEditor = ({ state, onChange }: QuoteEditorProps) => {
   );
 };
 
-const ControlSection = ({ label, children }: { label: string; children: React.ReactNode }) => (
-  <div className="border border-border rounded-lg p-4 space-y-2.5 bg-card">
-    <label className="text-sm font-heading font-semibold uppercase tracking-widest text-foreground">{label}</label>
-    {children}
+const ControlSection = ({ label, children, pro = false }: { label: string; children: React.ReactNode; pro?: boolean }) => (
+  <div className={`border border-border rounded-lg p-4 space-y-2.5 bg-card relative ${pro ? "overflow-hidden" : ""}`}>
+    <div className="flex items-center gap-2">
+      <label className="text-sm font-heading font-semibold uppercase tracking-widest text-foreground">{label}</label>
+      {pro && (
+        <span className="px-1.5 py-0.5 text-[9px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded">
+          Pro
+        </span>
+      )}
+    </div>
+    {pro ? (
+      <div className="relative">
+        <div className="opacity-30 pointer-events-none select-none">{children}</div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <a
+            href="/pricing"
+            className="px-4 py-2 bg-primary text-primary-foreground text-xs font-heading font-semibold rounded-md hover:opacity-90 transition-opacity"
+          >
+            Upgrade to Pro
+          </a>
+        </div>
+      </div>
+    ) : (
+      children
+    )}
   </div>
 );
 
