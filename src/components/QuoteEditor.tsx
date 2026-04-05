@@ -827,7 +827,98 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
         </div>
       </ControlSection>
 
-      {/* Format + Theme grouped */}
+      {/* Photo */}
+      <ControlSection label="Photo">
+        <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
+        <div className="space-y-3">
+          <div className="flex items-center gap-3">
+            {state.authorPhoto ? (
+              <div className="relative group">
+                <img
+                  src={state.authorPhoto}
+                  alt="Author"
+                  className={`w-16 h-16 object-cover border border-border ${
+                    state.photoShape === "circle" ? "rounded-full" :
+                    state.photoShape === "square" ? "rounded-none" :
+                    state.photoShape === "rounded-square" ? "rounded-lg" :
+                    state.photoShape === "oval" ? "rounded-full" :
+                    state.photoShape === "hexagon" ? "rounded-lg" :
+                    "rounded-md"
+                  }`}
+                  style={{
+                    ...(state.photoShape === "rectangle" ? { width: "5rem", height: "3.5rem" } : {}),
+                    ...(state.photoShape === "oval" ? { width: "4.5rem", height: "3.5rem" } : {}),
+                    ...(state.photoShape === "hexagon" ? { clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" } : {}),
+                  }}
+                />
+                <button
+                  onClick={() => set("authorPhoto", null)}
+                  className="absolute -top-1 -right-1 w-5 h-5 bg-foreground text-background rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="w-16 h-16 rounded-lg border-2 border-dashed border-muted-foreground/40 flex flex-col items-center justify-center hover:border-foreground/50 transition-colors gap-0.5"
+              >
+                <ImageIcon className="w-4 h-4 text-muted-foreground" />
+                <span className="text-[8px] font-heading text-muted-foreground uppercase tracking-wider">Upload</span>
+              </button>
+            )}
+            {state.authorPhoto && (
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="text-xs font-heading text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Change
+              </button>
+            )}
+          </div>
+          <div>
+            <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1.5">Shape</p>
+            <div className="flex flex-wrap gap-2">
+              {([
+                { value: "circle" as const, label: "Circle", preview: "rounded-full", w: 32, h: 32 },
+                { value: "square" as const, label: "Square", preview: "rounded-none", w: 32, h: 32 },
+                { value: "rounded-square" as const, label: "Rounded", preview: "rounded-lg", w: 32, h: 32 },
+                { value: "rectangle" as const, label: "Rectangle", preview: "rounded-md", w: 40, h: 28 },
+                { value: "oval" as const, label: "Oval", preview: "rounded-full", w: 36, h: 28 },
+                { value: "hexagon" as const, label: "Hexagon", preview: "rounded-none", w: 32, h: 32 },
+              ]).map((shape) => (
+                <button
+                  key={shape.value}
+                  onClick={() => set("photoShape", shape.value)}
+                  className={`flex flex-col items-center gap-1 p-1.5 rounded-md border transition-all ${
+                    state.photoShape === shape.value
+                      ? "border-foreground bg-foreground/5"
+                      : "border-border hover:border-foreground/30"
+                  }`}
+                  title={shape.label}
+                >
+                  <div
+                    className={`border bg-muted-foreground/20 ${
+                      state.photoShape === shape.value ? "border-foreground" : "border-muted-foreground/40"
+                    } ${shape.value === "circle" || shape.value === "oval" ? "rounded-full" :
+                        shape.value === "rounded-square" ? "rounded-lg" :
+                        shape.value === "hexagon" ? "rounded-none" : "rounded-none"}`}
+                    style={{
+                      width: shape.w,
+                      height: shape.h,
+                      ...(shape.value === "hexagon" ? { clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" } : {}),
+                    }}
+                  />
+                  <span className={`text-[9px] font-heading ${state.photoShape === shape.value ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
+                    {shape.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </ControlSection>
+
       <div className="space-y-4">
         <ControlSection label="Format" pro={!isPro} onProClick={goToPricing}>
           <div className="space-y-3">
