@@ -115,6 +115,7 @@ export interface QuoteEditorState {
   socialUsername: string;
   website: string;
   authorPhoto: string | null;
+  photoShape: "circle" | "square" | "rectangle" | "rounded-square" | "oval" | "hexagon";
   aspectRatio: AspectRatio;
   font: QuoteFont;
   theme: QuoteTheme;
@@ -160,6 +161,7 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   socialUsername: "",
   website: "",
   authorPhoto: null,
+  photoShape: "circle",
   aspectRatio: "square",
   font: "playfair",
   theme: "light",
