@@ -26,6 +26,7 @@ interface QuotePreviewProps {
   authorFont: QuoteFont;
   textShadow: TextShadow;
   authorPosition: AuthorPosition;
+  backgroundColor: string;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
