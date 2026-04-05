@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import html2canvas from "html2canvas";
 import { Download, Image as ImageIcon, X, Upload, Smile } from "lucide-react";
+import HeroSlideshow from "@/components/HeroSlideshow";
 import QuotePreview, {
   type AspectRatio,
   type QuoteFont,
