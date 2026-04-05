@@ -45,7 +45,7 @@ const themeStyles: Record<QuoteTheme, { bg: string; text: string; muted: string;
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
   ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor }, ref) => {
     const t = themeStyles[theme];
-    const displayQuote = quote || "Type your quote here...";
+    const displayQuote = quote;
     const isPlaceholder = !quote;
 
     return (
