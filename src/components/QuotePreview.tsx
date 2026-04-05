@@ -56,6 +56,7 @@ interface QuotePreviewProps {
   isItalic: boolean;
   coloredWords?: ColoredWord[];
   showWatermark?: boolean;
+  showQuotationMarks?: boolean;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
@@ -105,12 +106,12 @@ const shadowStyles: Record<TextShadow, string> = {
 };
 
 // Render quote text with colored words
-const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = []) => {
+const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = [], showQuotes = false) => {
   const activeColoredWords = coloredWords
     .map((word) => ({ ...word, text: word.text.trim() }))
     .filter((word) => word.text.length > 0);
 
-  if (!activeColoredWords.length) return <>&ldquo;{text}&rdquo;</>;
+  if (!activeColoredWords.length) return <>{showQuotes && <>&ldquo;</>}{text}{showQuotes && <>&rdquo;</>}</>;
 
   const segments: { text: string; color?: string }[] = [];
   let remaining = text;
@@ -151,7 +152,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = []) => {
 
   return (
     <>
-      &ldquo;
+      {showQuotes && <>&ldquo;</>}
       {segments.map((seg, i) => {
         if (!seg.color) return <span key={i}>{seg.text}</span>;
         if (seg.color === "rainbow") {
@@ -171,13 +172,13 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = []) => {
         }
         return <span key={i} style={{ color: seg.color }}>{seg.text}</span>;
       })}
-      &rdquo;
+      {showQuotes && <>&rdquo;</>}
     </>
   );
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
@@ -292,7 +293,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
                   fontStyle: isItalic ? "italic" : undefined,
                 }}
               >
-                {renderColoredQuote(quote, coloredWords)}
+                {renderColoredQuote(quote, coloredWords, showQuotationMarks)}
               </p>
               {!isDetached && authorBlock}
             </div>
