@@ -89,7 +89,7 @@ export function LogoWithTagline({ onClick }: { onClick?: () => void }) {
         <span className="font-orbitron text-sm sm:text-lg font-bold text-foreground select-none uppercase tracking-widest leading-tight">
           Lazy Faceless
         </span>
-        <span className="text-[10px] text-muted-foreground font-heading tracking-wide">
+        <span className="text-xs sm:text-sm text-muted-foreground font-heading tracking-wide">
           Create content for anything.
         </span>
       </div>
