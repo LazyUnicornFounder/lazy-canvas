@@ -472,6 +472,60 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
               </>
             )}
           </div>
+          {/* Pexels Search */}
+          <div className="space-y-2">
+            <button
+              onClick={() => setShowPexelsSearch(!showPexelsSearch)}
+              className="flex items-center gap-2 px-4 py-2 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
+            >
+              <Search className="w-3.5 h-3.5" />
+              Search Pexels
+            </button>
+            {showPexelsSearch && (
+              <div className="space-y-2">
+                <form
+                  onSubmit={(e) => { e.preventDefault(); searchPexels(pexelsQuery); }}
+                  className="flex gap-1.5"
+                >
+                  <input
+                    type="text"
+                    value={pexelsQuery}
+                    onChange={(e) => setPexelsQuery(e.target.value)}
+                    placeholder="e.g. mountains, ocean, city…"
+                    className="flex-1 px-2.5 py-1.5 text-xs rounded-md border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20"
+                  />
+                  <button
+                    type="submit"
+                    disabled={pexelsLoading || !pexelsQuery.trim()}
+                    className="px-3 py-1.5 text-xs font-heading font-medium rounded-md bg-foreground text-background hover:opacity-90 transition-opacity disabled:opacity-50"
+                  >
+                    {pexelsLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : "Go"}
+                  </button>
+                </form>
+                {pexelsResults.length > 0 && (
+                  <div className="grid grid-cols-3 gap-1.5 max-h-[200px] overflow-y-auto rounded-md">
+                    {pexelsResults.map((photo) => (
+                      <button
+                        key={photo.id}
+                        onClick={() => {
+                          set("backgroundImage", photo.src.large);
+                          setShowPexelsSearch(false);
+                        }}
+                        className="relative aspect-square rounded-md overflow-hidden border border-border hover:border-foreground/30 transition-all hover:scale-[1.03] active:scale-[0.97]"
+                      >
+                        <img src={photo.src.medium} alt={`Photo by ${photo.photographer}`} className="w-full h-full object-cover" loading="lazy" />
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-1">
+                          <span className="text-[8px] text-white/80 truncate block">{photo.photographer}</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {pexelsResults.length > 0 && (
+                  <p className="text-[9px] text-muted-foreground">Photos by <a href="https://www.pexels.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Pexels</a></p>
+                )}
+              </div>
+            )}
           {state.backgroundImage && (
             <>
               <div className="flex items-center gap-3">
