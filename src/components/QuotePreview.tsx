@@ -12,6 +12,8 @@ interface QuotePreviewProps {
   aspectRatio: AspectRatio;
   font: QuoteFont;
   theme: QuoteTheme;
+  backgroundImage: string | null;
+  backgroundOpacity: number;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
