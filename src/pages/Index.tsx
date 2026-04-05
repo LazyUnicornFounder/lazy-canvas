@@ -281,6 +281,7 @@ const Index = () => {
                   ))}
                 </div>
               </div>
+            </ControlSection>
 
             {/* Theme */}
             <ControlSection label="Theme">
