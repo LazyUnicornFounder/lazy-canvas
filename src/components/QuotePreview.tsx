@@ -243,7 +243,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = [], show
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false }, ref) => {
+  ({ quote, authorName, authorPhoto, photoShape = "circle", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
@@ -294,8 +294,18 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           <img
             src={authorPhoto}
             alt={authorName}
-            className="w-10 h-10 rounded-full object-cover"
-            style={{ border: `1px solid ${t.border}` }}
+            className={`object-cover ${
+              photoShape === "circle" ? "w-10 h-10 rounded-full" :
+              photoShape === "square" ? "w-10 h-10 rounded-none" :
+              photoShape === "rounded-square" ? "w-10 h-10 rounded-lg" :
+              photoShape === "rectangle" ? "w-14 h-10 rounded-md" :
+              photoShape === "oval" ? "w-12 h-10 rounded-full" :
+              "w-10 h-10 rounded-full"
+            }`}
+            style={{
+              border: `1px solid ${t.border}`,
+              ...(photoShape === "hexagon" ? { clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)", width: "2.5rem", height: "2.5rem", borderRadius: 0 } : {}),
+            }}
           />
         )}
         <div className="flex flex-col">
