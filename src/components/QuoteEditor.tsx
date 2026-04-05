@@ -693,60 +693,36 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
 
       {/* Author */}
       <ControlSection label="Author">
-        <div className="flex gap-3">
-          <div className="flex-1 space-y-3">
+        <div className="space-y-3">
+          <input
+            value={state.authorName}
+            onChange={(e) => set("authorName", e.target.value)}
+            placeholder="Your name"
+            className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
+          />
+          <div className="flex gap-2">
+            <select
+              value={state.socialPlatform}
+              onChange={(e) => set("socialPlatform", e.target.value)}
+              className="bg-transparent border border-border rounded-md px-2 py-2.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
+            >
+              {SOCIAL_PLATFORMS.map((p) => (
+                <option key={p.value} value={p.value} className="bg-card">{p.label}</option>
+              ))}
+            </select>
             <input
-              value={state.authorName}
-              onChange={(e) => set("authorName", e.target.value)}
-              placeholder="Your name"
-              className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
-            />
-            <div className="flex gap-2">
-              <select
-                value={state.socialPlatform}
-                onChange={(e) => set("socialPlatform", e.target.value)}
-                className="bg-transparent border border-border rounded-md px-2 py-2.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
-              >
-                {SOCIAL_PLATFORMS.map((p) => (
-                  <option key={p.value} value={p.value} className="bg-card">{p.label}</option>
-                ))}
-              </select>
-              <input
-                value={state.socialUsername}
-                onChange={(e) => set("socialUsername", e.target.value)}
-                placeholder="username"
-                className="flex-1 bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
-              />
-            </div>
-            <input
-              value={state.website}
-              onChange={(e) => set("website", e.target.value)}
-              placeholder="website.com"
-              className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
+              value={state.socialUsername}
+              onChange={(e) => set("socialUsername", e.target.value)}
+              placeholder="username"
+              className="flex-1 bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
             />
           </div>
-          <div className="flex-shrink-0">
-            <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
-            {state.authorPhoto ? (
-              <div className="relative group">
-                <img src={state.authorPhoto} alt="Author" className="w-[4.5rem] h-[4.5rem] rounded-full object-cover border border-border" />
-                <button
-                  onClick={() => set("authorPhoto", null)}
-                  className="absolute -top-1 -right-1 w-5 h-5 bg-foreground text-background rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                className="w-[4.5rem] h-[4.5rem] rounded-full border-2 border-dashed border-muted-foreground/40 flex flex-col items-center justify-center hover:border-foreground/50 transition-colors gap-0.5"
-              >
-                <ImageIcon className="w-4 h-4 text-muted-foreground" />
-                <span className="text-[8px] font-heading text-muted-foreground uppercase tracking-wider">Photo</span>
-              </button>
-            )}
-          </div>
+          <input
+            value={state.website}
+            onChange={(e) => set("website", e.target.value)}
+            placeholder="website.com"
+            className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
+          />
         </div>
         <div className="space-y-2 mt-3">
           <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Serif</p>
