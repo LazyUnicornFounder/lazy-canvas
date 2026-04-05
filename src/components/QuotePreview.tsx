@@ -65,11 +65,6 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         {/* Quote content */}
         <div className="flex-1 flex items-center justify-center p-8 sm:p-12 relative z-10">
           <div className="text-center max-w-[85%]">
-            <span
-              style={{ color: t.muted, fontSize: "2.5rem", lineHeight: 1, fontFamily: "Georgia, serif" }}
-            >
-              "
-            </span>
             <p
               className={`${fontClasses[font]} leading-relaxed ${isPlaceholder ? "opacity-40" : ""}`}
               style={{
@@ -77,13 +72,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
                 letterSpacing: font === "bebas" ? "0.1em" : undefined,
               }}
             >
-              {displayQuote}
+              &ldquo;{displayQuote}&rdquo;
             </p>
-            <span
-              style={{ color: t.muted, fontSize: "2.5rem", lineHeight: 1, fontFamily: "Georgia, serif" }}
-            >
-              "
-            </span>
           </div>
         </div>
 
