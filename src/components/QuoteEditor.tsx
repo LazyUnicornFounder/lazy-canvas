@@ -435,51 +435,14 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             backgroundOpacity={state.backgroundOpacity}
             onOpacityChange={(v) => set("backgroundOpacity", v)}
           />
-        </ControlSection>
-      </div>
-
-      {/* Background — PRO */}
-      <div>
-      <ControlSection label="Background" pro={!isPro} onProClick={goToPricing}>
-        <input ref={bgInputRef} type="file" accept="image/*" onChange={handleBgUpload} className="hidden" />
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
-            <input type="color" value={state.backgroundColor || "#ffffff"} onChange={(e) => set("backgroundColor", e.target.value)} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
-            {state.backgroundColor && (
-              <button onClick={() => set("backgroundColor", "")} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">Reset</button>
-            )}
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => bgInputRef.current?.click()}
-              className="flex items-center gap-2 px-4 py-2 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
-            >
-              <Upload className="w-3.5 h-3.5" />
-              {state.backgroundImage ? "Change image" : "Upload image"}
-            </button>
-            {state.backgroundImage && (
-              <>
-                <button onClick={() => set("backgroundImage", null)} className="text-xs text-muted-foreground hover:text-foreground transition-colors">Remove</button>
-                <button
-                  onClick={handleRemoveBgImage}
-                  disabled={removingBgImage}
-                  className="flex items-center gap-1 text-xs font-heading text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
-                >
-                  {removingBgImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <Eraser className="w-3 h-3" />}
-                  {removingBgImage ? "Removing…" : "Remove BG"}
-                </button>
-              </>
-            )}
-          </div>
-          {/* Pexels Search */}
-          <div className="space-y-2">
+          {/* Search Images */}
+          <div className="space-y-2 mt-3">
             <button
               onClick={() => setShowPexelsSearch(!showPexelsSearch)}
               className="flex items-center gap-2 px-4 py-2 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
             >
               <Search className="w-3.5 h-3.5" />
-              Search Pexels
+              Search Images
             </button>
             {showPexelsSearch && (
               <div className="space-y-2">
@@ -525,6 +488,43 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                   <p className="text-[9px] text-muted-foreground">Photos by <a href="https://www.pexels.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Pexels</a></p>
                 )}
               </div>
+            )}
+          </div>
+        </ControlSection>
+      </div>
+
+      {/* Background — PRO */}
+      <div>
+      <ControlSection label="Background" pro={!isPro} onProClick={goToPricing}>
+        <input ref={bgInputRef} type="file" accept="image/*" onChange={handleBgUpload} className="hidden" />
+        <div className="space-y-3">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
+            <input type="color" value={state.backgroundColor || "#ffffff"} onChange={(e) => set("backgroundColor", e.target.value)} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
+            {state.backgroundColor && (
+              <button onClick={() => set("backgroundColor", "")} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">Reset</button>
+            )}
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => bgInputRef.current?.click()}
+              className="flex items-center gap-2 px-4 py-2 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
+            >
+              <Upload className="w-3.5 h-3.5" />
+              {state.backgroundImage ? "Change image" : "Upload image"}
+            </button>
+            {state.backgroundImage && (
+              <>
+                <button onClick={() => set("backgroundImage", null)} className="text-xs text-muted-foreground hover:text-foreground transition-colors">Remove</button>
+                <button
+                  onClick={handleRemoveBgImage}
+                  disabled={removingBgImage}
+                  className="flex items-center gap-1 text-xs font-heading text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
+                >
+                  {removingBgImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <Eraser className="w-3 h-3" />}
+                  {removingBgImage ? "Removing…" : "Remove BG"}
+                </button>
+              </>
             )}
           </div>
           {state.backgroundImage && (
