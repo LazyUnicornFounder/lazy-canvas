@@ -95,7 +95,7 @@ const Create = () => {
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="font-shadows-into-light text-xl font-bold tracking-tight text-foreground">Lazy Faceless</span>
+              <span className="font-orbitron text-sm font-bold tracking-widest text-foreground uppercase">Lazy Faceless</span>
             </button>
           </div>
           <div className="flex items-center gap-2 sm:gap-4">

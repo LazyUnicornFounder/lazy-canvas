@@ -156,7 +156,7 @@ const Index = () => {
       <header className="border-b border-border">
         <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1600px] mx-auto">
           <div className="flex items-center gap-6">
-            <h1 className="font-shadows-into-light text-3xl sm:text-4xl font-bold text-foreground select-none" style={{ letterSpacing: "0.02em" }}>
+            <h1 className="font-orbitron text-lg sm:text-xl font-bold text-foreground select-none uppercase tracking-widest">
               Lazy Faceless
             </h1>
             <div className="hidden md:block">
