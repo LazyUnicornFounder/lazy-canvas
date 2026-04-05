@@ -94,7 +94,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         )}
         {/* Quote content */}
         <div ref={containerRef} className="flex-1 flex items-center justify-center p-8 sm:p-12 relative z-10 overflow-hidden">
-          <div style={{ textAlign, maxWidth: "85%", transform: `scale(${scale})`, transformOrigin: "center center" }}>
+          <div style={{ textAlign, maxWidth: "85%", transform: `scale(${scale})`, transformOrigin: "center center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <p
               ref={textRef}
               className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""} whitespace-pre-wrap`}
