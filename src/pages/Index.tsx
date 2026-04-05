@@ -455,9 +455,10 @@ const Index = () => {
           </div>
 
           {/* Preview */}
-          <div className="order-1 lg:order-2 lg:sticky lg:top-8">
-            <div className="flex justify-center">
-              <div className="w-full max-w-lg shadow-xl">
+          <div className="order-1 lg:order-2 lg:sticky lg:top-8 flex items-start justify-center" style={{ maxHeight: "calc(100vh - 6rem)" }}>
+            <div className="flex justify-center w-full" style={{ maxHeight: "calc(100vh - 6rem)" }}>
+              <div className="w-full max-w-lg shadow-xl" style={{ maxHeight: "100%" }}>
+                <div style={{ maxHeight: "calc(100vh - 6rem)", display: "flex", justifyContent: "center" }}>
                 <QuotePreview
                   ref={previewRef}
                   quote={quote}
