@@ -176,11 +176,12 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     const containerRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
+    const [isOverflowing, setIsOverflowing] = useState(false);
 
     useEffect(() => {
       const container = containerRef.current;
       const content = contentRef.current;
-      if (!container || !content) { setScale(1); return; }
+      if (!container || !content) { setScale(1); setIsOverflowing(false); return; }
 
       content.style.transform = "scale(1)";
       content.style.transformOrigin = "top left";
@@ -193,8 +194,10 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       if (tW > 0 && tH > 0) {
         const s = Math.min(cW / tW, cH / tH, 1);
         setScale(s);
+        setIsOverflowing(s < 0.95);
       } else {
         setScale(1);
+        setIsOverflowing(false);
       }
     }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign, authorFontSize, authorFont, authorName, authorPosition, socials, authorPhoto]);
 
@@ -290,6 +293,21 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           {isDetached && authorBlock && (
             <div className="relative z-10 pt-2">
               {authorBlock}
+            </div>
+          )}
+          {/* Overflow nudge */}
+          {isOverflowing && (
+            <div
+              className="absolute top-2 left-1/2 -translate-x-1/2 z-30 px-3 py-1.5 rounded-full flex items-center gap-1.5 animate-fade-in"
+              style={{
+                backgroundColor: "rgba(0,0,0,0.75)",
+                backdropFilter: "blur(8px)",
+                animation: "fade-in 0.3s ease-out, nudge-bounce 1.5s ease-in-out 0.3s",
+              }}
+            >
+              <span style={{ fontSize: "clamp(8px, 2%, 12px)", color: "#fbbf24", fontWeight: 600, whiteSpace: "nowrap" }}>
+                ⚠ Text too large — reduce font size
+              </span>
             </div>
           )}
           {/* Watermark */}

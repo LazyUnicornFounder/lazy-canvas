@@ -140,3 +140,10 @@
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--border)) transparent;
 }
+
+@keyframes nudge-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  25% { transform: translateX(-50%) translateY(-3px); }
+  50% { transform: translateX(-50%) translateY(0); }
+  75% { transform: translateX(-50%) translateY(-2px); }
+}
