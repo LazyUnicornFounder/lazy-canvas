@@ -14,7 +14,7 @@ const tiers = [
     highlighted: false,
     features: [
       { text: "Unlimited quote designs", included: true },
-      { text: "All fonts & themes", included: true },
+      
       { text: "PNG download", included: true },
       { text: "Save unlimited quotes", included: true },
       { text: '"Made with Lazy Quotes" watermark', included: true, note: "always shown" },
