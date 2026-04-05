@@ -9,10 +9,16 @@ import QuotePreview, {
   type AuthorPosition,
 } from "@/components/QuotePreview";
 
-const ASPECT_OPTIONS: { value: AspectRatio; label: string }[] = [
-  { value: "vertical", label: "3:4" },
-  { value: "square", label: "1:1" },
-  { value: "landscape", label: "4:3" },
+const ASPECT_OPTIONS: { value: AspectRatio; label: string; row: number }[] = [
+  { value: "square", label: "1:1", row: 0 },
+  { value: "3:4", label: "3:4", row: 0 },
+  { value: "2:3", label: "2:3", row: 0 },
+  { value: "9:16", label: "9:16", row: 0 },
+  { value: "1:2", label: "1:2", row: 0 },
+  { value: "4:3", label: "4:3", row: 1 },
+  { value: "3:2", label: "3:2", row: 1 },
+  { value: "16:9", label: "16:9", row: 1 },
+  { value: "2:1", label: "2:1", row: 1 },
 ];
 
 const FONT_OPTIONS: { value: QuoteFont; label: string; preview: string }[] = [
@@ -249,16 +255,16 @@ const Index = () => {
 
             {/* Format */}
             <ControlSection label="Format">
-              <div className="flex gap-2">
+              <div className="grid grid-cols-5 gap-1.5">
                 {ASPECT_OPTIONS.map((opt) => (
                   <button
                     key={opt.value}
                     onClick={() => setAspectRatio(opt.value)}
-                    className={`px-4 py-2 text-xs font-heading font-medium rounded-md border transition-all ${
+                    className={`px-2 py-2 text-xs font-heading font-medium rounded-md border transition-all ${
                       aspectRatio === opt.value
                         ? "bg-foreground text-background border-foreground"
                         : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                    }`}
+                    } ${opt.value === "square" ? "col-span-1 row-span-2" : ""}`}
                   >
                     {opt.label}
                   </button>
