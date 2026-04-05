@@ -1,0 +1,133 @@
+import type { ComponentProps } from "react";
+import MarketingPage from "./MarketingPage";
+
+type Config = ComponentProps<typeof MarketingPage>["config"];
+
+export const MARKETING_PAGES: Config[] = [
+  {
+    slug: "banners",
+    title: "Create Stunning Banners | Lazy Faceless",
+    headline: "Create Stunning Banners in Seconds",
+    subheadline: "Design eye-catching banners for any platform — headers, covers, ads. No design skills needed.",
+    description: "Professional banners for LinkedIn, Twitter, YouTube, and more. Pick a template, customize, download.",
+    ctaText: "Create a Banner",
+    features: [
+      { icon: "🖼️", title: "Platform-Ready Sizes", description: "Pre-configured sizes for LinkedIn banners, Twitter headers, YouTube channel art, and Facebook covers." },
+      { icon: "🎨", title: "Custom Backgrounds", description: "Upload your own images, use AI-generated backgrounds, or pick from curated color palettes." },
+      { icon: "✨", title: "Pro Typography", description: "Choose from 24+ fonts including serif, sans-serif, cursive, and futuristic styles." },
+    ],
+    templateCategory: "bold",
+  },
+  {
+    slug: "posts",
+    title: "Create Social Media Posts | Lazy Faceless",
+    headline: "Design Social Media Posts That Stand Out",
+    subheadline: "Create beautiful, shareable posts for Instagram, LinkedIn, Twitter, and more.",
+    description: "Stop using boring text posts. Create visual content that gets engagement.",
+    ctaText: "Create a Post",
+    features: [
+      { icon: "📱", title: "Every Platform", description: "Square for Instagram, landscape for Twitter, portrait for Stories — all formats covered." },
+      { icon: "💬", title: "Quote Cards", description: "Turn your best thoughts, testimonials, and wisdom into stunning visual content." },
+      { icon: "⚡", title: "30-Second Workflow", description: "Pick template → edit text → download. Your post is ready to publish." },
+    ],
+    templateCategory: "trendy",
+  },
+  {
+    slug: "instagram",
+    title: "Create Instagram Content | Lazy Faceless",
+    headline: "Create Instagram Content That Gets Noticed",
+    subheadline: "Design posts, stories, and reels covers that match your aesthetic and grow your audience.",
+    description: "Beautiful Instagram content without Photoshop. Templates optimized for the Instagram algorithm.",
+    ctaText: "Create for Instagram",
+    features: [
+      { icon: "📸", title: "Feed-Ready Posts", description: "1080×1080 square posts designed to look stunning in the Instagram grid." },
+      { icon: "📖", title: "Story Templates", description: "9:16 story and reel cover designs that stop the scroll." },
+      { icon: "🎯", title: "Consistent Aesthetic", description: "Keep your feed cohesive with matching fonts, colors, and styles across all posts." },
+    ],
+    templateCategory: "minimal",
+  },
+  {
+    slug: "youtube",
+    title: "Create YouTube Thumbnails & Banners | Lazy Faceless",
+    headline: "YouTube Thumbnails & Banners That Get Clicks",
+    subheadline: "Create attention-grabbing thumbnails and channel art that boost your views.",
+    description: "Stand out in search results with professional thumbnails. No design experience required.",
+    ctaText: "Create for YouTube",
+    features: [
+      { icon: "▶️", title: "Click-Worthy Thumbnails", description: "16:9 thumbnails designed to maximize your click-through rate." },
+      { icon: "🖥️", title: "Channel Banners", description: "Professional channel art that looks great on desktop, tablet, and mobile." },
+      { icon: "🔤", title: "Bold Typography", description: "Large, readable text that pops even at thumbnail size." },
+    ],
+    templateCategory: "bold",
+  },
+  {
+    slug: "pinterest",
+    title: "Create Pinterest Pins | Lazy Faceless",
+    headline: "Create Pinterest Pins That Drive Traffic",
+    subheadline: "Design tall, eye-catching pins optimized for the Pinterest feed and search.",
+    description: "Pinterest-optimized pins in the perfect 2:3 ratio. Drive traffic to your site with beautiful designs.",
+    ctaText: "Create a Pin",
+    features: [
+      { icon: "📌", title: "Optimized 2:3 Ratio", description: "Pins sized at 1000×1500 px — the ideal format for Pinterest's feed algorithm." },
+      { icon: "🔍", title: "Search-Friendly", description: "Clean, readable designs that perform well in Pinterest visual search." },
+      { icon: "🎀", title: "Aesthetic Templates", description: "Elegant and playful templates that match popular Pinterest aesthetics." },
+    ],
+    templateCategory: "elegant",
+  },
+  {
+    slug: "facebook",
+    title: "Create Facebook Content | Lazy Faceless",
+    headline: "Create Facebook Posts & Covers That Engage",
+    subheadline: "Design shareable posts, stories, and cover photos that grow your Facebook presence.",
+    description: "Professional Facebook content in seconds. Optimized sizes for posts, stories, and cover photos.",
+    ctaText: "Create for Facebook",
+    features: [
+      { icon: "👍", title: "Shareable Posts", description: "1200×630 posts designed for maximum engagement and sharing in the Facebook feed." },
+      { icon: "📱", title: "Stories & Reels", description: "Full-screen 9:16 designs for Facebook Stories and Reels." },
+      { icon: "🏠", title: "Cover Photos", description: "820×312 cover photos that make a great first impression on your page." },
+    ],
+    templateCategory: "playful",
+  },
+  {
+    slug: "tiktok",
+    title: "Create TikTok Content | Lazy Faceless",
+    headline: "Create TikTok Content That Goes Viral",
+    subheadline: "Design stunning cover images, quote overlays, and text content for TikTok.",
+    description: "Faceless TikTok content made easy. Create quote videos, cover images, and text-based content.",
+    ctaText: "Create for TikTok",
+    features: [
+      { icon: "🎵", title: "9:16 Vertical Format", description: "Full-screen vertical designs perfectly sized for TikTok's 1080×1920 format." },
+      { icon: "🚀", title: "Faceless Content", description: "Create engaging content without showing your face — perfect for quote and text accounts." },
+      { icon: "🔥", title: "Trend-Ready", description: "Bold, eye-catching templates designed for the fast-scrolling TikTok feed." },
+    ],
+    templateCategory: "retro",
+  },
+  {
+    slug: "linkedin",
+    title: "Create LinkedIn Content | Lazy Faceless",
+    headline: "Create LinkedIn Content That Builds Authority",
+    subheadline: "Design professional posts, banners, and thought leadership content for LinkedIn.",
+    description: "Stand out on LinkedIn with polished, professional visual content. Perfect for personal branding.",
+    ctaText: "Create for LinkedIn",
+    features: [
+      { icon: "💼", title: "Professional Posts", description: "Clean, authoritative designs that match LinkedIn's professional tone." },
+      { icon: "📊", title: "Thought Leadership", description: "Turn your expertise into shareable visual content that builds your brand." },
+      { icon: "🏷️", title: "Banner & Profile", description: "LinkedIn banner images and profile-ready content that make connections." },
+    ],
+    templateCategory: "minimal",
+  },
+  {
+    slug: "twitter",
+    title: "Create X (Twitter) Content | Lazy Faceless",
+    headline: "Create X Posts & Headers That Get Retweets",
+    subheadline: "Design visual tweets, thread openers, and profile headers that grow your following.",
+    description: "Make your tweets visual. Quote cards and headers that stand out in the timeline.",
+    ctaText: "Create for X",
+    features: [
+      { icon: "🐦", title: "Visual Tweets", description: "16:9 images that make your tweets stand out in the timeline." },
+      { icon: "🧵", title: "Thread Openers", description: "Eye-catching first images that hook readers into your threads." },
+      { icon: "🎯", title: "Profile Headers", description: "1500×500 headers that showcase your brand and message." },
+    ],
+    templateCategory: "bold",
+  },
+];
