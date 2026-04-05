@@ -37,8 +37,34 @@ const Index = () => {
   }, [user]);
 
   const handleDownloadClick = useCallback(() => {
-    setShowGalleryPrompt(true);
-  }, []);
+    if (user) {
+      setShowGalleryPrompt(true);
+    } else {
+      // For non-logged-in users, download immediately then prompt signup
+      performDownloadOnly();
+    }
+  }, [user]);
+
+  const performDownloadOnly = useCallback(async () => {
+    const target = previewRef.current || mobilePreviewRef.current;
+    if (!target) return;
+    setDownloading(true);
+    try {
+      const canvas = await html2canvas(target, {
+        scale: 3, useCORS: true, logging: false, backgroundColor: null,
+      });
+      const link = document.createElement("a");
+      link.download = `quote-${Date.now()}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch { console.error("Failed to export"); }
+    finally {
+      setDownloading(false);
+      if (!user) {
+        setShowSignupPrompt(true);
+      }
+    }
+  }, [user]);
 
   const performDownload = useCallback(async (shareToGallery: boolean) => {
     setShowGalleryPrompt(false);
@@ -62,6 +88,16 @@ const Index = () => {
     } catch { console.error("Failed to export"); }
     finally { setDownloading(false); }
   }, [user, editorState]);
+
+  const handleSignupAccept = useCallback(() => {
+    setShowSignupPrompt(false);
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(editorState));
+    setShowAuthModal(true);
+  }, [editorState]);
+
+  const handleSignupDecline = useCallback(() => {
+    setShowSignupPrompt(false);
+  }, []);
 
   const socials = [
     editorState.socialUsername
