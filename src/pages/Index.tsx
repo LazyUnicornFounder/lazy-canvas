@@ -54,25 +54,29 @@ const Index = () => {
         </div>
       </header>
 
-      <section className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-4 sm:px-6 py-10">
-        <div className="text-center space-y-3 mb-8">
-          <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-foreground leading-tight max-w-xl mx-auto">
-            Create awesome quotes for your socials.
-          </h2>
-          <p className="text-muted-foreground text-base max-w-md mx-auto">
-            Design beautiful, shareable quote images in seconds. Pick fonts, colors, layouts — download and post.
-          </p>
+      <section className="h-[calc(100vh-4rem)] flex items-center px-4 sm:px-6 overflow-hidden">
+        <div className="max-w-[1200px] mx-auto w-full flex items-center gap-12 lg:gap-20">
+          {/* Text — left */}
+          <div className="flex-1 space-y-4 min-w-0">
+            <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-foreground leading-tight">
+              Create awesome quotes for your socials.
+            </h2>
+            <p className="text-muted-foreground text-base max-w-md">
+              Design beautiful, shareable quote images in seconds. Pick fonts, colors, layouts — download and post.
+            </p>
+            <p className="text-[11px] text-muted-foreground/60 pt-4">
+              Built with{" "}
+              <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-muted-foreground transition-colors">Lovable</a>
+              . Payments by{" "}
+              <a href="https://polar.sh" target="_blank" rel="noopener noreferrer" className="underline hover:text-muted-foreground transition-colors">Polar</a>
+              .
+            </p>
+          </div>
+          {/* Phone — right, extending from just below nav to bottom */}
+          <div className="hidden md:flex flex-shrink-0 items-start justify-center" style={{ height: "calc(100vh - 5rem)", marginTop: "0.5rem" }}>
+            <HeroPhoneMockup />
+          </div>
         </div>
-        <div className="flex-1 flex items-center justify-center w-full max-h-[70vh]">
-          <HeroPhoneMockup />
-        </div>
-        <p className="text-[11px] text-muted-foreground/60 mt-6">
-          Built with{" "}
-          <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-muted-foreground transition-colors">Lovable</a>
-          . Payments by{" "}
-          <a href="https://polar.sh" target="_blank" rel="noopener noreferrer" className="underline hover:text-muted-foreground transition-colors">Polar</a>
-          .
-        </p>
       </section>
 
       <AuthModal
