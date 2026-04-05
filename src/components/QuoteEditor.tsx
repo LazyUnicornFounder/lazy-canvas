@@ -1265,7 +1265,17 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                   type="number"
                   min={1}
                   value={state.customWidth}
-                  onChange={(e) => { set("customWidth", Math.max(1, parseInt(e.target.value) || 1)); set("aspectRatio", "custom"); }}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    if (!isNaN(val) && val >= 1) {
+                      set("customWidth", val);
+                      set("aspectRatio", "custom");
+                    }
+                  }}
+                  onBlur={(e) => {
+                    const val = parseInt(e.target.value);
+                    if (isNaN(val) || val < 1) set("customWidth", 1080);
+                  }}
                   className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
                 />
               </div>
@@ -1275,7 +1285,17 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                   type="number"
                   min={1}
                   value={state.customHeight}
-                  onChange={(e) => { set("customHeight", Math.max(1, parseInt(e.target.value) || 1)); set("aspectRatio", "custom"); }}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    if (!isNaN(val) && val >= 1) {
+                      set("customHeight", val);
+                      set("aspectRatio", "custom");
+                    }
+                  }}
+                  onBlur={(e) => {
+                    const val = parseInt(e.target.value);
+                    if (isNaN(val) || val < 1) set("customHeight", 1080);
+                  }}
                   className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
                 />
               </div>
