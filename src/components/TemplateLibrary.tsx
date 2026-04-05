@@ -27,6 +27,26 @@ import imgMidnight from "@/assets/templates/midnight.jpg";
 import imgMarker from "@/assets/templates/marker.jpg";
 import imgBubblegum from "@/assets/templates/bubblegum.jpg";
 import imgSunshine from "@/assets/templates/sunshine.jpg";
+import imgFood from "@/assets/templates/food.jpg";
+import imgSports from "@/assets/templates/sports.jpg";
+import imgHome from "@/assets/templates/home.jpg";
+import imgGarden from "@/assets/templates/garden.jpg";
+import imgConstruction from "@/assets/templates/construction.jpg";
+import imgAiTech from "@/assets/templates/ai-tech.jpg";
+import imgFashion from "@/assets/templates/fashion.jpg";
+import imgFilm from "@/assets/templates/film.jpg";
+import imgGames from "@/assets/templates/games.jpg";
+import imgWeather from "@/assets/templates/weather.jpg";
+import imgTravel from "@/assets/templates/travel.jpg";
+import imgMusic from "@/assets/templates/music.jpg";
+import imgFitness from "@/assets/templates/fitness.jpg";
+import imgNature from "@/assets/templates/nature.jpg";
+import imgSpace from "@/assets/templates/space.jpg";
+import imgCoffee from "@/assets/templates/coffee.jpg";
+import imgPets from "@/assets/templates/pets.jpg";
+import imgBooks from "@/assets/templates/books.jpg";
+import imgArt from "@/assets/templates/art.jpg";
+import imgTech from "@/assets/templates/tech.jpg";
 
 interface Template {
   id: string;
