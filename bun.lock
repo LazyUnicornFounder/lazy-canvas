@@ -6,7 +6,9 @@
       "name": "vite_react_shadcn_ts",
       "dependencies": {
         "@fontsource/archivo-black": "^5.2.8",
+        "@fontsource/audiowide": "^5.2.7",
         "@fontsource/bebas-neue": "^5.2.7",
+        "@fontsource/caveat": "^5.2.8",
         "@fontsource/cormorant-garamond": "^5.2.11",
         "@fontsource/crimson-text": "^5.2.7",
         "@fontsource/dancing-script": "^5.2.8",
@@ -17,12 +19,16 @@
         "@fontsource/lora": "^5.2.8",
         "@fontsource/merriweather": "^5.2.11",
         "@fontsource/montserrat": "^5.2.8",
+        "@fontsource/orbitron": "^5.2.8",
         "@fontsource/oswald": "^5.2.8",
         "@fontsource/pacifico": "^5.2.7",
+        "@fontsource/permanent-marker": "^5.2.7",
         "@fontsource/playfair-display": "^5.2.8",
         "@fontsource/poppins": "^5.2.7",
+        "@fontsource/rajdhani": "^5.2.7",
         "@fontsource/raleway": "^5.2.8",
         "@fontsource/satisfy": "^5.2.7",
+        "@fontsource/shadows-into-light": "^5.2.8",
         "@fontsource/space-grotesk": "^5.2.10",
         "@hookform/resolvers": "^3.10.0",
         "@lovable.dev/cloud-auth-js": "^1.0.1",
@@ -193,7 +199,11 @@
 
     "@fontsource/archivo-black": ["@fontsource/archivo-black@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/archivo-black/-/archivo-black-5.2.8.tgz", {}, "sha512-3zNj/o9LzWyDl/UEpY5IOHpAQyUtFr3hQaFS7NSKwCLLkXOfH/CMCt1L2b2Z+OF25OURtOYenCadgAebALz7/A=="],
 
+    "@fontsource/audiowide": ["@fontsource/audiowide@5.2.7", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/audiowide/-/audiowide-5.2.7.tgz", {}, "sha512-ude+jAqXaEkV4vfKAYyfub694LSy/OKkYyUHumYrEP3ZgSSP6TomITFLUC8x6Fhc2salL7nuju3xT6aWOHECPg=="],
+
     "@fontsource/bebas-neue": ["@fontsource/bebas-neue@5.2.7", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/bebas-neue/-/bebas-neue-5.2.7.tgz", {}, "sha512-DsmBrmq55d9BCU0mt4DT4RZDdH8vhWRKEUOfbuNB1EEjMuwbtFvM8N+3gIlkYSFbsb10P8Q19BV5OdpMu2h0fA=="],
+
+    "@fontsource/caveat": ["@fontsource/caveat@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/caveat/-/caveat-5.2.8.tgz", {}, "sha512-9fUUfFE2IQFKbx+xOcaeQxxmh8iJguEb8z+j1PeueO4UUx+XfT4pRm/B04ZDvFA794/iRxY/IibmP8ZKtIf4rw=="],
 
     "@fontsource/cormorant-garamond": ["@fontsource/cormorant-garamond@5.2.11", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/cormorant-garamond/-/cormorant-garamond-5.2.11.tgz", {}, "sha512-5JjpN023lhA5soijgVT0BdRGzmlijm402ppjccMd6h+vRE0mX2lJnE+41UPfnlidrkV9/rCo1mf58WZlHnB0CA=="],
 
@@ -215,17 +225,25 @@
 
     "@fontsource/montserrat": ["@fontsource/montserrat@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/montserrat/-/montserrat-5.2.8.tgz", {}, "sha512-xTjLxSbSfCycDB0pwmNsfNvdfWPaDaRQ2LC6yt/ZI7SdvXG52zHnzNYC/09mzuAuWNJyShkteutfCoDgym56hQ=="],
 
+    "@fontsource/orbitron": ["@fontsource/orbitron@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/orbitron/-/orbitron-5.2.8.tgz", {}, "sha512-ruzrDl5vnqNykk5DZWY0Ezj4aeFZSbCnwJTc/98ojNJHSsHhlhT2r7rwQrA5sptmF8JtB8TQTAvlfRvcV28RPw=="],
+
     "@fontsource/oswald": ["@fontsource/oswald@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/oswald/-/oswald-5.2.8.tgz", {}, "sha512-DFoPK1BqsFIQhVjs2xgO/oL9veF9oUJgFojEWIU+nazUrfqsBDtAMI4n9L9CZFX3kQNDLcCyzKx1xoEDvQT4WQ=="],
 
     "@fontsource/pacifico": ["@fontsource/pacifico@5.2.7", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/pacifico/-/pacifico-5.2.7.tgz", {}, "sha512-L+YiZn3Lb8rVN15zcLlti62doVxQeFpS+dJmulKkFrUo3dZIAxZLHwXoKaaHm+VVcOTrT/mmKCZqGOIWVmFV2w=="],
+
+    "@fontsource/permanent-marker": ["@fontsource/permanent-marker@5.2.7", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/permanent-marker/-/permanent-marker-5.2.7.tgz", {}, "sha512-Lpjv3yD6TSRvcxjhdv4OZuNtEttbUgVNfFqAE8Qf7D1J8L97qZTZ8rj8OExX2ezCNv920psv+HBHvthAQxNE+A=="],
 
     "@fontsource/playfair-display": ["@fontsource/playfair-display@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/playfair-display/-/playfair-display-5.2.8.tgz", {}, "sha512-fUEhib70SszNhQVsGbUMSsWJhr7Je0rdeuZdtGpDNu0GKF1xJM8QhpI/y0pckU25GcChXm9TLOmeZupkvvZo2g=="],
 
     "@fontsource/poppins": ["@fontsource/poppins@5.2.7", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/poppins/-/poppins-5.2.7.tgz", {}, "sha512-6uQyPmseo4FgI97WIhA4yWRlNaoLk4vSDK/PyRwdqqZb5zAEuc+Kunt8JTMcsHYUEGYBtN15SNkMajMdqUSUmg=="],
 
+    "@fontsource/rajdhani": ["@fontsource/rajdhani@5.2.7", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/rajdhani/-/rajdhani-5.2.7.tgz", {}, "sha512-7Gy10U688fCdeFfYKebUF2TZotdgH/ghKyMsseXPmB60lpaUHC8aoCSJl5/OpZ+KHKSU2TqBfKfteVkcIXxTAQ=="],
+
     "@fontsource/raleway": ["@fontsource/raleway@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/raleway/-/raleway-5.2.8.tgz", {}, "sha512-OATNM+J4XniKQRlI1e67v3euOnCUiXwpqgMofomKc5JNYOq0JPE6E5uTXMnFaZejKN1Z7s05JrHpmYB7/tg1Fw=="],
 
     "@fontsource/satisfy": ["@fontsource/satisfy@5.2.7", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/satisfy/-/satisfy-5.2.7.tgz", {}, "sha512-nCryyRwgppe04BV6WcaaL9x52AsF3VrJ06rBW6wOz+7xqwqJRaw6fy69bW86kmL/NanEfraFDciMm9IDUGoqEg=="],
+
+    "@fontsource/shadows-into-light": ["@fontsource/shadows-into-light@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/shadows-into-light/-/shadows-into-light-5.2.8.tgz", {}, "sha512-ZTiWDiLQmG8kjWEb2o3vicAqpEi02/SziTClaSXRRKpdpXv5w/Jv3kG7EVK9d7wlFm3/4U3hhaFOcIuHznmbSQ=="],
 
     "@fontsource/space-grotesk": ["@fontsource/space-grotesk@5.2.10", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/space-grotesk/-/space-grotesk-5.2.10.tgz", {}, "sha512-XNXEbT74OIITPqw2H6HXwPDp85fy43uxfBwFR5PU+9sLnjuLj12KlhVM9nZVN6q6dlKjkuN8JisW/OBxwxgUew=="],
 
