@@ -38,17 +38,17 @@ const ASPECT_RATIOS: Record<string, number> = {
   "iphone-wallpaper": 1179/2556, "android-wallpaper": 1080/2400, "lock-screen": 1170/2532,
 };
 
-const getPreviewStyles = (aspectRatio: string, customW?: number, customH?: number): React.CSSProperties => {
+const getPreviewContainerStyle = (aspectRatio: string, customW?: number, customH?: number): React.CSSProperties => {
   let ratio = ASPECT_RATIOS[aspectRatio];
   if (aspectRatio === "custom" && customW && customH) ratio = customW / customH;
   if (!ratio) ratio = 1;
-  // Use height-first sizing: set max-height to fill viewport, derive width from aspect ratio
+  // Height-first: fill viewport height, compute width from ratio
+  // For very wide ratios, cap width; for very tall, cap height
+  const maxH = 'calc(100vh - 180px)';
   return {
-    height: 'calc(100vh - 180px)',
-    maxHeight: 'calc(100vh - 180px)',
-    width: 'auto',
+    width: ratio >= 1 ? `min(${Math.round(ratio * 100)}vh - ${Math.round(ratio * 180)}px, 500px)` : undefined,
     maxWidth: '500px',
-    aspectRatio: `${ratio}`,
+    minWidth: '180px',
   };
 };
 
