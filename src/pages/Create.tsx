@@ -2,7 +2,6 @@ import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { Download, LogOut, ArrowLeft } from "lucide-react";
-import PhoneMockup from "@/components/PhoneMockup";
 import QuotePreview, {
   type SocialPlatform,
 } from "@/components/QuotePreview";
@@ -123,38 +122,42 @@ const Create = () => {
             <QuoteEditor state={editorState} onChange={setEditorState} />
           </div>
 
-          <div className="hidden lg:block sticky top-4 flex-shrink-0" style={{ width: "clamp(300px, 30vw, 360px)" }}>
-            <div className="flex flex-col gap-3">
-              <PhoneMockup authorName={editorState.authorName || "lazyquotes"}>
-                <QuotePreview
-                  ref={previewRef}
-                  quote={editorState.quote}
-                  authorName={editorState.authorName}
-                  authorPhoto={editorState.authorPhoto}
-                  socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
-                  socials={socials}
-                  aspectRatio="square"
-                  font={editorState.font}
-                  theme={editorState.theme}
-                  backgroundImage={editorState.backgroundImage}
-                  backgroundOpacity={editorState.backgroundOpacity}
-                  fontSize={editorState.fontSize}
-                  textAlign={editorState.textAlign}
-                  letterSpacing={editorState.letterSpacing}
-                  lineHeight={editorState.lineHeight}
-                  textColor={editorState.textColor}
-                  authorFontSize={editorState.authorFontSize}
-                  authorColor={editorState.authorColor}
-                  authorFont={editorState.authorFont}
-                  textShadow={editorState.textShadow}
-                  authorPosition={editorState.authorPosition}
-                  backgroundColor={editorState.backgroundColor}
-                  isBold={editorState.isBold}
-                  isItalic={editorState.isItalic}
-                  coloredWords={editorState.coloredWords}
-                  showWatermark={isFreeUser}
-                />
-              </PhoneMockup>
+          <div className="hidden lg:flex sticky top-4 flex-shrink-0 flex-col gap-3" style={{ width: "clamp(260px, 25vw, 320px)" }}>
+              {/* Phone outline matching homepage style */}
+              <div className="relative border border-foreground/20 rounded-[2.8rem] py-12 px-1 flex items-center" style={{ aspectRatio: "71.5 / 149.6" }}>
+                <div className="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none rounded-t-[2.8rem]" />
+                <div className="w-full">
+                  <QuotePreview
+                    ref={previewRef}
+                    quote={editorState.quote}
+                    authorName={editorState.authorName}
+                    authorPhoto={editorState.authorPhoto}
+                    socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
+                    socials={socials}
+                    aspectRatio="square"
+                    font={editorState.font}
+                    theme={editorState.theme}
+                    backgroundImage={editorState.backgroundImage}
+                    backgroundOpacity={editorState.backgroundOpacity}
+                    fontSize={editorState.fontSize}
+                    textAlign={editorState.textAlign}
+                    letterSpacing={editorState.letterSpacing}
+                    lineHeight={editorState.lineHeight}
+                    textColor={editorState.textColor}
+                    authorFontSize={editorState.authorFontSize}
+                    authorColor={editorState.authorColor}
+                    authorFont={editorState.authorFont}
+                    textShadow={editorState.textShadow}
+                    authorPosition={editorState.authorPosition}
+                    backgroundColor={editorState.backgroundColor}
+                    isBold={editorState.isBold}
+                    isItalic={editorState.isItalic}
+                    coloredWords={editorState.coloredWords}
+                    showWatermark={isFreeUser}
+                  />
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none rounded-b-[2.8rem]" />
+              </div>
               <button
                 onClick={handleDownload}
                 disabled={downloading}
@@ -163,7 +166,6 @@ const Create = () => {
                 <Download className="w-4 h-4" />
                 {downloading ? "Exporting…" : user ? "Download PNG" : "Sign up to download"}
               </button>
-            </div>
           </div>
         </div>
       </main>
