@@ -1089,6 +1089,9 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                           "android-tablet": "1920 × 1200 px",
                           "mac-screenshot": "2880 × 1800 px",
                           "app-icon": "1024 × 1024 px",
+                          "iphone-wallpaper": "1179 × 2556 px",
+                          "android-wallpaper": "1080 × 2400 px",
+                          "lock-screen": "1170 × 2532 px",
                         };
                         const [w, h] = ratioMap[opt.value] || opt.value.split(":").map(Number);
                         const maxDim = 36;
