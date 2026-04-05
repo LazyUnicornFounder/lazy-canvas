@@ -159,11 +159,27 @@ const Index = () => {
             <h1 className="font-orbitron text-lg sm:text-xl font-bold text-foreground select-none uppercase tracking-widest">
               Lazy Faceless
             </h1>
-            <div className="hidden md:block">
-              <p className="font-playfair text-sm font-normal tracking-tight text-foreground leading-tight">
-                Create content for anything.
-              </p>
-            </div>
+            <nav className="hidden md:flex items-center gap-4">
+              {[
+                { label: "Instagram", href: "/instagram" },
+                { label: "YouTube", href: "/youtube" },
+                { label: "TikTok", href: "/tiktok" },
+                { label: "Facebook", href: "/facebook" },
+                { label: "Pinterest", href: "/pinterest" },
+                { label: "LinkedIn", href: "/linkedin" },
+                { label: "X", href: "/twitter" },
+                { label: "Banners", href: "/banners" },
+                { label: "Posts", href: "/posts" },
+              ].map((link) => (
+                <button
+                  key={link.href}
+                  onClick={() => navigate(link.href)}
+                  className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </button>
+              ))}
+            </nav>
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
             <button
