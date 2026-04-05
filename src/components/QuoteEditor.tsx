@@ -97,6 +97,7 @@ export interface QuoteEditorState {
   backgroundImage: string | null;
   backgroundOpacity: number;
   backgroundBlur: number;
+  backgroundFilter: string;
   backgroundColor: string;
   fontSize: number;
   textAlign: "left" | "center" | "right";
@@ -129,6 +130,7 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   backgroundImage: null,
   backgroundOpacity: 0.4,
   backgroundBlur: 0,
+  backgroundFilter: "none",
   backgroundColor: "",
   fontSize: 1.4,
   textAlign: "center",
@@ -773,6 +775,24 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
               <div className="flex items-center gap-3">
                 <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Blur</span>
                 <input type="range" min={0} max={20} step={1} value={state.backgroundBlur} onChange={(e) => set("backgroundBlur", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
+              </div>
+              <div>
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest mb-1.5 block">Filter</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {BG_FILTERS.map((f) => (
+                    <button
+                      key={f.value}
+                      onClick={() => set("backgroundFilter", f.value)}
+                      className={`px-2.5 py-1 text-[10px] font-heading font-medium rounded-md border transition-all ${
+                        state.backgroundFilter === f.value
+                          ? "bg-foreground text-background border-foreground"
+                          : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                      }`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </>
           )}
