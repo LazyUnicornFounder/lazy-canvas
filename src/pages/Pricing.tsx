@@ -34,7 +34,7 @@ const tiers = [
     features: [
       { text: "Everything in Free", included: true },
       { text: "Word colors", included: true },
-      { text: "Text formatting (bold, italic, align)", included: true },
+      
       { text: "Background image upload", included: true },
       { text: "No gallery listing", included: true },
       { text: "No watermark", included: true },
