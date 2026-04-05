@@ -80,7 +80,7 @@ const AuthModal = ({ open, onClose, onSuccess }: AuthModalProps) => {
           </h2>
           <p className="text-muted-foreground text-xs">
             {mode === "signup"
-              ? "Save your quotes and create more from your dashboard"
+              ? "Save your content and create more from your dashboard"
               : "Sign in to continue"}
           </p>
         </div>
