@@ -294,6 +294,24 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
   const [pexelsResults, setPexelsResults] = useState<{ src: { large: string; medium: string }; photographer: string; id: number }[]>([]);
   const [pexelsLoading, setPexelsLoading] = useState(false);
   const [showPexelsSearch, setShowPexelsSearch] = useState(false);
+  const [customUnit, setCustomUnit] = useState<Unit>("px");
+  const [customDpi, setCustomDpi] = useState(300);
+
+  const unitToPx = (value: number, unit: Unit, dpi: number): number => {
+    if (unit === "px") return value;
+    if (unit === "cm") return value * dpi / 2.54;
+    if (unit === "in") return value * dpi;
+    if (unit === "mm") return value * dpi / 25.4;
+    return value;
+  };
+
+  const pxToUnit = (px: number, unit: Unit, dpi: number): number => {
+    if (unit === "px") return px;
+    if (unit === "cm") return px * 2.54 / dpi;
+    if (unit === "in") return px / dpi;
+    if (unit === "mm") return px * 25.4 / dpi;
+    return px;
+  };
 
   const searchPexels = useCallback(async (query: string) => {
     if (!query.trim()) return;
