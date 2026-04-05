@@ -213,6 +213,7 @@ const Index = () => {
             quote={editorState.quote}
             authorName={editorState.authorName}
             authorPhoto={editorState.authorPhoto}
+            photoShape={editorState.photoShape}
             socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
             socials={socials}
             aspectRatio={editorState.aspectRatio}
@@ -267,6 +268,7 @@ const Index = () => {
                   quote={editorState.quote}
                   authorName={editorState.authorName}
                   authorPhoto={editorState.authorPhoto}
+                  photoShape={editorState.photoShape}
                   socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
                   socials={socials}
                   aspectRatio={editorState.aspectRatio}
