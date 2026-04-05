@@ -23,7 +23,7 @@ import { supabase } from "@/integrations/supabase/client";
 const DRAFT_KEY = "lazy-quotes-draft";
 
 const Index = () => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, isPro } = useAuth();
   const navigate = useNavigate();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [editorState, setEditorState] = useState<QuoteEditorState>(() => {
@@ -116,7 +116,7 @@ const Index = () => {
     editorState.website,
   ].filter(Boolean).join(" · ");
 
-  const isFreeUser = true;
+  const isFreeUser = !isPro;
 
   return (
     <div className="min-h-screen bg-background">
