@@ -668,7 +668,7 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
 };
 
 const ControlSection = ({ label, children, pro = false }: { label: string; children: React.ReactNode; pro?: boolean }) => (
-  <div className={`border border-border rounded-lg p-4 space-y-2.5 bg-card relative ${pro ? "overflow-hidden" : ""}`}>
+  <div className="border border-border rounded-lg p-4 space-y-2.5 bg-card">
     <div className="flex items-center gap-2">
       <label className="text-sm font-heading font-semibold uppercase tracking-widest text-foreground">{label}</label>
       {pro && (
@@ -677,21 +677,7 @@ const ControlSection = ({ label, children, pro = false }: { label: string; child
         </span>
       )}
     </div>
-    {pro ? (
-      <div className="relative">
-        <div className="opacity-30 pointer-events-none select-none">{children}</div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <a
-            href="/pricing"
-            className="px-4 py-2 bg-primary text-primary-foreground text-xs font-heading font-semibold rounded-md hover:opacity-90 transition-opacity"
-          >
-            Upgrade to Pro
-          </a>
-        </div>
-      </div>
-    ) : (
-      children
-    )}
+    {children}
   </div>
 );
 
