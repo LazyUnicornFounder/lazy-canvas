@@ -118,21 +118,17 @@ const Index = () => {
 
       {/* Hero Section - only for non-logged-in users */}
       {!user && (
-        <section className="min-h-[calc(100vh-4rem)] flex items-center justify-center">
-          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10 w-full">
-            <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
-              <div className="flex-1 space-y-6">
-                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-foreground leading-tight">
-                  Create awesome quotes for your socials.
-                </h2>
-                <p className="text-muted-foreground text-lg max-w-md">
-                  Design beautiful, shareable quote images in seconds. Pick fonts, colors, layouts — download and post.
-                </p>
-              </div>
-              <div className="flex-shrink-0 flex items-center justify-center">
-                <HeroPhoneMockup />
-              </div>
-            </div>
+        <section className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-4 sm:px-6 py-10">
+          <div className="text-center space-y-3 mb-8">
+            <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-foreground leading-tight max-w-xl mx-auto">
+              Create awesome quotes for your socials.
+            </h2>
+            <p className="text-muted-foreground text-base max-w-md mx-auto">
+              Design beautiful, shareable quote images in seconds. Pick fonts, colors, layouts — download and post.
+            </p>
+          </div>
+          <div className="flex-1 flex items-center justify-center w-full max-h-[70vh]">
+            <HeroPhoneMockup />
           </div>
         </section>
       )}
