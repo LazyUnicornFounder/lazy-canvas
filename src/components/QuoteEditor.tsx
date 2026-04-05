@@ -89,6 +89,14 @@ const DIGITAL_FORMAT_GROUPS: { label: string; options: { value: AspectRatio; lab
       { value: "app-icon", label: "Icon" },
     ],
   },
+  {
+    label: "Phone Backgrounds",
+    options: [
+      { value: "iphone-wallpaper", label: "iPhone" },
+      { value: "android-wallpaper", label: "Android" },
+      { value: "lock-screen", label: "Lock Screen" },
+    ],
+  },
 ];
 
 const PHYSICAL_FORMAT_GROUPS: { label: string; options: { value: AspectRatio; label: string }[] }[] = [
@@ -1048,6 +1056,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                           "poster-18x24": [18, 24], "poster-24x36": [24, 36], "banner-2x5": [2, 5],
                           "ios-screenshot": [1290, 2796], "ios-ipad": [2048, 2732], "android-phone": [1080, 1920],
                           "android-tablet": [1920, 1200], "mac-screenshot": [2880, 1800], "app-icon": [1, 1],
+                          "iphone-wallpaper": [1179, 2556], "android-wallpaper": [1080, 2400], "lock-screen": [1170, 2532],
                         };
                         const sizeMap: Record<string, string> = {
                           square: "1080 × 1080 px",
@@ -1080,6 +1089,9 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                           "android-tablet": "1920 × 1200 px",
                           "mac-screenshot": "2880 × 1800 px",
                           "app-icon": "1024 × 1024 px",
+                          "iphone-wallpaper": "1179 × 2556 px",
+                          "android-wallpaper": "1080 × 2400 px",
+                          "lock-screen": "1170 × 2532 px",
                         };
                         const [w, h] = ratioMap[opt.value] || opt.value.split(":").map(Number);
                         const maxDim = 36;

@@ -228,4 +228,18 @@ export const MARKETING_PAGES: Config[] = [
     ],
     templateCategory: "trendy",
   },
+  {
+    slug: "phone-backgrounds",
+    title: "Create Phone Backgrounds | Lazy Faceless",
+    headline: "Create Phone Wallpapers That Inspire",
+    subheadline: "Design beautiful lock screen and home screen backgrounds with quotes, colors, and custom typography.",
+    description: "Turn your phone into a daily dose of motivation. Create stunning wallpapers for iPhone and Android in the exact sizes your device needs.",
+    ctaText: "Create a Wallpaper",
+    features: [
+      { icon: "📱", title: "Every Phone Size", description: "iPhone, Android, and lock screen formats — pixel-perfect for any device." },
+      { icon: "🎨", title: "Custom Aesthetics", description: "Choose fonts, colors, and backgrounds that match your personal style." },
+      { icon: "💬", title: "Quote Wallpapers", description: "Turn your favorite quotes into daily reminders on your home or lock screen." },
+    ],
+    templateCategory: "elegant",
+  },
 ];

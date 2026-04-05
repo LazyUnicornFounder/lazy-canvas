@@ -12,6 +12,7 @@ const DIGITAL_LINKS = [
   { label: "X", href: "/twitter" },
   { label: "App Store", href: "/app-store" },
   { label: "Google Play", href: "/google-play" },
+  { label: "Phone Backgrounds", href: "/phone-backgrounds" },
   { label: "Banners", href: "/banners" },
   { label: "Posts", href: "/posts" },
 ];
