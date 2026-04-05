@@ -301,7 +301,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             </span>
           )}
           {socials && (
-            <span className="text-xs flex items-center gap-1" style={{ color: authorColor || textColor || t.muted, whiteSpace: "nowrap" }}>
+            <span className="text-xs flex items-center gap-1" style={{ color: authorColor || textColor || t.text, whiteSpace: "nowrap" }}>
               {socialPlatform && (() => { const Icon = socialIcons[socialPlatform]; return <Icon size={12} />; })()}
               {socials}
             </span>
