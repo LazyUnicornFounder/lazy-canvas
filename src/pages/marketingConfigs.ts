@@ -144,4 +144,18 @@ export const MARKETING_PAGES: Config[] = [
     ],
     templateCategory: "elegant",
   },
+  {
+    slug: "print",
+    title: "Create Print-Ready Designs | Lazy Faceless",
+    headline: "Create Print-Ready Designs in Seconds",
+    subheadline: "Design business cards, flyers, menus, invitations, and more — formatted for professional printing.",
+    description: "From business cards to event programs, create polished print materials without a designer.",
+    ctaText: "Create for Print",
+    features: [
+      { icon: "🖨️", title: "Print-Perfect Formats", description: "A4, A5, US Letter, business card, and custom sizes with bleed-safe margins." },
+      { icon: "📐", title: "High-Resolution Output", description: "Export at 300 DPI for crisp, professional results on any paper stock." },
+      { icon: "🎨", title: "Brand-Ready Templates", description: "Menus, invitations, certificates, and more — customize colors, fonts, and layouts instantly." },
+    ],
+    templateCategory: "elegant",
+  },
 ];
