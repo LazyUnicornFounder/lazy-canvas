@@ -118,18 +118,18 @@ const Index = () => {
 
       {/* Hero Section - only for non-logged-in users */}
       {!user && (
-        <section className="border-b border-border bg-card/30">
-          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-12 md:py-20">
+        <section className="min-h-[calc(100vh-4rem)] flex items-center justify-center border-b border-border">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-12 md:py-20 w-full">
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
               <div className="flex-1 space-y-6">
-                <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight">
+                <h2 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-foreground leading-tight">
                   Create awesome quotes for your socials.
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-md">
                   Design beautiful, shareable quote images in seconds. Pick fonts, colors, layouts — download and post.
                 </p>
               </div>
-              <div className="flex-shrink-0 w-full max-w-md">
+              <div className="flex-shrink-0 flex items-center justify-center">
                 <HeroSlideshow />
               </div>
             </div>
