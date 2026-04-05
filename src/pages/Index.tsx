@@ -70,6 +70,12 @@ const Index = () => {
           </h1>
           <div className="flex items-center gap-2 sm:gap-4">
             <button
+              onClick={() => navigate("/gallery")}
+              className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Gallery
+            </button>
+            <button
               onClick={() => navigate("/pricing")}
               className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
@@ -164,7 +170,7 @@ const Index = () => {
         </div>
       </section>
 
-      <QuoteGallery />
+      
 
       {/* About */}
       <section className="border-t border-border px-4 sm:px-6 py-8">

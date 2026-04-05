@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import Create from "./pages/Create.tsx";
 import Admin from "./pages/Admin.tsx";
 import Pricing from "./pages/Pricing.tsx";
+import Gallery from "./pages/Gallery.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/create" element={<Create />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/pricing" element={<Pricing />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

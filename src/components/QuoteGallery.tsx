@@ -34,7 +34,7 @@ interface GalleryQuote {
   colored_words: any | null;
 }
 
-const QuoteGallery = () => {
+const QuoteGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
   const [quotes, setQuotes] = useState<GalleryQuote[]>([]);
 
   useEffect(() => {
@@ -49,43 +49,49 @@ const QuoteGallery = () => {
 
   if (quotes.length === 0) return null;
 
+  const grid = (
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      {quotes.map((q) => (
+        <div key={q.id} className="rounded-lg overflow-hidden border border-border">
+          <QuotePreview
+            quote={q.quote}
+            authorName={q.author_name || ""}
+            authorPhoto={q.author_photo_url || null}
+            socials={q.socials || ""}
+            aspectRatio="square"
+            font={(q.font as QuoteFont) || "playfair"}
+            theme={(q.theme as QuoteTheme) || "dark"}
+            backgroundImage={q.background_image_url || null}
+            backgroundOpacity={q.background_opacity || 0.4}
+            fontSize={q.font_size || 1.4}
+            textAlign={(q.text_align as "left" | "center" | "right") || "center"}
+            letterSpacing={q.letter_spacing || 0}
+            lineHeight={q.line_height || 1.6}
+            textColor={q.text_color || ""}
+            authorFontSize={q.author_font_size || 0.875}
+            authorColor={q.author_color || ""}
+            authorFont={(q.author_font as QuoteFont) || "playfair"}
+            textShadow={(q.text_shadow as TextShadow) || "none"}
+            authorPosition={(q.author_position as AuthorPosition) || "below-quote"}
+            backgroundColor={q.background_color || ""}
+            isBold={q.is_bold || false}
+            isItalic={q.is_italic || false}
+            coloredWords={Array.isArray(q.colored_words) ? q.colored_words : []}
+          />
+        </div>
+      ))}
+    </div>
+  );
+
+  if (hideWrapper) return grid;
+
   return (
     <section className="border-t border-border px-4 sm:px-6 py-12">
       <div className="max-w-[1400px] mx-auto">
         <h2 className="font-heading text-xl font-semibold tracking-tight text-foreground mb-8">
           Gallery
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {quotes.map((q) => (
-            <div key={q.id} className="rounded-lg overflow-hidden border border-border">
-              <QuotePreview
-                quote={q.quote}
-                authorName={q.author_name || ""}
-                authorPhoto={q.author_photo_url || null}
-                socials={q.socials || ""}
-                aspectRatio="square"
-                font={(q.font as QuoteFont) || "playfair"}
-                theme={(q.theme as QuoteTheme) || "dark"}
-                backgroundImage={q.background_image_url || null}
-                backgroundOpacity={q.background_opacity || 0.4}
-                fontSize={q.font_size || 1.4}
-                textAlign={(q.text_align as "left" | "center" | "right") || "center"}
-                letterSpacing={q.letter_spacing || 0}
-                lineHeight={q.line_height || 1.6}
-                textColor={q.text_color || ""}
-                authorFontSize={q.author_font_size || 0.875}
-                authorColor={q.author_color || ""}
-                authorFont={(q.author_font as QuoteFont) || "playfair"}
-                textShadow={(q.text_shadow as TextShadow) || "none"}
-                authorPosition={(q.author_position as AuthorPosition) || "below-quote"}
-                backgroundColor={q.background_color || ""}
-                isBold={q.is_bold || false}
-                isItalic={q.is_italic || false}
-                coloredWords={Array.isArray(q.colored_words) ? q.colored_words : []}
-              />
-            </div>
-          ))}
-        </div>
+        {grid}
       </div>
     </section>
   );
