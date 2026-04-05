@@ -154,11 +154,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border">
-        <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1600px] mx-auto relative">
-          <div className="flex items-center gap-2 sm:gap-4">
-            {/* spacer for centering */}
-          </div>
-          <h1 className="absolute left-1/2 -translate-x-1/2 font-shadows-into-light text-3xl sm:text-4xl font-bold text-foreground select-none" style={{ letterSpacing: "0.02em" }}>
+        <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1600px] mx-auto">
+          <h1 className="font-shadows-into-light text-3xl sm:text-4xl font-bold text-foreground select-none" style={{ letterSpacing: "0.02em" }}>
             Lazy Quotes
           </h1>
           <div className="flex items-center gap-2 sm:gap-4">
