@@ -155,9 +155,19 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border">
         <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1600px] mx-auto">
-          <h1 className="font-shadows-into-light text-3xl sm:text-4xl font-bold text-foreground select-none" style={{ letterSpacing: "0.02em" }}>
-            Lazy Quotes
-          </h1>
+          <div className="flex items-center gap-6">
+            <h1 className="font-shadows-into-light text-3xl sm:text-4xl font-bold text-foreground select-none" style={{ letterSpacing: "0.02em" }}>
+              Lazy Quotes
+            </h1>
+            <div className="hidden md:block">
+              <p className="font-playfair text-sm font-normal tracking-tight text-foreground leading-tight">
+                Create awesome quotes for your socials.
+              </p>
+              <p className="text-muted-foreground text-xs">
+                Design beautiful, shareable quote images in seconds. Pick fonts, colors, layouts — download and post.
+              </p>
+            </div>
+          </div>
           <div className="flex items-center gap-2 sm:gap-4">
             <button
               onClick={() => navigate("/pricing")}
@@ -243,17 +253,9 @@ const Index = () => {
       </div>
 
       <section className="min-h-[calc(100vh-4rem)] flex px-4 sm:px-6">
-        <div className="max-w-[1400px] mx-auto w-full flex gap-8 lg:gap-12 py-6">
-          {/* Left — text + editor */}
+        <div className="max-w-[1400px] mx-auto w-full flex gap-8 lg:gap-12 py-4">
+          {/* Left — editor */}
           <div className="flex-1 min-w-0 flex flex-col">
-            <div className="space-y-2 mb-6">
-              <h2 className="font-playfair text-2xl md:text-3xl lg:text-4xl font-normal tracking-tight text-foreground leading-tight">
-                Create awesome quotes for your socials.
-              </h2>
-              <p className="text-muted-foreground text-sm max-w-md">
-                Design beautiful, shareable quote images in seconds. Pick fonts, colors, layouts — download and post.
-              </p>
-            </div>
             <div className="flex-1 min-h-0">
               <QuoteEditor state={editorState} onChange={setEditorState} isPro={isPro} />
             </div>
