@@ -244,6 +244,8 @@ const PEXELS_IMAGES: Record<string, string> = {
   "history-map": "https://images.pexels.com/photos/1093673/pexels-photo-1093673.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
   "autonomy-ai": "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
   "autonomy-smart": "https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "faces-portrait": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  "faces-closeup": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
 };
 
 const BUILTIN_TEMPLATES: Template[] = [
@@ -2797,6 +2799,25 @@ const BUILTIN_TEMPLATES: Template[] = [
       backgroundImage: PEXELS_IMAGES["autonomy-smart"], backgroundOpacity: 0.4,
     },
   },
+  // ── FACES ──
+  {
+    id: "faces-portrait", name: "Portrait", category: "faces",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.6,
+      textColor: "#ffffff", authorFont: "heading", authorColor: "#d4d4d8", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#18181b", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["faces-portrait"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "faces-closeup", name: "Close Up", category: "faces",
+    editorState: {
+      font: "montserrat", theme: "dark", fontSize: 1.4, textAlign: "left", letterSpacing: 0.0, lineHeight: 1.7,
+      textColor: "#fafafa", authorFont: "inter", authorColor: "#a1a1aa", authorFontSize: 0.65,
+      isBold: true, isItalic: false, backgroundColor: "#09090b", textShadow: "hard", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["faces-closeup"], backgroundOpacity: 0.4,
+    },
+  },
 ];
 
 const CATEGORIES = [
@@ -2847,6 +2868,7 @@ const CATEGORIES = [
   { value: "farming", label: "Farming" },
   { value: "history", label: "History" },
   { value: "autonomy", label: "Autonomy" },
+  { value: "faces", label: "Faces" },
 ];
 
 const FONT_CLASS_MAP: Record<string, string> = {
