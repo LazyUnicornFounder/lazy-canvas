@@ -163,7 +163,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           />
         )}
         {backgroundImage && (
-          <div className="absolute inset-0" style={{ backgroundColor: t.bg, opacity: 1 - backgroundOpacity }} />
+          <div className="absolute inset-0" style={{ backgroundColor: backgroundColor || t.bg, opacity: 1 - backgroundOpacity }} />
         )}
         {/* Inner padding — nothing goes beyond this */}
         <div className="absolute inset-0 flex flex-col" style={{ padding: "clamp(12px, 4%, 32px)" }}>
