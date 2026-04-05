@@ -19,6 +19,9 @@ interface QuotePreviewProps {
   letterSpacing: number;
   lineHeight: number;
   textColor: string;
+  authorFontSize: number;
+  authorColor: string;
+  authorFont: QuoteFont;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
@@ -43,7 +46,7 @@ const themeStyles: Record<QuoteTheme, { bg: string; text: string; muted: string;
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont }, ref) => {
     const t = themeStyles[theme];
     const displayQuote = quote;
     const isPlaceholder = !quote;
@@ -123,10 +126,10 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
                 <div className="flex flex-col">
                   {authorName && (
                     <span
-                      className={`${fontClasses[font]} text-sm font-medium`}
+                      className={`${fontClasses[authorFont]} font-medium`}
                       style={{
-                        letterSpacing: `${letterSpacing}em`,
-                        color: textColor || undefined,
+                        fontSize: `${authorFontSize}rem`,
+                        color: authorColor || textColor || undefined,
                       }}
                     >
                       {authorName}
