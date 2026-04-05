@@ -102,6 +102,7 @@ const AdminSlideshow = () => {
       social_platform: editorState.socialPlatform,
       website: editorState.website,
       display_order: savedQuotes.length,
+      colored_words: editorState.coloredWords.length ? editorState.coloredWords : [],
     });
     setSaving(false);
     if (error) {
