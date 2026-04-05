@@ -82,8 +82,8 @@ const Index = () => {
         performDownloadOnly();
       }
     } else {
-      // Free logged-in user, no pro features → offer gallery share
-      setShowGalleryPrompt(true);
+      // Free logged-in user, no pro features → just download
+      performDownloadOnly();
     }
   }, [user, isPro, editorState, usesProFeatures]);
 
@@ -161,12 +161,6 @@ const Index = () => {
             Lazy Quotes
           </h1>
           <div className="flex items-center gap-2 sm:gap-4">
-            <button
-              onClick={() => navigate("/gallery")}
-              className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Gallery
-            </button>
             <button
               onClick={() => navigate("/pricing")}
               className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -331,11 +325,6 @@ const Index = () => {
         open={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onSuccess={() => navigate("/create")}
-      />
-      <GalleryPromptDialog
-        open={showGalleryPrompt}
-        onClose={() => setShowGalleryPrompt(false)}
-        onConfirm={performDownload}
       />
 
       {/* Signup prompt after download for non-logged-in users */}
