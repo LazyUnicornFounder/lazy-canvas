@@ -29,7 +29,6 @@ const SERIF_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
   { value: "lora", label: "Lora", preview: "font-lora" },
   { value: "merriweather", label: "Merriweather", preview: "font-merriweather" },
   { value: "crimson", label: "Crimson", preview: "font-crimson" },
-  { value: "dancing", label: "Dancing", preview: "font-dancing" },
 ];
 
 const SANS_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
@@ -44,7 +43,11 @@ const SANS_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
   { value: "mono", label: "Mono", preview: "font-mono" },
 ];
 
-const FONT_OPTIONS = [...SERIF_FONTS, ...SANS_FONTS];
+const CURSIVE_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
+  { value: "dancing", label: "Dancing", preview: "font-dancing" },
+];
+
+const FONT_OPTIONS = [...SERIF_FONTS, ...SANS_FONTS, ...CURSIVE_FONTS];
 
 const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string }[] = [
   { value: "light", label: "Light", swatch: "#FFFFFF" },
@@ -276,6 +279,22 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
             <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Sans-serif</p>
             <div className="flex flex-wrap gap-2">
               {SANS_FONTS.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => set("font", opt.value)}
+                  className={`px-4 py-2 text-sm rounded-md border transition-all ${opt.preview} ${
+                    state.font === opt.value
+                      ? "bg-foreground text-background border-foreground"
+                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+            <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Cursive</p>
+            <div className="flex flex-wrap gap-2">
+              {CURSIVE_FONTS.map((opt) => (
                 <button
                   key={opt.value}
                   onClick={() => set("font", opt.value)}
@@ -548,6 +567,22 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
           <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Sans-serif</p>
           <div className="flex flex-wrap gap-2">
             {SANS_FONTS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => set("authorFont", opt.value)}
+                className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
+                  state.authorFont === opt.value
+                    ? "bg-foreground text-background border-foreground"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Cursive</p>
+          <div className="flex flex-wrap gap-2">
+            {CURSIVE_FONTS.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => set("authorFont", opt.value)}
