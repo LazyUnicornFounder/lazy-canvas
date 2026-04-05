@@ -223,6 +223,7 @@ const Index = () => {
             theme={editorState.theme}
             backgroundImage={editorState.backgroundImage}
             backgroundOpacity={editorState.backgroundOpacity}
+            backgroundBlur={editorState.backgroundBlur}
             fontSize={editorState.fontSize}
             textAlign={editorState.textAlign}
             letterSpacing={editorState.letterSpacing}
@@ -277,6 +278,7 @@ const Index = () => {
                   theme={editorState.theme}
                   backgroundImage={editorState.backgroundImage}
                   backgroundOpacity={editorState.backgroundOpacity}
+                  backgroundBlur={editorState.backgroundBlur}
                   fontSize={editorState.fontSize}
                   textAlign={editorState.textAlign}
                   letterSpacing={editorState.letterSpacing}
