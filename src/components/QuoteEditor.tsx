@@ -201,7 +201,15 @@ const QuoteEditor = ({ state, onChange }: QuoteEditorProps) => {
               rows={3}
               className="w-full bg-transparent border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 resize-none font-body"
             />
-            <div className="absolute bottom-2 right-2">
+            <div className="absolute bottom-2 right-2 flex items-center gap-0.5">
+              <button
+                onClick={() => set("showQuotationMarks", !state.showQuotationMarks)}
+                className={`p-1.5 rounded-md transition-colors text-xs font-bold select-none ${state.showQuotationMarks ? "bg-accent text-foreground" : "hover:bg-accent text-muted-foreground"}`}
+                type="button"
+                title={state.showQuotationMarks ? "Remove quotation marks" : "Add quotation marks"}
+              >
+                &ldquo;&rdquo;
+              </button>
               <button
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                 className="p-1.5 rounded-md hover:bg-accent transition-colors"
