@@ -1,4 +1,14 @@
 import { useState, useRef, useCallback, useEffect } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { useNavigate } from "react-router-dom";
 import { LogOut, User, Download } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
@@ -25,6 +35,7 @@ const Index = () => {
   });
   const [downloading, setDownloading] = useState(false);
   const [showGalleryPrompt, setShowGalleryPrompt] = useState(false);
+  const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const mobilePreviewRef = useRef<HTMLDivElement>(null);
 
@@ -36,8 +47,34 @@ const Index = () => {
   }, [user]);
 
   const handleDownloadClick = useCallback(() => {
-    setShowGalleryPrompt(true);
-  }, []);
+    if (user) {
+      setShowGalleryPrompt(true);
+    } else {
+      // For non-logged-in users, download immediately then prompt signup
+      performDownloadOnly();
+    }
+  }, [user]);
+
+  const performDownloadOnly = useCallback(async () => {
+    const target = previewRef.current || mobilePreviewRef.current;
+    if (!target) return;
+    setDownloading(true);
+    try {
+      const canvas = await html2canvas(target, {
+        scale: 3, useCORS: true, logging: false, backgroundColor: null,
+      });
+      const link = document.createElement("a");
+      link.download = `quote-${Date.now()}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch { console.error("Failed to export"); }
+    finally {
+      setDownloading(false);
+      if (!user) {
+        setShowSignupPrompt(true);
+      }
+    }
+  }, [user]);
 
   const performDownload = useCallback(async (shareToGallery: boolean) => {
     setShowGalleryPrompt(false);
@@ -61,6 +98,16 @@ const Index = () => {
     } catch { console.error("Failed to export"); }
     finally { setDownloading(false); }
   }, [user, editorState]);
+
+  const handleSignupAccept = useCallback(() => {
+    setShowSignupPrompt(false);
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(editorState));
+    setShowAuthModal(true);
+  }, [editorState]);
+
+  const handleSignupDecline = useCallback(() => {
+    setShowSignupPrompt(false);
+  }, []);
 
   const socials = [
     editorState.socialUsername
@@ -251,12 +298,33 @@ const Index = () => {
       <AuthModal
         open={showAuthModal}
         onClose={() => setShowAuthModal(false)}
+        onSuccess={() => navigate("/create")}
       />
       <GalleryPromptDialog
         open={showGalleryPrompt}
         onClose={() => setShowGalleryPrompt(false)}
         onConfirm={performDownload}
       />
+
+      {/* Signup prompt after download for non-logged-in users */}
+      <AlertDialog open={showSignupPrompt} onOpenChange={(o) => !o && setShowSignupPrompt(false)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-heading">Sign up free to save this quote and create more free quotes.</AlertDialogTitle>
+            <AlertDialogDescription className="text-sm text-muted-foreground">
+              Create a free account to save your quotes, edit them anytime, and create unlimited new ones from your personal dashboard.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={handleSignupDecline}>
+              No thanks
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={handleSignupAccept}>
+              Sign up free
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

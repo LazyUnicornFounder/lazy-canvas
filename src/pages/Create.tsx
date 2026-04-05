@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { Download, LogOut, ArrowLeft } from "lucide-react";
@@ -16,10 +16,21 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import type { UserQuote } from "@/hooks/useUserQuotes";
 
+const DRAFT_KEY = "lazy-quotes-draft";
+
 const Create = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
-  const [editorState, setEditorState] = useState<QuoteEditorState>(DEFAULT_EDITOR_STATE);
+  const [editorState, setEditorState] = useState<QuoteEditorState>(() => {
+    try {
+      const saved = localStorage.getItem(DRAFT_KEY);
+      if (saved) {
+        localStorage.removeItem(DRAFT_KEY);
+        return JSON.parse(saved);
+      }
+    } catch {}
+    return DEFAULT_EDITOR_STATE;
+  });
   const [activeQuoteId, setActiveQuoteId] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);

@@ -45,7 +45,7 @@ const AuthModal = ({ open, onClose, onSuccess }: AuthModalProps) => {
 
   const handleGoogleSignIn = async () => {
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+      redirect_uri: `${window.location.origin}/create`,
       extraParams: { prompt: "select_account" },
     });
     if (result.error) {
@@ -70,7 +70,7 @@ const AuthModal = ({ open, onClose, onSuccess }: AuthModalProps) => {
           </h2>
           <p className="text-muted-foreground text-xs">
             {mode === "signup"
-              ? "Sign up to download your quote images"
+              ? "Save your quotes and create more from your dashboard"
               : "Sign in to continue"}
           </p>
         </div>
