@@ -6,13 +6,11 @@ import { LogOut, ArrowLeft, Images, Users, ChevronLeft, ChevronRight } from "luc
 import { toast } from "sonner";
 import AdminSlideshow from "@/components/AdminSlideshow";
 import AdminUsers from "@/components/AdminUsers";
-import AdminGallery from "@/components/AdminGallery";
 
-type AdminSection = "slideshow" | "users" | "gallery";
+type AdminSection = "slideshow" | "users";
 
 const NAV_ITEMS: { id: AdminSection; label: string; icon: typeof Images }[] = [
   { id: "slideshow", label: "Slideshow", icon: Images },
-  { id: "gallery", label: "Gallery", icon: Images },
   { id: "users", label: "Users", icon: Users },
 ];
 
@@ -126,13 +124,12 @@ const Admin = () => {
       <div className="flex-1 min-w-0 flex flex-col">
         <header className="border-b border-border px-6 py-4">
           <h1 className="font-heading text-lg font-semibold tracking-tight text-foreground capitalize">
-            {section === "slideshow" ? "Slideshow Quotes" : section === "gallery" ? "Gallery Approvals" : "Users"}
+            {section === "slideshow" ? "Slideshow Quotes" : "Users"}
           </h1>
         </header>
 
         <main className="flex-1 p-6 overflow-auto">
           {section === "slideshow" && <AdminSlideshow />}
-          {section === "gallery" && <AdminGallery />}
           {section === "users" && <AdminUsers />}
         </main>
       </div>
