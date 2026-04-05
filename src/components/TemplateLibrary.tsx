@@ -671,6 +671,266 @@ const BUILTIN_TEMPLATES: Template[] = [
       backgroundOpacity: 0.3,
     },
   },
+
+  // ── FOOD ──
+  {
+    id: "food-rustic",
+    name: "Rustic Kitchen",
+    category: "food",
+    editorState: {
+      font: "lora", theme: "cream", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.7,
+      textColor: "#44403c", authorFont: "heading", authorColor: "#78716c", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#f5f0e8", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: imgFood, backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── SPORTS ──
+  {
+    id: "sports-stadium",
+    name: "Stadium Lights",
+    category: "sports",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 2.2, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.2,
+      textColor: "#ffffff", authorFont: "oswald", authorColor: "#fbbf24", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: imgSports, backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── HOME ──
+  {
+    id: "home-cozy",
+    name: "Cozy Home",
+    category: "home",
+    editorState: {
+      font: "poppins", theme: "cream", fontSize: 1.3, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.8,
+      textColor: "#44403c", authorFont: "raleway", authorColor: "#a8a29e", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#faf7f2", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: imgHome, backgroundOpacity: 0.3,
+    },
+  },
+
+  // ── GARDEN ──
+  {
+    id: "garden-bloom",
+    name: "Garden Bloom",
+    category: "garden",
+    editorState: {
+      font: "dancing", theme: "light", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#14532d", authorFont: "heading", authorColor: "#15803d", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#ecfdf5", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: imgGarden, backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── CONSTRUCTION ──
+  {
+    id: "construction-sunset",
+    name: "Steel & Sky",
+    category: "construction",
+    editorState: {
+      font: "archivo", theme: "dark", fontSize: 1.6, textAlign: "left", letterSpacing: 0.02, lineHeight: 1.4,
+      textColor: "#fbbf24", authorFont: "heading", authorColor: "#f59e0b", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: imgConstruction, backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── AI ──
+  {
+    id: "ai-neural",
+    name: "Neural Net",
+    category: "ai",
+    editorState: {
+      font: "orbitron", theme: "ink", fontSize: 1.2, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.8,
+      textColor: "#22d3ee", authorFont: "rajdhani", authorColor: "#06b6d4", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#020617", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: imgAiTech, backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── FASHION ──
+  {
+    id: "fashion-silk",
+    name: "Silk",
+    category: "fashion",
+    editorState: {
+      font: "playfair", theme: "light", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#7f1d1d", authorFont: "raleway", authorColor: "#991b1b", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#fff1f2", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: imgFashion, backgroundOpacity: 0.3,
+    },
+  },
+
+  // ── FILM ──
+  {
+    id: "film-set",
+    name: "Director's Cut",
+    category: "film",
+    editorState: {
+      font: "crimson", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.8,
+      textColor: "#d4d4d8", authorFont: "heading", authorColor: "#71717a", authorFontSize: 0.75,
+      isBold: false, isItalic: true, backgroundColor: "#18181b", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: imgFilm, backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── GAMES ──
+  {
+    id: "games-arcade",
+    name: "Arcade",
+    category: "games",
+    editorState: {
+      font: "audiowide", theme: "ink", fontSize: 1.3, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.6,
+      textColor: "#e879f9", authorFont: "rajdhani", authorColor: "#a855f7", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: imgGames, backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── WEATHER ──
+  {
+    id: "weather-storm",
+    name: "Stormy",
+    category: "weather",
+    editorState: {
+      font: "merriweather", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#1e293b", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: imgWeather, backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── TRAVEL ──
+  {
+    id: "travel-paradise",
+    name: "Paradise",
+    category: "travel",
+    editorState: {
+      font: "raleway", theme: "light", fontSize: 1.4, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.7,
+      textColor: "#0e7490", authorFont: "heading", authorColor: "#0891b2", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#ecfeff", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: imgTravel, backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── MUSIC ──
+  {
+    id: "music-stage",
+    name: "Live Stage",
+    category: "music",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 2.0, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.2,
+      textColor: "#f0abfc", authorFont: "mono", authorColor: "#d946ef", authorFontSize: 0.65,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: imgMusic, backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── FITNESS ──
+  {
+    id: "fitness-gym",
+    name: "Iron Will",
+    category: "fitness",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.8, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.3,
+      textColor: "#ef4444", authorFont: "heading", authorColor: "#dc2626", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: imgFitness, backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── NATURE ──
+  {
+    id: "nature-peaks",
+    name: "Mountain Dawn",
+    category: "nature",
+    editorState: {
+      font: "cormorant", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.7,
+      textColor: "#fef3c7", authorFont: "raleway", authorColor: "#fbbf24", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#1e3a5f", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: imgNature, backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── SPACE ──
+  {
+    id: "space-nebula",
+    name: "Nebula",
+    category: "space",
+    editorState: {
+      font: "orbitron", theme: "ink", fontSize: 1.2, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.8,
+      textColor: "#c4b5fd", authorFont: "rajdhani", authorColor: "#8b5cf6", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0f0720", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: imgSpace, backgroundOpacity: 0.4,
+    },
+  },
+
+  // ── COFFEE ──
+  {
+    id: "coffee-latte",
+    name: "Latte Art",
+    category: "coffee",
+    editorState: {
+      font: "satisfy", theme: "cream", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#44403c", authorFont: "heading", authorColor: "#78716c", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#f5f0e8", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: imgCoffee, backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── PETS ──
+  {
+    id: "pets-golden",
+    name: "Good Boy",
+    category: "pets",
+    editorState: {
+      font: "caveat", theme: "cream", fontSize: 1.8, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.4,
+      textColor: "#78350f", authorFont: "poppins", authorColor: "#92400e", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fef3c7", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: imgPets, backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── BOOKS ──
+  {
+    id: "books-library",
+    name: "Library",
+    category: "books",
+    editorState: {
+      font: "merriweather", theme: "cream", fontSize: 1.2, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.9,
+      textColor: "#44403c", authorFont: "lora", authorColor: "#78716c", authorFontSize: 0.75,
+      isBold: false, isItalic: true, backgroundColor: "#f5f0e8", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: imgBooks, backgroundOpacity: 0.35,
+    },
+  },
+
+  // ── ART ──
+  {
+    id: "art-splash",
+    name: "Paint Splash",
+    category: "art",
+    editorState: {
+      font: "permanent-marker", theme: "light", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.4,
+      textColor: "#1a1a1a", authorFont: "heading", authorColor: "#525252", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#ffffff", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: imgArt, backgroundOpacity: 0.3,
+    },
+  },
+
+  // ── TECH ──
+  {
+    id: "tech-setup",
+    name: "Dev Setup",
+    category: "tech",
+    editorState: {
+      font: "mono", theme: "ink", fontSize: 1.1, textAlign: "left", letterSpacing: 0.02, lineHeight: 2.0,
+      textColor: "#22d3ee", authorFont: "rajdhani", authorColor: "#06b6d4", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#020617", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: imgTech, backgroundOpacity: 0.35,
+    },
+  },
 ];
 
 const CATEGORIES = [
@@ -681,6 +941,26 @@ const CATEGORIES = [
   { value: "bold", label: "Bold" },
   { value: "retro", label: "Retro" },
   { value: "playful", label: "Playful" },
+  { value: "food", label: "Food" },
+  { value: "sports", label: "Sports" },
+  { value: "home", label: "Home" },
+  { value: "garden", label: "Garden" },
+  { value: "construction", label: "Construction" },
+  { value: "ai", label: "AI" },
+  { value: "fashion", label: "Fashion" },
+  { value: "film", label: "Film" },
+  { value: "games", label: "Games" },
+  { value: "weather", label: "Weather" },
+  { value: "travel", label: "Travel" },
+  { value: "music", label: "Music" },
+  { value: "fitness", label: "Fitness" },
+  { value: "nature", label: "Nature" },
+  { value: "space", label: "Space" },
+  { value: "coffee", label: "Coffee" },
+  { value: "pets", label: "Pets" },
+  { value: "books", label: "Books" },
+  { value: "art", label: "Art" },
+  { value: "tech", label: "Tech" },
 ];
 
 const FONT_CLASS_MAP: Record<string, string> = {
