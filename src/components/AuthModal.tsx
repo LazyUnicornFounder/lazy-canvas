@@ -45,7 +45,7 @@ const AuthModal = ({ open, onClose, onSuccess }: AuthModalProps) => {
 
   const handleGoogleSignIn = async () => {
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+      redirect_uri: `${window.location.origin}/create`,
       extraParams: { prompt: "select_account" },
     });
     if (result.error) {
