@@ -44,6 +44,9 @@ const Index = () => {
   const [letterSpacing, setLetterSpacing] = useState(0);
   const [lineHeight, setLineHeight] = useState(1.6);
   const [textColor, setTextColor] = useState("");
+  const [authorFontSize, setAuthorFontSize] = useState(0.875);
+  const [authorColor, setAuthorColor] = useState("");
+  const [authorFont, setAuthorFont] = useState<QuoteFont>("playfair");
 
   const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -168,6 +171,52 @@ const Index = () => {
                     </button>
                   )}
                 </div>
+              </div>
+              {/* Author font controls */}
+              <div className="flex flex-wrap gap-2 mt-3">
+                {FONT_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.value}
+                    onClick={() => setAuthorFont(opt.value)}
+                    className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
+                      authorFont === opt.value
+                        ? "bg-foreground text-background border-foreground"
+                        : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-10">Size</span>
+                <input
+                  type="range"
+                  min={0.5}
+                  max={3}
+                  step={0.05}
+                  value={authorFontSize}
+                  onChange={(e) => setAuthorFontSize(parseFloat(e.target.value))}
+                  className="flex-1 accent-foreground h-1"
+                />
+                <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{authorFontSize.toFixed(1)}</span>
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
+                <input
+                  type="color"
+                  value={authorColor || "#1a1a1a"}
+                  onChange={(e) => setAuthorColor(e.target.value)}
+                  className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent"
+                />
+                {authorColor && (
+                  <button
+                    onClick={() => setAuthorColor("")}
+                    className="text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Reset
+                  </button>
+                )}
               </div>
             </ControlSection>
 
@@ -373,6 +422,9 @@ const Index = () => {
                   letterSpacing={letterSpacing}
                   lineHeight={lineHeight}
                   textColor={textColor}
+                  authorFontSize={authorFontSize}
+                  authorColor={authorColor}
+                  authorFont={authorFont}
                 />
               </div>
             </div>
