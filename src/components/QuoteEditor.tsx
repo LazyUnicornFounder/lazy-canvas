@@ -1071,10 +1071,17 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                           "lock-screen": "1170 × 2532 px",
                         };
                         const [w, h] = ratioMap[opt.value] || opt.value.split(":").map(Number);
+                        // For A-series, vary the icon size to reflect physical size differences
+                        const physicalScaleMap: Record<string, number> = {
+                          a0: 1, a1: 0.85, a2: 0.7, a3: 0.58, a4: 0.48,
+                          tabloid: 0.85, legal: 0.7, letter: 0.6,
+                          "poster-24x36": 1, "poster-18x24": 0.8, "banner-2x5": 1,
+                        };
+                        const physicalScale = physicalScaleMap[opt.value] || 1;
                         const maxDim = 36;
-                        const scale = maxDim / Math.max(w, h);
-                        const boxW = Math.round(w * scale);
-                        const boxH = Math.round(h * scale);
+                        const scale = (maxDim / Math.max(w, h)) * physicalScale;
+                        const boxW = Math.max(8, Math.round(w * scale));
+                        const boxH = Math.max(8, Math.round(h * scale));
                         const isActive = state.aspectRatio === opt.value;
                         const sizeLabel = sizeMap[opt.value] || opt.value;
                         return (
