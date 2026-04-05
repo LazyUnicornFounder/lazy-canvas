@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { Download, LogOut, User } from "lucide-react";
 import HeroSlideshow from "@/components/HeroSlideshow";
@@ -15,12 +16,12 @@ import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   const [editorState, setEditorState] = useState<QuoteEditorState>(DEFAULT_EDITOR_STATE);
   const [downloading, setDownloading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
-  // Free tier always shows watermark
   const isFreeUser = true; // TODO: check paid status
 
   const handleDownload = useCallback(async () => {
@@ -66,7 +67,13 @@ const Index = () => {
           <h1 className="font-heading text-lg font-semibold tracking-tight text-foreground">
             Lazy Quotes
           </h1>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <button
+              onClick={() => navigate("/pricing")}
+              className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Pricing
+            </button>
             {user ? (
               <>
                 <span className="text-xs text-muted-foreground hidden sm:block">{user.email}</span>
@@ -81,20 +88,12 @@ const Index = () => {
             ) : (
               <button
                 onClick={() => setShowAuthModal(true)}
-                className="flex items-center gap-2 px-3 py-2 text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-foreground text-background font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity"
               >
                 <User className="w-3.5 h-3.5" />
-                Sign in
+                Sign up free
               </button>
             )}
-            <button
-              onClick={handleDownload}
-              disabled={downloading}
-              className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
-            >
-              <Download className="w-4 h-4" />
-              {downloading ? "Exporting…" : "Download"}
-            </button>
           </div>
         </div>
       </header>
@@ -127,51 +126,62 @@ const Index = () => {
 
           {/* Preview */}
           <div className="hidden lg:block sticky top-4 flex-shrink-0" style={{ width: "clamp(280px, 28vw, 400px)" }}>
-            <div className="flex justify-center items-start" style={{ maxHeight: "calc(100vh - 4rem)" }}>
-              <div
-                className="shadow-xl"
-                style={{
-                  width: "100%",
-                  maxWidth: (() => {
-                    const ratioMap: Record<string, number> = {
-                      "square": 1, "3:4": 3/4, "2:3": 2/3, "9:16": 9/16, "1:2": 1/2,
-                      "4:3": 4/3, "3:2": 3/2, "16:9": 16/9, "2:1": 2/1,
-                    };
-                    const ratio = ratioMap[editorState.aspectRatio] || 1;
-                    if (ratio <= 1) return `min(32rem, calc((100vh - 4rem) * ${ratio}))`;
-                    return "32rem";
-                  })(),
-                }}
-              >
-                <QuotePreview
-                  ref={previewRef}
-                  quote={editorState.quote}
-                  authorName={editorState.authorName}
-                  authorPhoto={editorState.authorPhoto}
-                  socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
-                  socials={socials}
-                  aspectRatio={editorState.aspectRatio}
-                  font={editorState.font}
-                  theme={editorState.theme}
-                  backgroundImage={editorState.backgroundImage}
-                  backgroundOpacity={editorState.backgroundOpacity}
-                  fontSize={editorState.fontSize}
-                  textAlign={editorState.textAlign}
-                  letterSpacing={editorState.letterSpacing}
-                  lineHeight={editorState.lineHeight}
-                  textColor={editorState.textColor}
-                  authorFontSize={editorState.authorFontSize}
-                  authorColor={editorState.authorColor}
-                  authorFont={editorState.authorFont}
-                  textShadow={editorState.textShadow}
-                  authorPosition={editorState.authorPosition}
-                  backgroundColor={editorState.backgroundColor}
-                  isBold={editorState.isBold}
-                  isItalic={editorState.isItalic}
-                  coloredWords={editorState.coloredWords}
-                  showWatermark={isFreeUser}
-                />
+            <div className="flex flex-col gap-3">
+              <div className="flex justify-center items-start" style={{ maxHeight: "calc(100vh - 7rem)" }}>
+                <div
+                  className="shadow-xl"
+                  style={{
+                    width: "100%",
+                    maxWidth: (() => {
+                      const ratioMap: Record<string, number> = {
+                        "square": 1, "3:4": 3/4, "2:3": 2/3, "9:16": 9/16, "1:2": 1/2,
+                        "4:3": 4/3, "3:2": 3/2, "16:9": 16/9, "2:1": 2/1,
+                      };
+                      const ratio = ratioMap[editorState.aspectRatio] || 1;
+                      if (ratio <= 1) return `min(32rem, calc((100vh - 7rem) * ${ratio}))`;
+                      return "32rem";
+                    })(),
+                  }}
+                >
+                  <QuotePreview
+                    ref={previewRef}
+                    quote={editorState.quote}
+                    authorName={editorState.authorName}
+                    authorPhoto={editorState.authorPhoto}
+                    socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
+                    socials={socials}
+                    aspectRatio={editorState.aspectRatio}
+                    font={editorState.font}
+                    theme={editorState.theme}
+                    backgroundImage={editorState.backgroundImage}
+                    backgroundOpacity={editorState.backgroundOpacity}
+                    fontSize={editorState.fontSize}
+                    textAlign={editorState.textAlign}
+                    letterSpacing={editorState.letterSpacing}
+                    lineHeight={editorState.lineHeight}
+                    textColor={editorState.textColor}
+                    authorFontSize={editorState.authorFontSize}
+                    authorColor={editorState.authorColor}
+                    authorFont={editorState.authorFont}
+                    textShadow={editorState.textShadow}
+                    authorPosition={editorState.authorPosition}
+                    backgroundColor={editorState.backgroundColor}
+                    isBold={editorState.isBold}
+                    isItalic={editorState.isItalic}
+                    coloredWords={editorState.coloredWords}
+                    showWatermark={isFreeUser}
+                  />
+                </div>
               </div>
+              {/* Download button under preview */}
+              <button
+                onClick={handleDownload}
+                disabled={downloading}
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
+              >
+                <Download className="w-4 h-4" />
+                {downloading ? "Exporting…" : user ? "Download PNG" : "Sign up to download"}
+              </button>
             </div>
           </div>
         </div>
