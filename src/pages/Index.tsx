@@ -161,7 +161,7 @@ const Index = () => {
             </h1>
             <div className="hidden md:block">
               <p className="font-playfair text-sm font-normal tracking-tight text-foreground leading-tight">
-                Create awesome content for anything.
+                Create content for anything.
               </p>
             </div>
           </div>
