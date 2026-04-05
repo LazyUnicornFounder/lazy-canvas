@@ -239,7 +239,6 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
                 socialUsername: state.socialUsername,
                 website: state.website,
                 authorPhoto: state.authorPhoto,
-                backgroundImage: state.backgroundImage,
               });
             }}
           />
