@@ -3,7 +3,7 @@ import { forwardRef, useRef, useEffect, useState } from "react";
 export type AspectRatio = "square" | "3:4" | "2:3" | "9:16" | "1:2" | "4:3" | "3:2" | "16:9" | "2:1";
 export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading" | "lora" | "inter" | "oswald" | "merriweather" | "raleway" | "dancing" | "archivo";
 export type QuoteTheme = "light" | "dark" | "cream" | "ink";
-export type TextShadow = "none" | "soft" | "hard" | "glow" | "outline";
+export type TextShadow = "none" | "soft" | "hard" | "glow" | "outline" | "neon";
 export type AuthorPosition = "below-quote" | "bottom-left" | "bottom-center" | "bottom-right";
 
 interface QuotePreviewProps {
@@ -69,6 +69,7 @@ const shadowStyles: Record<TextShadow, string> = {
   hard: "2px 2px 0px rgba(0,0,0,0.5)",
   glow: "0 0 12px rgba(255,255,255,0.6), 0 0 24px rgba(255,255,255,0.3)",
   outline: "-1px -1px 0 rgba(0,0,0,0.4), 1px -1px 0 rgba(0,0,0,0.4), -1px 1px 0 rgba(0,0,0,0.4), 1px 1px 0 rgba(0,0,0,0.4)",
+  neon: "0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa",
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
