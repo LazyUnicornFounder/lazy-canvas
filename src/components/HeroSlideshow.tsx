@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import PhoneMockup from "@/components/PhoneMockup";
 import QuotePreview, {
   type AspectRatio,
   type QuoteFont,
@@ -74,16 +75,16 @@ const HeroSlideshow = () => {
 
   return (
     <div
-      className="w-full max-w-md transition-opacity duration-400"
+      className="w-full max-w-[280px] mx-auto transition-opacity duration-400"
       style={{ opacity: fade ? 1 : 0 }}
     >
-      <div className="shadow-2xl rounded-lg overflow-hidden">
+      <PhoneMockup authorName={q.author_name || "lazyquotes"}>
         <QuotePreview
           quote={q.quote}
           authorName={q.author_name || ""}
           authorPhoto={q.author_photo_url || null}
           socials={q.socials || ""}
-          aspectRatio={(q.aspect_ratio as AspectRatio) || "square"}
+          aspectRatio="square"
           font={(q.font as QuoteFont) || "playfair"}
           theme={(q.theme as QuoteTheme) || "dark"}
           backgroundImage={q.background_image_url || null}
@@ -103,7 +104,7 @@ const HeroSlideshow = () => {
           isItalic={q.is_italic || false}
           coloredWords={Array.isArray(q.colored_words) ? q.colored_words as any : []}
         />
-      </div>
+      </PhoneMockup>
     </div>
   );
 };
