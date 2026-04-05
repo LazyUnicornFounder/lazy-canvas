@@ -292,6 +292,22 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
               {authorBlock}
             </div>
           )}
+          {/* Watermark */}
+          {showWatermark && (
+            <div
+              className="absolute bottom-0 right-0 z-20 flex items-center gap-1 font-heading"
+              style={{
+                padding: "clamp(4px, 1.5%, 10px) clamp(6px, 2%, 14px)",
+                fontSize: "clamp(6px, 1.8%, 11px)",
+                color: t.muted,
+                opacity: 0.6,
+                letterSpacing: "0.04em",
+              }}
+            >
+              <span>made with</span>
+              <span style={{ fontWeight: 600, color: t.text, opacity: 0.5 }}>Lazy Quotes</span>
+            </div>
+          )}
         </div>
       </div>
     );
