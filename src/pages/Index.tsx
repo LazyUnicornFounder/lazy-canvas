@@ -35,14 +35,7 @@ const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string }[] = [
   { value: "cream", label: "Cream", swatch: "#F5F0E8" },
   { value: "ink", label: "Ink", swatch: "#0d1117" },
 ];
-
-const EMOJI_LIST = [
-  "✨", "🔥", "💡", "❤️", "💪", "🎯", "🚀", "⭐",
-  "🌟", "💎", "🏆", "👑", "🎨", "📚", "🌈", "☀️",
-  "🌙", "⚡", "🍀", "🦋", "🌸", "🎶", "💫", "🌊",
-  "🤔", "😊", "😎", "🥰", "😤", "💀", "🙏", "👏",
-  "✅", "❌", "⬆️", "➡️", "💬", "📌", "🔑", "🎉",
-];
+import { EMOJI_CATEGORIES } from "@/data/emojis";
 
 const Index = () => {
   const [quote, setQuote] = useState("");
@@ -66,6 +59,7 @@ const Index = () => {
   const [textShadow, setTextShadow] = useState<TextShadow>("none");
   const [authorPosition, setAuthorPosition] = useState<AuthorPosition>("below-quote");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [emojiCategory, setEmojiCategory] = useState(0);
 
   const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -179,11 +173,23 @@ const Index = () => {
                     <Smile className="w-4 h-4 text-muted-foreground" />
                   </button>
                   {showEmojiPicker && (
-                    <div ref={emojiPickerRef} className="absolute bottom-8 right-0 bg-card border border-border rounded-lg shadow-xl p-3 z-50 w-64">
-                      <div className="grid grid-cols-8 gap-1 max-h-48 overflow-y-auto">
-                        {EMOJI_LIST.map((emoji) => (
+                    <div ref={emojiPickerRef} className="absolute bottom-8 right-0 bg-card border border-border rounded-lg shadow-xl z-50 w-72">
+                      <div className="flex gap-1 px-2 pt-2 pb-1 border-b border-border overflow-x-auto">
+                        {EMOJI_CATEGORIES.map((cat, i) => (
                           <button
-                            key={emoji}
+                            key={i}
+                            onClick={() => setEmojiCategory(i)}
+                            className={`text-base p-1 rounded transition-colors flex-shrink-0 ${emojiCategory === i ? "bg-accent" : "hover:bg-accent/50"}`}
+                            type="button"
+                          >
+                            {cat.name}
+                          </button>
+                        ))}
+                      </div>
+                      <div className="grid grid-cols-8 gap-1 p-2 max-h-52 overflow-y-auto">
+                        {EMOJI_CATEGORIES[emojiCategory].emojis.map((emoji, i) => (
+                          <button
+                            key={`${emoji}-${i}`}
                             onClick={() => insertEmoji(emoji)}
                             className="w-7 h-7 flex items-center justify-center text-base hover:bg-accent rounded transition-colors"
                             type="button"
