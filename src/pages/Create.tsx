@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { Download, LogOut, ArrowLeft } from "lucide-react";
+import { toast } from "sonner";
 import QuotePreview, {
   type SocialPlatform,
 } from "@/components/QuotePreview";
