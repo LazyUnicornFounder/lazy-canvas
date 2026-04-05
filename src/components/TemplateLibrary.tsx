@@ -1654,6 +1654,1149 @@ const BUILTIN_TEMPLATES: Template[] = [
       backgroundImage: PEXELS_IMAGES["autonomy-selfdriving"], backgroundOpacity: 0.35,
     },
   },
+  {
+    id: "minimal-zen", name: "Zen", category: "minimal",
+    editorState: {
+      font: "inter", theme: "light", fontSize: 1.1, textAlign: "center", letterSpacing: 0.06, lineHeight: 2.4,
+      textColor: "#a1a1aa", authorFont: "inter", authorColor: "#d4d4d8", authorFontSize: 0.6,
+      isBold: false, isItalic: false, backgroundColor: "#fafafa", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["minimal-zen"], backgroundOpacity: 0.25,
+    },
+  },
+  {
+    id: "minimal-air", name: "Air", category: "minimal",
+    editorState: {
+      font: "dm-sans", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.02, lineHeight: 2.0,
+      textColor: "#71717a", authorFont: "heading", authorColor: "#a1a1aa", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#ffffff", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["minimal-air"], backgroundOpacity: 0.2,
+    },
+  },
+  {
+    id: "bold-neon", name: "Neon", category: "bold",
+    editorState: {
+      font: "audiowide", theme: "ink", fontSize: 1.4, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.5,
+      textColor: "#f43f5e", authorFont: "rajdhani", authorColor: "#fb7185", authorFontSize: 0.65,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["bold-neon"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "retro-vinyl", name: "Vinyl", category: "retro",
+    editorState: {
+      font: "permanent-marker", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#fef3c7", authorFont: "caveat", authorColor: "#fbbf24", authorFontSize: 0.8,
+      isBold: false, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["retro-vinyl"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "elegant-pearl", name: "Pearl", category: "elegant",
+    editorState: {
+      font: "lora", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.8,
+      textColor: "#44403c", authorFont: "raleway", authorColor: "#78716c", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#f5f5f0", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["elegant-pearl"], backgroundOpacity: 0.25,
+    },
+  },
+  {
+    id: "playful-doodle", name: "Doodle", category: "playful",
+    editorState: {
+      font: "shadows-into-light", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#2563eb", authorFont: "caveat", authorColor: "#3b82f6", authorFontSize: 0.8,
+      isBold: false, isItalic: false, backgroundColor: "#eff6ff", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["playful-doodle"], backgroundOpacity: 0.25,
+    },
+  },
+  {
+    id: "playful-candy", name: "Candy", category: "playful",
+    editorState: {
+      font: "pacifico", theme: "light", fontSize: 1.4, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.6,
+      textColor: "#db2777", authorFont: "poppins", authorColor: "#ec4899", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fdf2f8", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["playful-candy"], backgroundOpacity: 0.25,
+    },
+  },
+  {
+    id: "food-gourmet", name: "Gourmet", category: "food",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#fef3c7", authorFont: "heading", authorColor: "#fbbf24", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["food-gourmet"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "food-fresh", name: "Farm Fresh", category: "food",
+    editorState: {
+      font: "caveat", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#365314", authorFont: "heading", authorColor: "#4d7c0f", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#f7fee7", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["food-fresh"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "food-spice", name: "Spice", category: "food",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.5,
+      textColor: "#ef4444", authorFont: "heading", authorColor: "#dc2626", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#1a1a1a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["food-spice"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "food-sweet", name: "Sweet Tooth", category: "food",
+    editorState: {
+      font: "dancing", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.6,
+      textColor: "#be185d", authorFont: "raleway", authorColor: "#9d174d", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fff1f2", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["food-sweet"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "sports-track", name: "Track", category: "sports",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.6, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.3,
+      textColor: "#22c55e", authorFont: "heading", authorColor: "#16a34a", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["sports-track"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "sports-court", name: "Court", category: "sports",
+    editorState: {
+      font: "archivo", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.4,
+      textColor: "#f97316", authorFont: "heading", authorColor: "#ea580c", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["sports-court"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "sports-swim", name: "Swim", category: "sports",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 2.0, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.2,
+      textColor: "#38bdf8", authorFont: "raleway", authorColor: "#0ea5e9", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#0c4a6e", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["sports-swim"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "sports-climb", name: "Summit", category: "sports",
+    editorState: {
+      font: "montserrat", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#1e293b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["sports-climb"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "home-modern", name: "Modern", category: "home",
+    editorState: {
+      font: "inter", theme: "light", fontSize: 1.2, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.9,
+      textColor: "#374151", authorFont: "heading", authorColor: "#6b7280", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#f9fafb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["home-modern"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "home-rustic", name: "Rustic", category: "home",
+    editorState: {
+      font: "lora", theme: "cream", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#78350f", authorFont: "heading", authorColor: "#92400e", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#fffbeb", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["home-rustic"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "home-garden", name: "Patio", category: "home",
+    editorState: {
+      font: "caveat", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#14532d", authorFont: "heading", authorColor: "#15803d", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#f0fdf4", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["home-garden"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "home-fireplace", name: "Fireside", category: "home",
+    editorState: {
+      font: "merriweather", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.9,
+      textColor: "#fef3c7", authorFont: "heading", authorColor: "#fde68a", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["home-fireplace"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "garden-zen", name: "Zen Garden", category: "garden",
+    editorState: {
+      font: "inter", theme: "light", fontSize: 1.2, textAlign: "center", letterSpacing: 0.04, lineHeight: 2.0,
+      textColor: "#4b5563", authorFont: "heading", authorColor: "#6b7280", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#f9fafb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["garden-zen"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "garden-wild", name: "Wildflower", category: "garden",
+    editorState: {
+      font: "caveat", theme: "light", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.4,
+      textColor: "#be185d", authorFont: "heading", authorColor: "#db2777", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#fdf2f8", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["garden-wild"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "garden-herb", name: "Herb", category: "garden",
+    editorState: {
+      font: "lora", theme: "cream", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#365314", authorFont: "heading", authorColor: "#4d7c0f", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#f7fee7", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["garden-herb"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "garden-sunset", name: "Twilight", category: "garden",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#fbbf24", authorFont: "heading", authorColor: "#f59e0b", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["garden-sunset"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "construction-crane", name: "Crane", category: "construction",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 2.0, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.2,
+      textColor: "#f97316", authorFont: "heading", authorColor: "#ea580c", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["construction-crane"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "construction-blueprint", name: "Blueprint", category: "construction",
+    editorState: {
+      font: "mono", theme: "dark", fontSize: 1.1, textAlign: "left", letterSpacing: 0.04, lineHeight: 2.0,
+      textColor: "#60a5fa", authorFont: "heading", authorColor: "#3b82f6", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0f172a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["construction-blueprint"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "construction-concrete", name: "Concrete", category: "construction",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.4,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#1e293b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["construction-concrete"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "construction-tools", name: "Workshop", category: "construction",
+    editorState: {
+      font: "archivo", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.6,
+      textColor: "#fbbf24", authorFont: "heading", authorColor: "#f59e0b", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["construction-tools"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "ai-circuit", name: "Circuit", category: "ai",
+    editorState: {
+      font: "rajdhani", theme: "ink", fontSize: 1.3, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.7,
+      textColor: "#a5f3fc", authorFont: "heading", authorColor: "#22d3ee", authorFontSize: 0.65,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["ai-circuit"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "ai-matrix", name: "Matrix", category: "ai",
+    editorState: {
+      font: "mono", theme: "ink", fontSize: 1.0, textAlign: "left", letterSpacing: 0.02, lineHeight: 2.2,
+      textColor: "#4ade80", authorFont: "heading", authorColor: "#22c55e", authorFontSize: 0.6,
+      isBold: false, isItalic: false, backgroundColor: "#020617", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["ai-matrix"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "ai-quantum", name: "Quantum", category: "ai",
+    editorState: {
+      font: "audiowide", theme: "dark", fontSize: 1.1, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.8,
+      textColor: "#818cf8", authorFont: "heading", authorColor: "#6366f1", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0f0720", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["ai-quantum"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "ai-data", name: "Data Flow", category: "ai",
+    editorState: {
+      font: "space-grotesk", theme: "ink", fontSize: 1.2, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.9,
+      textColor: "#f472b6", authorFont: "heading", authorColor: "#ec4899", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["ai-data"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "fashion-runway", name: "Runway", category: "fashion",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.4,
+      textColor: "#ffffff", authorFont: "heading", authorColor: "#a1a1aa", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["fashion-runway"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "fashion-editorial", name: "Editorial", category: "fashion",
+    editorState: {
+      font: "cormorant", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#1c1917", authorFont: "raleway", authorColor: "#57534e", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#fafaf9", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["fashion-editorial"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "fashion-street", name: "Street Style", category: "fashion",
+    editorState: {
+      font: "archivo", theme: "dark", fontSize: 1.3, textAlign: "left", letterSpacing: 0.02, lineHeight: 1.6,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#18181b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["fashion-street"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "fashion-haute", name: "Haute", category: "fashion",
+    editorState: {
+      font: "great-vibes", theme: "dark", fontSize: 1.8, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#d4af37", authorFont: "raleway", authorColor: "#b8860b", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#0c0a09", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["fashion-haute"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "film-noir", name: "Film Noir", category: "film",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#d4d4d8", authorFont: "heading", authorColor: "#71717a", authorFontSize: 0.75,
+      isBold: false, isItalic: true, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["film-noir"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "film-indie", name: "Indie", category: "film",
+    editorState: {
+      font: "caveat", theme: "cream", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#44403c", authorFont: "heading", authorColor: "#78716c", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#f5f0e8", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["film-indie"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "film-action", name: "Action", category: "film",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 2.2, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.1,
+      textColor: "#ef4444", authorFont: "oswald", authorColor: "#dc2626", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["film-action"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "film-romance", name: "Romance", category: "film",
+    editorState: {
+      font: "dancing", theme: "light", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#be185d", authorFont: "raleway", authorColor: "#9d174d", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fff1f2", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["film-romance"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "games-rpg", name: "RPG", category: "games",
+    editorState: {
+      font: "orbitron", theme: "ink", fontSize: 1.1, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.8,
+      textColor: "#fbbf24", authorFont: "rajdhani", authorColor: "#f59e0b", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["games-rpg"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "games-retro", name: "8-Bit", category: "games",
+    editorState: {
+      font: "mono", theme: "ink", fontSize: 1.0, textAlign: "center", letterSpacing: 0.04, lineHeight: 2.0,
+      textColor: "#4ade80", authorFont: "heading", authorColor: "#22c55e", authorFontSize: 0.6,
+      isBold: false, isItalic: false, backgroundColor: "#020617", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["games-retro"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "games-strategy", name: "Strategy", category: "games",
+    editorState: {
+      font: "rajdhani", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.7,
+      textColor: "#38bdf8", authorFont: "heading", authorColor: "#0ea5e9", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0f172a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["games-strategy"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "games-fantasy", name: "Fantasy", category: "games",
+    editorState: {
+      font: "great-vibes", theme: "dark", fontSize: 1.8, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#c4b5fd", authorFont: "heading", authorColor: "#8b5cf6", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#1a1a2e", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["games-fantasy"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "weather-rain", name: "Rainy Day", category: "weather",
+    editorState: {
+      font: "lora", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#93c5fd", authorFont: "heading", authorColor: "#60a5fa", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#1e3a5f", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["weather-rain"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "weather-snow", name: "Snowfall", category: "weather",
+    editorState: {
+      font: "cormorant", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#1e293b", authorFont: "heading", authorColor: "#475569", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#f1f5f9", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["weather-snow"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "weather-fog", name: "Misty", category: "weather",
+    editorState: {
+      font: "inter", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.04, lineHeight: 2.0,
+      textColor: "#94a3b8", authorFont: "heading", authorColor: "#64748b", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#1e293b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["weather-fog"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "weather-sunny", name: "Sunshine", category: "weather",
+    editorState: {
+      font: "poppins", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#b45309", authorFont: "heading", authorColor: "#d97706", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fffbeb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["weather-sunny"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "travel-mountain", name: "Alpine", category: "travel",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 1.8, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.3,
+      textColor: "#ffffff", authorFont: "raleway", authorColor: "#e2e8f0", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#1e293b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["travel-mountain"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "travel-city", name: "Urban", category: "travel",
+    editorState: {
+      font: "archivo", theme: "dark", fontSize: 1.3, textAlign: "left", letterSpacing: 0.02, lineHeight: 1.6,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#18181b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["travel-city"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "travel-desert", name: "Desert", category: "travel",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.4,
+      textColor: "#fbbf24", authorFont: "heading", authorColor: "#f59e0b", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["travel-desert"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "travel-beach", name: "Coastal", category: "travel",
+    editorState: {
+      font: "satisfy", theme: "light", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#0e7490", authorFont: "heading", authorColor: "#0891b2", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#ecfeff", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["travel-beach"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "music-vinyl", name: "Vinyl", category: "music",
+    editorState: {
+      font: "permanent-marker", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#fef3c7", authorFont: "caveat", authorColor: "#fbbf24", authorFontSize: 0.8,
+      isBold: false, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["music-vinyl"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "music-piano", name: "Piano", category: "music",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#0f172a", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["music-piano"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "music-festival", name: "Festival", category: "music",
+    editorState: {
+      font: "audiowide", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.7,
+      textColor: "#e879f9", authorFont: "heading", authorColor: "#d946ef", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["music-festival"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "music-jazz", name: "Jazz", category: "music",
+    editorState: {
+      font: "great-vibes", theme: "dark", fontSize: 1.8, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#d4af37", authorFont: "raleway", authorColor: "#b8860b", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#0c0a09", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["music-jazz"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "fitness-run", name: "Runner", category: "fitness",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 2.0, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.2,
+      textColor: "#22c55e", authorFont: "heading", authorColor: "#16a34a", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["fitness-run"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "fitness-yoga", name: "Flow", category: "fitness",
+    editorState: {
+      font: "dancing", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.6,
+      textColor: "#7c3aed", authorFont: "heading", authorColor: "#8b5cf6", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#f5f3ff", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["fitness-yoga"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "fitness-box", name: "Boxing", category: "fitness",
+    editorState: {
+      font: "archivo", theme: "dark", fontSize: 1.5, textAlign: "left", letterSpacing: 0.02, lineHeight: 1.4,
+      textColor: "#ef4444", authorFont: "heading", authorColor: "#dc2626", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["fitness-box"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "fitness-swim", name: "Swim", category: "fitness",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.5,
+      textColor: "#38bdf8", authorFont: "heading", authorColor: "#0ea5e9", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0c4a6e", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["fitness-swim"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "nature-forest", name: "Forest", category: "nature",
+    editorState: {
+      font: "lora", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#86efac", authorFont: "heading", authorColor: "#4ade80", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#052e16", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["nature-forest"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "nature-ocean", name: "Oceanic", category: "nature",
+    editorState: {
+      font: "cormorant", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#bae6fd", authorFont: "heading", authorColor: "#7dd3fc", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#0a1628", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["nature-ocean"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "nature-desert", name: "Dune", category: "nature",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.4,
+      textColor: "#fbbf24", authorFont: "heading", authorColor: "#f59e0b", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["nature-desert"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "nature-waterfall", name: "Cascade", category: "nature",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#e0f2fe", authorFont: "heading", authorColor: "#38bdf8", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#0c4a6e", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["nature-waterfall"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "space-galaxy", name: "Galaxy", category: "space",
+    editorState: {
+      font: "audiowide", theme: "ink", fontSize: 1.1, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.8,
+      textColor: "#818cf8", authorFont: "heading", authorColor: "#6366f1", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0f0720", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["space-galaxy"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "space-moon", name: "Moonrise", category: "space",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#0f172a", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["space-moon"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "space-mars", name: "Mars", category: "space",
+    editorState: {
+      font: "rajdhani", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.7,
+      textColor: "#f97316", authorFont: "heading", authorColor: "#ea580c", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#1c1917", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["space-mars"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "space-astronaut", name: "Astronaut", category: "space",
+    editorState: {
+      font: "bebas", theme: "ink", fontSize: 1.8, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.3,
+      textColor: "#ffffff", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#020617", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["space-astronaut"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "coffee-espresso", name: "Espresso", category: "coffee",
+    editorState: {
+      font: "merriweather", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.9,
+      textColor: "#fef3c7", authorFont: "heading", authorColor: "#fde68a", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["coffee-espresso"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "coffee-morning", name: "Morning", category: "coffee",
+    editorState: {
+      font: "caveat", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#78350f", authorFont: "heading", authorColor: "#92400e", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#fffbeb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["coffee-morning"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "coffee-brew", name: "Cold Brew", category: "coffee",
+    editorState: {
+      font: "inter", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.04, lineHeight: 2.0,
+      textColor: "#a3e635", authorFont: "heading", authorColor: "#84cc16", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["coffee-brew"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "coffee-cozy", name: "Café", category: "coffee",
+    editorState: {
+      font: "dancing", theme: "cream", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.6,
+      textColor: "#44403c", authorFont: "heading", authorColor: "#78716c", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#f5f0e8", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["coffee-cozy"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "pets-cat", name: "Cat", category: "pets",
+    editorState: {
+      font: "caveat", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#7c3aed", authorFont: "heading", authorColor: "#8b5cf6", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#f5f3ff", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["pets-cat"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "pets-puppy", name: "Puppy", category: "pets",
+    editorState: {
+      font: "poppins", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#b45309", authorFont: "heading", authorColor: "#d97706", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fffbeb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["pets-puppy"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "pets-bird", name: "Feathered", category: "pets",
+    editorState: {
+      font: "lora", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#0e7490", authorFont: "heading", authorColor: "#0891b2", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#ecfeff", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["pets-bird"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "pets-bunny", name: "Bunny", category: "pets",
+    editorState: {
+      font: "dancing", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.6,
+      textColor: "#be185d", authorFont: "heading", authorColor: "#db2777", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fdf2f8", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["pets-bunny"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "books-novel", name: "Novel", category: "books",
+    editorState: {
+      font: "playfair", theme: "cream", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#44403c", authorFont: "heading", authorColor: "#78716c", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#f5f0e8", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["books-novel"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "books-study", name: "Study", category: "books",
+    editorState: {
+      font: "mono", theme: "dark", fontSize: 1.1, textAlign: "left", letterSpacing: 0.02, lineHeight: 2.0,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0f172a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["books-study"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "books-poetry", name: "Poetry", category: "books",
+    editorState: {
+      font: "cormorant", theme: "cream", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#581c87", authorFont: "heading", authorColor: "#7e22ce", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#f3e8ff", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["books-poetry"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "books-classic", name: "Classic", category: "books",
+    editorState: {
+      font: "merriweather", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.9,
+      textColor: "#d4af37", authorFont: "heading", authorColor: "#b8860b", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["books-classic"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "art-canvas", name: "Canvas", category: "art",
+    editorState: {
+      font: "great-vibes", theme: "light", fontSize: 1.8, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#1c1917", authorFont: "heading", authorColor: "#57534e", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fafaf9", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["art-canvas"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "art-graffiti", name: "Graffiti", category: "art",
+    editorState: {
+      font: "permanent-marker", theme: "dark", fontSize: 1.5, textAlign: "left", letterSpacing: 0.0, lineHeight: 1.4,
+      textColor: "#ef4444", authorFont: "heading", authorColor: "#dc2626", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#18181b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["art-graffiti"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "art-minimal", name: "Gallery", category: "art",
+    editorState: {
+      font: "inter", theme: "light", fontSize: 1.2, textAlign: "center", letterSpacing: 0.06, lineHeight: 2.2,
+      textColor: "#374151", authorFont: "heading", authorColor: "#6b7280", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#f9fafb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["art-minimal"], backgroundOpacity: 0.25,
+    },
+  },
+  {
+    id: "art-abstract", name: "Abstract", category: "art",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.4,
+      textColor: "#f0abfc", authorFont: "heading", authorColor: "#d946ef", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["art-abstract"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "tech-code", name: "Code", category: "tech",
+    editorState: {
+      font: "mono", theme: "ink", fontSize: 1.0, textAlign: "left", letterSpacing: 0.02, lineHeight: 2.2,
+      textColor: "#4ade80", authorFont: "heading", authorColor: "#22c55e", authorFontSize: 0.6,
+      isBold: false, isItalic: false, backgroundColor: "#020617", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["tech-code"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "tech-minimal", name: "Clean Tech", category: "tech",
+    editorState: {
+      font: "inter", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.04, lineHeight: 2.0,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0f172a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["tech-minimal"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "tech-neon", name: "Neon Tech", category: "tech",
+    editorState: {
+      font: "orbitron", theme: "ink", fontSize: 1.1, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.8,
+      textColor: "#22d3ee", authorFont: "rajdhani", authorColor: "#06b6d4", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["tech-neon"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "tech-gaming", name: "Gaming Setup", category: "tech",
+    editorState: {
+      font: "audiowide", theme: "dark", fontSize: 1.1, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.8,
+      textColor: "#e879f9", authorFont: "heading", authorColor: "#d946ef", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0f0720", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["tech-gaming"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "cars-classic", name: "Classic", category: "cars",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#d4af37", authorFont: "heading", authorColor: "#b8860b", authorFontSize: 0.75,
+      isBold: false, isItalic: true, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["cars-classic"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "cars-drift", name: "Drift", category: "cars",
+    editorState: {
+      font: "audiowide", theme: "dark", fontSize: 1.2, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.7,
+      textColor: "#ef4444", authorFont: "heading", authorColor: "#dc2626", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["cars-drift"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "crypto-defi", name: "DeFi", category: "crypto",
+    editorState: {
+      font: "rajdhani", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.7,
+      textColor: "#a5f3fc", authorFont: "heading", authorColor: "#22d3ee", authorFontSize: 0.65,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["crypto-defi"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "crypto-nft", name: "NFT", category: "crypto",
+    editorState: {
+      font: "audiowide", theme: "ink", fontSize: 1.1, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.8,
+      textColor: "#e879f9", authorFont: "heading", authorColor: "#d946ef", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0f0720", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["crypto-nft"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "science-space", name: "Cosmos", category: "science",
+    editorState: {
+      font: "orbitron", theme: "ink", fontSize: 1.1, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.8,
+      textColor: "#c4b5fd", authorFont: "heading", authorColor: "#8b5cf6", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0f0720", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["science-space"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "science-micro", name: "Microscope", category: "science",
+    editorState: {
+      font: "mono", theme: "dark", fontSize: 1.0, textAlign: "left", letterSpacing: 0.02, lineHeight: 2.2,
+      textColor: "#4ade80", authorFont: "heading", authorColor: "#22c55e", authorFontSize: 0.6,
+      isBold: false, isItalic: false, backgroundColor: "#020617", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["science-micro"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "architecture-skyline", name: "Skyline", category: "architecture",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 2.0, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.2,
+      textColor: "#ffffff", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["architecture-skyline"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "architecture-minimal", name: "Minimal", category: "architecture",
+    editorState: {
+      font: "inter", theme: "light", fontSize: 1.2, textAlign: "center", letterSpacing: 0.04, lineHeight: 2.0,
+      textColor: "#374151", authorFont: "heading", authorColor: "#6b7280", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#f9fafb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["architecture-minimal"], backgroundOpacity: 0.25,
+    },
+  },
+  {
+    id: "education-chalk", name: "Chalkboard", category: "education",
+    editorState: {
+      font: "caveat", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#ffffff", authorFont: "heading", authorColor: "#d4d4d8", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#1e293b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["education-chalk"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "education-science", name: "Lab", category: "education",
+    editorState: {
+      font: "mono", theme: "dark", fontSize: 1.1, textAlign: "left", letterSpacing: 0.02, lineHeight: 2.0,
+      textColor: "#4ade80", authorFont: "heading", authorColor: "#22c55e", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#0f172a", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["education-science"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "parenting-reading", name: "Storytime", category: "parenting",
+    editorState: {
+      font: "caveat", theme: "cream", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#78350f", authorFont: "heading", authorColor: "#92400e", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#fffbeb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["parenting-reading"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "parenting-nature", name: "Outdoors", category: "parenting",
+    editorState: {
+      font: "lora", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#365314", authorFont: "heading", authorColor: "#4d7c0f", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#f0fdf4", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["parenting-nature"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "real-estate-garden", name: "Garden", category: "real-estate",
+    editorState: {
+      font: "lora", theme: "light", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#365314", authorFont: "heading", authorColor: "#4d7c0f", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#f0fdf4", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["real-estate-garden"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "real-estate-skyline", name: "Skyline", category: "real-estate",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 1.8, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.3,
+      textColor: "#ffffff", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0f172a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["real-estate-skyline"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "wellness-nature", name: "Forest Bath", category: "wellness",
+    editorState: {
+      font: "cormorant", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#86efac", authorFont: "heading", authorColor: "#4ade80", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#052e16", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["wellness-nature"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "wellness-journal", name: "Journal", category: "wellness",
+    editorState: {
+      font: "caveat", theme: "cream", fontSize: 1.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#44403c", authorFont: "heading", authorColor: "#78716c", authorFontSize: 0.75,
+      isBold: false, isItalic: false, backgroundColor: "#f5f0e8", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["wellness-journal"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "motivation-sunrise", name: "Sunrise", category: "motivation",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 2.0, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.2,
+      textColor: "#fbbf24", authorFont: "heading", authorColor: "#f59e0b", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["motivation-sunrise"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "motivation-lion", name: "Fearless", category: "motivation",
+    editorState: {
+      font: "archivo", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.4,
+      textColor: "#ef4444", authorFont: "heading", authorColor: "#dc2626", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["motivation-lion"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "business-skyline", name: "Downtown", category: "business",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.4,
+      textColor: "#ffffff", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["business-skyline"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "business-laptop", name: "Remote", category: "business",
+    editorState: {
+      font: "inter", theme: "light", fontSize: 1.2, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.9,
+      textColor: "#374151", authorFont: "heading", authorColor: "#6b7280", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#f9fafb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["business-laptop"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "photography-macro", name: "Macro", category: "photography",
+    editorState: {
+      font: "lora", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#fef3c7", authorFont: "heading", authorColor: "#fbbf24", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["photography-macro"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "photography-bw", name: "B&W", category: "photography",
+    editorState: {
+      font: "heading", theme: "dark", fontSize: 1.5, textAlign: "left", letterSpacing: 0.0, lineHeight: 1.3,
+      textColor: "#ffffff", authorFont: "heading", authorColor: "#525252", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["photography-bw"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "aviation-jet", name: "Fighter", category: "aviation",
+    editorState: {
+      font: "archivo", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.4,
+      textColor: "#ef4444", authorFont: "heading", authorColor: "#dc2626", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["aviation-jet"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "aviation-clouds", name: "Above Clouds", category: "aviation",
+    editorState: {
+      font: "cormorant", theme: "light", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#0e7490", authorFont: "heading", authorColor: "#0891b2", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#ecfeff", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["aviation-clouds"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "maritime-port", name: "Harbor", category: "maritime",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.4,
+      textColor: "#fbbf24", authorFont: "heading", authorColor: "#f59e0b", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["maritime-port"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "maritime-sail", name: "Sailing", category: "maritime",
+    editorState: {
+      font: "satisfy", theme: "light", fontSize: 1.6, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#0e7490", authorFont: "heading", authorColor: "#0891b2", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#ecfeff", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["maritime-sail"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "law-court", name: "Courtroom", category: "law",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.04, lineHeight: 1.5,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#1e293b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["law-court"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "law-scales", name: "Scales", category: "law",
+    editorState: {
+      font: "lora", theme: "dark", fontSize: 1.3, textAlign: "center", letterSpacing: 0.01, lineHeight: 1.8,
+      textColor: "#d4af37", authorFont: "heading", authorColor: "#b8860b", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["law-scales"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "baking-cake", name: "Layer Cake", category: "baking",
+    editorState: {
+      font: "great-vibes", theme: "light", fontSize: 1.7, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#be185d", authorFont: "heading", authorColor: "#9d174d", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fff1f2", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["baking-cake"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "baking-sourdough", name: "Sourdough", category: "baking",
+    editorState: {
+      font: "merriweather", theme: "cream", fontSize: 1.2, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.9,
+      textColor: "#78350f", authorFont: "heading", authorColor: "#92400e", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fffbeb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["baking-sourdough"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "banking-wall", name: "Wall Street", category: "banking",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 2.0, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.2,
+      textColor: "#22c55e", authorFont: "heading", authorColor: "#16a34a", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0a0a0a", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["banking-wall"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "banking-gold", name: "Gold", category: "banking",
+    editorState: {
+      font: "cormorant", theme: "dark", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#d4af37", authorFont: "heading", authorColor: "#b8860b", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#0c0a09", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["banking-gold"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "funny-meme", name: "Meme Lord", category: "funny",
+    editorState: {
+      font: "archivo", theme: "light", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.5,
+      textColor: "#0a0a0a", authorFont: "heading", authorColor: "#525252", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#fef9c3", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["funny-meme"], backgroundOpacity: 0.25,
+    },
+  },
+  {
+    id: "funny-sarcasm", name: "Sarcasm", category: "funny",
+    editorState: {
+      font: "mono", theme: "dark", fontSize: 1.1, textAlign: "left", letterSpacing: 0.02, lineHeight: 2.0,
+      textColor: "#e2e8f0", authorFont: "heading", authorColor: "#94a3b8", authorFontSize: 0.65,
+      isBold: false, isItalic: false, backgroundColor: "#18181b", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["funny-sarcasm"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "farming-sunrise", name: "Dawn", category: "farming",
+    editorState: {
+      font: "playfair", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#fef3c7", authorFont: "heading", authorColor: "#fbbf24", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#1c1917", textShadow: "soft", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["farming-sunrise"], backgroundOpacity: 0.4,
+    },
+  },
+  {
+    id: "farming-vineyard", name: "Vineyard", category: "farming",
+    editorState: {
+      font: "cormorant", theme: "cream", fontSize: 1.5, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.7,
+      textColor: "#581c87", authorFont: "heading", authorColor: "#7e22ce", authorFontSize: 0.7,
+      isBold: false, isItalic: true, backgroundColor: "#f3e8ff", textShadow: "none", showQuotationMarks: true,
+      backgroundImage: PEXELS_IMAGES["farming-vineyard"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "history-scroll", name: "Scroll", category: "history",
+    editorState: {
+      font: "great-vibes", theme: "cream", fontSize: 1.7, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
+      textColor: "#78350f", authorFont: "heading", authorColor: "#92400e", authorFontSize: 0.7,
+      isBold: false, isItalic: false, backgroundColor: "#fffbeb", textShadow: "none", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["history-scroll"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "history-map", name: "Explorer", category: "history",
+    editorState: {
+      font: "oswald", theme: "dark", fontSize: 1.4, textAlign: "center", letterSpacing: 0.06, lineHeight: 1.5,
+      textColor: "#fbbf24", authorFont: "heading", authorColor: "#f59e0b", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#292524", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["history-map"], backgroundOpacity: 0.35,
+    },
+  },
+  {
+    id: "autonomy-ai", name: "Neural", category: "autonomy",
+    editorState: {
+      font: "mono", theme: "ink", fontSize: 1.0, textAlign: "left", letterSpacing: 0.02, lineHeight: 2.2,
+      textColor: "#4ade80", authorFont: "heading", authorColor: "#22c55e", authorFontSize: 0.6,
+      isBold: false, isItalic: false, backgroundColor: "#020617", textShadow: "glow", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["autonomy-ai"], backgroundOpacity: 0.3,
+    },
+  },
+  {
+    id: "autonomy-smart", name: "Smart City", category: "autonomy",
+    editorState: {
+      font: "bebas", theme: "dark", fontSize: 1.8, textAlign: "center", letterSpacing: 0.08, lineHeight: 1.3,
+      textColor: "#38bdf8", authorFont: "heading", authorColor: "#0ea5e9", authorFontSize: 0.7,
+      isBold: true, isItalic: false, backgroundColor: "#0c4a6e", textShadow: "soft", showQuotationMarks: false,
+      backgroundImage: PEXELS_IMAGES["autonomy-smart"], backgroundOpacity: 0.4,
+    },
+  },
 ];
 
 const CATEGORIES = [
