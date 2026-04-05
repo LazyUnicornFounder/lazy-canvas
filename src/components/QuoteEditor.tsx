@@ -264,6 +264,28 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
   const bgInputRef = useRef<HTMLInputElement>(null);
   const [aiPrompt, setAiPrompt] = useState("");
   const [aiGenerating, setAiGenerating] = useState(false);
+  const [removingBg, setRemovingBg] = useState(false);
+
+  const handleRemoveBg = async () => {
+    if (!state.authorPhoto) return;
+    setRemovingBg(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("remove-background", {
+        body: { imageBase64: state.authorPhoto },
+      });
+      if (error) throw error;
+      if (data?.imageUrl) {
+        set("authorPhoto", data.imageUrl);
+      } else {
+        throw new Error("No image returned");
+      }
+    } catch (err) {
+      console.error("Remove bg error:", err);
+      import("sonner").then(({ toast }) => toast.error("Failed to remove background. Try again."));
+    } finally {
+      setRemovingBg(false);
+    }
+  };
 
   const set = <K extends keyof QuoteEditorState>(key: K, value: QuoteEditorState[K]) => {
     onChange({ ...state, [key]: value });
