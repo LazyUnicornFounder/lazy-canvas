@@ -25,6 +25,11 @@ export type QuoteTheme = "light" | "dark" | "cream" | "ink";
 export type TextShadow = "none" | "soft" | "hard" | "glow" | "outline" | "neon";
 export type AuthorPosition = "below-quote" | "bottom-left" | "bottom-center" | "bottom-right";
 
+export interface ColoredWord {
+  text: string;
+  color: string; // hex or "rainbow"
+}
+
 interface QuotePreviewProps {
   quote: string;
   authorName: string;
@@ -49,6 +54,7 @@ interface QuotePreviewProps {
   backgroundColor: string;
   isBold: boolean;
   isItalic: boolean;
+  coloredWords?: ColoredWord[];
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
