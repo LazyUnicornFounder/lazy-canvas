@@ -95,7 +95,7 @@ export interface QuoteEditorState {
   font: QuoteFont;
   theme: QuoteTheme;
   backgroundImage: string | null;
-  backgroundOpacity: number;
+  backgroundBlur: number;
   backgroundColor: string;
   fontSize: number;
   textAlign: "left" | "center" | "right";
@@ -127,6 +127,7 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   theme: "light",
   backgroundImage: null,
   backgroundOpacity: 0.4,
+  backgroundBlur: 0,
   backgroundColor: "",
   fontSize: 1.4,
   textAlign: "center",
@@ -766,6 +767,10 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
             <div className="flex items-center gap-3">
               <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
               <input type="range" min={0.1} max={1} step={0.05} value={state.backgroundOpacity} onChange={(e) => set("backgroundOpacity", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Blur</span>
+              <input type="range" min={0} max={20} step={1} value={state.backgroundBlur} onChange={(e) => set("backgroundBlur", parseFloat(e.target.value))} className="flex-1 accent-foreground h-1" />
             </div>
           )}
         </div>
