@@ -16,6 +16,8 @@ const DIGITAL_LINKS = [
 
 const PHYSICAL_LINKS = [
   { label: "Posters", href: "/posters" },
+  { label: "Flyers", href: "/flyers" },
+  { label: "Business Cards", href: "/business-cards" },
   { label: "Print", href: "/print" },
 ];
 

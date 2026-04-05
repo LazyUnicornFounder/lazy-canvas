@@ -158,4 +158,32 @@ export const MARKETING_PAGES: Config[] = [
     ],
     templateCategory: "elegant",
   },
+  {
+    slug: "flyers",
+    title: "Create Flyers | Lazy Faceless",
+    headline: "Create Flyers That Get Results",
+    subheadline: "Design professional flyers for events, promotions, and announcements — print-ready in seconds.",
+    description: "Eye-catching flyers for any occasion. Choose a template, customize your message, and download in print-ready quality.",
+    ctaText: "Create a Flyer",
+    features: [
+      { icon: "📄", title: "Print-Ready Sizes", description: "A4, A5, US Letter, and half-page formats ready for professional or home printing." },
+      { icon: "🎉", title: "Event & Promo Designs", description: "Templates for sales, events, grand openings, classes, and community announcements." },
+      { icon: "⚡", title: "Instant Customization", description: "Change text, colors, fonts, and backgrounds in seconds — no design skills needed." },
+    ],
+    templateCategory: "bold",
+  },
+  {
+    slug: "business-cards",
+    title: "Create Business Cards | Lazy Faceless",
+    headline: "Create Business Cards That Leave an Impression",
+    subheadline: "Design sleek, professional business cards with bold typography and custom layouts.",
+    description: "Stand out at every meeting. Create print-ready business cards with your name, title, and contact info.",
+    ctaText: "Create a Business Card",
+    features: [
+      { icon: "💼", title: "Standard Card Size", description: "3.5×2 inch format — the universal business card size, ready for any print shop." },
+      { icon: "✨", title: "Premium Typography", description: "Choose from 24+ fonts to match your personal brand and professional style." },
+      { icon: "🖨️", title: "High-Res Export", description: "Download at print-ready resolution for crisp text and sharp edges on any card stock." },
+    ],
+    templateCategory: "minimal",
+  },
 ];
