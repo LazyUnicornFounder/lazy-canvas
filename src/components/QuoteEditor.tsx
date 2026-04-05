@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Image as ImageIcon, X, Upload, Smile } from "lucide-react";
+import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow } from "lucide-react";
 import { EMOJI_CATEGORIES } from "@/data/emojis";
 import type {
   AspectRatio,
