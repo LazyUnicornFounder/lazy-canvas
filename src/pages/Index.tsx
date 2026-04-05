@@ -170,7 +170,7 @@ const Index = () => {
         </div>
       </section>
 
-      <QuoteGallery />
+      
 
       {/* About */}
       <section className="border-t border-border px-4 sm:px-6 py-8">
