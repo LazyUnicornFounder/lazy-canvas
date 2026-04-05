@@ -1463,7 +1463,7 @@ const UnitCalculator = () => {
           <p className="text-sm font-heading font-semibold text-foreground">{result} {toUnit}</p>
         </div>
       </div>
-      <p className="text-[10px] text-muted-foreground">Convert between pixels, centimeters, inches, and millimeters. DPI affects physical size conversions.</p>
+      
     </div>
   );
 };
