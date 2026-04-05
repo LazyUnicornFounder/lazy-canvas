@@ -16,7 +16,56 @@ import type { ColoredWord } from "@/components/QuotePreview";
 
 const FORMAT_GROUPS: { label: string; options: { value: AspectRatio; label: string }[] }[] = [
   {
-    label: "Social",
+    label: "Instagram",
+    options: [
+      { value: "square", label: "Post" },
+      { value: "9:16", label: "Story/Reel" },
+      { value: "1.91:1", label: "Landscape" },
+    ],
+  },
+  {
+    label: "X (Twitter)",
+    options: [
+      { value: "16:9", label: "Post" },
+      { value: "3:1", label: "Header" },
+    ],
+  },
+  {
+    label: "LinkedIn",
+    options: [
+      { value: "square", label: "Post" },
+      { value: "1.91:1", label: "Landscape" },
+      { value: "4:1", label: "Banner" },
+    ],
+  },
+  {
+    label: "Facebook",
+    options: [
+      { value: "1.91:1", label: "Post" },
+      { value: "9:16", label: "Story" },
+      { value: "820:312", label: "Cover" },
+    ],
+  },
+  {
+    label: "YouTube",
+    options: [
+      { value: "16:9", label: "Thumbnail" },
+    ],
+  },
+  {
+    label: "TikTok",
+    options: [
+      { value: "9:16", label: "Video" },
+    ],
+  },
+  {
+    label: "Pinterest",
+    options: [
+      { value: "2:3", label: "Pin" },
+    ],
+  },
+  {
+    label: "General",
     options: [
       { value: "square", label: "1:1" },
       { value: "3:4", label: "3:4" },
