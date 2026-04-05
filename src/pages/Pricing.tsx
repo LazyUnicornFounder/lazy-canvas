@@ -133,11 +133,7 @@ const Pricing = () => {
 
               <button
                 onClick={() => handleCta(tier.name)}
-                className={`w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 mb-6 ${
-                  tier.highlighted
-                    ? "bg-foreground text-background"
-                    : "bg-muted text-foreground"
-                }`}
+                className="w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 mb-6 bg-foreground text-background"
               >
                 {tier.cta}
               </button>
