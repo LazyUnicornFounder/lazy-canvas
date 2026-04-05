@@ -135,10 +135,7 @@ const Create = () => {
           </div>
 
           <div className="hidden lg:flex sticky top-4 flex-shrink-0 flex-col gap-3" style={{ width: "clamp(260px, 25vw, 320px)" }}>
-              {/* Phone outline matching homepage style */}
-              <div className="relative border border-foreground/20 rounded-[2.8rem] py-12 px-1 flex items-center" style={{ aspectRatio: "71.5 / 149.6" }}>
-                <div className="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none rounded-t-[2.8rem]" />
-                <div className="w-full">
+              <div className="w-full">
                   <QuotePreview
                     ref={previewRef}
                     quote={editorState.quote}
@@ -170,8 +167,6 @@ const Create = () => {
                     showWatermark={isFreeUser}
                     showQuotationMarks={editorState.showQuotationMarks}
                   />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none rounded-b-[2.8rem]" />
               </div>
               <button
                 onClick={handleDownload}
