@@ -166,7 +166,6 @@ const Create = () => {
                 <Download className="w-4 h-4" />
                 {downloading ? "Exporting…" : user ? "Download PNG" : "Sign up to download"}
               </button>
-            </div>
           </div>
         </div>
       </main>
