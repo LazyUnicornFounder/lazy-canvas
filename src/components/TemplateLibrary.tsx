@@ -699,9 +699,11 @@ const PREVIEW_QUOTES: Record<string, { text: string; author: string }> = {
 
 interface TemplateLibraryProps {
   onApply: (state: Partial<QuoteEditorState>) => void;
+  backgroundOpacity: number;
+  onOpacityChange: (value: number) => void;
 }
 
-export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
+export default function TemplateLibrary({ onApply, backgroundOpacity, onOpacityChange }: TemplateLibraryProps) {
   const [category, setCategory] = useState("all");
   const [dbTemplates, setDbTemplates] = useState<Template[]>([]);
 
