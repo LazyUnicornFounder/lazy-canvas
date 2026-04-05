@@ -64,21 +64,21 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     const isPlaceholder = !quote;
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const textRef = useRef<HTMLParagraphElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
 
     useEffect(() => {
       const container = containerRef.current;
-      const text = textRef.current;
-      if (!container || !text) { setScale(1); return; }
+      const content = contentRef.current;
+      if (!container || !content) { setScale(1); return; }
 
-      text.style.transform = "scale(1)";
-      text.style.transformOrigin = "top left";
+      content.style.transform = "scale(1)";
+      content.style.transformOrigin = "top left";
 
       const cW = container.clientWidth;
       const cH = container.clientHeight;
-      const tW = text.scrollWidth;
-      const tH = text.scrollHeight;
+      const tW = content.scrollWidth;
+      const tH = content.scrollHeight;
 
       if (tW > 0 && tH > 0) {
         const s = Math.min(cW / tW, cH / tH, 1);
@@ -86,7 +86,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       } else {
         setScale(1);
       }
-    }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign]);
+    }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign, authorFontSize, authorFont, authorName, authorPosition, socials, authorPhoto]);
 
     const hasAuthor = authorName || authorPhoto || socials;
     const isDetached = authorPosition !== "below-quote";
@@ -153,9 +153,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         )}
         {/* Quote content */}
         <div ref={containerRef} className="flex-1 flex items-center justify-center p-8 sm:p-12 relative z-10 overflow-hidden">
-          <div style={{ textAlign, maxWidth: "85%", transform: `scale(${scale})`, transformOrigin: "center center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <div ref={contentRef} style={{ textAlign, maxWidth: "85%", transform: `scale(${scale})`, transformOrigin: "center center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <p
-              ref={textRef}
               className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""} whitespace-pre-wrap`}
               style={{
                 fontSize: `${fontSize}rem`,
