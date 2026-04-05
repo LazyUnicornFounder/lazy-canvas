@@ -30,7 +30,7 @@ const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
 
   useEffect(() => {
     document.title = config.title;
-    return () => { document.title = "Lazy Faceless — Create content for anything."; };
+    return () => { document.title = "Lazy Faceless — Marketing content for anything."; };
   }, [config.title]);
 
   const handleApplyTemplate = (partial: Partial<QuoteEditorState>) => {
