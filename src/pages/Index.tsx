@@ -235,6 +235,7 @@ const Index = () => {
                 </div>
               </div>
             </ControlSection>
+            </div>
 
             {/* Font */}
             <ControlSection label="Font">
