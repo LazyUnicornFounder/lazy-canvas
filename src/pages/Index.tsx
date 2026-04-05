@@ -124,6 +124,7 @@ const Index = () => {
       <div className="lg:hidden sticky top-0 z-20 bg-background border-b border-border px-4 py-3">
         <div className="max-w-[280px] mx-auto">
           <QuotePreview
+            ref={mobilePreviewRef}
             ref={previewRef}
             quote={editorState.quote}
             authorName={editorState.authorName}
