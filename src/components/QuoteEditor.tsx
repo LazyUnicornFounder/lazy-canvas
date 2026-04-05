@@ -323,6 +323,22 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
                 </button>
               ))}
             </div>
+            <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Futuristic</p>
+            <div className="flex flex-wrap gap-2">
+              {FUTURISTIC_FONTS.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => set("font", opt.value)}
+                  className={`px-4 py-2 text-sm rounded-md border transition-all ${opt.preview} ${
+                    state.font === opt.value
+                      ? "bg-foreground text-background border-foreground"
+                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="flex items-center gap-2 mt-3">
             <button
@@ -598,6 +614,22 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
           <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Cursive</p>
           <div className="flex flex-wrap gap-2">
             {CURSIVE_FONTS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => set("authorFont", opt.value)}
+                className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
+                  state.authorFont === opt.value
+                    ? "bg-foreground text-background border-foreground"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Futuristic</p>
+          <div className="flex flex-wrap gap-2">
+            {FUTURISTIC_FONTS.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => set("authorFont", opt.value)}
