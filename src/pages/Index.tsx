@@ -48,8 +48,7 @@ const Index = () => {
 
   const handleSelectQuote = (quote: UserQuote) => {
     if (!isPro) {
-      const { toast } = await import("sonner");
-      toast.error("Re-editing saved quotes is a Pro feature.");
+      import("sonner").then(({ toast }) => toast.error("Re-editing saved quotes is a Pro feature."));
       return;
     }
     setActiveQuoteId(quote.id);
