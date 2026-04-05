@@ -47,7 +47,7 @@ const getPreviewContainerWidth = (aspectRatio: string, customW?: number, customH
   // Available height ≈ window viewport minus header+padding (~180px)
   // Use CSS clamp with vw approximation: 1vh ≈ aspect of height
   const heightVh = 100; // vh units for available height
-  const offsetPx = 180;
+  const offsetPx = 100;
   // clamp(180px, (Hvh - offset) * ratio, 500px)
   return `clamp(180px, calc((${heightVh}vh - ${offsetPx}px) * ${ratio.toFixed(4)}), 500px)`;
 };
