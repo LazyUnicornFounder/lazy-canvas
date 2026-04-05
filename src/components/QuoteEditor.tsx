@@ -994,12 +994,39 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                       letter: [8.5, 11], legal: [8.5, 14], tabloid: [11, 17],
                       "poster-18x24": [18, 24], "poster-24x36": [24, 36], "banner-2x5": [2, 5],
                     };
+                    const sizeMap: Record<string, string> = {
+                      square: "1080 × 1080 px",
+                      "9:16": "1080 × 1920 px",
+                      "1.91:1": "1200 × 628 px",
+                      "16:9": "1920 × 1080 px",
+                      "3:1": "1500 × 500 px",
+                      "4:1": "1584 × 396 px",
+                      "820:312": "820 × 312 px",
+                      "2:3": "1000 × 1500 px",
+                      "3:4": "1080 × 1440 px",
+                      "4:3": "1440 × 1080 px",
+                      "3:2": "1500 × 1000 px",
+                      "1:2": "1080 × 2160 px",
+                      "2:1": "2160 × 1080 px",
+                      a4: "2480 × 3508 px (A4)",
+                      a3: "3508 × 4961 px (A3)",
+                      a2: "4961 × 7016 px (A2)",
+                      a1: "7016 × 9933 px (A1)",
+                      a0: "9933 × 14043 px (A0)",
+                      letter: "2550 × 3300 px",
+                      legal: "2550 × 4200 px",
+                      tabloid: "3300 × 5100 px",
+                      "poster-18x24": "5400 × 7200 px",
+                      "poster-24x36": "7200 × 10800 px",
+                      "banner-2x5": "3600 × 9000 px",
+                    };
                     const [w, h] = ratioMap[opt.value] || opt.value.split(":").map(Number);
                     const maxDim = 36;
                     const scale = maxDim / Math.max(w, h);
                     const boxW = Math.round(w * scale);
                     const boxH = Math.round(h * scale);
                     const isActive = state.aspectRatio === opt.value;
+                    const sizeLabel = sizeMap[opt.value] || opt.value;
                     return (
                       <button
                         key={opt.value}
@@ -1009,7 +1036,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                             ? "border-foreground bg-foreground/5"
                             : "border-border hover:border-foreground/30"
                         }`}
-                        title={opt.label}
+                        title={`${opt.label} — ${sizeLabel}`}
                       >
                         <div
                           className={`border ${isActive ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`}
