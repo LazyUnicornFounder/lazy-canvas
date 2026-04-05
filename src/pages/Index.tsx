@@ -180,11 +180,12 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-          {/* Controls */}
-          <div className="space-y-4 order-2 lg:order-1 lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto lg:pr-2 lg:scrollbar-thin">
+      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 py-4 sm:py-6">
+        <div className="flex gap-6 items-start">
+          {/* Controls - two columns */}
+          <div className="flex-1 min-w-0 grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Quote */}
+            <div className="md:col-span-2">
             <ControlSection label="Quote">
               <div className="relative">
                 <textarea
@@ -234,8 +235,10 @@ const Index = () => {
                 </div>
               </div>
             </ControlSection>
+            </div>
 
             {/* Font */}
+            <div className="md:col-span-2">
             <ControlSection label="Font">
               <div className="flex flex-wrap gap-2">
                 {FONT_OPTIONS.map((opt) => (
@@ -367,6 +370,7 @@ const Index = () => {
                 </div>
               </div>
             </ControlSection>
+            </div>
 
             {/* Author */}
             <ControlSection label="Author">
@@ -616,7 +620,7 @@ const Index = () => {
           </div>
 
           {/* Preview */}
-          <div className="order-1 lg:order-2 lg:sticky lg:top-4">
+          <div className="hidden lg:block sticky top-4 flex-shrink-0" style={{ width: "clamp(280px, 28vw, 400px)" }}>
             <div className="flex justify-center items-start" style={{ maxHeight: "calc(100vh - 4rem)" }}>
               <div
                 className="shadow-xl"
