@@ -1,4 +1,15 @@
 import { forwardRef, useRef, useEffect, useState } from "react";
+import { Instagram, Twitter, Youtube, Linkedin, Facebook } from "lucide-react";
+
+export type SocialPlatform = "instagram" | "twitter" | "tiktok" | "youtube" | "linkedin" | "threads" | "bluesky" | "facebook";
+
+const socialIcons: Partial<Record<SocialPlatform, React.ComponentType<{ size?: number; className?: string }>>> = {
+  instagram: Instagram,
+  twitter: Twitter,
+  youtube: Youtube,
+  linkedin: Linkedin,
+  facebook: Facebook,
+};
 
 export type AspectRatio = "square" | "3:4" | "2:3" | "9:16" | "1:2" | "4:3" | "3:2" | "16:9" | "2:1";
 export type QuoteFont = "playfair" | "cormorant" | "bebas" | "mono" | "heading" | "lora" | "inter" | "oswald" | "merriweather" | "raleway" | "dancing" | "archivo";
@@ -11,6 +22,7 @@ interface QuotePreviewProps {
   authorName: string;
   authorPhoto: string | null;
   socials: string;
+  socialPlatform?: SocialPlatform;
   aspectRatio: AspectRatio;
   font: QuoteFont;
   theme: QuoteTheme;
@@ -73,7 +85,7 @@ const shadowStyles: Record<TextShadow, string> = {
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, authorPosition, backgroundColor }, ref) => {
     const t = themeStyles[theme];
     const displayQuote = quote;
     const isPlaceholder = !quote;
@@ -140,7 +152,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             </span>
           )}
           {socials && (
-            <span className="text-xs" style={{ color: t.muted }}>
+            <span className="text-xs flex items-center gap-1" style={{ color: t.muted }}>
+              {socialPlatform && socialIcons[socialPlatform] && (() => { const Icon = socialIcons[socialPlatform]!; return <Icon size={12} />; })()}
               {socials}
             </span>
           )}
