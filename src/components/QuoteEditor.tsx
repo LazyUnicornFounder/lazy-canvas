@@ -496,20 +496,39 @@ const QuoteEditor = ({ state, onChange }: QuoteEditorProps) => {
             )}
           </div>
         </div>
-        <div className="flex flex-wrap gap-2 mt-3">
-          {FONT_OPTIONS.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => set("authorFont", opt.value)}
-              className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
-                state.authorFont === opt.value
-                  ? "bg-foreground text-background border-foreground"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-              }`}
-            >
-              {opt.label}
-            </button>
-          ))}
+        <div className="space-y-2 mt-3">
+          <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Serif</p>
+          <div className="flex flex-wrap gap-2">
+            {SERIF_FONTS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => set("authorFont", opt.value)}
+                className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
+                  state.authorFont === opt.value
+                    ? "bg-foreground text-background border-foreground"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Sans-serif</p>
+          <div className="flex flex-wrap gap-2">
+            {SANS_FONTS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => set("authorFont", opt.value)}
+                className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
+                  state.authorFont === opt.value
+                    ? "bg-foreground text-background border-foreground"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="flex items-center gap-3 mt-3">
           <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-10">Size</span>
