@@ -363,7 +363,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
               }}
             >
               <span style={{ fontSize: "clamp(8px, 2%, 12px)", color: "#fbbf24", fontWeight: 600, whiteSpace: "nowrap" }}>
-                ⚠ Text too large — reduce font size
+                ⚠ Text too large or too much text.
               </span>
             </div>
           )}
