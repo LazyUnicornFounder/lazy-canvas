@@ -738,8 +738,8 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
           ))}
         </div>
       </ControlSection>
-      </div>
 
+      {/* Background — PRO */}
       <ControlSection label="Background" pro={!isPro} onProClick={goToPricing}>
         <input ref={bgInputRef} type="file" accept="image/*" onChange={handleBgUpload} className="hidden" />
         <div className="space-y-3">
@@ -770,6 +770,7 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
           )}
         </div>
       </ControlSection>
+      </div>
     </div>
   );
 };
