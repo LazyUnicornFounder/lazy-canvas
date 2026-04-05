@@ -42,8 +42,24 @@ const Index = () => {
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [showProUpgradePrompt, setShowProUpgradePrompt] = useState(false);
   const [showProSignupPrompt, setShowProSignupPrompt] = useState(false);
+  const [activeQuoteId, setActiveQuoteId] = useState<string | null>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const mobilePreviewRef = useRef<HTMLDivElement>(null);
+
+  const handleSelectQuote = (quote: UserQuote) => {
+    if (!isPro) {
+      const { toast } = await import("sonner");
+      toast.error("Re-editing saved quotes is a Pro feature.");
+      return;
+    }
+    setActiveQuoteId(quote.id);
+    setEditorState(quote.editor_state);
+  };
+
+  const handleNewQuote = () => {
+    setActiveQuoteId(null);
+    setEditorState(DEFAULT_EDITOR_STATE);
+  };
 
   // Clear draft from localStorage once user is logged in and state is restored
   useEffect(() => {
