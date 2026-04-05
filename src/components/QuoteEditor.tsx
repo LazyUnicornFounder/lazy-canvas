@@ -950,12 +950,22 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
               </button>
             )}
             {state.authorPhoto && (
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                className="text-xs font-heading text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Change
-              </button>
+              <div className="flex flex-col gap-1">
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="text-xs font-heading text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Change
+                </button>
+                <button
+                  onClick={handleRemoveBg}
+                  disabled={removingBg}
+                  className="flex items-center gap-1 text-xs font-heading text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
+                >
+                  {removingBg ? <Loader2 className="w-3 h-3 animate-spin" /> : <Eraser className="w-3 h-3" />}
+                  {removingBg ? "Removing…" : "Remove BG"}
+                </button>
+              </div>
             )}
           </div>
           <div>
