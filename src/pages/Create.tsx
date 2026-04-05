@@ -152,6 +152,7 @@ const Create = () => {
                     backgroundImage={editorState.backgroundImage}
                     backgroundOpacity={editorState.backgroundOpacity}
                     backgroundBlur={editorState.backgroundBlur}
+                    backgroundFilter={editorState.backgroundFilter}
                     fontSize={editorState.fontSize}
                     textAlign={editorState.textAlign}
                     letterSpacing={editorState.letterSpacing}

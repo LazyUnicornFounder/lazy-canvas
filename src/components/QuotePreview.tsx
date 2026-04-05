@@ -1,5 +1,6 @@
 import { forwardRef, useRef, useEffect, useState } from "react";
 import { Instagram, Youtube, Linkedin, Facebook, type LucideProps } from "lucide-react";
+import { BG_FILTERS } from "@/components/QuoteEditor";
 
 export type SocialPlatform = "instagram" | "twitter" | "tiktok" | "youtube" | "linkedin" | "threads" | "bluesky" | "facebook" | "pinterest" | "snapchat";
 
@@ -79,6 +80,7 @@ interface QuotePreviewProps {
   backgroundImage: string | null;
   backgroundOpacity: number;
   backgroundBlur?: number;
+  backgroundFilter?: string;
   fontSize: number;
   textAlign: "left" | "center" | "right";
   letterSpacing: number;
@@ -233,7 +235,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = [], show
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
@@ -323,7 +325,10 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             style={{
               backgroundImage: `url(${backgroundImage})`,
               opacity: backgroundOpacity,
-              filter: backgroundBlur > 0 ? `blur(${backgroundBlur}px)` : undefined,
+              filter: [
+                backgroundBlur > 0 ? `blur(${backgroundBlur}px)` : "",
+                BG_FILTERS.find(f => f.value === backgroundFilter)?.css || "",
+              ].filter(Boolean).join(" ") || undefined,
               transform: backgroundBlur > 0 ? "scale(1.05)" : undefined,
             }}
           />
