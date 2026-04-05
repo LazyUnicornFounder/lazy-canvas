@@ -95,6 +95,7 @@ export interface QuoteEditorState {
   font: QuoteFont;
   theme: QuoteTheme;
   backgroundImage: string | null;
+  backgroundOpacity: number;
   backgroundBlur: number;
   backgroundColor: string;
   fontSize: number;
