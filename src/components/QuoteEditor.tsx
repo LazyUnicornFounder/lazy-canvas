@@ -415,7 +415,7 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
 
       {/* Word Colors — PRO */}
       <div className="md:col-span-2">
-        <ControlSection label="Word Colors" pro={!isPro}>
+        <ControlSection label="Word Colors" pro={!isPro} onProClick={goToPricing}>
           <p className="text-[10px] text-muted-foreground mb-2">
             Color specific words or phrases in your quote.
           </p>
@@ -638,7 +638,7 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
       </ControlSection>
 
       {/* Format — PRO */}
-      <ControlSection label="Format" pro={!isPro}>
+      <ControlSection label="Format" pro={!isPro} onProClick={goToPricing}>
         <div className="grid grid-cols-5 gap-1.5">
           {ASPECT_OPTIONS.map((opt) => (
             <button
@@ -680,7 +680,7 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
       </ControlSection>
 
       {/* Background — PRO */}
-      <ControlSection label="Background" pro={!isPro}>
+      <ControlSection label="Background" pro={!isPro} onProClick={goToPricing}>
         <input ref={bgInputRef} type="file" accept="image/*" onChange={handleBgUpload} className="hidden" />
         <div className="space-y-3">
           <div className="flex items-center gap-3">
