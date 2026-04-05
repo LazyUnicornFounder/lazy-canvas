@@ -592,6 +592,7 @@ const Index = () => {
                   authorFont={authorFont}
                   textShadow={textShadow}
                   authorPosition={authorPosition}
+                  backgroundColor={backgroundColor}
                 />
               </div>
             </div>
