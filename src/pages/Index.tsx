@@ -176,11 +176,18 @@ const Index = () => {
       const canvas = await html2canvas(target, {
         scale: 3, useCORS: true, logging: false, backgroundColor: null,
       });
-      const link = document.createElement("a");
-      link.download = `quote-${Date.now()}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    } catch { console.error("Failed to export"); }
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = `quote-${Date.now()}.png`;
+        link.href = url;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }, "image/png");
+    } catch (err) { console.error("Failed to export", err); }
     finally { setDownloading(false); }
   }, [user, editorState]);
 
