@@ -39,6 +39,7 @@ const Index = () => {
   const [downloading, setDownloading] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [backgroundOpacity, setBackgroundOpacity] = useState(0.4);
+  const [fontSize, setFontSize] = useState(1.4);
 
   const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
