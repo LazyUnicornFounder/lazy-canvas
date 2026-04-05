@@ -153,7 +153,10 @@ const Pricing = () => {
 
         <div className="text-center mt-12 space-y-2">
           <p className="text-sm text-muted-foreground">
-            All plans include unlimited quote designs. No credit card required for Free.
+          All plans include unlimited quote designs. No credit card required for Free.
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Secure payments with Polar and Stripe.
           </p>
         </div>
       </main>
