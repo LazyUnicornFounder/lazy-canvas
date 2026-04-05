@@ -170,6 +170,7 @@ const Index = () => {
                 { label: "X", href: "/twitter" },
                 { label: "Banners", href: "/banners" },
                 { label: "Posts", href: "/posts" },
+                { label: "Posters", href: "/posters" },
               ].map((link) => (
                 <button
                   key={link.href}
