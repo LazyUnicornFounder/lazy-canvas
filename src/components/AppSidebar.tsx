@@ -1,0 +1,155 @@
+import { Plus, FileText, Trash2, Crown, ChevronUp, LogOut, CreditCard } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { useUserQuotes, type UserQuote } from "@/hooks/useUserQuotes";
+import type { QuoteEditorState } from "@/components/QuoteEditor";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuAction,
+  SidebarSeparator,
+} from "@/components/ui/sidebar";
+
+interface AppSidebarProps {
+  activeQuoteId: string | null;
+  onSelectQuote: (quote: UserQuote) => void;
+  onNewQuote: () => void;
+  currentEditorState: QuoteEditorState;
+}
+
+export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEditorState }: AppSidebarProps) {
+  const { user, signOut } = useAuth();
+  const { quotes, loading, saveQuote, deleteQuote } = useUserQuotes();
+  const navigate = useNavigate();
+
+  const currentTier = "Free"; // TODO: check actual subscription
+
+  const handleSave = async () => {
+    const title = currentEditorState.quote
+      ? currentEditorState.quote.slice(0, 40) + (currentEditorState.quote.length > 40 ? "…" : "")
+      : "Untitled";
+    await saveQuote(activeQuoteId, title, currentEditorState);
+  };
+
+  return (
+    <Sidebar collapsible="icon" className="border-r border-border">
+      <SidebarHeader className="p-3">
+        <h2 className="font-heading text-sm font-semibold tracking-tight text-foreground truncate">
+          My Quotes
+        </h2>
+      </SidebarHeader>
+
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {/* New Quote */}
+              <SidebarMenuItem>
+                <SidebarMenuButton onClick={onNewQuote} className="text-primary">
+                  <Plus className="w-4 h-4" />
+                  <span>New Quote</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              {/* Save current */}
+              <SidebarMenuItem>
+                <SidebarMenuButton onClick={handleSave} className="text-muted-foreground">
+                  <FileText className="w-4 h-4" />
+                  <span>{activeQuoteId ? "Save changes" : "Save quote"}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarSeparator />
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Saved Quotes</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {loading ? (
+                <SidebarMenuItem>
+                  <SidebarMenuButton disabled>
+                    <span className="text-xs text-muted-foreground">Loading…</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ) : quotes.length === 0 ? (
+                <SidebarMenuItem>
+                  <SidebarMenuButton disabled>
+                    <span className="text-xs text-muted-foreground">No saved quotes yet</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ) : (
+                quotes.map((q) => (
+                  <SidebarMenuItem key={q.id}>
+                    <SidebarMenuButton
+                      isActive={activeQuoteId === q.id}
+                      onClick={() => onSelectQuote(q)}
+                      tooltip={q.title}
+                    >
+                      <FileText className="w-4 h-4 flex-shrink-0" />
+                      <span className="truncate">{q.title}</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuAction
+                      showOnHover
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteQuote(q.id);
+                      }}
+                    >
+                      <Trash2 className="w-3.5 h-3.5 text-destructive" />
+                    </SidebarMenuAction>
+                  </SidebarMenuItem>
+                ))
+              )}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SidebarFooter>
+        <SidebarSeparator />
+
+        {/* Subscription tier */}
+        <div className="p-3 space-y-2">
+          <div className="flex items-center gap-2">
+            <Crown className="w-4 h-4 text-muted-foreground" />
+            <span className="text-xs font-heading font-medium text-foreground">{currentTier} Plan</span>
+          </div>
+          <button
+            onClick={() => navigate("/pricing")}
+            className="flex items-center gap-2 w-full text-xs text-primary hover:underline"
+          >
+            <CreditCard className="w-3.5 h-3.5" />
+            {currentTier === "Free" ? "Upgrade plan" : "Manage subscription"}
+          </button>
+        </div>
+
+        <SidebarSeparator />
+
+        {/* User info + sign out */}
+        <div className="p-3 flex items-center gap-2">
+          <div className="flex-1 min-w-0">
+            <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+          </div>
+          <button
+            onClick={signOut}
+            className="p-1.5 hover:bg-accent rounded-md transition-colors flex-shrink-0"
+            title="Sign out"
+          >
+            <LogOut className="w-3.5 h-3.5 text-muted-foreground" />
+          </button>
+        </div>
+      </SidebarFooter>
+    </Sidebar>
+  );
+}

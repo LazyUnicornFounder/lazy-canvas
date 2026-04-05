@@ -13,11 +13,15 @@ import QuoteEditor, {
 } from "@/components/QuoteEditor";
 import AuthModal from "@/components/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
+import type { UserQuote } from "@/hooks/useUserQuotes";
 
 const Index = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [editorState, setEditorState] = useState<QuoteEditorState>(DEFAULT_EDITOR_STATE);
+  const [activeQuoteId, setActiveQuoteId] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -50,6 +54,16 @@ const Index = () => {
     }
   }, [user]);
 
+  const handleSelectQuote = (quote: UserQuote) => {
+    setActiveQuoteId(quote.id);
+    setEditorState(quote.editor_state);
+  };
+
+  const handleNewQuote = () => {
+    setActiveQuoteId(null);
+    setEditorState(DEFAULT_EDITOR_STATE);
+  };
+
   const socials = [
     editorState.socialUsername
       ? `${SOCIAL_PLATFORMS.find((p) => p.value === editorState.socialPlatform)?.prefix || ""}${editorState.socialUsername}`
@@ -59,14 +73,17 @@ const Index = () => {
     .filter(Boolean)
     .join(" · ");
 
-  return (
-    <div className="min-h-screen bg-background">
+  const mainContent = (
+    <>
       {/* Header */}
       <header className="border-b border-border">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <h1 className="font-heading text-lg font-semibold tracking-tight text-foreground">
-            Lazy Quotes
-          </h1>
+        <div className="px-4 sm:px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            {user && <SidebarTrigger />}
+            <h1 className="font-heading text-lg font-semibold tracking-tight text-foreground">
+              Lazy Quotes
+            </h1>
+          </div>
           <div className="flex items-center gap-2 sm:gap-4">
             <button
               onClick={() => navigate("/pricing")}
@@ -98,24 +115,26 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="border-b border-border bg-card/30">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-12 md:py-20">
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
-            <div className="flex-1 space-y-6">
-              <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight">
-                Create awesome quotes for your socials.
-              </h2>
-              <p className="text-muted-foreground text-lg max-w-md">
-                Design beautiful, shareable quote images in seconds. Pick fonts, colors, layouts — download and post.
-              </p>
-            </div>
-            <div className="flex-shrink-0 w-full max-w-md">
-              <HeroSlideshow />
+      {/* Hero Section - only for non-logged-in users */}
+      {!user && (
+        <section className="border-b border-border bg-card/30">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-12 md:py-20">
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+              <div className="flex-1 space-y-6">
+                <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight">
+                  Create awesome quotes for your socials.
+                </h2>
+                <p className="text-muted-foreground text-lg max-w-md">
+                  Design beautiful, shareable quote images in seconds. Pick fonts, colors, layouts — download and post.
+                </p>
+              </div>
+              <div className="flex-shrink-0 w-full max-w-md">
+                <HeroSlideshow />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <main className="max-w-[1600px] mx-auto px-4 sm:px-6 py-4 sm:py-6">
         <div className="flex gap-6 items-start">
@@ -173,7 +192,6 @@ const Index = () => {
                   />
                 </div>
               </div>
-              {/* Download button under preview */}
               <button
                 onClick={handleDownload}
                 disabled={downloading}
@@ -192,6 +210,31 @@ const Index = () => {
         onClose={() => setShowAuthModal(false)}
         onSuccess={handleDownload}
       />
+    </>
+  );
+
+  // When logged in, wrap in sidebar layout
+  if (user) {
+    return (
+      <SidebarProvider>
+        <div className="min-h-screen flex w-full">
+          <AppSidebar
+            activeQuoteId={activeQuoteId}
+            onSelectQuote={handleSelectQuote}
+            onNewQuote={handleNewQuote}
+            currentEditorState={editorState}
+          />
+          <div className="flex-1 flex flex-col min-w-0 bg-background">
+            {mainContent}
+          </div>
+        </div>
+      </SidebarProvider>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      {mainContent}
     </div>
   );
 };

@@ -110,6 +110,33 @@ export type Database = {
         }
         Relationships: []
       }
+      user_quotes: {
+        Row: {
+          created_at: string
+          editor_state: Json
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          editor_state?: Json
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          editor_state?: Json
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
