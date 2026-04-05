@@ -159,3 +159,7 @@
   50% { transform: translateX(-50%) translateY(0); }
   75% { transform: translateX(-50%) translateY(-2px); }
 }
+
+input[type="range"] {
+  cursor: pointer;
+}
