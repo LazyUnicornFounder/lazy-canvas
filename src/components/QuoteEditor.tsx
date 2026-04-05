@@ -227,6 +227,26 @@ const QuoteEditor = ({ state, onChange, isPro = false }: QuoteEditorProps) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Templates */}
+      <div className="md:col-span-2">
+        <ControlSection label="Templates" icon={<LayoutGrid className="w-3.5 h-3.5" />}>
+          <TemplateLibrary
+            onApply={(partial) => {
+              onChange({
+                ...state,
+                ...partial,
+                quote: state.quote,
+                authorName: state.authorName,
+                socialPlatform: state.socialPlatform,
+                socialUsername: state.socialUsername,
+                website: state.website,
+                authorPhoto: state.authorPhoto,
+                backgroundImage: state.backgroundImage,
+              });
+            }}
+          />
+        </ControlSection>
+      </div>
       {/* Quote */}
       <div className="md:col-span-2">
         <ControlSection label="Quote">
