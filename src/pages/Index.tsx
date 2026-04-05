@@ -238,6 +238,7 @@ const Index = () => {
             </div>
 
             {/* Font */}
+            <div className="md:col-span-2">
             <ControlSection label="Font">
               <div className="flex flex-wrap gap-2">
                 {FONT_OPTIONS.map((opt) => (
@@ -369,6 +370,7 @@ const Index = () => {
                 </div>
               </div>
             </ControlSection>
+            </div>
 
             {/* Author */}
             <ControlSection label="Author">
