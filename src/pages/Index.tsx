@@ -575,7 +575,7 @@ const ControlSection = ({
   label: string;
   children: React.ReactNode;
 }) => (
-  <div className="border border-border rounded-lg p-5 space-y-3 bg-card">
+  <div className="border border-border rounded-lg p-4 space-y-2.5 bg-card">
     <label className="text-sm font-heading font-semibold uppercase tracking-widest text-foreground">
       {label}
     </label>
