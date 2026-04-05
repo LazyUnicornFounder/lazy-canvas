@@ -135,6 +135,7 @@ const Index = () => {
                   backgroundColor={editorState.backgroundColor}
                   isBold={editorState.isBold}
                   isItalic={editorState.isItalic}
+                  coloredWords={editorState.coloredWords}
                 />
               </div>
             </div>

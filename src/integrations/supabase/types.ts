@@ -26,6 +26,7 @@ export type Database = {
           background_color: string | null
           background_image_url: string | null
           background_opacity: number | null
+          colored_words: Json | null
           created_at: string
           display_order: number | null
           font: string | null
@@ -56,6 +57,7 @@ export type Database = {
           background_color?: string | null
           background_image_url?: string | null
           background_opacity?: number | null
+          colored_words?: Json | null
           created_at?: string
           display_order?: number | null
           font?: string | null
@@ -86,6 +88,7 @@ export type Database = {
           background_color?: string | null
           background_image_url?: string | null
           background_opacity?: number | null
+          colored_words?: Json | null
           created_at?: string
           display_order?: number | null
           font?: string | null

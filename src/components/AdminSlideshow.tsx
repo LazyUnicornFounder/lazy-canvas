@@ -43,6 +43,7 @@ interface SlideshowQuote {
   website: string | null;
   author_photo_url: string | null;
   display_order: number | null;
+  colored_words: any | null;
 }
 
 const AdminSlideshow = () => {
@@ -101,6 +102,7 @@ const AdminSlideshow = () => {
       social_platform: editorState.socialPlatform,
       website: editorState.website,
       display_order: savedQuotes.length,
+      colored_words: editorState.coloredWords.length ? JSON.parse(JSON.stringify(editorState.coloredWords)) : [],
     });
     setSaving(false);
     if (error) {
@@ -173,6 +175,7 @@ const AdminSlideshow = () => {
                     backgroundColor={sq.background_color || ""}
                     isBold={sq.is_bold || false}
                     isItalic={sq.is_italic || false}
+                    coloredWords={Array.isArray(sq.colored_words) ? sq.colored_words as any : []}
                   />
                 </div>
                 <button
@@ -216,6 +219,7 @@ const AdminSlideshow = () => {
               backgroundColor={editorState.backgroundColor}
               isBold={editorState.isBold}
               isItalic={editorState.isItalic}
+              coloredWords={editorState.coloredWords}
             />
           </div>
         </div>

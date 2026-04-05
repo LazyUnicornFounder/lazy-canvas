@@ -1,0 +1,1 @@
+ALTER TABLE public.slideshow_quotes ADD COLUMN colored_words jsonb DEFAULT '[]'::jsonb;

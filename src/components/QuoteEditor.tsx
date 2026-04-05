@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Image as ImageIcon, X, Upload, Smile } from "lucide-react";
+import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow } from "lucide-react";
 import { EMOJI_CATEGORIES } from "@/data/emojis";
 import type {
   AspectRatio,
@@ -9,6 +9,7 @@ import type {
   AuthorPosition,
   SocialPlatform,
 } from "@/components/QuotePreview";
+import type { ColoredWord } from "@/components/QuotePreview";
 
 const ASPECT_OPTIONS: { value: AspectRatio; label: string; row: number }[] = [
   { value: "square", label: "1:1", row: 0 },
@@ -87,6 +88,7 @@ export interface QuoteEditorState {
   authorPosition: AuthorPosition;
   isBold: boolean;
   isItalic: boolean;
+  coloredWords: ColoredWord[];
 }
 
 export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
@@ -114,6 +116,7 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   authorPosition: "below-quote",
   isBold: false,
   isItalic: false,
+  coloredWords: [],
 };
 
 interface QuoteEditorProps {
@@ -328,6 +331,86 @@ const QuoteEditor = ({ state, onChange }: QuoteEditorProps) => {
                 </button>
               ))}
             </div>
+          </div>
+        </ControlSection>
+      </div>
+
+      {/* Word Colors */}
+      <div className="md:col-span-2">
+        <ControlSection label="Word Colors">
+          <p className="text-[10px] text-muted-foreground mb-2">
+            Color specific words or phrases in your quote.
+          </p>
+          <div className="space-y-2">
+            {state.coloredWords.map((cw, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <input
+                  value={cw.text}
+                  onChange={(e) => {
+                    const updated = [...state.coloredWords];
+                    updated[i] = { ...updated[i], text: e.target.value };
+                    set("coloredWords", updated);
+                  }}
+                  placeholder="Word or phrase"
+                  className="flex-1 bg-transparent border border-border rounded-md px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
+                />
+                {cw.color === "rainbow" ? (
+                  <div
+                    className="w-8 h-8 rounded-md border border-border cursor-pointer flex items-center justify-center"
+                    style={{ background: "linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #00cc00, #0088ff, #8800ff)" }}
+                    onClick={() => {
+                      const updated = [...state.coloredWords];
+                      updated[i] = { ...updated[i], color: "#ff0000" };
+                      set("coloredWords", updated);
+                    }}
+                    title="Switch to solid color"
+                  />
+                ) : (
+                  <input
+                    type="color"
+                    value={cw.color}
+                    onChange={(e) => {
+                      const updated = [...state.coloredWords];
+                      updated[i] = { ...updated[i], color: e.target.value };
+                      set("coloredWords", updated);
+                    }}
+                    className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent"
+                  />
+                )}
+                <button
+                  onClick={() => {
+                    const updated = [...state.coloredWords];
+                    updated[i] = { ...updated[i], color: cw.color === "rainbow" ? "#ff0000" : "rainbow" };
+                    set("coloredWords", updated);
+                  }}
+                  className={`p-1.5 rounded-md border text-[10px] transition-all ${
+                    cw.color === "rainbow"
+                      ? "bg-foreground text-background border-foreground"
+                      : "border-border text-muted-foreground hover:text-foreground"
+                  }`}
+                  title="Rainbow / multicolor"
+                >
+                  <Rainbow className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => {
+                    const updated = state.coloredWords.filter((_, j) => j !== i);
+                    set("coloredWords", updated);
+                  }}
+                  className="p-1.5 rounded-md border border-border text-muted-foreground hover:text-foreground transition-all"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ))}
+            <button
+              onClick={() => set("coloredWords", [...state.coloredWords, { text: "", color: "#ff0000" }])}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
+              type="button"
+            >
+              <Plus className="w-3 h-3" />
+              Add colored word
+            </button>
           </div>
         </ControlSection>
       </div>

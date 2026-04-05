@@ -32,6 +32,7 @@ interface SlideshowQuote {
   background_image_url: string | null;
   socials: string | null;
   author_photo_url: string | null;
+  colored_words: any | null;
 }
 
 const HeroSlideshow = () => {
@@ -100,6 +101,7 @@ const HeroSlideshow = () => {
           backgroundColor={q.background_color || ""}
           isBold={q.is_bold || false}
           isItalic={q.is_italic || false}
+          coloredWords={Array.isArray(q.colored_words) ? q.colored_words as any : []}
         />
       </div>
     </div>
