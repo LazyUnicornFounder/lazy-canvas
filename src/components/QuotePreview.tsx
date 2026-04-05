@@ -14,6 +14,7 @@ interface QuotePreviewProps {
   theme: QuoteTheme;
   backgroundImage: string | null;
   backgroundOpacity: number;
+  fontSize: number;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
@@ -38,7 +39,7 @@ const themeStyles: Record<QuoteTheme, { bg: string; text: string; muted: string;
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity }, ref) => {
+  ({ quote, authorName, authorPhoto, socials, aspectRatio, font, theme, backgroundImage, backgroundOpacity, fontSize }, ref) => {
     const t = themeStyles[theme];
     const displayQuote = quote || "Type your quote here...";
     const isPlaceholder = !quote;
@@ -72,7 +73,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             <p
               className={`${fontClasses[font]} leading-relaxed ${isPlaceholder ? "opacity-40" : ""}`}
               style={{
-                fontSize: aspectRatio === "landscape" ? "1.25rem" : "1.4rem",
+                fontSize: `${fontSize}rem`,
                 letterSpacing: font === "bebas" ? "0.1em" : undefined,
               }}
             >

@@ -303,6 +303,7 @@ const Index = () => {
                   theme={theme}
                   backgroundImage={backgroundImage}
                   backgroundOpacity={backgroundOpacity}
+                  fontSize={fontSize}
                 />
               </div>
             </div>
