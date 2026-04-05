@@ -129,8 +129,8 @@ const Index = () => {
           <div className="flex items-center gap-2 sm:gap-4">
             {/* spacer for centering */}
           </div>
-          <h1 className="absolute left-1/2 -translate-x-1/2 font-dancing text-3xl sm:text-4xl text-foreground select-none" style={{ letterSpacing: "0.02em" }}>
-            &ldquo;Lazy Quotes&rdquo;
+          <h1 className="absolute left-1/2 -translate-x-1/2 font-shadows-into-light text-3xl sm:text-4xl font-bold text-foreground select-none" style={{ letterSpacing: "0.02em" }}>
+            Lazy Quotes
           </h1>
           <div className="flex items-center gap-2 sm:gap-4">
             <button

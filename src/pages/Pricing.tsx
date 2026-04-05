@@ -80,7 +80,7 @@ const Pricing = () => {
             className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="font-dancing text-xl font-semibold tracking-tight text-foreground">Lazy Quotes</span>
+            <span className="font-shadows-into-light text-xl font-bold tracking-tight text-foreground">Lazy Quotes</span>
           </button>
         </div>
       </header>
