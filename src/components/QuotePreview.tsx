@@ -48,6 +48,32 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     const displayQuote = quote;
     const isPlaceholder = !quote;
 
+    const containerRef = useRef<HTMLDivElement>(null);
+    const textRef = useRef<HTMLParagraphElement>(null);
+    const [scale, setScale] = useState(1);
+
+    useEffect(() => {
+      const container = containerRef.current;
+      const text = textRef.current;
+      if (!container || !text) { setScale(1); return; }
+
+      // Reset scale to measure natural size
+      text.style.transform = "scale(1)";
+      text.style.transformOrigin = "top left";
+
+      const cW = container.clientWidth;
+      const cH = container.clientHeight;
+      const tW = text.scrollWidth;
+      const tH = text.scrollHeight;
+
+      if (tW > 0 && tH > 0) {
+        const s = Math.min(cW / tW, cH / tH, 1);
+        setScale(s);
+      } else {
+        setScale(1);
+      }
+    }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign]);
+
     return (
       <div
         ref={ref}
@@ -67,9 +93,10 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           <div className="absolute inset-0" style={{ backgroundColor: t.bg, opacity: 1 - backgroundOpacity }} />
         )}
         {/* Quote content */}
-        <div className="flex-1 flex items-center justify-center p-8 sm:p-12 relative z-10">
-          <div style={{ textAlign, maxWidth: "85%" }}>
+        <div ref={containerRef} className="flex-1 flex items-center justify-center p-8 sm:p-12 relative z-10 overflow-hidden">
+          <div style={{ textAlign, maxWidth: "85%", transform: `scale(${scale})`, transformOrigin: "center center" }}>
             <p
+              ref={textRef}
               className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""}`}
               style={{
                 fontSize: `${fontSize}rem`,
