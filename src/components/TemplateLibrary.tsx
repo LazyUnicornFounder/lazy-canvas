@@ -750,7 +750,7 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+      <div className={category === "all" ? "flex gap-2.5 overflow-x-auto pb-2 scrollbar-none" : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5"}>
         {filtered.map((template) => {
           const s = template.editorState;
           const textCol = s.textColor || "#1a1a1a";
