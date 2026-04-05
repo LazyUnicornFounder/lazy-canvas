@@ -139,6 +139,13 @@ const Index = () => {
           <div className="flex-1 flex items-center justify-center w-full max-h-[70vh]">
             <HeroPhoneMockup />
           </div>
+          <p className="text-[11px] text-muted-foreground/60 mt-6">
+            Built with{" "}
+            <a href="https://lovable.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-muted-foreground transition-colors">Lovable</a>
+            . Payments by{" "}
+            <a href="https://polar.sh" target="_blank" rel="noopener noreferrer" className="underline hover:text-muted-foreground transition-colors">Polar</a>
+            .
+          </p>
         </section>
       )}
 
