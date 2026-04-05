@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { Sparkles, LayoutGrid } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { QuoteEditorState } from "@/components/QuoteEditor";
-import { DEFAULT_EDITOR_STATE } from "@/components/QuoteEditor";
 
 interface Template {
   id: string;
@@ -13,237 +12,464 @@ interface Template {
 }
 
 const BUILTIN_TEMPLATES: Template[] = [
+  // ── MINIMAL ──
   {
-    id: "minimal-light",
-    name: "Minimal Light",
+    id: "whisper",
+    name: "Whisper",
     category: "minimal",
     editorState: {
       font: "inter",
       theme: "light",
-      fontSize: 1.3,
+      fontSize: 1.2,
       textAlign: "center",
-      letterSpacing: 0.5,
-      lineHeight: 1.8,
-      textColor: "#1a1a1a",
+      letterSpacing: 2,
+      lineHeight: 2.2,
+      textColor: "#9ca3af",
       authorFont: "inter",
-      authorColor: "#888888",
-      authorFontSize: 0.75,
+      authorColor: "#d1d5db",
+      authorFontSize: 0.65,
       isBold: false,
       isItalic: false,
-      backgroundFilter: "none",
-      backgroundColor: "",
+      backgroundColor: "#fafafa",
       textShadow: "none",
+      backgroundFilter: "none",
+      showQuotationMarks: false,
     },
   },
   {
-    id: "minimal-dark",
-    name: "Minimal Dark",
+    id: "monochrome",
+    name: "Monochrome",
     category: "minimal",
     editorState: {
       font: "heading",
       theme: "dark",
-      fontSize: 1.4,
-      textAlign: "center",
-      letterSpacing: 1,
-      lineHeight: 1.7,
-      textColor: "#f0f0f0",
+      fontSize: 1.5,
+      textAlign: "left",
+      letterSpacing: -0.5,
+      lineHeight: 1.3,
+      textColor: "#ffffff",
       authorFont: "heading",
-      authorColor: "#999999",
-      authorFontSize: 0.8,
-      isBold: false,
+      authorColor: "#525252",
+      authorFontSize: 0.7,
+      isBold: true,
       isItalic: false,
+      backgroundColor: "#0a0a0a",
       textShadow: "none",
+      showQuotationMarks: false,
     },
   },
   {
-    id: "elegant-serif",
-    name: "Elegant Serif",
-    category: "elegant",
+    id: "paper",
+    name: "Paper",
+    category: "minimal",
     editorState: {
-      font: "playfair",
+      font: "cormorant",
       theme: "cream",
       fontSize: 1.5,
       textAlign: "center",
       letterSpacing: 0,
       lineHeight: 1.7,
-      textColor: "#2c1810",
-      authorFont: "cormorant",
-      authorColor: "#8b7355",
-      authorFontSize: 0.9,
+      textColor: "#44403c",
+      authorFont: "heading",
+      authorColor: "#a8a29e",
+      authorFontSize: 0.65,
       isBold: false,
       isItalic: true,
-      showQuotationMarks: true,
+      backgroundColor: "#f5f0e8",
       textShadow: "none",
+      showQuotationMarks: true,
+    },
+  },
+
+  // ── TRENDY / INSTAGRAM ──
+  {
+    id: "sunset-gradient",
+    name: "Golden Hour",
+    category: "trendy",
+    editorState: {
+      font: "raleway",
+      theme: "dark",
+      fontSize: 1.4,
+      textAlign: "center",
+      letterSpacing: 1,
+      lineHeight: 1.7,
+      textColor: "#fef3c7",
+      authorFont: "raleway",
+      authorColor: "#fbbf24",
+      authorFontSize: 0.75,
+      isBold: false,
+      isItalic: false,
+      backgroundColor: "#78350f",
+      textShadow: "soft",
+      showQuotationMarks: false,
     },
   },
   {
-    id: "vintage-warm",
-    name: "Vintage",
-    category: "retro",
+    id: "aesthetic-pink",
+    name: "Blush",
+    category: "trendy",
     editorState: {
-      font: "lora",
-      theme: "cream",
+      font: "poppins",
+      theme: "light",
       fontSize: 1.3,
       textAlign: "center",
       letterSpacing: 0.5,
       lineHeight: 1.8,
-      textColor: "#3d2b1f",
-      authorFont: "crimson",
-      authorColor: "#7a6652",
-      authorFontSize: 0.85,
+      textColor: "#831843",
+      authorFont: "poppins",
+      authorColor: "#be185d",
+      authorFontSize: 0.7,
       isBold: false,
-      isItalic: true,
-      backgroundFilter: "vintage",
-      backgroundColor: "#f5e6d0",
-      showQuotationMarks: true,
+      isItalic: false,
+      backgroundColor: "#fdf2f8",
+      textShadow: "none",
+      showQuotationMarks: false,
     },
   },
   {
-    id: "bold-modern",
-    name: "Bold Modern",
+    id: "matcha",
+    name: "Matcha",
+    category: "trendy",
+    editorState: {
+      font: "dm-sans",
+      theme: "light",
+      fontSize: 1.3,
+      textAlign: "center",
+      letterSpacing: 0,
+      lineHeight: 1.8,
+      textColor: "#14532d",
+      authorFont: "heading",
+      authorColor: "#15803d",
+      authorFontSize: 0.7,
+      isBold: false,
+      isItalic: false,
+      backgroundColor: "#ecfdf5",
+      textShadow: "none",
+      showQuotationMarks: false,
+    },
+  },
+  {
+    id: "lavender-dream",
+    name: "Lavender",
+    category: "trendy",
+    editorState: {
+      font: "montserrat",
+      theme: "light",
+      fontSize: 1.3,
+      textAlign: "center",
+      letterSpacing: 0.5,
+      lineHeight: 1.8,
+      textColor: "#581c87",
+      authorFont: "montserrat",
+      authorColor: "#7e22ce",
+      authorFontSize: 0.7,
+      isBold: false,
+      isItalic: false,
+      backgroundColor: "#f3e8ff",
+      textShadow: "none",
+      showQuotationMarks: false,
+    },
+  },
+  {
+    id: "ocean-mist",
+    name: "Ocean",
+    category: "trendy",
+    editorState: {
+      font: "lora",
+      theme: "dark",
+      fontSize: 1.4,
+      textAlign: "center",
+      letterSpacing: 0,
+      lineHeight: 1.7,
+      textColor: "#e0f2fe",
+      authorFont: "heading",
+      authorColor: "#38bdf8",
+      authorFontSize: 0.7,
+      isBold: false,
+      isItalic: true,
+      backgroundColor: "#0c4a6e",
+      textShadow: "soft",
+      showQuotationMarks: true,
+    },
+  },
+
+  // ── BOLD ──
+  {
+    id: "impact",
+    name: "Impact",
     category: "bold",
     editorState: {
       font: "bebas",
       theme: "dark",
-      fontSize: 2.0,
-      textAlign: "left",
-      letterSpacing: 2,
-      lineHeight: 1.3,
+      fontSize: 2.4,
+      textAlign: "center",
+      letterSpacing: 4,
+      lineHeight: 1.1,
       textColor: "#ffffff",
       authorFont: "heading",
-      authorColor: "#cccccc",
-      authorFontSize: 0.8,
+      authorColor: "#737373",
+      authorFontSize: 0.7,
       isBold: true,
       isItalic: false,
+      backgroundColor: "#000000",
       textShadow: "none",
+      showQuotationMarks: false,
     },
   },
   {
-    id: "neon-glow",
-    name: "Neon Glow",
+    id: "electric",
+    name: "Electric",
     category: "bold",
     editorState: {
       font: "oswald",
       theme: "ink",
-      fontSize: 1.6,
+      fontSize: 1.8,
       textAlign: "center",
       letterSpacing: 3,
-      lineHeight: 1.5,
-      textColor: "#00ff88",
+      lineHeight: 1.4,
+      textColor: "#22d3ee",
       authorFont: "mono",
-      authorColor: "#00cc6a",
+      authorColor: "#06b6d4",
+      authorFontSize: 0.65,
+      isBold: true,
+      isItalic: false,
+      backgroundColor: "#020617",
+      textShadow: "glow",
+      showQuotationMarks: false,
+    },
+  },
+  {
+    id: "fire",
+    name: "Fire",
+    category: "bold",
+    editorState: {
+      font: "archivo",
+      theme: "dark",
+      fontSize: 1.8,
+      textAlign: "left",
+      letterSpacing: 1,
+      lineHeight: 1.3,
+      textColor: "#fbbf24",
+      authorFont: "heading",
+      authorColor: "#f59e0b",
       authorFontSize: 0.75,
       isBold: true,
       isItalic: false,
-      textShadow: "glow",
-    },
-  },
-  {
-    id: "handwritten",
-    name: "Handwritten",
-    category: "playful",
-    editorState: {
-      font: "caveat",
-      theme: "cream",
-      fontSize: 1.8,
-      textAlign: "center",
-      letterSpacing: 0,
-      lineHeight: 1.5,
-      textColor: "#333333",
-      authorFont: "shadows-into-light",
-      authorColor: "#666666",
-      authorFontSize: 0.9,
-      isBold: false,
-      isItalic: false,
-      textShadow: "none",
-    },
-  },
-  {
-    id: "script-luxury",
-    name: "Luxury Script",
-    category: "elegant",
-    editorState: {
-      font: "great-vibes",
-      theme: "dark",
-      fontSize: 1.8,
-      textAlign: "center",
-      letterSpacing: 0,
-      lineHeight: 1.6,
-      textColor: "#d4af37",
-      authorFont: "raleway",
-      authorColor: "#b8960c",
-      authorFontSize: 0.75,
-      isBold: false,
-      isItalic: false,
-      backgroundColor: "#0a0a0a",
+      backgroundColor: "#1c1917",
       textShadow: "soft",
+      showQuotationMarks: false,
     },
   },
   {
-    id: "futuristic",
-    name: "Futuristic",
+    id: "acid",
+    name: "Acid",
     category: "bold",
     editorState: {
       font: "orbitron",
       theme: "ink",
       fontSize: 1.2,
       textAlign: "center",
-      letterSpacing: 4,
+      letterSpacing: 5,
       lineHeight: 1.8,
-      textColor: "#00d4ff",
+      textColor: "#a3e635",
       authorFont: "rajdhani",
-      authorColor: "#0099bb",
-      authorFontSize: 0.7,
+      authorColor: "#84cc16",
+      authorFontSize: 0.65,
       isBold: false,
       isItalic: false,
+      backgroundColor: "#0a0a0a",
       textShadow: "glow",
+      showQuotationMarks: false,
+    },
+  },
+
+  // ── VINTAGE / RETRO ──
+  {
+    id: "polaroid",
+    name: "Polaroid",
+    category: "retro",
+    editorState: {
+      font: "caveat",
+      theme: "cream",
+      fontSize: 1.8,
+      textAlign: "center",
+      letterSpacing: 0,
+      lineHeight: 1.4,
+      textColor: "#292524",
+      authorFont: "shadows-into-light",
+      authorColor: "#78716c",
+      authorFontSize: 0.9,
+      isBold: false,
+      isItalic: false,
+      backgroundColor: "#faf7f2",
+      textShadow: "none",
+      backgroundFilter: "vintage",
+      showQuotationMarks: false,
     },
   },
   {
-    id: "editorial",
-    name: "Editorial",
-    category: "minimal",
+    id: "typewriter",
+    name: "Typewriter",
+    category: "retro",
+    editorState: {
+      font: "mono",
+      theme: "cream",
+      fontSize: 1.1,
+      textAlign: "left",
+      letterSpacing: 1,
+      lineHeight: 2.0,
+      textColor: "#1c1917",
+      authorFont: "mono",
+      authorColor: "#57534e",
+      authorFontSize: 0.7,
+      isBold: false,
+      isItalic: false,
+      backgroundColor: "#f5f0e1",
+      textShadow: "none",
+      showQuotationMarks: false,
+    },
+  },
+  {
+    id: "cinema",
+    name: "Cinema",
+    category: "retro",
+    editorState: {
+      font: "playfair",
+      theme: "dark",
+      fontSize: 1.4,
+      textAlign: "center",
+      letterSpacing: 2,
+      lineHeight: 1.8,
+      textColor: "#d4d4d8",
+      authorFont: "crimson",
+      authorColor: "#71717a",
+      authorFontSize: 0.8,
+      isBold: false,
+      isItalic: true,
+      backgroundColor: "#18181b",
+      textShadow: "soft",
+      backgroundFilter: "film",
+      showQuotationMarks: true,
+    },
+  },
+  {
+    id: "sepia",
+    name: "Sepia",
+    category: "retro",
+    editorState: {
+      font: "merriweather",
+      theme: "cream",
+      fontSize: 1.2,
+      textAlign: "center",
+      letterSpacing: 0.5,
+      lineHeight: 1.9,
+      textColor: "#44403c",
+      authorFont: "lora",
+      authorColor: "#78716c",
+      authorFontSize: 0.75,
+      isBold: false,
+      isItalic: true,
+      backgroundColor: "#ede0c8",
+      textShadow: "none",
+      backgroundFilter: "vintage",
+      showQuotationMarks: true,
+    },
+  },
+
+  // ── ELEGANT ──
+  {
+    id: "gold-noir",
+    name: "Gold Noir",
+    category: "elegant",
+    editorState: {
+      font: "great-vibes",
+      theme: "dark",
+      fontSize: 2.0,
+      textAlign: "center",
+      letterSpacing: 0,
+      lineHeight: 1.5,
+      textColor: "#d4a574",
+      authorFont: "raleway",
+      authorColor: "#a3845c",
+      authorFontSize: 0.7,
+      isBold: false,
+      isItalic: false,
+      backgroundColor: "#0c0a09",
+      textShadow: "soft",
+      showQuotationMarks: false,
+    },
+  },
+  {
+    id: "marble",
+    name: "Marble",
+    category: "elegant",
     editorState: {
       font: "cormorant",
       theme: "light",
       fontSize: 1.6,
-      textAlign: "left",
-      letterSpacing: 0,
-      lineHeight: 1.6,
-      textColor: "#111111",
+      textAlign: "center",
+      letterSpacing: 3,
+      lineHeight: 1.7,
+      textColor: "#1c1917",
       authorFont: "heading",
-      authorColor: "#555555",
-      authorFontSize: 0.7,
+      authorColor: "#78716c",
+      authorFontSize: 0.65,
       isBold: false,
-      isItalic: true,
-      showQuotationMarks: true,
+      isItalic: false,
+      backgroundColor: "#f5f5f4",
       textShadow: "none",
+      showQuotationMarks: true,
     },
   },
   {
-    id: "film-noir",
-    name: "Film Noir",
-    category: "retro",
+    id: "champagne",
+    name: "Champagne",
+    category: "elegant",
     editorState: {
-      font: "merriweather",
-      theme: "dark",
-      fontSize: 1.3,
+      font: "playfair",
+      theme: "cream",
+      fontSize: 1.4,
       textAlign: "center",
       letterSpacing: 1,
       lineHeight: 1.8,
-      textColor: "#e0e0e0",
-      authorFont: "crimson",
-      authorColor: "#aaaaaa",
-      authorFontSize: 0.8,
+      textColor: "#78350f",
+      authorFont: "raleway",
+      authorColor: "#92400e",
+      authorFontSize: 0.7,
       isBold: false,
       isItalic: true,
-      backgroundFilter: "noir",
-      textShadow: "soft",
+      backgroundColor: "#fef3c7",
+      textShadow: "none",
+      showQuotationMarks: true,
     },
   },
   {
-    id: "pop-marker",
-    name: "Street Art",
+    id: "midnight",
+    name: "Midnight",
+    category: "elegant",
+    editorState: {
+      font: "dancing",
+      theme: "ink",
+      fontSize: 1.8,
+      textAlign: "center",
+      letterSpacing: 0,
+      lineHeight: 1.5,
+      textColor: "#c4b5fd",
+      authorFont: "montserrat",
+      authorColor: "#8b5cf6",
+      authorFontSize: 0.65,
+      isBold: false,
+      isItalic: false,
+      backgroundColor: "#0f0720",
+      textShadow: "glow",
+      showQuotationMarks: false,
+    },
+  },
+
+  // ── PLAYFUL ──
+  {
+    id: "marker",
+    name: "Marker",
     category: "playful",
     editorState: {
       font: "permanent-marker",
@@ -252,20 +478,66 @@ const BUILTIN_TEMPLATES: Template[] = [
       textAlign: "left",
       letterSpacing: 0,
       lineHeight: 1.4,
-      textColor: "#ff3366",
-      authorFont: "archivo",
-      authorColor: "#333333",
-      authorFontSize: 0.8,
+      textColor: "#e11d48",
+      authorFont: "caveat",
+      authorColor: "#f43f5e",
+      authorFontSize: 0.9,
       isBold: false,
       isItalic: false,
-      backgroundColor: "#fff9c4",
+      backgroundColor: "#fff1f2",
       textShadow: "none",
+      showQuotationMarks: false,
+    },
+  },
+  {
+    id: "bubblegum",
+    name: "Bubblegum",
+    category: "playful",
+    editorState: {
+      font: "pacifico",
+      theme: "light",
+      fontSize: 1.5,
+      textAlign: "center",
+      letterSpacing: 0,
+      lineHeight: 1.5,
+      textColor: "#a21caf",
+      authorFont: "poppins",
+      authorColor: "#c026d3",
+      authorFontSize: 0.7,
+      isBold: false,
+      isItalic: false,
+      backgroundColor: "#fae8ff",
+      textShadow: "none",
+      showQuotationMarks: false,
+    },
+  },
+  {
+    id: "sunshine",
+    name: "Sunshine",
+    category: "playful",
+    editorState: {
+      font: "satisfy",
+      theme: "light",
+      fontSize: 1.7,
+      textAlign: "center",
+      letterSpacing: 0,
+      lineHeight: 1.5,
+      textColor: "#b45309",
+      authorFont: "heading",
+      authorColor: "#d97706",
+      authorFontSize: 0.75,
+      isBold: false,
+      isItalic: false,
+      backgroundColor: "#fffbeb",
+      textShadow: "none",
+      showQuotationMarks: false,
     },
   },
 ];
 
 const CATEGORIES = [
   { value: "all", label: "All" },
+  { value: "trendy", label: "Trending" },
   { value: "minimal", label: "Minimal" },
   { value: "elegant", label: "Elegant" },
   { value: "bold", label: "Bold" },
@@ -273,7 +545,6 @@ const CATEGORIES = [
   { value: "playful", label: "Playful" },
 ];
 
-// Font class mapping for preview thumbnails
 const FONT_CLASS_MAP: Record<string, string> = {
   playfair: "font-playfair",
   cormorant: "font-cormorant",
@@ -282,6 +553,7 @@ const FONT_CLASS_MAP: Record<string, string> = {
   crimson: "font-crimson",
   heading: "font-heading",
   inter: "font-inter",
+  "dm-sans": "font-dm-sans",
   raleway: "font-raleway",
   montserrat: "font-montserrat",
   poppins: "font-poppins",
@@ -301,11 +573,30 @@ const FONT_CLASS_MAP: Record<string, string> = {
   audiowide: "font-audiowide",
 };
 
-const THEME_BG: Record<string, string> = {
-  light: "#ffffff",
-  dark: "#1a1a1a",
-  cream: "#F5F0E8",
-  ink: "#0d1117",
+const PREVIEW_QUOTES: Record<string, string> = {
+  whisper: "less is more",
+  monochrome: "NO LIMITS.",
+  paper: "words have power",
+  "sunset-gradient": "chase the light",
+  "aesthetic-pink": "be gentle with yourself",
+  matcha: "grow through it",
+  "lavender-dream": "dream in color",
+  "ocean-mist": "find your calm",
+  impact: "MAKE IT HAPPEN",
+  electric: "POWER UP",
+  fire: "BURN BRIGHT",
+  acid: "BREAK FREE",
+  polaroid: "remember this moment",
+  typewriter: "once upon a time...",
+  cinema: "the end is just the beginning",
+  sepia: "timeless wisdom",
+  "gold-noir": "elegance is attitude",
+  marble: "CARVED IN STONE",
+  champagne: "celebrate every win",
+  midnight: "written in the stars",
+  marker: "BE LOUD!",
+  bubblegum: "stay sweet",
+  sunshine: "hello sunshine",
 };
 
 interface TemplateLibraryProps {
@@ -344,16 +635,16 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
 
   return (
     <div className="space-y-3">
-      {/* Category chips */}
-      <div className="flex gap-1.5 flex-wrap">
+      {/* Category pills */}
+      <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none">
         {CATEGORIES.map((cat) => (
           <button
             key={cat.value}
             onClick={() => setCategory(cat.value)}
-            className={`px-2.5 py-1 text-xs rounded-full transition-colors ${
+            className={`px-3 py-1.5 text-xs rounded-full whitespace-nowrap transition-all ${
               category === cat.value
-                ? "bg-foreground text-background"
-                : "bg-accent text-muted-foreground hover:text-foreground"
+                ? "bg-foreground text-background shadow-sm"
+                : "bg-accent/50 text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
           >
             {cat.label}
@@ -361,48 +652,64 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
         ))}
       </div>
 
-      {/* Template grid */}
-      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+      {/* Template grid — larger cards with real preview text */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
         {filtered.map((template) => {
           const s = template.editorState;
-          const bg = s.backgroundColor || THEME_BG[s.theme || "light"] || "#ffffff";
-          const textCol = s.textColor || (s.theme === "dark" || s.theme === "ink" ? "#f0f0f0" : "#1a1a1a");
+          const bg = s.backgroundColor || "#ffffff";
+          const textCol = s.textColor || "#1a1a1a";
           const fontClass = FONT_CLASS_MAP[s.font || "playfair"] || "font-playfair";
+          const previewText = PREVIEW_QUOTES[template.id] || "the quick fox";
 
           return (
             <button
               key={template.id}
               onClick={() => onApply(template.editorState)}
-              className="group relative rounded-lg overflow-hidden border border-border hover:border-foreground/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
-              style={{ aspectRatio: "1" }}
+              className="group relative rounded-xl overflow-hidden border border-border/50 hover:border-foreground/20 transition-all duration-200 hover:shadow-lg hover:scale-[1.03] active:scale-[0.97]"
+              style={{ aspectRatio: "3/4" }}
             >
-              {/* Mini preview */}
+              {/* Preview area */}
               <div
-                className="absolute inset-0 flex items-center justify-center p-2"
+                className="absolute inset-0 flex items-center justify-center p-3"
                 style={{ backgroundColor: bg }}
               >
                 <span
-                  className={`${fontClass} text-center leading-tight line-clamp-2`}
+                  className={`${fontClass} text-center leading-tight`}
                   style={{
                     color: textCol,
-                    fontSize: "0.55rem",
+                    fontSize: "0.7rem",
                     fontWeight: s.isBold ? "bold" : "normal",
                     fontStyle: s.isItalic ? "italic" : "normal",
-                    letterSpacing: s.letterSpacing ? `${Math.min(s.letterSpacing, 2)}px` : undefined,
+                    letterSpacing: s.letterSpacing
+                      ? `${Math.min(s.letterSpacing, 3)}px`
+                      : undefined,
+                    lineHeight: s.lineHeight ? Math.min(s.lineHeight, 1.8) : undefined,
+                    textAlign: (s.textAlign as CanvasTextAlign) || "center",
+                    textShadow:
+                      s.textShadow === "glow"
+                        ? `0 0 8px ${textCol}44`
+                        : s.textShadow === "soft"
+                          ? `0 1px 3px rgba(0,0,0,0.3)`
+                          : undefined,
                   }}
                 >
-                  {s.showQuotationMarks ? "\u201C" : ""}The quick brown fox{s.showQuotationMarks ? "\u201D" : ""}
+                  {s.showQuotationMarks ? "\u201C" : ""}
+                  {previewText}
+                  {s.showQuotationMarks ? "\u201D" : ""}
                 </span>
               </div>
-              {/* Label overlay */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent pt-4 pb-1.5 px-1.5">
-                <span className="text-[0.6rem] text-white font-medium leading-none">
+
+              {/* Name label */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent pt-6 pb-2 px-2">
+                <span className="text-[0.65rem] text-white font-medium tracking-wide">
                   {template.name}
                 </span>
               </div>
+
+              {/* DB badge */}
               {template.isDb && (
-                <div className="absolute top-1 right-1">
-                  <Sparkles className="w-2.5 h-2.5 text-amber-400" />
+                <div className="absolute top-1.5 right-1.5">
+                  <Sparkles className="w-3 h-3 text-amber-400 drop-shadow" />
                 </div>
               )}
             </button>
@@ -411,7 +718,9 @@ export default function TemplateLibrary({ onApply }: TemplateLibraryProps) {
       </div>
 
       {filtered.length === 0 && (
-        <p className="text-xs text-muted-foreground text-center py-4">No templates in this category yet.</p>
+        <p className="text-xs text-muted-foreground text-center py-6">
+          No templates in this category yet.
+        </p>
       )}
     </div>
   );
