@@ -21,6 +21,7 @@ import { useAuth } from "@/hooks/useAuth";
 import QuoteEditor, { type QuoteEditorState, DEFAULT_EDITOR_STATE, SOCIAL_PLATFORMS } from "@/components/QuoteEditor";
 import QuotePreview, { type SocialPlatform } from "@/components/QuotePreview";
 import html2canvas from "html2canvas";
+import { toBlob as toImageBlob } from "html-to-image";
 import QuoteGallery from "@/components/QuoteGallery";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -45,6 +46,22 @@ const getPreviewContainerWidth = (aspectRatio: string, customW?: number, customH
   // Height-first: fill viewport height, compute width from ratio
   const offsetPx = 100;
   return `clamp(180px, calc((100vh - ${offsetPx}px) * ${ratio.toFixed(4)}), 500px)`;
+};
+
+const sanitizeExportStyles = (root: ParentNode) => {
+  root.querySelectorAll<HTMLElement>("*").forEach((node) => {
+    if (node.style.borderRadius.includes("clamp(")) {
+      node.style.borderRadius = "4px";
+    }
+
+    if (
+      node.style.getPropertyValue("backdrop-filter") ||
+      node.style.getPropertyValue("-webkit-backdrop-filter")
+    ) {
+      node.style.setProperty("backdrop-filter", "none");
+      node.style.setProperty("-webkit-backdrop-filter", "none");
+    }
+  });
 };
 
 const Index = () => {
@@ -123,11 +140,27 @@ const Index = () => {
   }, []);
 
   const renderPreviewBlob = useCallback(async (target: HTMLElement, scale: number) => {
+    try {
+      const blob = await toImageBlob(target, {
+        cacheBust: true,
+        pixelRatio: scale,
+      });
+
+      if (blob) {
+        return blob;
+      }
+    } catch (error) {
+      console.warn("Primary export failed, falling back to canvas export", error);
+    }
+
     const canvas = await html2canvas(target, {
       scale,
       useCORS: true,
       logging: false,
       backgroundColor: null,
+      onclone: (clonedDocument) => {
+        sanitizeExportStyles(clonedDocument.body);
+      },
     });
 
     return await new Promise<Blob>((resolve, reject) => {
