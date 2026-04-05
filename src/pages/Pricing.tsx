@@ -17,7 +17,7 @@ const tiers = [
       
       { text: "PNG download", included: true },
       { text: "Save unlimited quotes", included: true },
-      { text: '"Made with Lazy Quotes" watermark', included: true, note: "always shown" },
+      
       { text: "Word colors", included: false },
       { text: "Text formatting", included: false },
       { text: "Background image upload", included: false },
@@ -152,7 +152,6 @@ const Pricing = () => {
                     )}
                     <span className={f.included ? "text-foreground" : "text-muted-foreground/50"}>
                       {f.text}
-                      {f.note && <span className="text-[10px] text-muted-foreground ml-1">({f.note})</span>}
                     </span>
                   </li>
                 ))}
