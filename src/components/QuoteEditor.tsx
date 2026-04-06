@@ -522,6 +522,13 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
     reader.readAsDataURL(file);
   };
 
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => set("logo", ev.target?.result as string);
+    reader.readAsDataURL(file);
+  };
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
