@@ -204,6 +204,7 @@ const Index = () => {
   const handleDownloadFreeVersion = useCallback(() => {
     setShowProUpgradePrompt(false);
     setProUpgradeSnapshot(null);
+    setProWatermarkSnapshot(null);
     setEditorState((prev) => ({
       ...prev,
       coloredWords: [],
