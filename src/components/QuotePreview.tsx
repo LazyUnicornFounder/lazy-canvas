@@ -305,6 +305,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     const contentRef = useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
     const [fontLoaded, setFontLoaded] = useState(0);
+    const peakVisualRef = useRef(0);
+    const nonFontDepsKeyRef = useRef("");
 
     // Force re-render when font finishes loading
     useEffect(() => {
@@ -327,6 +329,13 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       if (!container || !content) {
         setScale(1);
         return;
+      }
+
+      // Reset peak when anything other than fontSize changes
+      const depsKey = `${quote}|${letterSpacing}|${lineHeight}|${font}|${aspectRatio}|${textAlign}|${authorFontSize}|${authorFont}|${authorName}|${authorPosition}|${socials}|${borderWidth}|${borderStyle}|${fontLoaded}|${isBold}|${isItalic}|${showQuotationMarks}`;
+      if (depsKey !== nonFontDepsKeyRef.current) {
+        peakVisualRef.current = 0;
+        nonFontDepsKeyRef.current = depsKey;
       }
 
       const cW = container.clientWidth;
@@ -361,7 +370,15 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         content.style.transform = previousTransform;
         content.style.transformOrigin = previousOrigin;
 
-        setScale(nextScale);
+        // Track peak visual size so text never shrinks as fontSize increases
+        const visualProduct = fontSize * nextScale;
+        if (visualProduct >= peakVisualRef.current) {
+          peakVisualRef.current = visualProduct;
+          setScale(nextScale);
+        } else {
+          // Would visually shrink — freeze at peak
+          setScale(Math.min(peakVisualRef.current / fontSize, 1));
+        }
 
         // Content scales down visually via transform — no longer mutating the user's font size
       } else {
