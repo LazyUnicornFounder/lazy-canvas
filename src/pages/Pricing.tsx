@@ -95,13 +95,6 @@ const Pricing = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("checkout") === "success") {
-      toast.success("Welcome to Pro! 🎉 Your subscription is now active.");
-      window.history.replaceState({}, "", "/pricing");
-    }
-  }, []);
 
   const proPrice = billingInterval === "yearly" ? "$4" : "$5";
   const proPeriod = billingInterval === "yearly" ? "/mo" : "/month";
