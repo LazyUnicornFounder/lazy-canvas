@@ -1386,94 +1386,100 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             </div>
           </div>
         </div>
-      </ControlSection>
-
-      {/* Logo */}
-      <ControlSection label="Logo" pro={!isPro} onProClick={goToPricing}>
-        <input ref={logoInputRef} type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" />
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            {state.logo ? (
-              <div className="relative group">
-                <img src={state.logo} alt="Logo" className="w-16 h-16 rounded-lg object-contain bg-muted/30" />
-              </div>
-            ) : (
-              <button
-                onClick={() => logoInputRef.current?.click()}
-                className="w-16 h-16 rounded-lg border-2 border-dashed border-muted-foreground/40 flex flex-col items-center justify-center hover:border-foreground/50 transition-colors gap-0.5"
-              >
-                <ImageIcon className="w-4 h-4 text-muted-foreground" />
-                <span className="text-[8px] font-heading text-muted-foreground uppercase tracking-wider">Logo</span>
-              </button>
-            )}
-            {state.logo && (
-              <div className="flex flex-col gap-1">
-                <button
-                  onClick={() => logoInputRef.current?.click()}
-                  className="text-xs font-heading text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Change
-                </button>
-                <button
-                  onClick={() => set("logo", null)}
-                  className="flex items-center gap-1 text-xs font-heading text-destructive hover:text-destructive/80 transition-colors"
-                >
-                  <Trash2 className="w-3 h-3" />
-                  Delete
-                </button>
-              </div>
-            )}
-            {!state.logo && (
-              <button
-                onClick={() => logoInputRef.current?.click()}
-                className="text-xs font-heading text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Upload logo
-              </button>
-            )}
-          </div>
-          {state.logo && (
-            <>
-              <div>
-                <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1.5">Position</p>
-                <div className="flex flex-wrap gap-2">
-                  {([
-                    { value: "top-left" as const, label: "Top Left" },
-                    { value: "top-center" as const, label: "Top Center" },
-                    { value: "top-right" as const, label: "Top Right" },
-                    { value: "center" as const, label: "Center" },
-                    { value: "bottom-left" as const, label: "Bottom Left" },
-                    { value: "bottom-center" as const, label: "Bottom Center" },
-                    { value: "bottom-right" as const, label: "Bottom Right" },
-                  ]).map((pos) => (
-                    <button
-                      key={pos.value}
-                      onClick={() => set("logoPosition", pos.value)}
-                      className={`px-2.5 py-1.5 text-[10px] font-heading font-medium rounded-md border transition-all ${
-                        state.logoPosition === pos.value
-                          ? "bg-foreground text-background border-foreground"
-                          : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                      }`}
-                    >
-                      {pos.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
+          {/* Logo sub-section */}
+          <div className="pt-3 mt-3 border-t border-border">
+            <div className="flex items-center gap-2 mb-2">
+              <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Logo</p>
+              {!isPro && (
+                <button onClick={goToPricing} className="text-[9px] font-heading font-semibold text-primary uppercase tracking-wider">PRO</button>
+              )}
+            </div>
+            <input ref={logoInputRef} type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" />
+            <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Size</span>
-                <input
-                  type="range"
-                  min="1"
-                  max="9"
-                  step="0.25"
-                  value={state.logoSize}
-                  onChange={(e) => set("logoSize", parseFloat(e.target.value))}
-                  className="w-1/2 max-w-[140px] accent-foreground h-1"
-                />
+                {state.logo ? (
+                  <div className="relative group">
+                    <img src={state.logo} alt="Logo" className="w-16 h-16 rounded-lg object-contain bg-muted/30" />
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => logoInputRef.current?.click()}
+                    className="w-16 h-16 rounded-lg border-2 border-dashed border-muted-foreground/40 flex flex-col items-center justify-center hover:border-foreground/50 transition-colors gap-0.5"
+                  >
+                    <ImageIcon className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-[8px] font-heading text-muted-foreground uppercase tracking-wider">Logo</span>
+                  </button>
+                )}
+                {state.logo && (
+                  <div className="flex flex-col gap-1">
+                    <button
+                      onClick={() => logoInputRef.current?.click()}
+                      className="text-xs font-heading text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      Change
+                    </button>
+                    <button
+                      onClick={() => set("logo", null)}
+                      className="flex items-center gap-1 text-xs font-heading text-destructive hover:text-destructive/80 transition-colors"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                      Delete
+                    </button>
+                  </div>
+                )}
+                {!state.logo && (
+                  <button
+                    onClick={() => logoInputRef.current?.click()}
+                    className="text-xs font-heading text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Upload logo
+                  </button>
+                )}
               </div>
-            </>
-          )}
+              {state.logo && (
+                <>
+                  <div>
+                    <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1.5">Position</p>
+                    <div className="flex flex-wrap gap-2">
+                      {([
+                        { value: "top-left" as const, label: "Top Left" },
+                        { value: "top-center" as const, label: "Top Center" },
+                        { value: "top-right" as const, label: "Top Right" },
+                        { value: "center" as const, label: "Center" },
+                        { value: "bottom-left" as const, label: "Bottom Left" },
+                        { value: "bottom-center" as const, label: "Bottom Center" },
+                        { value: "bottom-right" as const, label: "Bottom Right" },
+                      ]).map((pos) => (
+                        <button
+                          key={pos.value}
+                          onClick={() => set("logoPosition", pos.value)}
+                          className={`px-2.5 py-1.5 text-[10px] font-heading font-medium rounded-md border transition-all ${
+                            state.logoPosition === pos.value
+                              ? "bg-foreground text-background border-foreground"
+                              : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                          }`}
+                        >
+                          {pos.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Size</span>
+                    <input
+                      type="range"
+                      min="1"
+                      max="9"
+                      step="0.25"
+                      value={state.logoSize}
+                      onChange={(e) => set("logoSize", parseFloat(e.target.value))}
+                      className="w-1/2 max-w-[140px] accent-foreground h-1"
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </ControlSection>
 
