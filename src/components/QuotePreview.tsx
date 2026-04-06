@@ -414,11 +414,11 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             <div
               className="absolute top-0 left-0 right-0 z-30 px-3 py-2 flex items-center justify-center gap-1.5 animate-fade-in"
               style={{
-                backgroundColor: "rgba(0,0,0,0.75)",
+                backgroundColor: "rgba(220,38,38,0.92)",
                 backdropFilter: "blur(8px)",
               }}
             >
-              <span style={{ fontSize: "clamp(28px, 8%, 42px)", color: "#fbbf24", fontWeight: 600, whiteSpace: "nowrap" }}>
+              <span style={{ fontSize: "clamp(28px, 8%, 42px)", color: "#ffffff", fontWeight: 600, whiteSpace: "nowrap" }}>
                 ⚠ Text too large or too much text.
               </span>
             </div>
