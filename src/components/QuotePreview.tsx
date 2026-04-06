@@ -420,6 +420,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
               <p
                 className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""} whitespace-pre-wrap break-words`}
                 style={{
+                  fontFamily: fontFamilies[font],
                   fontSize: `${fontSize}rem`,
                   letterSpacing: `${letterSpacing}em`,
                   lineHeight,
