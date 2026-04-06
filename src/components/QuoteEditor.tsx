@@ -1343,11 +1343,11 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             <div key={heading}>
               {sectionIdx > 0 && <hr className="my-3 border-border" />}
               <p className="text-[11px] font-heading font-semibold text-foreground uppercase tracking-wider mb-2">{heading}</p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-3">
+               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-3 gap-y-2">
                 {groups.map((group) => (
-                  <div key={group.label} className="min-w-fit">
-                    <p className="text-[10px] text-foreground/70 uppercase tracking-wider mb-1.5">{group.label}</p>
-                    <div className="flex flex-wrap gap-2">
+                  <div key={group.label} className="min-w-0">
+                    <p className="text-[9px] text-foreground/70 uppercase tracking-wider mb-1">{group.label}</p>
+                    <div className="flex flex-wrap gap-1.5">
                       {group.options.map((opt) => {
                         const ratioMap: Record<string, [number, number]> = {
                           square: [1, 1],
@@ -1405,16 +1405,17 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                         };
                         const physicalScale = physicalScaleMap[opt.value] || 1;
                         const maxDim = 36;
-                        const scale = (maxDim / Math.max(w, h)) * physicalScale;
-                        const boxW = Math.max(8, Math.round(w * scale));
-                        const boxH = Math.max(8, Math.round(h * scale));
+                        const iconMaxDim = 28;
+                        const scale = (iconMaxDim / Math.max(w, h)) * physicalScale;
+                        const boxW = Math.max(6, Math.round(w * scale));
+                        const boxH = Math.max(6, Math.round(h * scale));
                         const isActive = state.aspectRatio === opt.value;
                         const sizeLabel = sizeMap[opt.value] || opt.value;
                         return (
                           <button
                             key={opt.value}
                             onClick={() => set("aspectRatio", opt.value)}
-                            className={`flex flex-col items-center gap-1 p-1.5 rounded-md border transition-all ${
+                            className={`flex flex-col items-center gap-0.5 p-1 rounded border transition-all ${
                               isActive
                                 ? "border-foreground bg-foreground/5"
                                 : "border-border hover:border-foreground/30"
@@ -1425,7 +1426,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                               className={`border ${isActive ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`}
                               style={{ width: boxW, height: boxH }}
                             />
-                            <span className={`text-[9px] font-heading ${isActive ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
+                            <span className={`text-[8px] leading-tight font-heading ${isActive ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
                               {opt.label}
                             </span>
                           </button>
