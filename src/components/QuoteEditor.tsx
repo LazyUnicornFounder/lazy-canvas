@@ -179,6 +179,19 @@ const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string }[] = [
   { value: "ink", label: "Ink", swatch: "#0d1117" },
 ];
 
+const WALLPAPER_CATEGORIES = [
+  { label: "Nature", query: "nature landscape wallpaper", emoji: "🌿" },
+  { label: "Ocean", query: "ocean waves wallpaper", emoji: "🌊" },
+  { label: "Mountains", query: "mountains scenic wallpaper", emoji: "🏔️" },
+  { label: "City", query: "city skyline night wallpaper", emoji: "🌃" },
+  { label: "Space", query: "space galaxy stars wallpaper", emoji: "🌌" },
+  { label: "Sunset", query: "sunset golden hour wallpaper", emoji: "🌅" },
+  { label: "Forest", query: "dark forest moody wallpaper", emoji: "🌲" },
+  { label: "Abstract", query: "abstract colorful gradient wallpaper", emoji: "🎨" },
+  { label: "Minimal", query: "minimal texture clean wallpaper", emoji: "◻️" },
+  { label: "Floral", query: "flowers floral aesthetic wallpaper", emoji: "🌸" },
+];
+
 const SOCIAL_PLATFORMS = [
   { value: "instagram", label: "Instagram", prefix: "@" },
   { value: "twitter", label: "X", prefix: "@" },
@@ -311,6 +324,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
   const [pexelsResults, setPexelsResults] = useState<{ src: { large: string; medium: string }; photographer: string; id: number }[]>([]);
   const [pexelsLoading, setPexelsLoading] = useState(false);
   const [showPexelsSearch, setShowPexelsSearch] = useState(false);
+  const [loadingWallpaper, setLoadingWallpaper] = useState<string | null>(null);
   const [customUnit, setCustomUnit] = useState<Unit>("px");
   const [customDpi, setCustomDpi] = useState(300);
 
@@ -346,6 +360,36 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
       setPexelsLoading(false);
     }
   }, []);
+
+  const applyWallpaper = useCallback(async (category: typeof WALLPAPER_CATEGORIES[number]) => {
+    setLoadingWallpaper(category.label);
+    try {
+      const { data, error } = await supabase.functions.invoke("pexels-search", {
+        body: { query: category.query, per_page: 15 },
+      });
+      if (error) throw error;
+      const photos = data?.photos || [];
+      if (photos.length === 0) {
+        import("sonner").then(({ toast }) => toast.error("No images found. Try another category."));
+        return;
+      }
+      const photo = photos[Math.floor(Math.random() * photos.length)];
+      onChange({
+        ...state,
+        backgroundImage: photo.src.large,
+        backgroundOpacity: 0.35,
+        theme: "dark",
+        textColor: "",
+        authorColor: "",
+        backgroundColor: "",
+      });
+    } catch (err) {
+      console.error("Wallpaper fetch error:", err);
+      import("sonner").then(({ toast }) => toast.error("Failed to load wallpaper."));
+    } finally {
+      setLoadingWallpaper(null);
+    }
+  }, [state, onChange]);
 
   const imageToBase64 = async (src: string): Promise<string> => {
     if (src.startsWith("data:")) return src;
@@ -618,6 +662,30 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
               <span className="text-[10px] font-heading text-muted-foreground">{opt.label}</span>
             </button>
           ))}
+        </div>
+        {/* Wallpapers */}
+        <div className="mt-3">
+          <p className="text-[10px] font-heading text-muted-foreground mb-2 uppercase tracking-wider">Wallpapers</p>
+          <div className="flex flex-wrap gap-2">
+            {WALLPAPER_CATEGORIES.map((cat) => (
+              <button
+                key={cat.label}
+                onClick={() => applyWallpaper(cat)}
+                disabled={loadingWallpaper !== null}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-heading rounded-md border transition-all ${
+                  loadingWallpaper === cat.label
+                    ? "border-primary bg-primary/10 text-foreground"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                } disabled:opacity-50`}
+              >
+                <span>{cat.emoji}</span>
+                <span>{cat.label}</span>
+                {loadingWallpaper === cat.label && (
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                )}
+              </button>
+            ))}
+          </div>
         </div>
       </ControlSection>
       {/* Quote */}
