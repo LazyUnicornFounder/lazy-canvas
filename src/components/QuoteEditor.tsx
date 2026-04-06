@@ -1174,7 +1174,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             <div key={heading}>
               {sectionIdx > 0 && <hr className="my-3 border-border" />}
               <p className="text-[11px] font-heading font-semibold text-foreground uppercase tracking-wider mb-2">{heading}</p>
-              <div className="flex flex-wrap gap-x-6 gap-y-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-3">
                 {groups.map((group) => (
                   <div key={group.label} className="min-w-fit">
                     <p className="text-[10px] text-foreground/70 uppercase tracking-wider mb-1.5">{group.label}</p>
