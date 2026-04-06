@@ -1348,6 +1348,11 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                   <div key={group.label} className="min-w-fit">
                     <p className="text-[10px] text-foreground/70 uppercase tracking-wider mb-1.5">{group.label}</p>
                     <div className="flex flex-wrap gap-2">
+               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-3 gap-y-2">
+                {groups.map((group) => (
+                  <div key={group.label} className="min-w-0">
+                    <p className="text-[9px] text-foreground/70 uppercase tracking-wider mb-1">{group.label}</p>
+                    <div className="flex flex-wrap gap-1.5">
                       {group.options.map((opt) => {
                         const ratioMap: Record<string, [number, number]> = {
                           square: [1, 1],
