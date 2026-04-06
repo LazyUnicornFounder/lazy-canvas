@@ -215,7 +215,7 @@ const Pricing = () => {
               onClick={() => handleCta("Free")}
               className="w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 bg-foreground text-background disabled:opacity-50 mt-auto"
             >
-              {user && !isPro && !proLoading ? "Current Plan" : !user ? "Get Started" : proLoading ? "..." : "Get Started"}
+              {proLoading ? "..." : user && isPro ? "Downgrade to Free" : user && !isPro ? "Current Plan" : "Get Started"}
             </button>
           </div>
 
