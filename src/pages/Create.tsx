@@ -54,6 +54,13 @@ const Create = () => {
     setShowProUpgradePrompt(true);
   }, []);
 
+  const isSavedDesignLocked = !!user && !isPro && activeDesignId !== null;
+
+  const handleEditorChange = useCallback((nextState: DesignEditorState) => {
+    if (isSavedDesignLocked) return;
+    setEditorState(nextState);
+  }, [isSavedDesignLocked]);
+
   const handleDownload = useCallback(async () => {
     if (!previewRef.current) return;
     setDownloading(true);
@@ -76,13 +83,9 @@ const Create = () => {
     }
   }, [user]);
 
-  const handleSelectDesign = (quote: UserDesign) => {
-    if (!isPro) {
-      openProEditPrompt();
-      return;
-    }
-    setActiveQuoteId(quote.id);
-    setEditorState(quote.editor_state);
+  const handleSelectDesign = (design: UserDesign) => {
+    setActiveQuoteId(design.id);
+    setEditorState(design.editor_state);
   };
 
   const handleNewDesign = () => {
@@ -146,7 +149,7 @@ const Create = () => {
       <main className="max-w-[1600px] mx-auto px-4 sm:px-6 py-4 sm:py-6">
         <div className="flex gap-6 items-start">
           <div className="flex-1 min-w-0">
-            <DesignEditor state={editorState} onChange={setEditorState} isPro={isPro} />
+            <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} />
           </div>
 
           <div className="hidden lg:flex sticky top-4 flex-shrink-0 flex-col gap-3" style={{ width: "clamp(260px, 25vw, 320px)" }}>

@@ -101,13 +101,16 @@ const Index = () => {
     setShowProUpgradePrompt(true);
   }, []);
 
-  const handleSelectDesign = (quote: UserDesign) => {
-    if (!isPro) {
-      openProEditPrompt();
-      return;
-    }
-    setActiveQuoteId(quote.id);
-    setEditorState(quote.editor_state);
+  const isSavedDesignLocked = !!user && !isPro && activeDesignId !== null;
+
+  const handleEditorChange = useCallback((nextState: DesignEditorState) => {
+    if (isSavedDesignLocked) return;
+    setEditorState(nextState);
+  }, [isSavedDesignLocked]);
+
+  const handleSelectDesign = (design: UserDesign) => {
+    setActiveQuoteId(design.id);
+    setEditorState(design.editor_state);
   };
 
   const handleNewDesign = () => {
@@ -532,7 +535,7 @@ const Index = () => {
           {/* Left — editor */}
           <div className="flex-1 min-w-0 flex flex-col">
             <div className="flex-1 min-h-0">
-              <DesignEditor state={editorState} onChange={setEditorState} isPro={isPro} />
+              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} />
             </div>
           </div>
           {/* Preview — right */}
