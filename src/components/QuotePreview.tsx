@@ -99,6 +99,7 @@ interface QuotePreviewProps {
   coloredWords?: ColoredWord[];
   showWatermark?: boolean;
   showQuotationMarks?: boolean;
+  photoStroke?: boolean;
   customWidth?: number;
   customHeight?: number;
 }
@@ -264,7 +265,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = [], show
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false, customWidth, customHeight }, ref) => {
+  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false, photoStroke = false, customWidth, customHeight }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
@@ -325,7 +326,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
               "w-10 h-10 rounded-full object-cover"
             }`}
             style={{
-              border: `1px solid ${t.border}`,
+              ...(photoStroke ? { border: `1px solid ${t.border}` } : {}),
               ...(photoShape === "hexagon" ? { clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)", width: "2.5rem", height: "2.5rem", borderRadius: 0 } : {}),
             }}
           />
