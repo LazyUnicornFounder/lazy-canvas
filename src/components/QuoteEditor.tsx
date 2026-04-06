@@ -4,6 +4,8 @@ import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow, LayoutGri
 import { supabase } from "@/integrations/supabase/client";
 import { EMOJI_CATEGORIES } from "@/data/emojis";
 import TemplateLibrary from "@/components/TemplateLibrary";
+import { useUserImages } from "@/hooks/useUserImages";
+import { useAuth } from "@/hooks/useAuth";
 import type {
   AspectRatio,
   QuoteFont,
