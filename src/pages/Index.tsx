@@ -67,7 +67,7 @@ const sanitizeExportStyles = (root: ParentNode) => {
 };
 
 const Index = () => {
-  const { user, signOut, isPro, isAdmin, proLoading, refreshProStatus } = useAuth();
+  const { user, loading: authLoading, signOut, isPro, isAdmin, proLoading, refreshProStatus } = useAuth();
   const { designs, loading: designsLoading, saveDesign, deleteDesign } = useUserDesigns();
   const navigate = useNavigate();
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -402,6 +402,11 @@ const Index = () => {
   ].filter(Boolean).join(" · ");
 
   const isFreeUser = !isPro;
+
+  // Prevent layout shift: don't render until we know if user is logged in
+  if (authLoading) {
+    return <div className="min-h-screen bg-background" />;
+  }
 
   const pageContent = (
     <div className={user ? "flex-1 flex flex-col min-w-0 bg-background" : "min-h-screen bg-background"}>
