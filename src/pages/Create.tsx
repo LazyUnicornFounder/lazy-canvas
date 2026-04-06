@@ -168,6 +168,10 @@ const Create = () => {
                     showWatermark={isFreeUser}
                     showQuotationMarks={editorState.showQuotationMarks}
                     photoStroke={editorState.photoStroke}
+                    glassBorder={editorState.glassBorder}
+                    glassAuthorPill={editorState.glassAuthorPill}
+                    glassInnerFrame={editorState.glassInnerFrame}
+                    glassVignette={editorState.glassVignette}
                      onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
                   />
               </div>

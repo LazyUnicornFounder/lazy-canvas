@@ -782,7 +782,35 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
         </div>
       </ControlSection>
 
-      {/* Quote */}
+      {/* Glass Effects */}
+      <ControlSection label="Glass Effects">
+        <div className="space-y-3">
+          {([
+            { key: "glassBorder" as const, label: "Glass Border", desc: "Luminous frosted border with inner glow" },
+            { key: "glassAuthorPill" as const, label: "Author Pill", desc: "Frosted glass chip around author" },
+            { key: "glassInnerFrame" as const, label: "Inner Frame", desc: "Inset glass panel with rounded corners" },
+            { key: "glassVignette" as const, label: "Vignette", desc: "Frosted blur from edges" },
+          ]).map((effect) => (
+            <label key={effect.key} className="flex items-center justify-between cursor-pointer group">
+              <div>
+                <span className="text-xs font-heading text-foreground">{effect.label}</span>
+                <p className="text-[10px] text-muted-foreground">{effect.desc}</p>
+              </div>
+              <button
+                onClick={() => set(effect.key, !state[effect.key])}
+                className={`w-9 h-5 rounded-full transition-colors flex items-center ${
+                  state[effect.key] ? "bg-foreground" : "bg-border"
+                }`}
+              >
+                <div className={`w-4 h-4 rounded-full bg-background shadow-sm transition-transform ${
+                  state[effect.key] ? "translate-x-[18px]" : "translate-x-[2px]"
+                }`} />
+              </button>
+            </label>
+          ))}
+        </div>
+      </ControlSection>
+
       <div className="md:col-span-2">
         <ControlSection label="Text">
           <div className="relative">
