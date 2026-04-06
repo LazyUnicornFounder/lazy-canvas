@@ -13,9 +13,9 @@ const POLAR_PRO_YEARLY_ID = "3652d762-6798-41e9-89d5-3603e0f5a6f5";
 
 // Unified feature list: [text, freeIncluded, proIncluded]
 const featureRows: [string, boolean, boolean][] = [
-  ["Unlimited designs", true, true],
-  ["PNG download", true, true],
+  ["Create unlimited designs", true, true],
   ["Save unlimited designs", true, true],
+  ["PNG download", true, true],
   ["Re-edit your designs", false, true],
   ["Premium templates", false, true],
   ["Wallpaper backgrounds", false, true],
