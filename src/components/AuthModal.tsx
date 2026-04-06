@@ -8,10 +8,11 @@ interface AuthModalProps {
   open: boolean;
   onClose: () => void;
   onSuccess?: () => void;
+  defaultMode?: "login" | "signup";
 }
 
-const AuthModal = ({ open, onClose, onSuccess }: AuthModalProps) => {
-  const [mode, setMode] = useState<"login" | "signup">("signup");
+const AuthModal = ({ open, onClose, onSuccess, defaultMode = "signup" }: AuthModalProps) => {
+  const [mode, setMode] = useState<"login" | "signup">(defaultMode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
