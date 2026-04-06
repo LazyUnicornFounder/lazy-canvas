@@ -528,6 +528,27 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             backgroundOpacity={state.backgroundOpacity}
             onOpacityChange={(v) => set("backgroundOpacity", v)}
           />
+          {state.backgroundImage && (
+            <div className="flex items-center gap-2 mt-2">
+              <button
+                onClick={() => set("backgroundImage", null)}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
+              >
+                <X className="w-3 h-3" />
+                Remove background
+              </button>
+              {isPro && (
+                <button
+                  onClick={handleRemoveBgImage}
+                  disabled={removingBgImage}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all disabled:opacity-50"
+                >
+                  {removingBgImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <Eraser className="w-3 h-3" />}
+                  {removingBgImage ? "Removing…" : "Remove BG"}
+                </button>
+              )}
+            </div>
+          )}
           {/* Search Images */}
           <div className="space-y-2 mt-3">
             <button
