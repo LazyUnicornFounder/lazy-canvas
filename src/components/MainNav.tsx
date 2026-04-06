@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 
@@ -66,16 +67,19 @@ function NavDropdown({ label, links }: { label: string; links: { label: string; 
 
 export function MainNav() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   return (
     <nav className="hidden md:flex items-center gap-4">
       <NavDropdown label="Digital" links={DIGITAL_LINKS} />
       <NavDropdown label="Physical" links={PHYSICAL_LINKS} />
-      <button
-        onClick={() => navigate("/pricing")}
-        className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
-      >
-        Pricing
-      </button>
+      {!user && (
+        <button
+          onClick={() => navigate("/pricing")}
+          className="text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          Pricing
+        </button>
+      )}
     </nav>
   );
 }
