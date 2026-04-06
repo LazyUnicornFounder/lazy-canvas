@@ -525,8 +525,6 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 authorPhoto: state.authorPhoto,
               });
             }}
-            backgroundOpacity={state.backgroundOpacity}
-            onOpacityChange={(v) => set("backgroundOpacity", v)}
           />
           {/* Wallpapers — PRO */}
           <div className="mt-3">
