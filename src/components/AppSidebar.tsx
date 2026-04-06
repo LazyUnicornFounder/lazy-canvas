@@ -1,9 +1,11 @@
-import { Plus, FileText, Trash2, Crown, LogOut, CreditCard, Pencil, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Plus, FileText, Trash2, Crown, LogOut, CreditCard, Pencil, PanelLeftClose, PanelLeftOpen, ImagePlus, FolderOpen, Loader2 } from "lucide-react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import type { UserDesign } from "@/hooks/useUserDesigns";
 import type { DesignEditorState } from "@/components/DesignEditor";
 import { LogoWithTagline } from "@/components/MainNav";
+import { useUserImages } from "@/hooks/useUserImages";
 import {
   Sidebar,
   SidebarContent,
@@ -48,7 +50,9 @@ export function AppSidebar({
   const { state, toggleSidebar } = useSidebar();
   const collapsed = state === "collapsed";
 
-  const currentTier = "Free"; // TODO: check actual subscription
+  const currentTier = isPro ? "Pro" : "Free";
+  const { images: userImages, uploading: uploadingImage, uploadImage, deleteImage: deleteUserImage } = useUserImages();
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const handleSave = async () => {
     const text = (currentEditorState as any).quote || "";
