@@ -106,10 +106,6 @@ interface QuotePreviewProps {
   borderWidth?: number;
   borderColor?: string;
   borderStyle?: "none" | "solid" | "dashed" | "dotted" | "double";
-  glassBorder?: boolean;
-  glassAuthorPill?: boolean;
-  glassInnerFrame?: boolean;
-  glassVignette?: boolean;
   onAutoFontSize?: (newSize: number) => void;
 }
 
@@ -326,7 +322,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = [], show
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", filterIntensity = 1, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false, photoStroke = false, customWidth, customHeight, borderWidth = 0, borderColor = "#000000", borderStyle = "none", glassBorder = false, glassAuthorPill = false, glassInnerFrame = false, glassVignette = false, onAutoFontSize }, ref) => {
+  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", filterIntensity = 1, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false, photoStroke = false, customWidth, customHeight, borderWidth = 0, borderColor = "#000000", borderStyle = "none", onAutoFontSize }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
@@ -440,7 +436,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     const hasAuthor = authorName || authorPhoto || socials;
     const isDetached = authorPosition !== "below-quote";
 
-    const authorInner = hasAuthor ? (
+    const authorBlock = hasAuthor ? (
       <div
         className="flex items-center gap-3"
         style={{
@@ -448,8 +444,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             !isDetached
               ? textAlign === "center" ? "center" : textAlign === "right" ? "flex-end" : "flex-start"
               : authorPosition === "bottom-center" ? "center" : authorPosition === "bottom-right" ? "flex-end" : "flex-start",
-          width: glassAuthorPill ? undefined : "100%",
-          ...(!isDetached && !glassAuthorPill ? { marginTop: "1.5rem" } : {}),
+          width: "100%",
+          ...(!isDetached ? { marginTop: "1.5rem" } : {}),
         }}
       >
         {authorPhoto && (
@@ -495,26 +491,6 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       </div>
     ) : null;
 
-    const authorBlock = hasAuthor ? (
-      glassAuthorPill ? (
-        <div
-          style={{
-            display: "inline-flex",
-            ...(!isDetached ? { marginTop: "1.5rem", alignSelf: textAlign === "center" ? "center" : textAlign === "right" ? "flex-end" : "flex-start" } : {}),
-            padding: "0.4rem 0.8rem",
-            borderRadius: "999px",
-            background: "rgba(255,255,255,0.12)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            border: "1px solid rgba(255,255,255,0.2)",
-            boxShadow: "0 2px 12px rgba(0,0,0,0.08), inset 0 1px 1px rgba(255,255,255,0.15)",
-          }}
-        >
-          {authorInner}
-        </div>
-      ) : authorInner
-    ) : null;
-
     const isGlass = !!t.glass;
 
     return (
@@ -525,12 +501,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           backgroundColor: isGlass ? (backgroundColor || "transparent") : (backgroundColor || t.bg),
           color: t.text,
           ...(aspectRatio === "custom" && customWidth && customHeight ? { aspectRatio: `${customWidth} / ${customHeight}` } : {}),
-          ...(borderStyle !== "none" && borderWidth > 0 && !glassBorder ? { border: `${borderWidth}px ${borderStyle} ${borderColor}`, boxSizing: "border-box" as const } : {}),
-          ...(glassBorder ? {
-            border: "1px solid rgba(255,255,255,0.3)",
-            boxShadow: "inset 0 0 20px rgba(255,255,255,0.08), 0 0 15px rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.12)",
-            boxSizing: "border-box" as const,
-          } : {}),
+          ...(borderStyle !== "none" && borderWidth > 0 ? { border: `${borderWidth}px ${borderStyle} ${borderColor}`, boxSizing: "border-box" as const } : {}),
         }}
       >
         {backgroundImage && (
@@ -569,46 +540,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
               background: t.glass.gradient,
               backdropFilter: `blur(${t.glass.blur}px)`,
               WebkitBackdropFilter: `blur(${t.glass.blur}px)`,
-              
+              border: `1px solid ${t.glass.borderGlow}`,
               boxShadow: `inset 0 1px 1px 0 rgba(255,255,255,0.15), 0 4px 30px rgba(0,0,0,0.1)`,
-            }}
-          />
-        )}
-        {/* Glass vignette */}
-        {glassVignette && (
-          <div
-            className="absolute inset-0 z-[5] pointer-events-none"
-            style={{
-              background: "radial-gradient(ellipse at center, transparent 40%, rgba(255,255,255,0.08) 70%, rgba(255,255,255,0.2) 100%)",
-              backdropFilter: "blur(0px)",
-              mask: "radial-gradient(ellipse at center, transparent 35%, black 80%)",
-              WebkitMask: "radial-gradient(ellipse at center, transparent 35%, black 80%)",
-            }}
-          />
-        )}
-        {glassVignette && (
-          <div
-            className="absolute inset-0 z-[5] pointer-events-none"
-            style={{
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
-              mask: "radial-gradient(ellipse at center, transparent 40%, black 90%)",
-              WebkitMask: "radial-gradient(ellipse at center, transparent 40%, black 90%)",
-            }}
-          />
-        )}
-        {/* Glass inner frame */}
-        {glassInnerFrame && (
-          <div
-            className="absolute z-[6] pointer-events-none"
-            style={{
-              inset: "clamp(8px, 4%, 24px)",
-              borderRadius: "clamp(8px, 2%, 16px)",
-              border: "1px solid rgba(255,255,255,0.25)",
-              background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
-              backdropFilter: "blur(2px)",
-              WebkitBackdropFilter: "blur(2px)",
-              boxShadow: "inset 0 1px 2px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,0.03)",
             }}
           />
         )}
