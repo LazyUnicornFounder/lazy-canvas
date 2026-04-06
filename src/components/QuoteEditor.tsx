@@ -324,6 +324,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
   const [pexelsResults, setPexelsResults] = useState<{ src: { large: string; medium: string }; photographer: string; id: number }[]>([]);
   const [pexelsLoading, setPexelsLoading] = useState(false);
   const [showPexelsSearch, setShowPexelsSearch] = useState(false);
+  const [loadingWallpaper, setLoadingWallpaper] = useState<string | null>(null);
   const [customUnit, setCustomUnit] = useState<Unit>("px");
   const [customDpi, setCustomDpi] = useState(300);
 
