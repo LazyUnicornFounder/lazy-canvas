@@ -316,7 +316,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             src={authorPhoto}
             alt={authorName}
             className={`${
-              photoShape === "none" ? "max-w-[2.5rem] max-h-[2.5rem] rounded-md" :
+              photoShape === "none" ? "max-w-[2.5rem] max-h-[2.5rem]" :
               photoShape === "circle" ? "w-10 h-10 rounded-full object-cover" :
               photoShape === "square" ? "w-10 h-10 rounded-none object-cover" :
               photoShape === "rounded-square" ? "w-10 h-10 rounded-lg object-cover" :
