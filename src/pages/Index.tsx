@@ -374,7 +374,7 @@ const Index = () => {
                   Sign in
                 </button>
                 <button
-                  onClick={() => setShowAuthModal(true)}
+                  onClick={() => { setAuthModalMode("signup"); setShowAuthModal(true); }}
                   className="px-4 py-2 bg-foreground text-background font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity"
                 >
                   Get started free
