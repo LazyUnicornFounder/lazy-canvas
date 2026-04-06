@@ -455,15 +455,16 @@ const Index = () => {
           )}
         </div>
         <div className="relative w-full mt-2 max-w-[280px] mx-auto flex gap-2">
-          {user && (
-            <button
-              onClick={handleSaveQuote}
-              className="flex items-center justify-center gap-1.5 px-3 py-2 border border-border text-foreground font-heading text-xs font-medium rounded-md hover:bg-accent transition-colors"
-            >
-              <Save className="w-3.5 h-3.5" />
-              Save
-            </button>
-          )}
+          <button
+            onClick={() => {
+              if (!user) { setAuthModalMode("signup"); setShowAuthModal(true); return; }
+              handleSaveQuote();
+            }}
+            className="flex items-center justify-center gap-1.5 px-3 py-2 border border-border text-foreground font-heading text-xs font-medium rounded-md hover:bg-accent transition-colors"
+          >
+            <Save className="w-3.5 h-3.5" />
+            Save
+          </button>
           <div className="relative flex-1">
             <div className="flex w-full">
               <button
@@ -565,15 +566,16 @@ const Index = () => {
                 )}
             </div>
             <div className="flex items-center gap-2">
-              {user && (
-                <button
-                  onClick={handleSaveQuote}
-                  className="flex items-center justify-center gap-2 px-4 py-2 border border-border text-foreground font-heading text-sm font-medium rounded-md hover:bg-accent transition-colors"
-                >
-                  <Save className="w-4 h-4" />
-                  Save
-                </button>
-              )}
+              <button
+                onClick={() => {
+                  if (!user) { setAuthModalMode("signup"); setShowAuthModal(true); return; }
+                  handleSaveQuote();
+                }}
+                className="flex items-center justify-center gap-2 px-4 py-2 border border-border text-foreground font-heading text-sm font-medium rounded-md hover:bg-accent transition-colors"
+              >
+                <Save className="w-4 h-4" />
+                Save
+              </button>
               <div className="relative">
                 <div className="flex">
                   <button
