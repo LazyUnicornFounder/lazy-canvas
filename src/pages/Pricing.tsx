@@ -162,14 +162,7 @@ const Pricing = () => {
               <p className="text-sm text-muted-foreground">Create and save unlimited designs.</p>
             </div>
 
-            <button
-              onClick={() => handleCta("Free")}
-              className="w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 mb-6 bg-foreground text-background disabled:opacity-50"
-            >
-              {user && !isPro ? "Current Plan" : "Get Started"}
-            </button>
-
-            <ul className="space-y-2.5 flex-1">
+            <ul className="space-y-2.5 flex-1 mb-6">
               {featureRows.map(([text, freeIncluded], i) => (
                 <li key={i} className="flex items-start gap-2.5 text-sm">
                   {freeIncluded ? (
@@ -183,6 +176,13 @@ const Pricing = () => {
                 </li>
               ))}
             </ul>
+
+            <button
+              onClick={() => handleCta("Free")}
+              className="w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 bg-foreground text-background disabled:opacity-50 mt-auto"
+            >
+              {user && !isPro ? "Current Plan" : "Get Started"}
+            </button>
           </div>
 
           {/* Pro tier */}
