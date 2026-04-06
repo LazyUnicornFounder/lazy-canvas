@@ -231,33 +231,47 @@ const Index = () => {
     } else if (hasPro) {
       const target = previewRef.current || mobilePreviewRef.current;
       if (target) {
-        html2canvas(target, { scale: 1, useCORS: true, logging: false, backgroundColor: null, onclone: (doc) => { doc.querySelectorAll("[data-export-exclude]").forEach((el) => el.remove()); } })
-          .then((canvas) => {
-            setProUpgradeSnapshot(canvas.toDataURL("image/png"));
-            const ctx = canvas.getContext("2d");
-            if (ctx) {
-              const w = canvas.width;
-              const h = canvas.height;
-              const pad = Math.max(8, w * 0.03);
-              const fontSize = Math.max(8, Math.min(14, w * 0.025));
-              ctx.font = `600 ${fontSize}px sans-serif`;
-              const text = "Made with Lazy Faceless";
-              const metrics = ctx.measureText(text);
-              const boxW = metrics.width + pad * 1.5;
-              const boxH = fontSize * 1.8;
-              const x = w - boxW - pad;
-              const y = h - boxH - pad;
-              ctx.fillStyle = "rgba(0,0,0,0.55)";
-              ctx.beginPath();
-              ctx.roundRect(x, y, boxW, boxH, 4);
-              ctx.fill();
-              ctx.fillStyle = "rgba(255,255,255,0.85)";
-              ctx.fillText(text, x + pad * 0.75, y + boxH * 0.68);
-            }
-            setProWatermarkSnapshot(canvas.toDataURL("image/png"));
-            setShowProUpgradePrompt(true);
-          })
-          .catch(() => setShowProUpgradePrompt(true));
+        // Capture Pro version (as-is)
+        const proCanvas = await html2canvas(target, { scale: 1, useCORS: true, logging: false, backgroundColor: null, onclone: (doc) => { doc.querySelectorAll("[data-export-exclude]").forEach((el) => el.remove()); } });
+        setProUpgradeSnapshot(proCanvas.toDataURL("image/png"));
+
+        // Capture Free version (strip pro features from clone)
+        const freeCanvas = await html2canvas(target, {
+          scale: 1, useCORS: true, logging: false, backgroundColor: null,
+          onclone: (doc) => {
+            doc.querySelectorAll("[data-export-exclude]").forEach((el) => el.remove());
+            // Remove background images
+            const bgEls = doc.querySelectorAll("[class*='bg-cover']");
+            bgEls.forEach((el) => (el as HTMLElement).style.display = "none");
+            // Remove colored word spans - reset to inherit
+            doc.querySelectorAll("span[style*='color']").forEach((el) => {
+              (el as HTMLElement).style.color = "inherit";
+            });
+          },
+        });
+        // Add watermark to free version
+        const ctx = freeCanvas.getContext("2d");
+        if (ctx) {
+          const w = freeCanvas.width;
+          const h = freeCanvas.height;
+          const pad = Math.max(8, w * 0.03);
+          const fontSize = Math.max(8, Math.min(14, w * 0.025));
+          ctx.font = `600 ${fontSize}px sans-serif`;
+          const text = "Made with LazyFaceless.com";
+          const metrics = ctx.measureText(text);
+          const boxW = metrics.width + pad * 1.5;
+          const boxH = fontSize * 1.8;
+          const x = w - boxW - pad;
+          const y = h - boxH - pad;
+          ctx.fillStyle = "rgba(0,0,0,0.55)";
+          ctx.beginPath();
+          ctx.roundRect(x, y, boxW, boxH, 4);
+          ctx.fill();
+          ctx.fillStyle = "rgba(255,255,255,0.85)";
+          ctx.fillText(text, x + pad * 0.75, y + boxH * 0.68);
+        }
+        setProWatermarkSnapshot(freeCanvas.toDataURL("image/png"));
+        setShowProUpgradePrompt(true);
       } else {
         setShowProUpgradePrompt(true);
       }
