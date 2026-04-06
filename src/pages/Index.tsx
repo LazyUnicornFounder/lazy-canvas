@@ -633,9 +633,9 @@ const Index = () => {
 
           <div className="p-6 space-y-5">
             <AlertDialogHeader className="text-center space-y-1">
-              <AlertDialogTitle className="font-heading text-base">Upgrade for $5/month</AlertDialogTitle>
+              <AlertDialogTitle className="font-heading text-base">Start your 14-day free trial</AlertDialogTitle>
               <AlertDialogDescription className="text-sm text-muted-foreground">
-                Unlock Pro features. Cancel anytime.
+                Try all Pro features free for 14 days. Cancel anytime.
               </AlertDialogDescription>
             </AlertDialogHeader>
 
@@ -674,19 +674,21 @@ const Index = () => {
               </div>
             )}
 
-            {/* Feature comparison */}
+            {/* Feature comparison — synced with pricing page */}
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
                 <h4 className="font-heading font-semibold text-primary mb-2">Pro</h4>
                 <ul className="space-y-1.5">
+                  <li className="flex items-center gap-1.5 text-foreground"><span className="text-primary">✓</span><span>Everything in Free</span></li>
                   {[
-                    "Everything in Free",
+                    "Re-edit your designs",
                     "Premium templates",
                     "Wallpaper backgrounds",
                     "Background image upload",
                     "Background image remover",
                     "Image filters",
                     "Word colors",
+                    "All formats & sizes",
                     "No watermark",
                   ].map((text, i) => (
                     <li key={i} className="flex items-center gap-1.5 text-foreground">
@@ -703,12 +705,14 @@ const Index = () => {
                     { text: "Unlimited designs", included: true },
                     { text: "PNG download", included: true },
                     { text: "Save unlimited designs", included: true },
+                    { text: "Re-edit your designs", included: false },
                     { text: "Premium templates", included: false },
                     { text: "Wallpaper backgrounds", included: false },
                     { text: "Background image upload", included: false },
                     { text: "Background image remover", included: false },
                     { text: "Image filters", included: false },
                     { text: "Word colors", included: false },
+                    { text: "All formats & sizes", included: false },
                     { text: "No watermark", included: false },
                   ].map((f, i) => (
                     <li key={i} className={`flex items-center gap-1.5 ${f.included ? "text-foreground" : "text-muted-foreground/50 line-through"}`}>
@@ -722,7 +726,7 @@ const Index = () => {
 
             <AlertDialogFooter className="flex-col sm:flex-col gap-2 pt-1">
               <AlertDialogAction onClick={() => { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); setProWatermarkSnapshot(null); navigate("/pricing"); }} className="w-full py-2.5 text-sm font-heading font-semibold">
-                Upgrade to Pro — $5/month
+                Start 14-day free trial
               </AlertDialogAction>
               <AlertDialogCancel onClick={handleDownloadFreeVersion} className="w-full border-0 text-muted-foreground hover:text-foreground text-xs mt-0">
                 Go back to free
