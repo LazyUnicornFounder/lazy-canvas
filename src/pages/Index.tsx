@@ -16,7 +16,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useUserDesigns, type UserDesign } from "@/hooks/useUserDesigns";
 import AuthModal from "@/components/AuthModal";
-import GalleryPromptDialog from "@/components/GalleryPromptDialog";
+
 import { MainNav, LogoWithTagline } from "@/components/MainNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useAuth } from "@/hooks/useAuth";
@@ -85,12 +85,12 @@ const Index = () => {
   const [downloading, setDownloading] = useState(false);
   
   const [freeEditorStateForSnapshot, setFreeEditorStateForSnapshot] = useState<DesignEditorState | null>(null);
-  const [showGalleryPrompt, setShowGalleryPrompt] = useState(false);
+  
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [showProUpgradePrompt, setShowProUpgradePrompt] = useState(false);
   const [proUpgradeSnapshot, setProUpgradeSnapshot] = useState<string | null>(null);
   const [proWatermarkSnapshot, setProWatermarkSnapshot] = useState<string | null>(null);
-  const [showProSignupPrompt, setShowProSignupPrompt] = useState(false);
+  
   const [activeDesignId, setActiveQuoteId] = useState<string | null>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const mobilePreviewRef = useRef<HTMLDivElement>(null);
@@ -379,20 +379,12 @@ const Index = () => {
     }
   }, [user, isPro, editorState, usesProFeatures, performDownloadOnly]);
 
-  const performDownload = useCallback(async (shareToGallery: boolean) => {
-    setShowGalleryPrompt(false);
+  const performDownload = useCallback(async () => {
     const target = previewRef.current || mobilePreviewRef.current;
     if (!target) return;
 
     setDownloading(true);
     try {
-      if (shareToGallery && user) {
-        await supabase.from("gallery_submissions").insert({
-          user_id: user.id,
-          editor_state: editorState as any,
-        });
-      }
-
       let blob = await renderPreviewBlob(target, 3);
       if (!isPro) {
         blob = await addCanvasWatermark(blob);
@@ -403,7 +395,7 @@ const Index = () => {
     } finally {
       setDownloading(false);
     }
-  }, [downloadBlob, renderPreviewBlob, user, editorState, isPro, addCanvasWatermark]);
+  }, [downloadBlob, renderPreviewBlob, isPro, addCanvasWatermark]);
 
   const handleSignupAccept = useCallback(() => {
     setShowSignupPrompt(false);
@@ -887,25 +879,6 @@ const Index = () => {
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Pro signup prompt for guests using pro features */}
-      <AlertDialog open={showProSignupPrompt} onOpenChange={(o) => !o && setShowProSignupPrompt(false)}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="font-heading">Nice design! 🎨</AlertDialogTitle>
-            <AlertDialogDescription className="text-sm text-muted-foreground">
-              Your first PRO design is on us. Sign up for free to download it.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => { setShowProSignupPrompt(false); performDownloadOnly(3); }}>
-              Download
-            </AlertDialogCancel>
-            <AlertDialogAction onClick={() => { setShowProSignupPrompt(false); setShowAuthModal(true); }}>
-              Sign up free
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
       {!user && <SiteFooter />}
     </div>
   );
