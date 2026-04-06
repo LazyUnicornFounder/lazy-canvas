@@ -106,6 +106,9 @@ interface QuotePreviewProps {
   borderWidth?: number;
   borderColor?: string;
   borderStyle?: "none" | "solid" | "dashed" | "dotted" | "double";
+  logo?: string | null;
+  logoPosition?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  logoSize?: number;
   onAutoFontSize?: (newSize: number) => void;
 }
 
