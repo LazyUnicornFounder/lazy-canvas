@@ -179,6 +179,19 @@ const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string }[] = [
   { value: "ink", label: "Ink", swatch: "#0d1117" },
 ];
 
+const WALLPAPER_CATEGORIES = [
+  { label: "Nature", query: "nature landscape wallpaper", emoji: "🌿" },
+  { label: "Ocean", query: "ocean waves wallpaper", emoji: "🌊" },
+  { label: "Mountains", query: "mountains scenic wallpaper", emoji: "🏔️" },
+  { label: "City", query: "city skyline night wallpaper", emoji: "🌃" },
+  { label: "Space", query: "space galaxy stars wallpaper", emoji: "🌌" },
+  { label: "Sunset", query: "sunset golden hour wallpaper", emoji: "🌅" },
+  { label: "Forest", query: "dark forest moody wallpaper", emoji: "🌲" },
+  { label: "Abstract", query: "abstract colorful gradient wallpaper", emoji: "🎨" },
+  { label: "Minimal", query: "minimal texture clean wallpaper", emoji: "◻️" },
+  { label: "Floral", query: "flowers floral aesthetic wallpaper", emoji: "🌸" },
+];
+
 const SOCIAL_PLATFORMS = [
   { value: "instagram", label: "Instagram", prefix: "@" },
   { value: "twitter", label: "X", prefix: "@" },
