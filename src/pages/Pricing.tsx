@@ -126,7 +126,7 @@ const Pricing = () => {
             Start for free. Upgrade when you need to remove the watermark or unlock premium tools.
           </p>
           <p className="text-sm text-muted-foreground">
-            All plans include unlimited quote designs. No credit card required for Free.
+            All plans include unlimited designs. No credit card required for Free.
           </p>
           <p className="text-xs text-muted-foreground">
             Secure payments with Polar and Stripe.
