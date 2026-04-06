@@ -119,6 +119,7 @@ const Index = () => {
     return (
       (state.coloredWords && state.coloredWords.length > 0) ||
       !!state.backgroundImage ||
+      (state.backgroundFilter && state.backgroundFilter !== "none") ||
       (state.aspectRatio !== "square")
     );
   }, []);
@@ -209,6 +210,7 @@ const Index = () => {
       ...prev,
       coloredWords: [],
       backgroundImage: null,
+      backgroundFilter: "none",
       aspectRatio: "square" as const,
     }));
   }, []);
