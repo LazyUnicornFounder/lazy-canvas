@@ -83,6 +83,7 @@ const Index = () => {
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [showProUpgradePrompt, setShowProUpgradePrompt] = useState(false);
   const [proUpgradeSnapshot, setProUpgradeSnapshot] = useState<string | null>(null);
+  const [proWatermarkSnapshot, setProWatermarkSnapshot] = useState<string | null>(null);
   const [showProSignupPrompt, setShowProSignupPrompt] = useState(false);
   const [activeQuoteId, setActiveQuoteId] = useState<string | null>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -203,6 +204,7 @@ const Index = () => {
   const handleDownloadFreeVersion = useCallback(() => {
     setShowProUpgradePrompt(false);
     setProUpgradeSnapshot(null);
+    setProWatermarkSnapshot(null);
     setEditorState((prev) => ({
       ...prev,
       coloredWords: [],
@@ -237,7 +239,32 @@ const Index = () => {
       const target = previewRef.current || mobilePreviewRef.current;
       if (target) {
         html2canvas(target, { scale: 1, useCORS: true, logging: false, backgroundColor: null })
-          .then((canvas) => setProUpgradeSnapshot(canvas.toDataURL("image/png")))
+          .then((canvas) => {
+            // Clean version
+            setProUpgradeSnapshot(canvas.toDataURL("image/png"));
+            // Watermarked version
+            const ctx = canvas.getContext("2d");
+            if (ctx) {
+              const w = canvas.width;
+              const h = canvas.height;
+              const pad = Math.max(8, w * 0.03);
+              const fontSize = Math.max(8, Math.min(14, w * 0.025));
+              ctx.font = `600 ${fontSize}px sans-serif`;
+              const text = "Made with Lazy Faceless";
+              const metrics = ctx.measureText(text);
+              const boxW = metrics.width + pad * 1.5;
+              const boxH = fontSize * 1.8;
+              const x = w - boxW - pad;
+              const y = h - boxH - pad;
+              ctx.fillStyle = "rgba(0,0,0,0.55)";
+              ctx.beginPath();
+              ctx.roundRect(x, y, boxW, boxH, 4);
+              ctx.fill();
+              ctx.fillStyle = "rgba(255,255,255,0.85)";
+              ctx.fillText(text, x + pad * 0.75, y + boxH * 0.68);
+            }
+            setProWatermarkSnapshot(canvas.toDataURL("image/png"));
+          })
           .catch(() => {});
       }
       setShowProUpgradePrompt(true);
@@ -367,7 +394,7 @@ const Index = () => {
             isBold={editorState.isBold}
             isItalic={editorState.isItalic}
             coloredWords={editorState.coloredWords}
-            showWatermark={isFreeUser}
+            showWatermark={false}
             showQuotationMarks={editorState.showQuotationMarks}
             photoStroke={editorState.photoStroke}
             customWidth={editorState.customWidth}
@@ -457,7 +484,7 @@ const Index = () => {
                   isBold={editorState.isBold}
                   isItalic={editorState.isItalic}
                   coloredWords={editorState.coloredWords}
-                  showWatermark={isFreeUser}
+                  showWatermark={false}
                   showQuotationMarks={editorState.showQuotationMarks}
                   photoStroke={editorState.photoStroke}
                   customWidth={editorState.customWidth}
@@ -552,35 +579,42 @@ const Index = () => {
       </AlertDialog>
 
       {/* Pro upgrade prompt for free users who already used their trial */}
-      <AlertDialog open={showProUpgradePrompt} onOpenChange={(o) => { if (!o) { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); } }}>
-        <AlertDialogContent className="overflow-hidden">
-          {proUpgradeSnapshot && (
-            <div className="absolute inset-0 -z-10">
-              <img
-                src={proUpgradeSnapshot}
-                alt=""
-                className="w-full h-full object-cover blur-md scale-110 opacity-20"
-              />
-              <div className="absolute inset-0 bg-background/70" />
-            </div>
-          )}
-          <AlertDialogHeader>
-            <AlertDialogTitle className="font-heading">Your design uses Pro features</AlertDialogTitle>
-            <AlertDialogDescription className="text-sm text-muted-foreground">
-              Upgrade to Pro to download this version, or switch to a free style to download now.
-            </AlertDialogDescription>
+      <AlertDialog open={showProUpgradePrompt} onOpenChange={(o) => { if (!o) { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); setProWatermarkSnapshot(null); } }}>
+        <AlertDialogContent className="overflow-hidden max-w-xl">
+          <AlertDialogHeader className="text-center">
+            <AlertDialogTitle className="font-heading text-lg">Which version do you want?</AlertDialogTitle>
           </AlertDialogHeader>
-          {proUpgradeSnapshot && (
-            <div className="flex justify-center py-2">
-              <img
-                src={proUpgradeSnapshot}
-                alt="Your design preview"
-                className="max-h-48 rounded-md border border-border shadow-md object-contain"
-              />
+
+          {/* Side by side */}
+          {proUpgradeSnapshot && proWatermarkSnapshot && (
+            <div className="grid grid-cols-2 gap-4 py-2">
+              {/* Free */}
+              <div className="flex flex-col items-center gap-2">
+                <div className="relative rounded-lg overflow-hidden border border-border shadow-sm">
+                  <img
+                    src={proWatermarkSnapshot}
+                    alt="Free version with watermark"
+                    className="w-full h-auto object-contain opacity-80"
+                  />
+                </div>
+                <span className="text-xs font-heading font-medium text-muted-foreground">Free</span>
+              </div>
+              {/* Pro */}
+              <div className="flex flex-col items-center gap-2">
+                <div className="relative rounded-lg overflow-hidden border-2 border-primary shadow-md ring-1 ring-primary/20">
+                  <img
+                    src={proUpgradeSnapshot}
+                    alt="Pro version without watermark"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+                <span className="text-xs font-heading font-semibold text-foreground">Pro — $5/month</span>
+              </div>
             </div>
           )}
+
           <AlertDialogFooter className="flex-col sm:flex-col gap-2">
-            <AlertDialogAction onClick={() => { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); navigate("/pricing"); }} className="w-full">
+            <AlertDialogAction onClick={() => { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); setProWatermarkSnapshot(null); navigate("/pricing"); }} className="w-full">
               Upgrade to Pro
             </AlertDialogAction>
             <AlertDialogCancel onClick={handleDownloadFreeVersion} className="w-full border-0 text-muted-foreground hover:text-foreground text-xs mt-0">
