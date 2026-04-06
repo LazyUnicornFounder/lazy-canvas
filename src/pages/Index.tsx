@@ -1,4 +1,5 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, useMemo } from "react";
+import html2canvas from "html2canvas";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -211,6 +212,12 @@ const Index = () => {
     } else if (isPro) {
       performDownloadOnly(scale);
     } else if (hasPro) {
+      const target = previewRef.current || mobilePreviewRef.current;
+      if (target) {
+        html2canvas(target, { scale: 1, useCORS: true, logging: false, backgroundColor: null })
+          .then((canvas) => setProUpgradeSnapshot(canvas.toDataURL("image/png")))
+          .catch(() => {});
+      }
       setShowProUpgradePrompt(true);
     } else {
       performDownloadOnly(scale);
