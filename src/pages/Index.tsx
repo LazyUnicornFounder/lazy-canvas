@@ -633,9 +633,12 @@ const Index = () => {
                     <img
                       src={proWatermarkSnapshot}
                       alt="Free version"
-                      className="w-full h-auto object-contain blur-[1px] opacity-75"
+                      className="w-full h-auto object-contain opacity-75"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    <div className="absolute bottom-6 right-1 z-10 px-1.5 py-0.5 rounded text-[6px] font-semibold text-white/90" style={{ backgroundColor: "rgba(0,0,0,0.55)" }}>
+                      Made with <span className="font-bold">LazyFaceless.com</span>
+                    </div>
                     <span className="absolute bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 text-[10px] font-heading font-medium uppercase tracking-wider bg-muted text-muted-foreground rounded-full">
                       Free
                     </span>
