@@ -588,7 +588,7 @@ const Index = () => {
 
           <div className="p-6 space-y-5">
             <AlertDialogHeader className="text-center space-y-1">
-              <AlertDialogTitle className="font-heading text-xl">Upgrade for $5/month</AlertDialogTitle>
+              <AlertDialogTitle className="font-heading text-base">Upgrade for $5/month</AlertDialogTitle>
               <AlertDialogDescription className="text-sm text-muted-foreground">
                 Unlock Pro features. Cancel anytime.
               </AlertDialogDescription>
