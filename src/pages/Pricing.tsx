@@ -40,7 +40,7 @@ const tiers = [
       { text: "Premium templates", included: true },
       { text: "Word colors", included: true },
       { text: "Background image upload", included: true },
-      { text: "No watermark", included: true },
+      { text: "Background image remover", included: true },
       { text: "Save and re-edit your quotes", included: true },
     ],
   },
