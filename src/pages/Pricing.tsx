@@ -150,7 +150,7 @@ const Pricing = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto items-stretch">
           {/* Free tier */}
           <div className="relative rounded-xl border border-border bg-card/50 p-6 flex flex-col">
             <div className="space-y-3 mb-6">
