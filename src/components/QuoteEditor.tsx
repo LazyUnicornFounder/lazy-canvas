@@ -24,7 +24,7 @@ const DIGITAL_FORMAT_GROUPS: { label: string; options: { value: AspectRatio; lab
     ],
   },
   {
-    label: "X (Twitter)",
+    label: "X",
     options: [
       { value: "16:9", label: "Post" },
       { value: "3:1", label: "Header" },
