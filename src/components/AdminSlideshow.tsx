@@ -16,7 +16,7 @@ import DesignEditor, {
 import { Trash2, Plus } from "lucide-react";
 import { toast } from "sonner";
 
-interface SlideshowQuote {
+interface SlideshowDesign {
   id: string;
   quote: string;
   author_name: string | null;
@@ -48,15 +48,15 @@ interface SlideshowQuote {
 
 const AdminSlideshow = () => {
   const [editorState, setEditorState] = useState<DesignEditorState>(DEFAULT_EDITOR_STATE);
-  const [savedQuotes, setSavedQuotes] = useState<SlideshowQuote[]>([]);
+  const [savedDesigns, setSavedQuotes] = useState<SlideshowDesign[]>([]);
   const [saving, setSaving] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    loadQuotes();
+    loadDesigns();
   }, []);
 
-  const loadQuotes = async () => {
+  const loadDesigns = async () => {
     const { data } = await supabase
       .from("slideshow_quotes")
       .select("*")
@@ -101,7 +101,7 @@ const AdminSlideshow = () => {
       socials,
       social_platform: editorState.socialPlatform,
       website: editorState.website,
-      display_order: savedQuotes.length,
+      display_order: savedDesigns.length,
       colored_words: editorState.coloredWords.length ? JSON.parse(JSON.stringify(editorState.coloredWords)) : [],
     });
     setSaving(false);
@@ -111,7 +111,7 @@ const AdminSlideshow = () => {
     } else {
       toast.success("Design saved to slideshow!");
       setEditorState(DEFAULT_EDITOR_STATE);
-      loadQuotes();
+      loadDesigns();
     }
   };
 
@@ -119,7 +119,7 @@ const AdminSlideshow = () => {
     const { error } = await supabase.from("slideshow_quotes").delete().eq("id", id);
     if (!error) {
       toast.success("Design deleted");
-      loadQuotes();
+      loadDesigns();
     }
   };
 
@@ -146,10 +146,10 @@ const AdminSlideshow = () => {
 
         <div className="space-y-3 pt-4">
           <h3 className="text-sm font-heading font-semibold uppercase tracking-widest text-foreground">
-            Slideshow Quotes ({savedQuotes.length})
+            Slideshow Designs ({savedDesigns.length})
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {savedQuotes.map((sq) => (
+            {savedDesigns.map((sq) => (
               <div key={sq.id} className="relative group">
                 <div className="w-full">
                   <DesignPreview
