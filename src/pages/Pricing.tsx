@@ -31,7 +31,7 @@ const featureRows: [string, boolean, boolean][] = [
 
 const Pricing = () => {
   const navigate = useNavigate();
-  const { user, isPro, proLoading, signOut } = useAuth();
+  const { user, isPro, proLoading, signOut, refreshProStatus } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<"login" | "signup">("signup");
   const [checkoutLoading, setCheckoutLoading] = useState(false);
@@ -87,6 +87,13 @@ const Pricing = () => {
       handleCheckout();
     }
   };
+
+  // Refresh pro status on mount to ensure accurate display
+  useEffect(() => {
+    if (user) {
+      refreshProStatus();
+    }
+  }, [user]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
