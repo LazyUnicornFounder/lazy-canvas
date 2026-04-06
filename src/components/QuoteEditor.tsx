@@ -615,6 +615,60 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
               )}
             </div>
           </div>
+          {/* My Images — PRO */}
+          {isPro && user && (
+            <div className="space-y-2 mt-3">
+              <div className="flex items-center gap-2 px-1 text-xs font-heading font-medium text-muted-foreground">
+                <FolderOpen className="w-3.5 h-3.5" />
+                My Images
+              </div>
+              <div className="space-y-2">
+                <input
+                  ref={userImageInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    await uploadUserImage(file);
+                    e.target.value = "";
+                  }}
+                />
+                <button
+                  onClick={() => userImageInputRef.current?.click()}
+                  disabled={uploadingUserImage}
+                  className="flex items-center gap-2 px-3 py-1.5 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all disabled:opacity-50"
+                >
+                  {uploadingUserImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
+                  {uploadingUserImage ? "Uploading…" : "Upload Image"}
+                </button>
+                {userImages.length > 0 && (
+                  <div className="grid grid-cols-3 gap-1.5 max-h-[200px] overflow-y-auto rounded-md">
+                    {userImages.map((img) => (
+                      <div key={img.id} className="relative group aspect-square rounded-md overflow-hidden border border-border hover:border-foreground/30 transition-all">
+                        <button
+                          onClick={() => set("backgroundImage", img.file_url)}
+                          className="w-full h-full"
+                        >
+                          <img src={img.file_url} alt={img.file_name} className="w-full h-full object-cover" loading="lazy" />
+                        </button>
+                        <button
+                          onClick={() => deleteUserImage(img.id)}
+                          className="absolute top-1 right-1 p-1 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <Trash2 className="w-2.5 h-2.5 text-white" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {userImages.length === 0 && (
+                  <p className="text-[10px] text-muted-foreground">Upload images to build your personal library.</p>
+                )}
+              </div>
+            </div>
+          )}
         </ControlSection>
       </div>
 
