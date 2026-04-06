@@ -168,6 +168,9 @@ const Create = () => {
                     showWatermark={isFreeUser}
                     showQuotationMarks={editorState.showQuotationMarks}
                     photoStroke={editorState.photoStroke}
+                    logo={editorState.logo}
+                    logoPosition={editorState.logoPosition}
+                    logoSize={editorState.logoSize}
                      onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
                   />
               </div>
