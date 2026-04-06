@@ -166,6 +166,63 @@ export function AppSidebar({
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* Image Library — Pro users */}
+        {isPro && (
+          <>
+            <SidebarSeparator />
+            <SidebarGroup>
+              <SidebarGroupLabel>
+                <FolderOpen className="w-3.5 h-3.5 mr-1.5" />
+                My Images
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <input
+                      ref={imageInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        await uploadImage(file);
+                        e.target.value = "";
+                      }}
+                    />
+                    <SidebarMenuButton
+                      onClick={() => imageInputRef.current?.click()}
+                      disabled={uploadingImage}
+                      className="text-primary"
+                    >
+                      {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImagePlus className="w-4 h-4" />}
+                      <span>{uploadingImage ? "Uploading…" : "Upload Image"}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+                {!collapsed && userImages.length > 0 && (
+                  <div className="grid grid-cols-3 gap-1.5 px-2 pb-2 max-h-[200px] overflow-y-auto">
+                    {userImages.map((img) => (
+                      <div key={img.id} className="relative group aspect-square rounded-md overflow-hidden border border-border hover:border-foreground/30 transition-all">
+                        <img src={img.file_url} alt={img.file_name} className="w-full h-full object-cover" loading="lazy" />
+                        <button
+                          onClick={() => deleteUserImage(img.id)}
+                          className="absolute top-0.5 right-0.5 p-0.5 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <Trash2 className="w-2.5 h-2.5 text-white" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {!collapsed && userImages.length === 0 && (
+                  <p className="text-[10px] text-muted-foreground px-3 pb-2">Upload images to build your library.</p>
+                )}
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </>
+        )}
       </SidebarContent>
 
       <SidebarFooter>
