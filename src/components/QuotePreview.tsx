@@ -602,6 +602,27 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
               {authorBlock}
             </div>
           )}
+          {/* Logo */}
+          {logo && (
+            <div
+              className="absolute z-20"
+              style={{
+                ...(logoPosition.includes("top") ? { top: "clamp(8px, 3%, 16px)" } : { bottom: "clamp(8px, 3%, 16px)" }),
+                ...(logoPosition.includes("left") ? { left: "clamp(8px, 3%, 16px)" } : { right: "clamp(8px, 3%, 16px)" }),
+              }}
+            >
+              <img
+                src={logo}
+                alt="Logo"
+                style={{
+                  width: `${logoSize}rem`,
+                  height: "auto",
+                  maxHeight: `${logoSize}rem`,
+                  objectFit: "contain",
+                }}
+              />
+            </div>
+          )}
           {/* Watermark */}
           {showWatermark && (
             <div
