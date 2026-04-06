@@ -669,9 +669,11 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             </button>
           ))}
         </div>
-        {/* Wallpapers */}
-        <div className="mt-3">
-          <p className="text-[10px] font-heading text-muted-foreground mb-2 uppercase tracking-wider">Wallpapers</p>
+      </ControlSection>
+
+      {/* Wallpapers — PRO */}
+      <div className="md:col-span-2">
+        <ControlSection label="Wallpapers" pro={!isPro} onProClick={goToPricing}>
           <div className="flex flex-wrap gap-2">
             {WALLPAPER_CATEGORIES.map((cat) => (
               <button
@@ -692,8 +694,8 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
               </button>
             ))}
           </div>
-        </div>
-      </ControlSection>
+        </ControlSection>
+      </div>
       {/* Quote */}
       <div className="md:col-span-2">
         <ControlSection label="Text">

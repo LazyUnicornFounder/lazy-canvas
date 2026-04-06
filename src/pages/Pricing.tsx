@@ -13,6 +13,7 @@ const POLAR_PRO_YEARLY_ID = "3652d762-6798-41e9-89d5-3603e0f5a6f5";
 const proFeatures = [
   { text: "Everything in Free", included: true },
   { text: "Premium templates", included: true },
+  { text: "Wallpaper backgrounds", included: true },
   { text: "Word colors", included: true },
   { text: "Background image upload", included: true },
   { text: "Background image remover", included: true },
@@ -26,6 +27,7 @@ const freeFeatures = [
   { text: "PNG download", included: true },
   { text: "Save unlimited quotes", included: false },
   { text: "Premium templates", included: false },
+  { text: "Wallpaper backgrounds", included: false },
   { text: "Word colors", included: false },
   { text: "Text formatting", included: false },
   { text: "Background image upload", included: false },
