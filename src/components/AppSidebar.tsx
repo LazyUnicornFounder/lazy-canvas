@@ -2,8 +2,8 @@ import { Plus, FileText, Trash2, Crown, ChevronUp, LogOut, CreditCard, Pencil } 
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import type { UserQuote } from "@/hooks/useUserQuotes";
-import type { QuoteEditorState } from "@/components/QuoteEditor";
+import type { UserDesign } from "@/hooks/useUserDesigns";
+import type { DesignEditorState } from "@/components/DesignEditor";
 import {
   Sidebar,
   SidebarContent,
@@ -20,27 +20,27 @@ import {
 } from "@/components/ui/sidebar";
 
 interface AppSidebarProps {
-  activeQuoteId: string | null;
-  onSelectQuote: (quote: UserQuote) => void;
-  onNewQuote: () => void;
-  currentEditorState: QuoteEditorState;
-  quotes: UserQuote[];
+  activeDesignId: string | null;
+  onSelectDesign: (design: UserDesign) => void;
+  onNewDesign: () => void;
+  currentEditorState: DesignEditorState;
+  designs: UserDesign[];
   loading: boolean;
-  saveQuote: (id: string | null, title: string, editorState: QuoteEditorState) => Promise<any>;
-  deleteQuote: (id: string) => Promise<void>;
+  saveDesign: (id: string | null, title: string, editorState: DesignEditorState) => Promise<any>;
+  deleteDesign: (id: string) => Promise<void>;
 }
 
-export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEditorState, quotes, loading, saveQuote, deleteQuote }: AppSidebarProps) {
+export function AppSidebar({ activeDesignId, onSelectDesign, onNewDesign, currentEditorState, designs, loading, saveDesign, deleteDesign }: AppSidebarProps) {
   const { user, signOut, isPro } = useAuth();
   const navigate = useNavigate();
 
   const currentTier = "Free"; // TODO: check actual subscription
 
   const handleSave = async () => {
-    const title = currentEditorState.quote
-      ? currentEditorState.quote.slice(0, 40) + (currentEditorState.quote.length > 40 ? "…" : "")
+    const title = currentEditorState.design
+      ? currentEditorState.design.slice(0, 40) + (currentEditorState.design.length > 40 ? "…" : "")
       : "Untitled";
-    await saveQuote(activeQuoteId, title, currentEditorState);
+    await saveDesign(activeDesignId, title, currentEditorState);
   };
 
   return (
@@ -55,9 +55,9 @@ export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEd
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {/* New Quote */}
+              {/* New Design */}
               <SidebarMenuItem>
-                <SidebarMenuButton onClick={onNewQuote} className="text-primary">
+                <SidebarMenuButton onClick={onNewDesign} className="text-primary">
                   <Plus className="w-4 h-4" />
                   <span>New Content</span>
                 </SidebarMenuButton>
@@ -67,7 +67,7 @@ export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEd
               <SidebarMenuItem>
                 <SidebarMenuButton onClick={handleSave} className="text-muted-foreground">
                   <FileText className="w-4 h-4" />
-                  <span>{activeQuoteId ? "Save changes" : "Save content"}</span>
+                  <span>{activeDesignId ? "Save changes" : "Save content"}</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -86,22 +86,22 @@ export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEd
                     <span className="text-xs text-muted-foreground">Loading…</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ) : quotes.length === 0 ? (
+              ) : designs.length === 0 ? (
                 <SidebarMenuItem>
                   <SidebarMenuButton disabled>
                     <span className="text-xs text-muted-foreground">No saved designs yet</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ) : (
-                quotes.map((q) => (
-                  <SidebarMenuItem key={q.id}>
+                designs.map((d) => (
+                  <SidebarMenuItem key={d.id}>
                     <SidebarMenuButton
-                      isActive={activeQuoteId === q.id}
-                      onClick={() => onSelectQuote(q)}
-                      tooltip={q.title}
+                      isActive={activeDesignId === d.id}
+                      onClick={() => onSelectDesign(d)}
+                      tooltip={d.title}
                     >
                       <FileText className="w-4 h-4 flex-shrink-0" />
-                      <span className="truncate">{q.title}</span>
+                      <span className="truncate">{d.title}</span>
                     </SidebarMenuButton>
                     <div className="flex items-center">
                       {!isPro && (
@@ -124,7 +124,7 @@ export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEd
                         showOnHover
                         onClick={(e) => {
                           e.stopPropagation();
-                          deleteQuote(q.id);
+                          deleteDesign(d.id);
                         }}
                       >
                         <Trash2 className="w-3.5 h-3.5 text-destructive" />
