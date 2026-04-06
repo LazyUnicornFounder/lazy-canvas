@@ -2,7 +2,7 @@ import { Plus, FileText, Trash2, Crown, ChevronUp, LogOut, CreditCard, Pencil } 
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { useUserQuotes, type UserQuote } from "@/hooks/useUserQuotes";
+import type { UserQuote } from "@/hooks/useUserQuotes";
 import type { QuoteEditorState } from "@/components/QuoteEditor";
 import {
   Sidebar,
@@ -24,11 +24,14 @@ interface AppSidebarProps {
   onSelectQuote: (quote: UserQuote) => void;
   onNewQuote: () => void;
   currentEditorState: QuoteEditorState;
+  quotes: UserQuote[];
+  loading: boolean;
+  saveQuote: (id: string | null, title: string, editorState: QuoteEditorState) => Promise<any>;
+  deleteQuote: (id: string) => Promise<void>;
 }
 
-export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEditorState }: AppSidebarProps) {
+export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEditorState, quotes, loading, saveQuote, deleteQuote }: AppSidebarProps) {
   const { user, signOut, isPro } = useAuth();
-  const { quotes, loading, saveQuote, deleteQuote } = useUserQuotes();
   const navigate = useNavigate();
 
   const currentTier = "Free"; // TODO: check actual subscription
