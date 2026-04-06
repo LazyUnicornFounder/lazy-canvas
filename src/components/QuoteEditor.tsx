@@ -1412,11 +1412,9 @@ const UnitCalculator = () => {
   const [inputValue, setInputValue] = useState("1080");
   const [fromUnit, setFromUnit] = useState<Unit>("px");
   const [toUnit, setToUnit] = useState<Unit>("cm");
-  const [dpi, setDpi] = useState("300");
 
   const numValue = parseFloat(inputValue) || 0;
-  const numDpi = parseInt(dpi) || 300;
-  const result = convertUnit(numValue, fromUnit, toUnit, numDpi);
+  const result = convertUnit(numValue, fromUnit, toUnit, 300);
 
   return (
     <div className="space-y-3">
@@ -1453,15 +1451,6 @@ const UnitCalculator = () => {
         </div>
       </div>
       <div className="flex gap-2 items-end">
-        <div className="w-24">
-          <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">DPI</label>
-          <input
-            type="number"
-            value={dpi}
-            onChange={(e) => setDpi(e.target.value)}
-            className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
-          />
-        </div>
         <div className="flex-1 px-3 py-1.5 bg-foreground/5 border border-border rounded-md">
           <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Result</span>
           <p className="text-sm font-heading font-semibold text-foreground">{result} {toUnit}</p>
