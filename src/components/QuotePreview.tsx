@@ -338,17 +338,16 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       if (tW > 0 && tH > 0) {
         const s = Math.min(cW / tW, cH / tH, 1);
         setScale(s);
-        const overflow = s < 0.95;
-        setIsOverflowing(overflow);
 
-        // Auto-reduce font size when overflowing
-        if (overflow && onAutoFontSize && fontSize > 1.2) {
-          const reducedSize = Math.max(fontSize * s * 0.95, 1.2);
-          onAutoFontSize(reducedSize);
+        // If overflowing, clamp font size to max that fits (don't reduce below current)
+        if (s < 0.95 && onAutoFontSize) {
+          const maxSize = fontSize * s * 0.95;
+          if (maxSize < fontSize && maxSize >= 1.2) {
+            onAutoFontSize(maxSize);
+          }
         }
       } else {
         setScale(1);
-        setIsOverflowing(false);
       }
     }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign, authorFontSize, authorFont, authorName, authorPosition, socials, authorPhoto, fontLoaded]);
 
