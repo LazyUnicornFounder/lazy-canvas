@@ -1405,16 +1405,17 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                         };
                         const physicalScale = physicalScaleMap[opt.value] || 1;
                         const maxDim = 36;
-                        const scale = (maxDim / Math.max(w, h)) * physicalScale;
-                        const boxW = Math.max(8, Math.round(w * scale));
-                        const boxH = Math.max(8, Math.round(h * scale));
+                        const iconMaxDim = 28;
+                        const scale = (iconMaxDim / Math.max(w, h)) * physicalScale;
+                        const boxW = Math.max(6, Math.round(w * scale));
+                        const boxH = Math.max(6, Math.round(h * scale));
                         const isActive = state.aspectRatio === opt.value;
                         const sizeLabel = sizeMap[opt.value] || opt.value;
                         return (
                           <button
                             key={opt.value}
                             onClick={() => set("aspectRatio", opt.value)}
-                            className={`flex flex-col items-center gap-1 p-1.5 rounded-md border transition-all ${
+                            className={`flex flex-col items-center gap-0.5 p-1 rounded border transition-all ${
                               isActive
                                 ? "border-foreground bg-foreground/5"
                                 : "border-border hover:border-foreground/30"
@@ -1425,7 +1426,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                               className={`border ${isActive ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`}
                               style={{ width: boxW, height: boxH }}
                             />
-                            <span className={`text-[9px] font-heading ${isActive ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
+                            <span className={`text-[8px] leading-tight font-heading ${isActive ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
                               {opt.label}
                             </span>
                           </button>
