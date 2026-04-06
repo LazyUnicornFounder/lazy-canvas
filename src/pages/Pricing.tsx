@@ -10,33 +10,20 @@ import { toast } from "sonner";
 const POLAR_PRO_MONTHLY_ID = "5513f675-e192-4626-815d-375b75d84e43";
 const POLAR_PRO_YEARLY_ID = "3652d762-6798-41e9-89d5-3603e0f5a6f5";
 
-const proFeatures = [
-  { text: "Everything in Free", included: true },
-  { text: "Premium templates", included: true },
-  { text: "Wallpaper backgrounds", included: true },
-  { text: "Background image upload", included: true },
-  { text: "Background image remover", included: true },
-  { text: "Image filters", included: true },
-  { text: "Word colors", included: true },
-  { text: "No watermark", included: true },
-  { text: "All formats & sizes", included: true },
-  { text: "Save unlimited designs", included: true },
-  { text: "Re-edit your designs", included: true },
-];
-
-const freeFeatures = [
-  { text: "Unlimited designs", included: true },
-  { text: "PNG download", included: true },
-  { text: "Save unlimited quotes", included: false },
-  { text: "Premium templates", included: false },
-  { text: "Wallpaper backgrounds", included: false },
-  { text: "Background image upload", included: false },
-  { text: "Background image remover", included: false },
-  { text: "Image filters", included: false },
-  { text: "Word colors", included: false },
-  
-  { text: "All formats & sizes", included: false },
-  { text: "No watermark", included: false },
+// Unified feature list: [text, freeIncluded, proIncluded]
+const featureRows: [string, boolean, boolean][] = [
+  ["Unlimited designs", true, true],
+  ["PNG download", true, true],
+  ["Premium templates", false, true],
+  ["Wallpaper backgrounds", false, true],
+  ["Background image upload", false, true],
+  ["Background image remover", false, true],
+  ["Image filters", false, true],
+  ["Word colors", false, true],
+  ["All formats & sizes", false, true],
+  ["No watermark", false, true],
+  ["Save unlimited designs", false, true],
+  ["Re-edit your designs", false, true],
 ];
 
 const Pricing = () => {
