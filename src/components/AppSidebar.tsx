@@ -70,11 +70,11 @@ export function AppSidebar({
   return (
     <Sidebar collapsible="icon" className="border-r border-border">
       <SidebarHeader className="p-3 overflow-hidden">
-        <div className="flex items-start justify-between min-h-[40px]">
+        <div className="relative min-h-[26px]">
           {!collapsed && <LogoWithTagline />}
           <button
             onClick={() => toggleSidebar()}
-            className={`p-1 hover:bg-accent rounded-md transition-colors flex-shrink-0 mt-0.5 ${collapsed ? "mx-auto" : ""}`}
+            className={`absolute top-0 ${collapsed ? "left-1/2 -translate-x-1/2" : "right-0"} p-1 hover:bg-accent rounded-md transition-colors flex-shrink-0`}
             title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             {collapsed ? (
