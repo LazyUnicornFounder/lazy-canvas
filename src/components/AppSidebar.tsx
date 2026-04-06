@@ -161,19 +161,21 @@ export function AppSidebar({
       <SidebarFooter>
         <SidebarSeparator />
 
-        <div className="p-3 space-y-2">
-          <div className="flex items-center gap-2">
-            <Crown className="w-4 h-4 text-muted-foreground" />
-            <span className="text-xs font-heading font-medium text-foreground">{currentTier} Plan</span>
+        {!collapsed && (
+          <div className="p-3 space-y-2">
+            <div className="flex items-center gap-2">
+              <Crown className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <span className="text-xs font-heading font-medium text-foreground truncate">{currentTier} Plan</span>
+            </div>
+            <button
+              onClick={() => navigate("/pricing")}
+              className="flex items-center gap-2 w-full text-xs text-primary hover:underline"
+            >
+              <CreditCard className="w-3.5 h-3.5 flex-shrink-0" />
+              <span className="truncate">{currentTier === "Free" ? "Upgrade plan" : "Manage subscription"}</span>
+            </button>
           </div>
-          <button
-            onClick={() => navigate("/pricing")}
-            className="flex items-center gap-2 w-full text-xs text-primary hover:underline"
-          >
-            <CreditCard className="w-3.5 h-3.5" />
-            {currentTier === "Free" ? "Upgrade plan" : "Manage subscription"}
-          </button>
-        </div>
+        )}
 
         <SidebarSeparator />
 
