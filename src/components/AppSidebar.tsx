@@ -108,13 +108,6 @@ export function AppSidebar({
                   <span>New Content</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton onClick={handleSave} className="text-muted-foreground">
-                  <FileText className="w-4 h-4" />
-                  <span>{activeDesignId ? "Save changes" : "Save content"}</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
