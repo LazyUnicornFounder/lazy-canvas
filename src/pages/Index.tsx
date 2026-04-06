@@ -404,6 +404,7 @@ const Index = () => {
             borderWidth={editorState.borderWidth}
             borderColor={editorState.borderColor}
             borderStyle={editorState.borderStyle}
+            onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
           />
           {isFreeUser && usesProFeatures(editorState) && (
             <span className="absolute top-2 right-2 z-40 px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded-full shadow-sm pointer-events-none select-none opacity-80">
@@ -497,6 +498,7 @@ const Index = () => {
                   borderWidth={editorState.borderWidth}
                   borderColor={editorState.borderColor}
                   borderStyle={editorState.borderStyle}
+                  onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
                 />
                 {isFreeUser && usesProFeatures(editorState) && (
                   <span className="absolute top-2 right-2 z-40 px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded-full shadow-sm pointer-events-none select-none opacity-80">
