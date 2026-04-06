@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, LogOut } from "lucide-react";
 import TemplateLibrary from "@/components/TemplateLibrary";
 import { MainNav, LogoWithTagline } from "@/components/MainNav";
+import { useAuth } from "@/hooks/useAuth";
+import AuthModal from "@/components/AuthModal";
 import type { QuoteEditorState } from "@/components/QuoteEditor";
 
 interface Feature {
@@ -26,6 +28,9 @@ const DRAFT_KEY = "lazy-quotes-draft";
 
 const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState<"login" | "signup">("signup");
   const [bgOpacity] = useState(0.4);
 
   useEffect(() => {
@@ -47,19 +52,31 @@ const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
             <LogoWithTagline />
             <MainNav />
           </div>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate("/")}
-              className="px-4 py-2 bg-foreground text-background font-heading text-xs font-medium rounded-md hover:opacity-90 transition-opacity"
-            >
-              Open Editor
-            </button>
-            <button
-              onClick={() => navigate("/")}
-              className="px-4 py-2 bg-foreground text-background font-heading text-xs font-medium rounded-md hover:opacity-90 transition-opacity"
-            >
-              Open Editor
-            </button>
+          <div className="flex items-center gap-3">
+            {user ? (
+              <button
+                onClick={signOut}
+                className="p-2 hover:bg-accent rounded-md transition-colors"
+                title="Sign out"
+              >
+                <LogOut className="w-4 h-4 text-muted-foreground" />
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => { setAuthModalMode("login"); setShowAuthModal(true); }}
+                  className="text-sm font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Sign in
+                </button>
+                <button
+                  onClick={() => { setAuthModalMode("signup"); setShowAuthModal(true); }}
+                  className="px-4 py-2 bg-foreground text-background font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity"
+                >
+                  Get started free
+                </button>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -139,6 +156,13 @@ const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
           </p>
         </div>
       </footer>
+
+
+      <AuthModal
+        open={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        defaultMode={authModalMode}
+      />
     </div>
   );
 };

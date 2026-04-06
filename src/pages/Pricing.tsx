@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Check, X, Sparkles } from "lucide-react";
+import { Check, X, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { MainNav, LogoWithTagline } from "@/components/MainNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -29,8 +29,9 @@ const featureRows: [string, boolean, boolean][] = [
 
 const Pricing = () => {
   const navigate = useNavigate();
-  const { user, isPro } = useAuth();
+  const { user, isPro, signOut } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState<"login" | "signup">("signup");
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [billingInterval, setBillingInterval] = useState<"monthly" | "yearly">("monthly");
 
@@ -103,6 +104,32 @@ const Pricing = () => {
           <div className="flex items-center gap-6">
             <LogoWithTagline />
             <MainNav />
+          </div>
+          <div className="flex items-center gap-3">
+            {user ? (
+              <button
+                onClick={signOut}
+                className="p-2 hover:bg-accent rounded-md transition-colors"
+                title="Sign out"
+              >
+                <LogOut className="w-4 h-4 text-muted-foreground" />
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => { setAuthModalMode("login"); setShowAuthModal(true); }}
+                  className="text-sm font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Sign in
+                </button>
+                <button
+                  onClick={() => { setAuthModalMode("signup"); setShowAuthModal(true); }}
+                  className="px-4 py-2 bg-foreground text-background font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity"
+                >
+                  Get started free
+                </button>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -229,7 +256,7 @@ const Pricing = () => {
         </div>
       </main>
 
-      <AuthModal open={showAuthModal} onClose={() => setShowAuthModal(false)} />
+      <AuthModal open={showAuthModal} onClose={() => setShowAuthModal(false)} defaultMode={authModalMode} />
       <SiteFooter />
     </div>
   );
