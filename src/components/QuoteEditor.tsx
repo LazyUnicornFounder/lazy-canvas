@@ -228,6 +228,7 @@ export interface QuoteEditorState {
   backgroundOpacity: number;
   backgroundBlur: number;
   backgroundFilter: string;
+  filterIntensity: number;
   backgroundColor: string;
   fontSize: number;
   textAlign: "left" | "center" | "right";
@@ -289,6 +290,7 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   backgroundOpacity: 0.4,
   backgroundBlur: 0,
   backgroundFilter: "none",
+  filterIntensity: 1,
   backgroundColor: "",
   fontSize: 1.4,
   textAlign: "center",
@@ -654,6 +656,21 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             </button>
           ))}
         </div>
+        {state.backgroundFilter !== "none" && (
+          <div className="flex items-center gap-3 mt-2">
+            <label className="text-xs text-muted-foreground font-heading w-16">Intensity</label>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.05}
+              value={state.filterIntensity}
+              onChange={(e) => set("filterIntensity", parseFloat(e.target.value))}
+              className="flex-1 accent-foreground h-1"
+            />
+            <span className="text-xs text-muted-foreground w-8 text-right">{Math.round(state.filterIntensity * 100)}%</span>
+          </div>
+        )}
       </ControlSection>
       </div>
 
