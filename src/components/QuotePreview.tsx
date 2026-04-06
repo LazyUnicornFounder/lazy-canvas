@@ -304,6 +304,22 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     const contentRef = useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
     const [isOverflowing, setIsOverflowing] = useState(false);
+    const [fontLoaded, setFontLoaded] = useState(0);
+
+    // Force re-render when font finishes loading
+    useEffect(() => {
+      const family = fontFamilies[font].split(",")[0].replace(/'/g, "").trim();
+      const authorFamily = fontFamilies[authorFont].split(",")[0].replace(/'/g, "").trim();
+      let cancelled = false;
+      Promise.all([
+        document.fonts.load(`400 16px "${family}"`),
+        document.fonts.load(`700 16px "${family}"`),
+        document.fonts.load(`400 16px "${authorFamily}"`),
+      ]).then(() => {
+        if (!cancelled) setFontLoaded((n) => n + 1);
+      });
+      return () => { cancelled = true; };
+    }, [font, authorFont]);
 
     useEffect(() => {
       const container = containerRef.current;
