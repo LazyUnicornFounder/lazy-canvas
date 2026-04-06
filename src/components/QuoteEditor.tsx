@@ -377,7 +377,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
       onChange({
         ...state,
         backgroundImage: photo.src.large,
-        backgroundOpacity: 0.35,
+        backgroundOpacity: 0.9,
         theme: "dark",
         textColor: "",
         authorColor: "",
