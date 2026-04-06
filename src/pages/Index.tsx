@@ -221,7 +221,7 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, [editorState, performDownloadOnly]);
 
-
+  const handleDownloadClick = useCallback((scale: number = 3) => {
     const hasPro = usesProFeatures(editorState);
 
     if (!user) {
