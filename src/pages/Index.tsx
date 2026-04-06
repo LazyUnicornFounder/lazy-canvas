@@ -96,7 +96,7 @@ const Index = () => {
 
   const handleSelectQuote = (quote: UserQuote) => {
     if (!isPro) {
-      import("sonner").then(({ toast }) => toast.error("Re-editing saved quotes is a Pro feature."));
+      import("sonner").then(({ toast }) => toast.error("Re-editing saved designs is a Pro feature."));
       return;
     }
     setActiveQuoteId(quote.id);
@@ -118,7 +118,7 @@ const Index = () => {
       setActiveQuoteId(result.id);
     }
     const { toast } = await import("sonner");
-    toast.success(activeQuoteId ? "Changes saved!" : "Quote saved!");
+    toast.success(activeQuoteId ? "Changes saved!" : "Design saved!");
   }, [user, editorState, activeQuoteId, saveQuote]);
 
   // Scroll to top on mount (e.g. when navigating from marketing pages)
@@ -213,7 +213,7 @@ const Index = () => {
 
       const blob = await renderPreviewBlob(target, scale);
       const suffix = scale > 3 ? "-print" : "";
-      downloadBlob(blob, `quote${suffix}-${Date.now()}.png`);
+      downloadBlob(blob, `design${suffix}-${Date.now()}.png`);
 
       if (!user && showGuestPrompt && !localStorage.getItem("lazy-quotes-signup-dismissed")) {
         window.setTimeout(() => setShowSignupPrompt(true), 300);
