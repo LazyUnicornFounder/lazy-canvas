@@ -201,7 +201,7 @@ export interface QuoteEditorState {
   socialUsername: string;
   website: string;
   authorPhoto: string | null;
-  photoShape: "circle" | "square" | "rectangle" | "rounded-square" | "oval" | "hexagon";
+  photoShape: "none" | "circle" | "square" | "rectangle" | "rounded-square" | "oval" | "hexagon";
   aspectRatio: AspectRatio;
   font: QuoteFont;
   theme: QuoteTheme;
@@ -258,7 +258,7 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   socialUsername: "",
   website: "",
   authorPhoto: null,
-  photoShape: "circle",
+  photoShape: "none",
   aspectRatio: "square",
   font: "playfair",
   theme: "light",
@@ -294,7 +294,7 @@ interface QuoteEditorProps {
 
 const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorProps) => {
   // Normalize state to handle old saved states missing new fields
-  const state: QuoteEditorState = { ...DEFAULT_EDITOR_STATE, ...rawState, coloredWords: rawState.coloredWords || [], photoShape: rawState.photoShape || "circle" };
+  const state: QuoteEditorState = { ...DEFAULT_EDITOR_STATE, ...rawState, coloredWords: rawState.coloredWords || [], photoShape: rawState.photoShape || "none" };
   const navigate = useNavigate();
   const goToPricing = () => navigate("/pricing");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -1073,13 +1073,14 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 <img
                   src={state.authorPhoto}
                   alt="Author"
-                  className={`w-16 h-16 object-cover border border-border ${
-                    state.photoShape === "circle" ? "rounded-full" :
-                    state.photoShape === "square" ? "rounded-none" :
-                    state.photoShape === "rounded-square" ? "rounded-lg" :
-                    state.photoShape === "oval" ? "rounded-full" :
-                    state.photoShape === "hexagon" ? "rounded-lg" :
-                    "rounded-md"
+                  className={`border border-border ${
+                    state.photoShape === "none" ? "rounded-md max-w-[5rem] max-h-[5rem]" :
+                    state.photoShape === "circle" ? "w-16 h-16 rounded-full object-cover" :
+                    state.photoShape === "square" ? "w-16 h-16 rounded-none object-cover" :
+                    state.photoShape === "rounded-square" ? "w-16 h-16 rounded-lg object-cover" :
+                    state.photoShape === "oval" ? "rounded-full object-cover" :
+                    state.photoShape === "hexagon" ? "rounded-lg object-cover" :
+                    "w-16 h-16 rounded-md object-cover"
                   }`}
                   style={{
                     ...(state.photoShape === "rectangle" ? { width: "5rem", height: "3.5rem" } : {}),
@@ -1126,6 +1127,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1.5">Shape</p>
             <div className="flex flex-wrap gap-2">
               {([
+                { value: "none" as const, label: "Original", preview: "rounded-md", w: 36, h: 28 },
                 { value: "circle" as const, label: "Circle", preview: "rounded-full", w: 32, h: 32 },
                 { value: "square" as const, label: "Square", preview: "rounded-none", w: 32, h: 32 },
                 { value: "rounded-square" as const, label: "Rounded", preview: "rounded-lg", w: 32, h: 32 },

@@ -72,7 +72,7 @@ interface QuotePreviewProps {
   quote: string;
   authorName: string;
   authorPhoto: string | null;
-  photoShape?: "circle" | "square" | "rectangle" | "rounded-square" | "oval" | "hexagon";
+  photoShape?: "none" | "circle" | "square" | "rectangle" | "rounded-square" | "oval" | "hexagon";
   socials: string;
   socialPlatform?: SocialPlatform;
   aspectRatio: AspectRatio;
@@ -264,7 +264,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = [], show
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, photoShape = "circle", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false, customWidth, customHeight }, ref) => {
+  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false, customWidth, customHeight }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
@@ -315,13 +315,14 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           <img
             src={authorPhoto}
             alt={authorName}
-            className={`object-cover ${
-              photoShape === "circle" ? "w-10 h-10 rounded-full" :
-              photoShape === "square" ? "w-10 h-10 rounded-none" :
-              photoShape === "rounded-square" ? "w-10 h-10 rounded-lg" :
-              photoShape === "rectangle" ? "w-14 h-10 rounded-md" :
-              photoShape === "oval" ? "w-12 h-10 rounded-full" :
-              "w-10 h-10 rounded-full"
+            className={`${
+              photoShape === "none" ? "max-w-[2.5rem] max-h-[2.5rem] rounded-md" :
+              photoShape === "circle" ? "w-10 h-10 rounded-full object-cover" :
+              photoShape === "square" ? "w-10 h-10 rounded-none object-cover" :
+              photoShape === "rounded-square" ? "w-10 h-10 rounded-lg object-cover" :
+              photoShape === "rectangle" ? "w-14 h-10 rounded-md object-cover" :
+              photoShape === "oval" ? "w-12 h-10 rounded-full object-cover" :
+              "w-10 h-10 rounded-full object-cover"
             }`}
             style={{
               border: `1px solid ${t.border}`,
