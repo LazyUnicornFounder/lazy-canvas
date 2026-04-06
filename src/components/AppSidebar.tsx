@@ -1,4 +1,5 @@
 import { Plus, FileText, Trash2, Crown, ChevronUp, LogOut, CreditCard } from "lucide-react";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserQuotes, type UserQuote } from "@/hooks/useUserQuotes";
