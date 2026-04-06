@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useEffect, useState, useCallback } from "react";
+import { forwardRef, useRef, useEffect, useLayoutEffect, useState } from "react";
 import { Instagram, Youtube, Linkedin, Facebook, type LucideProps } from "lucide-react";
 import { BG_FILTERS } from "@/components/QuoteEditor";
 
@@ -321,13 +321,10 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       return () => { cancelled = true; };
     }, [font, authorFont]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       const container = containerRef.current;
       const content = contentRef.current;
       if (!container || !content) { setScale(1); return; }
-
-      content.style.transform = "scale(1)";
-      content.style.transformOrigin = "top left";
 
       const cW = container.clientWidth;
       const cH = container.clientHeight;
@@ -335,14 +332,17 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       const tH = content.scrollHeight;
 
       if (tW > 0 && tH > 0) {
-        const s = Math.min(cW / tW, cH / tH, 1);
+        const fitBuffer = Math.max(4, Math.ceil(borderWidth * 0.25));
+        const availableWidth = Math.max(cW - fitBuffer, 1);
+        const availableHeight = Math.max(cH - fitBuffer, 1);
+        const s = Math.min(availableWidth / tW, availableHeight / tH, 1);
         setScale(s);
 
         // Content scales down visually via transform — no longer mutating the user's font size
       } else {
         setScale(1);
       }
-    }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign, authorFontSize, authorFont, authorName, authorPosition, socials, authorPhoto, fontLoaded, borderWidth, borderStyle]);
+    }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign, authorFontSize, authorFont, authorName, authorPosition, socials, socialPlatform, authorPhoto, photoShape, photoStroke, showQuotationMarks, coloredWords, isBold, isItalic, fontLoaded, borderWidth, borderStyle]);
 
     const hasAuthor = authorName || authorPhoto || socials;
     const isDetached = authorPosition !== "below-quote";
@@ -444,8 +444,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         {/* Inner padding — nothing goes beyond this */}
         <div className="absolute inset-0 flex flex-col" style={{ padding: `clamp(${12 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth * 1.5 : 0)}px, ${4 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth * 0.8 : 0)}%, ${32 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth * 1.5 : 0)}px)` }}>
           {/* Quote content */}
-          <div ref={containerRef} className="flex-1 flex items-center justify-center relative z-10 overflow-hidden">
-            <div ref={contentRef} style={{ textAlign, maxWidth: "90%", width: "90%", transform: `scale(${scale})`, transformOrigin: "center center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <div ref={containerRef} className="flex-1 flex items-center justify-center relative z-10">
+            <div ref={contentRef} style={{ textAlign, maxWidth: "90%", width: "90%", transform: `scale(${scale})`, transformOrigin: "center center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", willChange: scale < 1 ? "transform" : undefined }}>
               <p
                 className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""} whitespace-pre-wrap break-words`}
                 style={{
