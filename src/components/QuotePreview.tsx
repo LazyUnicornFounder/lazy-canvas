@@ -338,17 +338,17 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         const s = Math.min(cW / tW, cH / tH, 1);
         setScale(s);
 
-        // If overflowing, clamp font size to max that fits (don't reduce below current)
+        // If overflowing, auto-reduce font size to fit
         if (s < 0.95 && onAutoFontSize) {
-          const maxSize = fontSize * s * 0.95;
-          if (maxSize < fontSize && maxSize >= 1.2) {
+          const maxSize = Math.max(fontSize * s * 0.9, 0.6);
+          if (maxSize < fontSize) {
             onAutoFontSize(maxSize);
           }
         }
       } else {
         setScale(1);
       }
-    }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign, authorFontSize, authorFont, authorName, authorPosition, socials, authorPhoto, fontLoaded]);
+    }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign, authorFontSize, authorFont, authorName, authorPosition, socials, authorPhoto, fontLoaded, borderWidth, borderStyle]);
 
     const hasAuthor = authorName || authorPhoto || socials;
     const isDetached = authorPosition !== "below-quote";
