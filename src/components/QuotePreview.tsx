@@ -172,6 +172,33 @@ const fontClasses: Record<QuoteFont, string> = {
   audiowide: "font-audiowide uppercase tracking-wider",
 };
 
+const fontFamilies: Record<QuoteFont, string> = {
+  playfair: "'Playfair Display', serif",
+  cormorant: "'Cormorant Garamond', serif",
+  bebas: "'Bebas Neue', sans-serif",
+  mono: "'IBM Plex Mono', monospace",
+  heading: "'Space Grotesk', sans-serif",
+  lora: "'Lora', serif",
+  inter: "'Inter', sans-serif",
+  oswald: "'Oswald', sans-serif",
+  merriweather: "'Merriweather', serif",
+  raleway: "'Raleway', sans-serif",
+  dancing: "'Dancing Script', cursive",
+  archivo: "'Archivo Black', sans-serif",
+  crimson: "'Crimson Text', serif",
+  montserrat: "'Montserrat', sans-serif",
+  poppins: "'Poppins', sans-serif",
+  pacifico: "'Pacifico', cursive",
+  "great-vibes": "'Great Vibes', cursive",
+  satisfy: "'Satisfy', cursive",
+  caveat: "'Caveat', cursive",
+  "permanent-marker": "'Permanent Marker', cursive",
+  "shadows-into-light": "'Shadows Into Light', cursive",
+  orbitron: "'Orbitron', sans-serif",
+  rajdhani: "'Rajdhani', sans-serif",
+  audiowide: "'Audiowide', sans-serif",
+};
+
 const themeStyles: Record<QuoteTheme, { bg: string; text: string; muted: string; border: string }> = {
   light: { bg: "#FFFFFF", text: "#1a1a1a", muted: "#888888", border: "#e5e5e5" },
   dark: { bg: "#1a1a1a", text: "#f5f5f0", muted: "#888888", border: "#333333" },
