@@ -199,7 +199,7 @@ const Index = () => {
     }
   }, [downloadBlob, renderPreviewBlob, user]);
 
-  const pendingFreeDownload = useRef(false);
+  
 
   const handleDownloadFreeVersion = useCallback(() => {
     setShowProUpgradePrompt(false);
@@ -211,17 +211,7 @@ const Index = () => {
       backgroundImage: null,
       aspectRatio: "square" as const,
     }));
-    pendingFreeDownload.current = true;
   }, []);
-
-  useEffect(() => {
-    if (!pendingFreeDownload.current) return;
-    pendingFreeDownload.current = false;
-    const timer = setTimeout(() => {
-      performDownloadOnly(3, false);
-    }, 250);
-    return () => clearTimeout(timer);
-  }, [editorState, performDownloadOnly]);
 
   const handleDownloadClick = useCallback((scale: number = 3) => {
     const hasPro = usesProFeatures(editorState);
