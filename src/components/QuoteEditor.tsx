@@ -1073,13 +1073,14 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 <img
                   src={state.authorPhoto}
                   alt="Author"
-                  className={`w-16 h-16 object-cover border border-border ${
-                    state.photoShape === "circle" ? "rounded-full" :
-                    state.photoShape === "square" ? "rounded-none" :
-                    state.photoShape === "rounded-square" ? "rounded-lg" :
-                    state.photoShape === "oval" ? "rounded-full" :
-                    state.photoShape === "hexagon" ? "rounded-lg" :
-                    "rounded-md"
+                  className={`border border-border ${
+                    state.photoShape === "none" ? "rounded-md max-w-[5rem] max-h-[5rem]" :
+                    state.photoShape === "circle" ? "w-16 h-16 rounded-full object-cover" :
+                    state.photoShape === "square" ? "w-16 h-16 rounded-none object-cover" :
+                    state.photoShape === "rounded-square" ? "w-16 h-16 rounded-lg object-cover" :
+                    state.photoShape === "oval" ? "rounded-full object-cover" :
+                    state.photoShape === "hexagon" ? "rounded-lg object-cover" :
+                    "w-16 h-16 rounded-md object-cover"
                   }`}
                   style={{
                     ...(state.photoShape === "rectangle" ? { width: "5rem", height: "3.5rem" } : {}),
