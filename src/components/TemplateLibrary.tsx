@@ -3189,7 +3189,7 @@ export default function TemplateLibrary({ onApply, backgroundOpacity, onOpacityC
         ))}
       </div>
 
-      <div className={category === "all" ? "flex gap-2.5 overflow-x-auto pb-2 scrollbar-none" : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5"}>
+      <div className={category === "all" ? "flex gap-2.5 overflow-x-auto pb-2 scrollbar-none" : "flex flex-wrap gap-2.5"}>
         {filtered.map((template) => {
           const s = template.editorState;
           const textCol = s.textColor || "#1a1a1a";
@@ -3203,8 +3203,8 @@ export default function TemplateLibrary({ onApply, backgroundOpacity, onOpacityC
             <button
               key={template.id}
               onClick={() => onApply({ ...template.editorState, quote: previewText, authorName: previewAuthor })}
-              className={`group relative rounded-xl overflow-hidden border border-border/50 hover:border-foreground/20 transition-all duration-200 hover:shadow-lg hover:scale-[1.03] active:scale-[0.97] ${category === "all" ? "flex-shrink-0" : ""}`}
-              style={{ aspectRatio: "3/4", ...(category === "all" ? { width: "140px" } : {}) }}
+              className="group relative rounded-xl overflow-hidden border border-border/50 hover:border-foreground/20 transition-all duration-200 hover:shadow-lg hover:scale-[1.03] active:scale-[0.97] flex-shrink-0"
+              style={{ aspectRatio: "3/4", width: "140px" }}
             >
               {/* Background image */}
               {bgImage && (
