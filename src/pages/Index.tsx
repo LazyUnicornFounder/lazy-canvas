@@ -382,6 +382,7 @@ const Index = () => {
             backgroundOpacity={editorState.backgroundOpacity}
             backgroundBlur={editorState.backgroundBlur}
             backgroundFilter={editorState.backgroundFilter}
+            filterIntensity={editorState.filterIntensity}
             fontSize={editorState.fontSize}
             textAlign={editorState.textAlign}
             letterSpacing={editorState.letterSpacing}
@@ -477,6 +478,7 @@ const Index = () => {
                   backgroundOpacity={editorState.backgroundOpacity}
                   backgroundBlur={editorState.backgroundBlur}
                   backgroundFilter={editorState.backgroundFilter}
+                  filterIntensity={editorState.filterIntensity}
                   fontSize={editorState.fontSize}
                   textAlign={editorState.textAlign}
                   letterSpacing={editorState.letterSpacing}
