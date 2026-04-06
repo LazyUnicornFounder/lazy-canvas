@@ -94,6 +94,10 @@ const Index = () => {
   const mobilePreviewRef = useRef<HTMLDivElement>(null);
 
   const handleSelectQuote = (quote: UserQuote) => {
+    if (!isPro) {
+      import("sonner").then(({ toast }) => toast.error("Re-editing saved quotes is a Pro feature."));
+      return;
+    }
     setActiveQuoteId(quote.id);
     setEditorState(quote.editor_state);
   };

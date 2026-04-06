@@ -16,7 +16,7 @@ const featureRows: [string, boolean, boolean][] = [
   ["Unlimited designs", true, true],
   ["PNG download", true, true],
   ["Save unlimited designs", true, true],
-  ["Re-edit your designs", true, true],
+  ["Re-edit your designs", false, true],
   ["Premium templates", false, true],
   ["Wallpaper backgrounds", false, true],
   ["Background image upload", false, true],
