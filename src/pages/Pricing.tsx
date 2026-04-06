@@ -59,7 +59,7 @@ const Pricing = () => {
     setCheckoutLoading(true);
     try {
       const productId = billingInterval === "yearly" ? POLAR_PRO_YEARLY_ID : POLAR_PRO_MONTHLY_ID;
-      const successUrl = `${window.location.origin}/pricing?checkout=success&checkout_id={CHECKOUT_ID}`;
+      const successUrl = `${window.location.origin}/?checkout=success&checkout_id={CHECKOUT_ID}`;
       const { data, error } = await supabase.functions.invoke("polar-checkout", {
         body: { productId, successUrl },
       });
@@ -95,13 +95,6 @@ const Pricing = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("checkout") === "success") {
-      toast.success("Welcome to Pro! 🎉 Your subscription is now active.");
-      window.history.replaceState({}, "", "/pricing");
-    }
-  }, []);
 
   const proPrice = billingInterval === "yearly" ? "$4" : "$5";
   const proPeriod = billingInterval === "yearly" ? "/mo" : "/month";

@@ -307,7 +307,15 @@ const Index = () => {
     }
   }, [downloadBlob, renderPreviewBlob, user, isPro, addCanvasWatermark]);
 
-  
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("checkout") === "success") {
+      toast.success("Welcome to Pro! 🎉 Your subscription is now active.");
+      refreshProStatus();
+      window.history.replaceState({}, "", "/");
+    }
+  }, []);
+
 
   const handleDownloadFreeVersion = useCallback(() => {
     setShowProUpgradePrompt(false);
