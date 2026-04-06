@@ -450,7 +450,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           <div className="absolute inset-0" style={{ backgroundColor: backgroundColor || t.bg, opacity: 1 - backgroundOpacity }} />
         )}
         {/* Inner padding — nothing goes beyond this */}
-        <div className="absolute inset-0 flex flex-col" style={{ padding: "clamp(12px, 4%, 32px)" }}>
+        <div className="absolute inset-0 flex flex-col" style={{ padding: `clamp(${12 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth : 0)}px, ${4 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth * 0.3 : 0)}%, ${32 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth : 0)}px)` }}>
           {/* Quote content */}
           <div ref={containerRef} className="flex-1 flex items-center justify-center relative z-10 overflow-hidden">
             <div ref={contentRef} style={{ textAlign, maxWidth: "90%", width: "90%", transform: `scale(${scale})`, transformOrigin: "center center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
