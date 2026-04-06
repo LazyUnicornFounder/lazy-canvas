@@ -20,6 +20,7 @@ const featureRows: [string, boolean, boolean][] = [
   ["Premium templates", false, true],
   ["Wallpaper backgrounds", false, true],
   ["Background image upload", false, true],
+  ["Upload your own image library", false, true],
   ["Background image remover", false, true],
   ["Image filters", false, true],
   ["Word colors", false, true],
