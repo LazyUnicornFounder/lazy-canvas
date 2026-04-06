@@ -159,7 +159,7 @@ const Pricing = () => {
               <div className="flex items-baseline gap-1">
                 <span className="font-heading text-4xl font-bold text-foreground">$0</span>
               </div>
-              <p className="text-sm text-muted-foreground">Create and save unlimited quotes.</p>
+              <p className="text-sm text-muted-foreground">Create and save unlimited designs.</p>
             </div>
 
             <button
