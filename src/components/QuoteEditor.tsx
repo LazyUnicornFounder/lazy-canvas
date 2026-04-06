@@ -780,7 +780,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             </button>
           </div>
           <div className="flex items-center gap-3 mt-3">
-            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-10">Size</span>
+            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Size</span>
             <input type="range" min={0.8} max={6} step={0.05} value={state.fontSize} onChange={(e) => set("fontSize", parseFloat(e.target.value))} className="w-1/2 accent-foreground h-1" />
             <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.fontSize.toFixed(1)}</span>
           </div>
