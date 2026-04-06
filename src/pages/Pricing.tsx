@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Check, X, Sparkles } from "lucide-react";
+import { Check, X, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { MainNav, LogoWithTagline } from "@/components/MainNav";
 import { SiteFooter } from "@/components/SiteFooter";

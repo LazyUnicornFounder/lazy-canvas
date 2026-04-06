@@ -156,6 +156,13 @@ const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
           </p>
         </div>
       </footer>
+
+
+      <AuthModal
+        open={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        defaultMode={authModalMode}
+      />
     </div>
   );
 };
