@@ -572,9 +572,9 @@ const Index = () => {
       <AlertDialog open={showSignupPrompt} onOpenChange={(o) => !o && setShowSignupPrompt(false)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-heading">Sign up free to save this quote and create more free quotes.</AlertDialogTitle>
+            <AlertDialogTitle className="font-heading">Sign up free to save this design and create more free designs.</AlertDialogTitle>
             <AlertDialogDescription className="text-sm text-muted-foreground">
-              Create a free account to save your quotes, edit them anytime, and create unlimited new ones from your personal dashboard.
+              Create a free account to save your designs, and create unlimited new ones from your personal dashboard.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
