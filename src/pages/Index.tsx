@@ -579,13 +579,13 @@ const Index = () => {
               />
             </div>
           )}
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); }}>
-              Go back
-            </AlertDialogCancel>
-            <AlertDialogAction onClick={() => { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); navigate("/pricing"); }}>
+          <AlertDialogFooter className="flex-col sm:flex-col gap-2">
+            <AlertDialogAction onClick={() => { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); navigate("/pricing"); }} className="w-full">
               Upgrade to Pro
             </AlertDialogAction>
+            <AlertDialogCancel onClick={handleDownloadFreeVersion} className="w-full border-0 text-muted-foreground hover:text-foreground text-xs mt-0">
+              Download free version instead
+            </AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
