@@ -200,7 +200,7 @@ const Pricing = () => {
                 )}
               </div>
               <p className="text-sm text-muted-foreground">Everything in Free, plus premium tools.</p>
-              <p className="text-xs text-muted-foreground/70">Cancel anytime.</p>
+              <p className="text-xs font-medium text-primary">14-day free trial · Cancel anytime.</p>
             </div>
 
             <ul className="space-y-2.5 flex-1 mb-6">
@@ -223,7 +223,7 @@ const Pricing = () => {
               disabled={checkoutLoading}
               className="w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 bg-foreground text-background disabled:opacity-50 mt-auto"
             >
-              {isPro ? "Current Plan" : checkoutLoading ? "Loading..." : "Upgrade to Pro"}
+              {isPro ? "Current Plan" : checkoutLoading ? "Loading..." : "Start 14-day free trial"}
             </button>
           </div>
         </div>
