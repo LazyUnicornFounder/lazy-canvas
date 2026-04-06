@@ -306,7 +306,7 @@ const Index = () => {
 
       {/* Mobile sticky preview */}
       <div className="lg:hidden sticky top-0 z-20 bg-background border-b border-border px-4 py-3">
-        <div className="max-w-[280px] mx-auto">
+        <div className="max-w-[280px] mx-auto relative">
           <QuotePreview
             ref={mobilePreviewRef}
             quote={editorState.quote}
@@ -343,6 +343,11 @@ const Index = () => {
             customWidth={editorState.customWidth}
             customHeight={editorState.customHeight}
           />
+          {isFreeUser && usesProFeatures(editorState) && (
+            <span className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded-full shadow-sm pointer-events-none select-none opacity-80">
+              Pro
+            </span>
+          )}
         </div>
         <div className="relative w-full mt-2 max-w-[280px] mx-auto">
           <div className="flex w-full">
@@ -391,7 +396,7 @@ const Index = () => {
           </div>
           {/* Preview — right */}
           <div className="hidden lg:flex flex-shrink-0 flex-col gap-3 sticky top-6 self-start transition-all duration-300" style={{ width: getPreviewContainerWidth(editorState.aspectRatio, editorState.customWidth, editorState.customHeight) }}>
-            <div className="w-full overflow-hidden">
+            <div className="w-full overflow-hidden relative">
                 <QuotePreview
                   ref={previewRef}
                   quote={editorState.quote}
@@ -428,6 +433,11 @@ const Index = () => {
                   customWidth={editorState.customWidth}
                   customHeight={editorState.customHeight}
                 />
+                {isFreeUser && usesProFeatures(editorState) && (
+                  <span className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded-full shadow-sm pointer-events-none select-none opacity-80">
+                    Pro
+                  </span>
+                )}
             </div>
             <div className="relative w-fit">
               <div className="flex w-fit">
