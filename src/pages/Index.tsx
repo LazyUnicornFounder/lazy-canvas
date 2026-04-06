@@ -97,7 +97,13 @@ const Index = () => {
 
   const handleSelectDesign = (quote: UserDesign) => {
     if (!isPro) {
-      import("sonner").then(({ toast }) => toast.error("Re-editing saved designs is a Pro feature."));
+      toast("Pro Feature", {
+        description: "Re-editing saved designs is a Pro feature. Upgrade to unlock!",
+        action: {
+          label: "Upgrade",
+          onClick: () => navigate("/pricing"),
+        },
+      });
       return;
     }
     setActiveQuoteId(quote.id);
