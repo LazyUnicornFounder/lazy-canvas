@@ -1385,7 +1385,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
               ))}
             </div>
           </div>
-        </div>
+
           {/* Logo sub-section */}
           <div className="pt-3 mt-3 border-t border-border">
             <div className="flex items-center gap-2 mb-2">
