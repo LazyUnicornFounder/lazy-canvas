@@ -675,7 +675,7 @@ const Index = () => {
       <AuthModal
         open={showAuthModal}
         onClose={() => setShowAuthModal(false)}
-        onSuccess={() => navigate("/create")}
+        onSuccess={() => navigate("/")}
         defaultMode={authModalMode}
       />
 
