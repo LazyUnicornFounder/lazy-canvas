@@ -170,15 +170,15 @@ const Pricing = () => {
             </button>
 
             <ul className="space-y-2.5 flex-1">
-              {freeFeatures.map((f, i) => (
+              {featureRows.map(([text, freeIncluded], i) => (
                 <li key={i} className="flex items-start gap-2.5 text-sm">
-                  {f.included ? (
+                  {freeIncluded ? (
                     <Check className="w-4 h-4 text-foreground flex-shrink-0 mt-0.5" />
                   ) : (
                     <X className="w-4 h-4 text-muted-foreground/40 flex-shrink-0 mt-0.5" />
                   )}
-                  <span className={f.included ? "text-foreground" : "text-muted-foreground/50"}>
-                    {f.text}
+                  <span className={freeIncluded ? "text-foreground" : "text-muted-foreground/50"}>
+                    {text}
                   </span>
                 </li>
               ))}
@@ -211,15 +211,15 @@ const Pricing = () => {
             </button>
 
             <ul className="space-y-2.5 flex-1">
-              {proFeatures.map((f, i) => (
+              {featureRows.map(([text, , proIncluded], i) => (
                 <li key={i} className="flex items-start gap-2.5 text-sm">
-                  {f.included ? (
+                  {proIncluded ? (
                     <Check className="w-4 h-4 text-foreground flex-shrink-0 mt-0.5" />
                   ) : (
                     <X className="w-4 h-4 text-muted-foreground/40 flex-shrink-0 mt-0.5" />
                   )}
-                  <span className={f.included ? "text-foreground" : "text-muted-foreground/50"}>
-                    {f.text}
+                  <span className={proIncluded ? "text-foreground" : "text-muted-foreground/50"}>
+                    {text}
                   </span>
                 </li>
               ))}
