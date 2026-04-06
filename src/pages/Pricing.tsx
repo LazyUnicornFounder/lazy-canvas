@@ -176,7 +176,7 @@ const Pricing = () => {
                 disabled={checkoutLoading && tier.name === "Pro"}
                 className="w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 mb-6 bg-foreground text-background disabled:opacity-50"
               >
-                {tier.name === "Pro" && isPro
+                {(tier.name === "Pro" && isPro) || (tier.name === "Free" && user && !isPro)
                   ? "Current Plan"
                   : tier.name === "Pro" && checkoutLoading
                   ? "Loading..."
