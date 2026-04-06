@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -82,6 +82,7 @@ const Index = () => {
   const [showGalleryPrompt, setShowGalleryPrompt] = useState(false);
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [showProUpgradePrompt, setShowProUpgradePrompt] = useState(false);
+  const [proUpgradeSnapshot, setProUpgradeSnapshot] = useState<string | null>(null);
   const [showProSignupPrompt, setShowProSignupPrompt] = useState(false);
   const [activeQuoteId, setActiveQuoteId] = useState<string | null>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -210,6 +211,12 @@ const Index = () => {
     } else if (isPro) {
       performDownloadOnly(scale);
     } else if (hasPro) {
+      const target = previewRef.current || mobilePreviewRef.current;
+      if (target) {
+        html2canvas(target, { scale: 1, useCORS: true, logging: false, backgroundColor: null })
+          .then((canvas) => setProUpgradeSnapshot(canvas.toDataURL("image/png")))
+          .catch(() => {});
+      }
       setShowProUpgradePrompt(true);
     } else {
       performDownloadOnly(scale);
@@ -522,19 +529,38 @@ const Index = () => {
       </AlertDialog>
 
       {/* Pro upgrade prompt for free users who already used their trial */}
-      <AlertDialog open={showProUpgradePrompt} onOpenChange={(o) => !o && setShowProUpgradePrompt(false)}>
-        <AlertDialogContent>
+      <AlertDialog open={showProUpgradePrompt} onOpenChange={(o) => { if (!o) { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); } }}>
+        <AlertDialogContent className="overflow-hidden">
+          {proUpgradeSnapshot && (
+            <div className="absolute inset-0 -z-10">
+              <img
+                src={proUpgradeSnapshot}
+                alt=""
+                className="w-full h-full object-cover blur-md scale-110 opacity-20"
+              />
+              <div className="absolute inset-0 bg-background/70" />
+            </div>
+          )}
           <AlertDialogHeader>
             <AlertDialogTitle className="font-heading">Your design uses Pro features</AlertDialogTitle>
             <AlertDialogDescription className="text-sm text-muted-foreground">
               Upgrade to Pro to download this version, or switch to a free style to download now.
             </AlertDialogDescription>
           </AlertDialogHeader>
+          {proUpgradeSnapshot && (
+            <div className="flex justify-center py-2">
+              <img
+                src={proUpgradeSnapshot}
+                alt="Your design preview"
+                className="max-h-48 rounded-md border border-border shadow-md object-contain"
+              />
+            </div>
+          )}
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setShowProUpgradePrompt(false)}>
+            <AlertDialogCancel onClick={() => { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); }}>
               Go back
             </AlertDialogCancel>
-            <AlertDialogAction onClick={() => { setShowProUpgradePrompt(false); navigate("/pricing"); }}>
+            <AlertDialogAction onClick={() => { setShowProUpgradePrompt(false); setProUpgradeSnapshot(null); navigate("/pricing"); }}>
               Upgrade to Pro
             </AlertDialogAction>
           </AlertDialogFooter>
