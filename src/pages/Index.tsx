@@ -290,13 +290,10 @@ const Index = () => {
     setDownloading(true);
 
     try {
-      // Show watermark for free users during capture
+      let blob = await renderPreviewBlob(target, scale);
       if (!isPro) {
-        setShowDownloadWatermark(true);
-        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+        blob = await addCanvasWatermark(blob);
       }
-
-      const blob = await renderPreviewBlob(target, scale);
       const suffix = scale > 3 ? "-print" : "";
       downloadBlob(blob, `design${suffix}-${Date.now()}.png`);
 
@@ -306,10 +303,9 @@ const Index = () => {
     } catch (err) {
       console.error("Failed to export", err);
     } finally {
-      setShowDownloadWatermark(false);
       setDownloading(false);
     }
-  }, [downloadBlob, renderPreviewBlob, user, isPro]);
+  }, [downloadBlob, renderPreviewBlob, user, isPro, addCanvasWatermark]);
 
   
 
@@ -397,21 +393,17 @@ const Index = () => {
         });
       }
 
-      // Show watermark for free users during capture
+      let blob = await renderPreviewBlob(target, 3);
       if (!isPro) {
-        setShowDownloadWatermark(true);
-        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+        blob = await addCanvasWatermark(blob);
       }
-
-      const blob = await renderPreviewBlob(target, 3);
       downloadBlob(blob, `quote-${Date.now()}.png`);
     } catch (err) {
       console.error("Failed to export", err);
     } finally {
-      setShowDownloadWatermark(false);
       setDownloading(false);
     }
-  }, [downloadBlob, renderPreviewBlob, user, editorState, isPro]);
+  }, [downloadBlob, renderPreviewBlob, user, editorState, isPro, addCanvasWatermark]);
 
   const handleSignupAccept = useCallback(() => {
     setShowSignupPrompt(false);
