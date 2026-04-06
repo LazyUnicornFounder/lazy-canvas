@@ -1376,9 +1376,9 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
         </ControlSection>
       </div>
 
-      {/* Unit Calculator */}
+      {/* Unit Converter */}
       <div className="md:col-span-2">
-        <ControlSection label="Calculator">
+        <ControlSection label="Unit Converter">
           <UnitCalculator />
         </ControlSection>
       </div>
