@@ -102,12 +102,19 @@ const Index = () => {
   }, []);
 
   const handleLockedEditAttempt = useCallback(async () => {
+    if (activeDesignId === null) return;
+
+    if (!proLoading && !isPro) {
+      openProEditPrompt();
+      return;
+    }
+
     const canEdit = await refreshProStatus();
 
     if (!canEdit) {
       openProEditPrompt();
     }
-  }, [openProEditPrompt, refreshProStatus]);
+  }, [activeDesignId, isPro, openProEditPrompt, proLoading, refreshProStatus]);
 
   const isSavedDesignLocked = !!user && (proLoading || !isPro) && activeDesignId !== null;
 
