@@ -106,6 +106,10 @@ interface QuotePreviewProps {
   borderWidth?: number;
   borderColor?: string;
   borderStyle?: "none" | "solid" | "dashed" | "dotted" | "double";
+  glassBorder?: boolean;
+  glassAuthorPill?: boolean;
+  glassInnerFrame?: boolean;
+  glassVignette?: boolean;
   onAutoFontSize?: (newSize: number) => void;
 }
 

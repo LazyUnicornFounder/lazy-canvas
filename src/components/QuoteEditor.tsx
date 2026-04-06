@@ -255,6 +255,10 @@ export interface QuoteEditorState {
   borderWidth: number;
   borderColor: string;
   borderStyle: "none" | "solid" | "dashed" | "dotted" | "double";
+  glassBorder: boolean;
+  glassAuthorPill: boolean;
+  glassInnerFrame: boolean;
+  glassVignette: boolean;
 }
 
 export const BG_FILTERS: { value: string; label: string; css: string }[] = [
@@ -317,6 +321,10 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   borderWidth: 0,
   borderColor: "#000000",
   borderStyle: "none",
+  glassBorder: false,
+  glassAuthorPill: false,
+  glassInnerFrame: false,
+  glassVignette: false,
 };
 
 interface QuoteEditorProps {
