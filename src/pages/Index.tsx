@@ -396,7 +396,7 @@ const Index = () => {
             isBold={editorState.isBold}
             isItalic={editorState.isItalic}
             coloredWords={editorState.coloredWords}
-            showWatermark={showDownloadWatermark}
+            showWatermark={false}
             showQuotationMarks={editorState.showQuotationMarks}
             photoStroke={editorState.photoStroke}
             customWidth={editorState.customWidth}
@@ -489,7 +489,7 @@ const Index = () => {
                   isBold={editorState.isBold}
                   isItalic={editorState.isItalic}
                   coloredWords={editorState.coloredWords}
-                  showWatermark={showDownloadWatermark}
+                  showWatermark={false}
                   showQuotationMarks={editorState.showQuotationMarks}
                   photoStroke={editorState.photoStroke}
                   customWidth={editorState.customWidth}
