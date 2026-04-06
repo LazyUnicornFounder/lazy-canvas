@@ -79,6 +79,7 @@ const Index = () => {
     return DEFAULT_EDITOR_STATE;
   });
   const [downloading, setDownloading] = useState(false);
+  const [showDownloadWatermark, setShowDownloadWatermark] = useState(false);
   const [showGalleryPrompt, setShowGalleryPrompt] = useState(false);
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [showProUpgradePrompt, setShowProUpgradePrompt] = useState(false);
@@ -185,6 +186,11 @@ const Index = () => {
     if (!target) return;
 
     setDownloading(true);
+    setShowDownloadWatermark(true);
+
+    // Wait for watermark to render
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+
     try {
       const blob = await renderPreviewBlob(target, scale);
       const suffix = scale > 3 ? "-print" : "";
@@ -196,6 +202,7 @@ const Index = () => {
     } catch (err) {
       console.error("Failed to export", err);
     } finally {
+      setShowDownloadWatermark(false);
       setDownloading(false);
     }
   }, [downloadBlob, renderPreviewBlob, user]);
@@ -379,7 +386,7 @@ const Index = () => {
             isBold={editorState.isBold}
             isItalic={editorState.isItalic}
             coloredWords={editorState.coloredWords}
-            showWatermark={true}
+            showWatermark={showDownloadWatermark}
             showQuotationMarks={editorState.showQuotationMarks}
             photoStroke={editorState.photoStroke}
             customWidth={editorState.customWidth}
@@ -472,7 +479,7 @@ const Index = () => {
                   isBold={editorState.isBold}
                   isItalic={editorState.isItalic}
                   coloredWords={editorState.coloredWords}
-                  showWatermark={true}
+                  showWatermark={showDownloadWatermark}
                   showQuotationMarks={editorState.showQuotationMarks}
                   photoStroke={editorState.photoStroke}
                   customWidth={editorState.customWidth}
