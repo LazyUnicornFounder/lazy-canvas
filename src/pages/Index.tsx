@@ -679,8 +679,10 @@ const Index = () => {
               <div>
                 <h4 className="font-heading font-semibold text-primary mb-2">Pro</h4>
                 <ul className="space-y-1.5">
-                  <li className="flex items-center gap-1.5 text-foreground"><span className="text-primary">✓</span><span>Everything in Free</span></li>
                   {[
+                    "Unlimited designs",
+                    "PNG download",
+                    "Save unlimited designs",
                     "Re-edit your designs",
                     "Premium templates",
                     "Wallpaper backgrounds",
