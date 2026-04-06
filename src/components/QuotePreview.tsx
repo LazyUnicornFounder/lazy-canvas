@@ -296,7 +296,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = [], show
 };
 
 const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
-  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false, photoStroke = false, customWidth, customHeight, borderWidth = 0, borderColor = "#000000", borderStyle = "none" }, ref) => {
+  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false, photoStroke = false, customWidth, customHeight, borderWidth = 0, borderColor = "#000000", borderStyle = "none", onAutoFontSize }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
@@ -321,7 +321,14 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       if (tW > 0 && tH > 0) {
         const s = Math.min(cW / tW, cH / tH, 1);
         setScale(s);
-        setIsOverflowing(s < 0.95);
+        const overflow = s < 0.95;
+        setIsOverflowing(overflow);
+
+        // Auto-reduce font size when overflowing
+        if (overflow && onAutoFontSize && fontSize > 1.2) {
+          const reducedSize = Math.max(fontSize * s * 0.95, 1.2);
+          onAutoFontSize(reducedSize);
+        }
       } else {
         setScale(1);
         setIsOverflowing(false);
