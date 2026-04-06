@@ -602,7 +602,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
           {THEME_OPTIONS.map((opt) => (
             <button
               key={opt.value}
-              onClick={() => { set("theme", opt.value); set("backgroundColor", ""); }}
+              onClick={() => onChange({ ...state, theme: opt.value, backgroundColor: "" })}
               className="flex flex-col items-center gap-1.5 group"
             >
               <div
