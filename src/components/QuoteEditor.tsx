@@ -1290,27 +1290,8 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 <img
                   src={state.authorPhoto}
                   alt="Author"
-                  className={`${
-                    state.photoShape === "none" ? "max-w-[5rem] max-h-[5rem]" :
-                    state.photoShape === "circle" ? "w-16 h-16 rounded-full object-cover" :
-                    state.photoShape === "square" ? "w-16 h-16 rounded-none object-cover" :
-                    state.photoShape === "rounded-square" ? "w-16 h-16 rounded-lg object-cover" :
-                    state.photoShape === "oval" ? "rounded-full object-cover" :
-                    state.photoShape === "hexagon" ? "rounded-lg object-cover" :
-                    "w-16 h-16 rounded-md object-cover"
-                  }`}
-                  style={{
-                    ...(state.photoShape === "rectangle" ? { width: "5rem", height: "3.5rem" } : {}),
-                    ...(state.photoShape === "oval" ? { width: "4.5rem", height: "3.5rem" } : {}),
-                    ...(state.photoShape === "hexagon" ? { clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" } : {}),
-                  }}
+                  className="w-16 h-16 rounded-lg object-cover"
                 />
-                <button
-                  onClick={() => set("authorPhoto", null)}
-                  className="absolute -top-1 -right-1 w-5 h-5 bg-foreground text-background rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  <X className="w-3 h-3" />
-                </button>
               </div>
             ) : (
               <button
