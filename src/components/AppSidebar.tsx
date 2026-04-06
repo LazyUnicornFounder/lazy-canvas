@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { UserDesign } from "@/hooks/useUserDesigns";
 import type { DesignEditorState } from "@/components/DesignEditor";
 import { LogoWithTagline } from "@/components/MainNav";
+import { ContactDialog } from "@/components/ContactDialog";
 import { useUserImages } from "@/hooks/useUserImages";
 import {
   Sidebar,
@@ -299,6 +300,7 @@ export function AppSidebar({
               <Settings className="w-3.5 h-3.5 flex-shrink-0" />
               <span className="truncate">Settings</span>
             </button>
+            <ContactDialog />
           </div>
         )}
 
