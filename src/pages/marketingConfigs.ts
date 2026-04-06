@@ -6,7 +6,7 @@ type Config = ComponentProps<typeof MarketingPage>["config"];
 export const MARKETING_PAGES: Config[] = [
   {
     slug: "banners",
-    title: "Create Stunning Banners | Lazy Faceless",
+    title: "Create Stunning Banners | Lazy Canvas",
     headline: "Create Stunning Banners in Seconds",
     subheadline: "Design eye-catching banners for any platform — headers, covers, ads. No design skills needed.",
     description: "Professional banners for LinkedIn, Twitter, YouTube, and more. Pick a template, customize, download.",
@@ -20,7 +20,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "posts",
-    title: "Create Social Media Posts | Lazy Faceless",
+    title: "Create Social Media Posts | Lazy Canvas",
     headline: "Design Social Media Posts That Stand Out",
     subheadline: "Create beautiful, shareable posts for Instagram, LinkedIn, Twitter, and more.",
     description: "Stop using boring text posts. Create visual content that gets engagement.",
@@ -34,7 +34,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "instagram",
-    title: "Create Instagram Content | Lazy Faceless",
+    title: "Create Instagram Content | Lazy Canvas",
     headline: "Create Instagram Content That Gets Noticed",
     subheadline: "Design posts, stories, and reels covers that match your aesthetic and grow your audience.",
     description: "Beautiful Instagram content without Photoshop. Templates optimized for the Instagram algorithm.",
@@ -48,7 +48,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "youtube",
-    title: "Create YouTube Thumbnails & Banners | Lazy Faceless",
+    title: "Create YouTube Thumbnails & Banners | Lazy Canvas",
     headline: "YouTube Thumbnails & Banners That Get Clicks",
     subheadline: "Create attention-grabbing thumbnails and channel art that boost your views.",
     description: "Stand out in search results with professional thumbnails. No design experience required.",
@@ -62,7 +62,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "pinterest",
-    title: "Create Pinterest Pins | Lazy Faceless",
+    title: "Create Pinterest Pins | Lazy Canvas",
     headline: "Create Pinterest Pins That Drive Traffic",
     subheadline: "Design tall, eye-catching pins optimized for the Pinterest feed and search.",
     description: "Pinterest-optimized pins in the perfect 2:3 ratio. Drive traffic to your site with beautiful designs.",
@@ -76,7 +76,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "facebook",
-    title: "Create Facebook Content | Lazy Faceless",
+    title: "Create Facebook Content | Lazy Canvas",
     headline: "Create Facebook Posts & Covers That Engage",
     subheadline: "Design shareable posts, stories, and cover photos that grow your Facebook presence.",
     description: "Professional Facebook content in seconds. Optimized sizes for posts, stories, and cover photos.",
@@ -90,7 +90,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "tiktok",
-    title: "Create TikTok Content | Lazy Faceless",
+    title: "Create TikTok Content | Lazy Canvas",
     headline: "Create TikTok Content That Goes Viral",
     subheadline: "Design stunning cover images, design overlays, and text content for TikTok.",
     description: "Faceless TikTok content made easy. Create design videos, cover images, and text-based content.",
@@ -104,7 +104,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "linkedin",
-    title: "Create LinkedIn Content | Lazy Faceless",
+    title: "Create LinkedIn Content | Lazy Canvas",
     headline: "Create LinkedIn Content That Builds Authority",
     subheadline: "Design professional posts, banners, and thought leadership content for LinkedIn.",
     description: "Stand out on LinkedIn with polished, professional visual content. Perfect for personal branding.",
@@ -118,7 +118,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "twitter",
-    title: "Create X (Twitter) Content | Lazy Faceless",
+    title: "Create X (Twitter) Content | Lazy Canvas",
     headline: "Create X Posts & Headers That Get Retweets",
     subheadline: "Design visual tweets, thread openers, and profile headers that grow your following.",
     description: "Make your tweets visual. Design cards and headers that stand out in the timeline.",
@@ -132,7 +132,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "posters",
-    title: "Create Posters & Flyers | Lazy Faceless",
+    title: "Create Posters & Flyers | Lazy Canvas",
     headline: "Create Posters & Flyers That Demand Attention",
     subheadline: "Design printable posters, event flyers, and wall art — bold typography, zero design skills.",
     description: "From motivational wall art to event announcements, create stunning posters in seconds.",
@@ -146,7 +146,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "print",
-    title: "Create Print-Ready Designs | Lazy Faceless",
+    title: "Create Print-Ready Designs | Lazy Canvas",
     headline: "Create Print-Ready Designs in Seconds",
     subheadline: "Design business cards, flyers, menus, invitations, and more — formatted for professional printing.",
     description: "From business cards to event programs, create polished print materials without a designer.",
@@ -160,7 +160,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "flyers",
-    title: "Create Flyers | Lazy Faceless",
+    title: "Create Flyers | Lazy Canvas",
     headline: "Create Flyers That Get Results",
     subheadline: "Design professional flyers for events, promotions, and announcements — print-ready in seconds.",
     description: "Eye-catching flyers for any occasion. Choose a template, customize your message, and download in print-ready quality.",
@@ -174,7 +174,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "business-cards",
-    title: "Create Business Cards | Lazy Faceless",
+    title: "Create Business Cards | Lazy Canvas",
     headline: "Create Business Cards That Leave an Impression",
     subheadline: "Design sleek, professional business cards with bold typography and custom layouts.",
     description: "Stand out at every meeting. Create print-ready business cards with your name, title, and contact info.",
@@ -188,7 +188,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "stickers",
-    title: "Create Stickers | Lazy Faceless",
+    title: "Create Stickers | Lazy Canvas",
     headline: "Create Custom Stickers in Seconds",
     subheadline: "Design fun, bold stickers for laptops, water bottles, packaging, and merch — print or cut-ready.",
     description: "Turn designs, logos, and artwork into sticker-ready files. Download high-res files for printing at home or with any sticker service.",
@@ -202,7 +202,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "app-store",
-    title: "Create App Store Screenshots | Lazy Faceless",
+    title: "Create App Store Screenshots | Lazy Canvas",
     headline: "Create App Store Screenshots That Convert",
     subheadline: "Design stunning screenshots for iOS App Store and Google Play that drive downloads.",
     description: "Professional app store assets in seconds. iPhone, iPad, Android, and Mac screenshot formats ready to upload.",
@@ -216,7 +216,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "google-play",
-    title: "Create Google Play Screenshots | Lazy Faceless",
+    title: "Create Google Play Screenshots | Lazy Canvas",
     headline: "Create Google Play Graphics That Get Downloads",
     subheadline: "Design feature graphics, screenshots, and promo images for your Android app.",
     description: "Stand out on Google Play with professional screenshots and feature graphics. All required formats included.",
@@ -230,7 +230,7 @@ export const MARKETING_PAGES: Config[] = [
   },
   {
     slug: "phone-backgrounds",
-    title: "Create Phone Backgrounds | Lazy Faceless",
+    title: "Create Phone Backgrounds | Lazy Canvas",
     headline: "Create Phone Wallpapers That Inspire",
     subheadline: "Design beautiful lock screen and home screen backgrounds with designs, colors, and custom typography.",
     description: "Turn your phone into a daily dose of motivation. Create stunning wallpapers for iPhone and Android in the exact sizes your device needs.",
