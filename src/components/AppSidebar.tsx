@@ -139,7 +139,7 @@ export function AppSidebar({
                       <span className="truncate">{d.title}</span>
                     </SidebarMenuButton>
                     <div className="flex items-center">
-                      {!isPro && (
+                      {!isPro && activeDesignId === d.id && (
                         <SidebarMenuAction
                           showOnHover
                           onClick={(e) => {
