@@ -226,14 +226,7 @@ const Index = () => {
   const handleDownloadClick = useCallback((scale: number = 3) => {
     const hasPro = usesProFeatures(editorState);
 
-    if (!user) {
-      if (hasPro) {
-        localStorage.setItem(DRAFT_KEY, JSON.stringify(editorState));
-        setShowProSignupPrompt(true);
-        return;
-      }
-      performDownloadOnly(scale);
-    } else if (isPro) {
+    if (isPro) {
       performDownloadOnly(scale);
     } else if (hasPro) {
       const target = previewRef.current || mobilePreviewRef.current;
