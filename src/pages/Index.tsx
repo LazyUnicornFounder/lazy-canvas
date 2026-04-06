@@ -223,7 +223,7 @@ const Index = () => {
     }));
   }, []);
 
-  const handleDownloadClick = useCallback((scale: number = 3) => {
+  const handleDownloadClick = useCallback(async (scale: number = 3) => {
     const hasPro = usesProFeatures(editorState);
 
     if (isPro) {
