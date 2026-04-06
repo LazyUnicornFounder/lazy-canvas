@@ -225,9 +225,7 @@ const Index = () => {
       if (target) {
         html2canvas(target, { scale: 1, useCORS: true, logging: false, backgroundColor: null })
           .then((canvas) => {
-            // Clean version
             setProUpgradeSnapshot(canvas.toDataURL("image/png"));
-            // Watermarked version
             const ctx = canvas.getContext("2d");
             if (ctx) {
               const w = canvas.width;
@@ -249,10 +247,12 @@ const Index = () => {
               ctx.fillText(text, x + pad * 0.75, y + boxH * 0.68);
             }
             setProWatermarkSnapshot(canvas.toDataURL("image/png"));
+            setShowProUpgradePrompt(true);
           })
-          .catch(() => {});
+          .catch(() => setShowProUpgradePrompt(true));
+      } else {
+        setShowProUpgradePrompt(true);
       }
-      setShowProUpgradePrompt(true);
     } else {
       performDownloadOnly(scale);
     }
