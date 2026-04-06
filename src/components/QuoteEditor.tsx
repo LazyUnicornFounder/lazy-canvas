@@ -225,6 +225,7 @@ export interface QuoteEditorState {
   isItalic: boolean;
   coloredWords: ColoredWord[];
   showQuotationMarks: boolean;
+  photoStroke: boolean;
   customWidth: number;
   customHeight: number;
 }
