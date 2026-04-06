@@ -361,7 +361,37 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
     }
   }, []);
 
-  const imageToBase64 = async (src: string): Promise<string> => {
+  const applyWallpaper = useCallback(async (category: typeof WALLPAPER_CATEGORIES[number]) => {
+    setLoadingWallpaper(category.label);
+    try {
+      const { data, error } = await supabase.functions.invoke("pexels-search", {
+        body: { query: category.query, per_page: 15 },
+      });
+      if (error) throw error;
+      const photos = data?.photos || [];
+      if (photos.length === 0) {
+        import("sonner").then(({ toast }) => toast.error("No images found. Try another category."));
+        return;
+      }
+      const photo = photos[Math.floor(Math.random() * photos.length)];
+      onChange({
+        ...state,
+        backgroundImage: photo.src.large,
+        backgroundOpacity: 0.35,
+        theme: "dark",
+        textColor: "",
+        authorColor: "",
+        backgroundColor: "",
+      });
+    } catch (err) {
+      console.error("Wallpaper fetch error:", err);
+      import("sonner").then(({ toast }) => toast.error("Failed to load wallpaper."));
+    } finally {
+      setLoadingWallpaper(null);
+    }
+  }, [state, onChange]);
+
+
     if (src.startsWith("data:")) return src;
     const response = await fetch(src);
     const blob = await response.blob();
