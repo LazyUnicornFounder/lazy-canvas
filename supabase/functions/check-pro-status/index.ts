@@ -110,9 +110,10 @@ serve(async (req) => {
       .eq("user_id", user.id);
     const roleList = (roles || []).map((r: any) => r.role);
     const isAdmin = roleList.includes("admin");
+    const hasProRole = roleList.includes("pro");
 
     return new Response(
-      JSON.stringify({ isPro: hasActiveSubscription || isAdmin }),
+      JSON.stringify({ isPro: hasActiveSubscription || isAdmin || hasProRole }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
