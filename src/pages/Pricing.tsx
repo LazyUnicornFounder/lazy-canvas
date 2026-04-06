@@ -210,6 +210,7 @@ const Pricing = () => {
                 )}
               </div>
               <p className="text-sm text-muted-foreground">Everything in Free, plus premium tools.</p>
+              <p className="text-xs text-muted-foreground/70">Cancel anytime.</p>
             </div>
 
             <button
