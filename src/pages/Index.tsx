@@ -367,6 +367,7 @@ const Index = () => {
       <div className="lg:hidden sticky top-0 z-20 bg-background border-b border-border px-4 py-3">
         <div className="max-w-[280px] mx-auto relative">
           <QuotePreview
+            key={`mobile-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
             ref={mobilePreviewRef}
             quote={editorState.quote}
             authorName={editorState.authorName}
@@ -461,6 +462,7 @@ const Index = () => {
           <div className="hidden lg:flex flex-shrink-0 flex-col gap-3 sticky top-6 self-start transition-all duration-300" style={{ width: getPreviewContainerWidth(editorState.aspectRatio, editorState.customWidth, editorState.customHeight) }}>
             <div className="w-full overflow-hidden relative">
                 <QuotePreview
+                  key={`desktop-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
                   ref={previewRef}
                   quote={editorState.quote}
                   authorName={editorState.authorName}
