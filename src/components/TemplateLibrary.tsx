@@ -1548,7 +1548,7 @@ const BUILTIN_TEMPLATES: Template[] = [
       font: "permanent-marker", theme: "light", fontSize: 4.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.6,
       textColor: "#dc2626", authorFont: "heading", authorColor: "#ef4444", authorFontSize: 1.9,
       isBold: false, isItalic: false, backgroundColor: "#fef9c3", textShadow: "none", showQuotationMarks: false,
-      backgroundImage: PEXELS_IMAGES["funny-laugh"], backgroundOpacity: 0.25,
+      backgroundImage: PEXELS_IMAGES["funny-laugh"], backgroundOpacity: 0.9,
     },
   },
   {
@@ -1557,7 +1557,7 @@ const BUILTIN_TEMPLATES: Template[] = [
       font: "caveat", theme: "light", fontSize: 4.8, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
       textColor: "#7c3aed", authorFont: "raleway", authorColor: "#8b5cf6", authorFontSize: 1.8,
       isBold: false, isItalic: false, backgroundColor: "#fef3c7", textShadow: "none", showQuotationMarks: false,
-      backgroundImage: PEXELS_IMAGES["funny-silly"], backgroundOpacity: 0.25,
+      backgroundImage: PEXELS_IMAGES["funny-silly"], backgroundOpacity: 0.9,
     },
   },
   {
@@ -1662,7 +1662,7 @@ const BUILTIN_TEMPLATES: Template[] = [
       font: "inter", theme: "light", fontSize: 3.3, textAlign: "center", letterSpacing: 0.06, lineHeight: 2.4,
       textColor: "#a1a1aa", authorFont: "inter", authorColor: "#d4d4d8", authorFontSize: 1.5,
       isBold: false, isItalic: false, backgroundColor: "#fafafa", textShadow: "none", showQuotationMarks: false,
-      backgroundImage: PEXELS_IMAGES["minimal-zen"], backgroundOpacity: 0.25,
+      backgroundImage: PEXELS_IMAGES["minimal-zen"], backgroundOpacity: 0.9,
     },
   },
   {
@@ -1671,7 +1671,7 @@ const BUILTIN_TEMPLATES: Template[] = [
       font: "inter", theme: "light", fontSize: 3.9, textAlign: "center", letterSpacing: 0.02, lineHeight: 2.0,
       textColor: "#71717a", authorFont: "heading", authorColor: "#a1a1aa", authorFontSize: 1.6,
       isBold: false, isItalic: false, backgroundColor: "#ffffff", textShadow: "none", showQuotationMarks: false,
-      backgroundImage: PEXELS_IMAGES["minimal-air"], backgroundOpacity: 0.2,
+      backgroundImage: PEXELS_IMAGES["minimal-air"], backgroundOpacity: 0.9,
     },
   },
   {
@@ -1698,7 +1698,7 @@ const BUILTIN_TEMPLATES: Template[] = [
       font: "lora", theme: "light", fontSize: 3.9, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.8,
       textColor: "#44403c", authorFont: "raleway", authorColor: "#78716c", authorFontSize: 1.8,
       isBold: false, isItalic: true, backgroundColor: "#f5f5f0", textShadow: "none", showQuotationMarks: true,
-      backgroundImage: PEXELS_IMAGES["elegant-pearl"], backgroundOpacity: 0.25,
+      backgroundImage: PEXELS_IMAGES["elegant-pearl"], backgroundOpacity: 0.9,
     },
   },
   {
@@ -1707,7 +1707,7 @@ const BUILTIN_TEMPLATES: Template[] = [
       font: "shadows-into-light", theme: "light", fontSize: 4.5, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.5,
       textColor: "#2563eb", authorFont: "caveat", authorColor: "#3b82f6", authorFontSize: 2.0,
       isBold: false, isItalic: false, backgroundColor: "#eff6ff", textShadow: "none", showQuotationMarks: false,
-      backgroundImage: PEXELS_IMAGES["playful-doodle"], backgroundOpacity: 0.25,
+      backgroundImage: PEXELS_IMAGES["playful-doodle"], backgroundOpacity: 0.9,
     },
   },
   {
@@ -1716,7 +1716,7 @@ const BUILTIN_TEMPLATES: Template[] = [
       font: "pacifico", theme: "light", fontSize: 4.2, textAlign: "center", letterSpacing: 0.0, lineHeight: 1.6,
       textColor: "#db2777", authorFont: "poppins", authorColor: "#ec4899", authorFontSize: 1.8,
       isBold: false, isItalic: false, backgroundColor: "#fdf2f8", textShadow: "none", showQuotationMarks: false,
-      backgroundImage: PEXELS_IMAGES["playful-candy"], backgroundOpacity: 0.25,
+      backgroundImage: PEXELS_IMAGES["playful-candy"], backgroundOpacity: 0.9,
     },
   },
   {
@@ -2391,7 +2391,7 @@ const BUILTIN_TEMPLATES: Template[] = [
       font: "inter", theme: "light", fontSize: 3.6, textAlign: "center", letterSpacing: 0.06, lineHeight: 2.2,
       textColor: "#374151", authorFont: "heading", authorColor: "#6b7280", authorFontSize: 1.6,
       isBold: false, isItalic: false, backgroundColor: "#f9fafb", textShadow: "none", showQuotationMarks: false,
-      backgroundImage: PEXELS_IMAGES["art-minimal"], backgroundOpacity: 0.25,
+      backgroundImage: PEXELS_IMAGES["art-minimal"], backgroundOpacity: 0.9,
     },
   },
   {
@@ -2508,7 +2508,7 @@ const BUILTIN_TEMPLATES: Template[] = [
       font: "inter", theme: "light", fontSize: 3.6, textAlign: "center", letterSpacing: 0.04, lineHeight: 2.0,
       textColor: "#374151", authorFont: "heading", authorColor: "#6b7280", authorFontSize: 1.6,
       isBold: false, isItalic: false, backgroundColor: "#f9fafb", textShadow: "none", showQuotationMarks: false,
-      backgroundImage: PEXELS_IMAGES["architecture-minimal"], backgroundOpacity: 0.25,
+      backgroundImage: PEXELS_IMAGES["architecture-minimal"], backgroundOpacity: 0.9,
     },
   },
   {
@@ -2733,7 +2733,7 @@ const BUILTIN_TEMPLATES: Template[] = [
       font: "archivo", theme: "light", fontSize: 4.2, textAlign: "center", letterSpacing: 0.02, lineHeight: 1.5,
       textColor: "#0a0a0a", authorFont: "heading", authorColor: "#525252", authorFontSize: 1.8,
       isBold: true, isItalic: false, backgroundColor: "#fef9c3", textShadow: "none", showQuotationMarks: false,
-      backgroundImage: PEXELS_IMAGES["funny-meme"], backgroundOpacity: 0.25,
+      backgroundImage: PEXELS_IMAGES["funny-meme"], backgroundOpacity: 0.9,
     },
   },
   {
