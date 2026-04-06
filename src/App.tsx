@@ -31,6 +31,7 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/privacy" element={<Privacy />} />
             {MARKETING_PAGES.map((config) => (
               <Route
