@@ -68,7 +68,7 @@ function editorStateToGalleryDesign(id: string, state: any): GalleryDesign {
 }
 
 const DesignGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
-  const [quotes, setQuotes] = useState<GalleryDesign[]>([]);
+  const [galleryDesigns, setGalleryDesigns] = useState<GalleryDesign[]>([]);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -109,13 +109,13 @@ const DesignGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
         editorStateToGalleryDesign(s.id, s.editor_state || {})
       );
 
-      setQuotes([...slideshowDesigns, ...communityDesigns]);
+      setGalleryDesigns([...slideshowDesigns, ...communityDesigns]);
     };
 
     fetchAll();
   }, []);
 
-  if (quotes.length === 0) {
+  if (galleryDesigns.length === 0) {
     const empty = (
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <p className="text-muted-foreground text-sm">Coming soon — be the first to share a design!</p>
@@ -134,7 +134,7 @@ const DesignGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
 
   const grid = (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-      {quotes.map((q) => (
+      {galleryDesigns.map((q) => (
         <div key={q.id} className="rounded-lg overflow-hidden border border-border">
           <DesignPreview
             quote={q.quote}

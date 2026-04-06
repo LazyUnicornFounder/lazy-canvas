@@ -27,7 +27,7 @@ const PhoneMockup = ({ children, authorName = "lazyfaceless", className = "" }: 
           <MoreHorizontal className="w-4 h-4 text-white/70" />
         </div>
 
-        {/* The quote image */}
+        {/* The design image */}
         <div className="w-full">
           {children}
         </div>

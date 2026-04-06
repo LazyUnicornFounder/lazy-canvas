@@ -349,7 +349,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
   const goToPricing = () => navigate("/pricing");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [emojiCategory, setEmojiCategory] = useState(0);
-  const quoteTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const designTextareaRef = useRef<HTMLTextAreaElement>(null);
   const emojiPickerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const bgInputRef = useRef<HTMLInputElement>(null);
@@ -488,7 +488,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
   };
 
   const insertEmoji = (emoji: string) => {
-    const textarea = quoteTextareaRef.current;
+    const textarea = designTextareaRef.current;
     if (textarea) {
       const start = textarea.selectionStart;
       const end = textarea.selectionEnd;
@@ -847,12 +847,12 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
         </div>
       </ControlSection>
 
-      {/* Quote */}
+      {/* Text */}
       <div className="md:col-span-2">
         <ControlSection label="Text">
           <div className="relative">
             <textarea
-              ref={quoteTextareaRef}
+              ref={designTextareaRef}
               value={state.quote}
               onChange={(e) => set("quote", e.target.value)}
               placeholder="Start typing..."

@@ -5,7 +5,7 @@ const HeroPhoneMockup = () => {
         {/* Top blur fade */}
         <div className="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none rounded-t-[2.8rem]" />
 
-        {/* Quote card — sharp corners */}
+        {/* Design card — sharp corners */}
         <div className="bg-[#1a1a1a] px-6 py-10">
           <div className="text-center space-y-4">
             <p className="font-playfair text-white text-[13px] leading-relaxed tracking-wide italic">
