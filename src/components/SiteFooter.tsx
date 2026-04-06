@@ -14,9 +14,6 @@ export function SiteFooter() {
           <Link to="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
             Privacy
           </Link>
-          <a href="mailto:lazy@lazyunicorn.ai" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-            Contact
-          </a>
         </div>
       </div>
     </footer>
