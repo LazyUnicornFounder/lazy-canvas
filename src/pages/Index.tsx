@@ -645,7 +645,7 @@ const Index = () => {
                 {/* Pro version */}
                 <div className="flex flex-col items-center gap-2">
                   <span className="text-[11px] font-heading font-semibold text-primary">Pro</span>
-                  <div className="relative rounded-lg overflow-hidden border-2 border-primary shadow-lg ring-1 ring-primary/20">
+                  <div className="relative rounded-lg overflow-hidden shadow-lg">
                     <img
                       src={proUpgradeSnapshot}
                       alt="Your Pro design"
@@ -658,7 +658,7 @@ const Index = () => {
                 {/* Free version */}
                 <div className="flex flex-col items-center gap-2">
                   <span className="text-[11px] font-heading font-medium text-muted-foreground">Free</span>
-                  <div className="relative rounded-lg overflow-hidden border border-border shadow-sm">
+                  <div className="relative rounded-lg overflow-hidden shadow-sm">
                     <img
                       src={proWatermarkSnapshot}
                       alt="Free version"
