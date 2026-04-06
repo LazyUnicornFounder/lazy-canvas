@@ -1,4 +1,4 @@
-import { Plus, FileText, Trash2, Crown, ChevronUp, LogOut, CreditCard } from "lucide-react";
+import { Plus, FileText, Trash2, Crown, ChevronUp, LogOut, CreditCard, Pencil } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -100,15 +100,33 @@ export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEd
                       <FileText className="w-4 h-4 flex-shrink-0" />
                       <span className="truncate">{q.title}</span>
                     </SidebarMenuButton>
-                    <SidebarMenuAction
-                      showOnHover
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteQuote(q.id);
-                      }}
-                    >
-                      <Trash2 className="w-3.5 h-3.5 text-destructive" />
-                    </SidebarMenuAction>
+                    <div className="flex items-center">
+                      {!isPro && (
+                        <SidebarMenuAction
+                          showOnHover
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toast.info("Upgrade to Pro to edit your saved designs", {
+                              action: {
+                                label: "Upgrade",
+                                onClick: () => navigate("/pricing"),
+                              },
+                            });
+                          }}
+                        >
+                          <Pencil className="w-3.5 h-3.5 text-muted-foreground" />
+                        </SidebarMenuAction>
+                      )}
+                      <SidebarMenuAction
+                        showOnHover
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteQuote(q.id);
+                        }}
+                      >
+                        <Trash2 className="w-3.5 h-3.5 text-destructive" />
+                      </SidebarMenuAction>
+                    </div>
                   </SidebarMenuItem>
                 ))
               )}
