@@ -263,6 +263,9 @@ export interface QuoteEditorState {
   borderWidth: number;
   borderColor: string;
   borderStyle: "none" | "solid" | "dashed" | "dotted" | "double";
+  logo: string | null;
+  logoPosition: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  logoSize: number;
 }
 
 export const BG_FILTERS: { value: string; label: string; css: string }[] = [
@@ -325,6 +328,9 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   borderWidth: 0,
   borderColor: "#000000",
   borderStyle: "none",
+  logo: null,
+  logoPosition: "bottom-right",
+  logoSize: 2.5,
 };
 
 interface QuoteEditorProps {
