@@ -8,13 +8,13 @@ import { useUserImages } from "@/hooks/useUserImages";
 import { useAuth } from "@/hooks/useAuth";
 import type {
   AspectRatio,
-  QuoteFont,
-  QuoteTheme,
+  DesignFont,
+  DesignTheme,
   TextShadow,
   AuthorPosition,
   SocialPlatform,
-} from "@/components/QuotePreview";
-import type { ColoredWord } from "@/components/QuotePreview";
+} from "@/components/DesignPreview";
+import type { ColoredWord } from "@/components/DesignPreview";
 
 const DIGITAL_FORMAT_GROUPS: { label: string; options: { value: AspectRatio; label: string }[] }[] = [
   {
@@ -136,7 +136,7 @@ const PHYSICAL_FORMAT_GROUPS: { label: string; options: { value: AspectRatio; la
   },
 ];
 
-const SERIF_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
+const SERIF_FONTS: { value: DesignFont; label: string; preview: string }[] = [
   { value: "playfair", label: "Playfair", preview: "font-playfair" },
   { value: "cormorant", label: "Cormorant", preview: "font-cormorant" },
   { value: "lora", label: "Lora", preview: "font-lora" },
@@ -144,7 +144,7 @@ const SERIF_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
   { value: "crimson", label: "Crimson", preview: "font-crimson" },
 ];
 
-const SANS_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
+const SANS_FONTS: { value: DesignFont; label: string; preview: string }[] = [
   { value: "heading", label: "Grotesk", preview: "font-heading" },
   { value: "inter", label: "Inter", preview: "font-inter" },
   { value: "raleway", label: "Raleway", preview: "font-raleway" },
@@ -156,7 +156,7 @@ const SANS_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
   { value: "mono", label: "Mono", preview: "font-mono" },
 ];
 
-const CURSIVE_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
+const CURSIVE_FONTS: { value: DesignFont; label: string; preview: string }[] = [
   { value: "dancing", label: "Dancing", preview: "font-dancing" },
   { value: "pacifico", label: "Pacifico", preview: "font-pacifico" },
   { value: "great-vibes", label: "Great Vibes", preview: "font-great-vibes" },
@@ -166,7 +166,7 @@ const CURSIVE_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
   { value: "shadows-into-light", label: "Shadows", preview: "font-shadows-into-light" },
 ];
 
-const FUTURISTIC_FONTS: { value: QuoteFont; label: string; preview: string }[] = [
+const FUTURISTIC_FONTS: { value: DesignFont; label: string; preview: string }[] = [
   { value: "orbitron", label: "Orbitron", preview: "font-orbitron" },
   { value: "rajdhani", label: "Rajdhani", preview: "font-rajdhani" },
   { value: "audiowide", label: "Audiowide", preview: "font-audiowide" },
@@ -174,7 +174,7 @@ const FUTURISTIC_FONTS: { value: QuoteFont; label: string; preview: string }[] =
 
 const FONT_OPTIONS = [...SERIF_FONTS, ...SANS_FONTS, ...CURSIVE_FONTS, ...FUTURISTIC_FONTS];
 
-const THEME_OPTIONS: { value: QuoteTheme; label: string; swatch: string; isGlass?: boolean }[] = [
+const THEME_OPTIONS: { value: DesignTheme; label: string; swatch: string; isGlass?: boolean }[] = [
   { value: "light", label: "Light", swatch: "#FFFFFF" },
   { value: "dark", label: "Dark", swatch: "#1a1a1a" },
   { value: "cream", label: "Cream", swatch: "#F5F0E8" },
@@ -225,7 +225,7 @@ const SOCIAL_PLATFORMS = [
 
 export { SOCIAL_PLATFORMS };
 
-export interface QuoteEditorState {
+export interface DesignEditorState {
   quote: string;
   authorName: string;
   socialPlatform: string;
@@ -234,8 +234,8 @@ export interface QuoteEditorState {
   authorPhoto: string | null;
   photoShape: "none" | "circle" | "square" | "rectangle" | "rounded-square" | "oval" | "hexagon";
   aspectRatio: AspectRatio;
-  font: QuoteFont;
-  theme: QuoteTheme;
+  font: DesignFont;
+  theme: DesignTheme;
   backgroundImage: string | null;
   backgroundOpacity: number;
   backgroundBlur: number;
@@ -249,7 +249,7 @@ export interface QuoteEditorState {
   textColor: string;
   authorFontSize: number;
   authorColor: string;
-  authorFont: QuoteFont;
+  authorFont: DesignFont;
   textShadow: TextShadow;
   shadowOpacity: number;
   authorPosition: AuthorPosition;
@@ -290,7 +290,7 @@ const UNIT_OPTIONS = [
 type Unit = typeof UNIT_OPTIONS[number]["value"];
 
 
-export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
+export const DEFAULT_EDITOR_STATE: DesignEditorState = {
   quote: "",
   authorName: "",
   socialPlatform: "instagram",
@@ -333,15 +333,15 @@ export const DEFAULT_EDITOR_STATE: QuoteEditorState = {
   logoSize: 2.5,
 };
 
-interface QuoteEditorProps {
-  state: QuoteEditorState;
-  onChange: (state: QuoteEditorState) => void;
+interface DesignEditorProps {
+  state: DesignEditorState;
+  onChange: (state: DesignEditorState) => void;
   isPro?: boolean;
 }
 
-const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorProps) => {
+const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditorProps) => {
   // Normalize state to handle old saved states missing new fields
-  const state: QuoteEditorState = { ...DEFAULT_EDITOR_STATE, ...rawState, coloredWords: rawState.coloredWords || [], photoShape: rawState.photoShape || "none" };
+  const state: DesignEditorState = { ...DEFAULT_EDITOR_STATE, ...rawState, coloredWords: rawState.coloredWords || [], photoShape: rawState.photoShape || "none" };
   const navigate = useNavigate();
   const { user } = useAuth();
   const { images: userImages, uploading: uploadingUserImage, uploadImage: uploadUserImage, deleteImage: deleteUserImage } = useUserImages();
@@ -483,7 +483,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
     }
   };
 
-  const set = <K extends keyof QuoteEditorState>(key: K, value: QuoteEditorState[K]) => {
+  const set = <K extends keyof DesignEditorState>(key: K, value: DesignEditorState[K]) => {
     onChange({ ...state, [key]: value });
   };
 
@@ -1711,4 +1711,4 @@ const ControlSection = ({ label, children, pro = false }: { label: string; child
   </div>
 );
 
-export default QuoteEditor;
+export default DesignEditor;

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import QuotePreview, {
+import DesignPreview, {
   type AspectRatio,
-  type QuoteFont,
-  type QuoteTheme,
+  type DesignFont,
+  type DesignTheme,
   type TextShadow,
   type AuthorPosition,
   type ColoredWord,
-} from "@/components/QuotePreview";
+} from "@/components/DesignPreview";
 
-interface GalleryQuote {
+interface GalleryDesign {
   id: string;
   quote: string;
   author_name: string;
@@ -37,7 +37,7 @@ interface GalleryQuote {
   show_quotation_marks: boolean;
 }
 
-function editorStateToGalleryQuote(id: string, state: any): GalleryQuote {
+function editorStateToGalleryDesign(id: string, state: any): GalleryDesign {
   return {
     id,
     quote: state.quote || "",
@@ -67,8 +67,8 @@ function editorStateToGalleryQuote(id: string, state: any): GalleryQuote {
   };
 }
 
-const QuoteGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
-  const [quotes, setQuotes] = useState<GalleryQuote[]>([]);
+const DesignGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
+  const [quotes, setQuotes] = useState<GalleryDesign[]>([]);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -77,7 +77,7 @@ const QuoteGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
         supabase.from("gallery_submissions").select("*").eq("status", "approved").order("created_at", { ascending: false }),
       ]);
 
-      const slideshowQuotes: GalleryQuote[] = (slideshowRes.data || []).map((q: any) => ({
+      const slideshowDesigns: GalleryDesign[] = (slideshowRes.data || []).map((q: any) => ({
         id: q.id,
         quote: q.quote,
         author_name: q.author_name || "",
@@ -105,11 +105,11 @@ const QuoteGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
         show_quotation_marks: false,
       }));
 
-      const communityQuotes: GalleryQuote[] = (submissionsRes.data || []).map((s: any) =>
-        editorStateToGalleryQuote(s.id, s.editor_state || {})
+      const communityDesigns: GalleryDesign[] = (submissionsRes.data || []).map((s: any) =>
+        editorStateToGalleryDesign(s.id, s.editor_state || {})
       );
 
-      setQuotes([...slideshowQuotes, ...communityQuotes]);
+      setQuotes([...slideshowDesigns, ...communityDesigns]);
     };
 
     fetchAll();
@@ -136,14 +136,14 @@ const QuoteGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
       {quotes.map((q) => (
         <div key={q.id} className="rounded-lg overflow-hidden border border-border">
-          <QuotePreview
+          <DesignPreview
             quote={q.quote}
             authorName={q.author_name}
             authorPhoto={q.author_photo_url}
             socials={q.socials}
             aspectRatio="square"
-            font={(q.font as QuoteFont) || "playfair"}
-            theme={(q.theme as QuoteTheme) || "dark"}
+            font={(q.font as DesignFont) || "playfair"}
+            theme={(q.theme as DesignTheme) || "dark"}
             backgroundImage={q.background_image_url}
             backgroundOpacity={q.background_opacity}
             fontSize={q.font_size}
@@ -153,7 +153,7 @@ const QuoteGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
             textColor={q.text_color}
             authorFontSize={q.author_font_size}
             authorColor={q.author_color}
-            authorFont={(q.author_font as QuoteFont) || "playfair"}
+            authorFont={(q.author_font as DesignFont) || "playfair"}
             textShadow={(q.text_shadow as TextShadow) || "none"}
             authorPosition={(q.author_position as AuthorPosition) || "below-quote"}
             backgroundColor={q.background_color}
@@ -181,4 +181,4 @@ const QuoteGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
   );
 };
 
-export default QuoteGallery;
+export default DesignGallery;
