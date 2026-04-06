@@ -67,7 +67,7 @@ const sanitizeExportStyles = (root: ParentNode) => {
 };
 
 const Index = () => {
-  const { user, signOut, isPro, isAdmin } = useAuth();
+  const { user, signOut, isPro, isAdmin, proLoading, refreshProStatus } = useAuth();
   const { designs, loading: designsLoading, saveDesign, deleteDesign } = useUserDesigns();
   const navigate = useNavigate();
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -101,7 +101,15 @@ const Index = () => {
     setShowProUpgradePrompt(true);
   }, []);
 
-  const isSavedDesignLocked = !!user && !isPro && activeDesignId !== null;
+  const handleLockedEditAttempt = useCallback(async () => {
+    const canEdit = await refreshProStatus();
+
+    if (!canEdit) {
+      openProEditPrompt();
+    }
+  }, [openProEditPrompt, refreshProStatus]);
+
+  const isSavedDesignLocked = !!user && (proLoading || !isPro) && activeDesignId !== null;
 
   const handleEditorChange = useCallback((nextState: DesignEditorState) => {
     if (isSavedDesignLocked) return;
@@ -470,12 +478,7 @@ const Index = () => {
         <div className="relative w-full mt-2 max-w-[280px] mx-auto flex gap-2">
           {user && (
             <button
-              onClick={() => {
-                if (!isPro) {
-                  openProEditPrompt();
-                  return;
-                }
-              }}
+              onClick={handleLockedEditAttempt}
               className="flex items-center justify-center gap-1.5 px-3 py-2 border border-border text-foreground font-heading text-xs font-medium rounded-md hover:bg-accent transition-colors"
             >
               <Pencil className="w-3.5 h-3.5" />
@@ -595,12 +598,7 @@ const Index = () => {
             <div className="flex items-center gap-2">
               {user && (
                 <button
-                  onClick={() => {
-                    if (!isPro) {
-                      openProEditPrompt();
-                      return;
-                    }
-                  }}
+                  onClick={handleLockedEditAttempt}
                   className="flex items-center justify-center gap-2 px-4 py-2 border border-border text-foreground font-heading text-sm font-medium rounded-md hover:bg-accent transition-colors"
                 >
                   <Pencil className="w-4 h-4" />
@@ -861,7 +859,7 @@ const Index = () => {
             loading={designsLoading}
             saveDesign={saveDesign}
             deleteDesign={deleteDesign}
-            onLockedEdit={openProEditPrompt}
+            onLockedEdit={handleLockedEditAttempt}
           />
           {pageContent}
         </div>

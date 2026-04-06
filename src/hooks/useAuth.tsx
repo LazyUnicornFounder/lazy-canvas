@@ -10,7 +10,7 @@ interface AuthContextType {
   isPro: boolean;
   proLoading: boolean;
   signOut: () => Promise<void>;
-  refreshProStatus: () => Promise<void>;
+  refreshProStatus: () => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -21,7 +21,7 @@ const AuthContext = createContext<AuthContextType>({
   isPro: false,
   proLoading: true,
   signOut: async () => {},
-  refreshProStatus: async () => {},
+  refreshProStatus: async () => false,
 });
 
 const ADMIN_EMAIL = "lazy@lazyunicorn.ai";
@@ -57,33 +57,45 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (!user) {
       setIsPro(false);
       setProLoading(false);
-      return;
+      return false;
     }
+
     setProLoading(true);
+
     try {
-      const { data, error } = await supabase.functions.invoke("check-pro-status");
-      if (!error && data) {
-        setIsPro(data.isPro === true);
+      try {
+        const { data, error } = await supabase.functions.invoke("check-pro-status");
+
+        if (!error && data) {
+          const nextIsPro = data.isPro === true;
+          setIsPro(nextIsPro);
+          return nextIsPro;
+        }
+      } catch {
+        // Fall through to the roles fallback.
       }
-    } catch {
-      // Fallback to user_roles check
+
       const { data: roles } = await supabase
         .from("user_roles")
         .select("role")
         .eq("user_id", user.id);
+
       const roleList = (roles || []).map((r) => r.role);
-      setIsPro(roleList.includes("pro") || roleList.includes("admin"));
+      const nextIsPro = roleList.includes("pro") || roleList.includes("admin");
+      setIsPro(nextIsPro);
+      return nextIsPro;
+    } catch {
+      setIsPro(false);
+      return false;
     } finally {
       setProLoading(false);
     }
   };
 
-  // Check pro status when user changes
   useEffect(() => {
     refreshProStatus();
   }, [user]);
 
-  // Auto-assign admin role when admin logs in
   useEffect(() => {
     if (isAdmin && user) {
       supabase
