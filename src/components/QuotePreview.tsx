@@ -324,7 +324,10 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     useLayoutEffect(() => {
       const container = containerRef.current;
       const content = contentRef.current;
-      if (!container || !content) { setScale(1); return; }
+      if (!container || !content) {
+        setScale(1);
+        return;
+      }
 
       const cW = container.clientWidth;
       const cH = container.clientHeight;
@@ -332,11 +335,33 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       const tH = content.scrollHeight;
 
       if (tW > 0 && tH > 0) {
-        const fitBuffer = Math.max(4, Math.ceil(borderWidth * 0.25));
-        const availableWidth = Math.max(cW - fitBuffer, 1);
-        const availableHeight = Math.max(cH - fitBuffer, 1);
-        const s = Math.min(availableWidth / tW, availableHeight / tH, 1);
-        setScale(s);
+        const horizontalBuffer = Math.max(8, Math.ceil(borderWidth * 0.5));
+        const verticalBuffer = Math.max(12, Math.ceil(borderWidth * 0.75));
+        const availableWidth = Math.max(cW - horizontalBuffer, 1);
+        const availableHeight = Math.max(cH - verticalBuffer, 1);
+
+        let nextScale = Math.min(availableWidth / tW, availableHeight / tH, 1);
+
+        const previousTransform = content.style.transform;
+        const previousOrigin = content.style.transformOrigin;
+
+        content.style.transformOrigin = "center center";
+        content.style.transform = `scale(${nextScale})`;
+
+        const renderedRect = content.getBoundingClientRect();
+        if (renderedRect.width > 0 && renderedRect.height > 0) {
+          const correction = Math.min(
+            availableWidth / renderedRect.width,
+            availableHeight / renderedRect.height,
+            1
+          );
+          nextScale = Math.min(nextScale * correction, 1);
+        }
+
+        content.style.transform = previousTransform;
+        content.style.transformOrigin = previousOrigin;
+
+        setScale(nextScale);
 
         // Content scales down visually via transform — no longer mutating the user's font size
       } else {
@@ -444,7 +469,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         {/* Inner padding — nothing goes beyond this */}
         <div className="absolute inset-0 flex flex-col" style={{ padding: `clamp(${12 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth * 1.5 : 0)}px, ${4 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth * 0.8 : 0)}%, ${32 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth * 1.5 : 0)}px)` }}>
           {/* Quote content */}
-          <div ref={containerRef} className="flex-1 flex items-center justify-center relative z-10">
+          <div ref={containerRef} className="flex-1 flex items-center justify-center relative z-10 overflow-hidden">
             <div ref={contentRef} style={{ textAlign, maxWidth: "90%", width: "90%", transform: `scale(${scale})`, transformOrigin: "center center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", willChange: scale < 1 ? "transform" : undefined }}>
               <p
                 className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""} whitespace-pre-wrap break-words`}
