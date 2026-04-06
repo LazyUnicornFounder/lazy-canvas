@@ -1460,8 +1460,8 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                   ))}
                 </div>
               </div>
-              <div>
-                <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1.5">Size</p>
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Size</span>
                 <input
                   type="range"
                   min="1"
@@ -1469,7 +1469,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                   step="0.25"
                   value={state.logoSize}
                   onChange={(e) => set("logoSize", parseFloat(e.target.value))}
-                  className="w-full accent-foreground"
+                  className="w-1/2 max-w-[140px] accent-foreground h-1"
                 />
               </div>
             </>
