@@ -344,8 +344,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       const tH = content.scrollHeight;
 
       if (tW > 0 && tH > 0) {
-        const horizontalBuffer = Math.max(8, Math.ceil(borderWidth * 0.5));
-        const verticalBuffer = Math.max(12, Math.ceil(borderWidth * 0.75));
+        const horizontalBuffer = Math.max(16, Math.ceil(borderWidth * 1.1));
+        const verticalBuffer = Math.max(20, Math.ceil(borderWidth * 1.35));
         const availableWidth = Math.max(cW - horizontalBuffer, 1);
         const availableHeight = Math.max(cH - verticalBuffer, 1);
 
@@ -372,7 +372,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
 
         // Track peak visual size so text never shrinks as fontSize increases
         const visualProduct = fontSize * nextScale;
-        if (visualProduct >= peakVisualRef.current) {
+        if (visualProduct >= peakVisualRef.current - 0.001) {
           peakVisualRef.current = visualProduct;
           setScale(nextScale);
         } else {
@@ -489,7 +489,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           <div ref={containerRef} className="flex-1 flex items-center justify-center relative z-10 overflow-hidden">
             <div ref={contentRef} style={{ textAlign, maxWidth: "90%", width: "90%", transform: `scale(${scale})`, transformOrigin: "center center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", willChange: scale < 1 ? "transform" : undefined }}>
               <p
-                className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""} whitespace-pre-wrap break-words`}
+                className={`${fontClasses[font]} ${isPlaceholder ? "opacity-40" : ""} m-0 whitespace-pre-wrap break-words`}
                 style={{
                   fontFamily: fontFamilies[font],
                   fontSize: `${fontSize}rem`,
