@@ -7,7 +7,7 @@ interface PhoneMockupProps {
   className?: string;
 }
 
-const PhoneMockup = ({ children, authorName = "lazyfaceless", className = "" }: PhoneMockupProps) => {
+const PhoneMockup = ({ children, authorName = "lazycanvas", className = "" }: PhoneMockupProps) => {
   return (
     <div className={`relative overflow-hidden ${className}`}>
       <div className="bg-black">
