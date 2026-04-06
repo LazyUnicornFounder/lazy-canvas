@@ -210,6 +210,7 @@ const Index = () => {
       ...prev,
       coloredWords: [],
       backgroundImage: null,
+      backgroundFilter: "none",
       aspectRatio: "square" as const,
     }));
   }, []);
