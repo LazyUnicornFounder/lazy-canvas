@@ -645,27 +645,25 @@ const Index = () => {
                 {/* Pro version */}
                 <div className="flex flex-col items-center gap-2">
                   <span className="text-[11px] font-heading font-semibold text-primary">Pro</span>
-                  <div className="relative rounded-lg overflow-hidden shadow-lg">
+                  <div className="relative overflow-hidden shadow-lg">
                     <img
                       src={proUpgradeSnapshot}
                       alt="Your Pro design"
-                      className="w-full h-auto object-contain blur-[1px]"
+                      className="w-full h-auto object-contain"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                   </div>
                   <span className="text-[11px] font-heading font-semibold text-foreground">Your design</span>
                 </div>
                 {/* Free version */}
                 <div className="flex flex-col items-center gap-2">
                   <span className="text-[11px] font-heading font-medium text-muted-foreground">Free</span>
-                  <div className="relative rounded-lg overflow-hidden shadow-sm">
+                  <div className="relative overflow-hidden shadow-sm">
                     <img
                       src={proWatermarkSnapshot}
                       alt="Free version"
                       className="w-full h-auto object-contain opacity-75"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                    <div className="absolute bottom-2 right-1 z-10 px-1.5 py-0.5 rounded text-[6px] font-semibold text-white/90" style={{ backgroundColor: "rgba(0,0,0,0.55)" }}>
+                    <div className="absolute bottom-0 right-0 z-10 px-1.5 py-0.5 text-[6px] font-semibold text-white/90" style={{ backgroundColor: "rgba(0,0,0,0.55)" }}>
                       Made with <span className="font-bold">LazyFaceless.com</span>
                     </div>
                   </div>
