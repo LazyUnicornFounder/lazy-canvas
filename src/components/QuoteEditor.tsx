@@ -244,8 +244,8 @@ export const BG_FILTERS: { value: string; label: string; css: string }[] = [
 const UNIT_OPTIONS = [
   { value: "px", label: "Pixels" },
   { value: "cm", label: "Centimeters" },
-  { value: "in", label: "Inches" },
   { value: "mm", label: "Millimeters" },
+  { value: "in", label: "Inches" },
 ] as const;
 
 type Unit = typeof UNIT_OPTIONS[number]["value"];
