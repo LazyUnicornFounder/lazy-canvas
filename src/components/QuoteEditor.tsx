@@ -353,6 +353,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
   const emojiPickerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const bgInputRef = useRef<HTMLInputElement>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
   const [removingBg, setRemovingBg] = useState(false);
   const [removingBgImage, setRemovingBgImage] = useState(false);
   const [pexelsQuery, setPexelsQuery] = useState("");
