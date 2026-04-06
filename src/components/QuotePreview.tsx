@@ -569,7 +569,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
               background: t.glass.gradient,
               backdropFilter: `blur(${t.glass.blur}px)`,
               WebkitBackdropFilter: `blur(${t.glass.blur}px)`,
-              border: `1px solid ${t.glass.borderGlow}`,
+              
               boxShadow: `inset 0 1px 1px 0 rgba(255,255,255,0.15), 0 4px 30px rgba(0,0,0,0.1)`,
             }}
           />
