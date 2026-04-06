@@ -70,27 +70,20 @@ export function AppSidebar({
   return (
     <Sidebar collapsible="icon" className="border-r border-border">
       <SidebarHeader className="p-3 space-y-3 overflow-hidden">
-        {!collapsed && (
-          <div className="flex items-center justify-between">
-            <LogoWithTagline />
-            <button
-              onClick={() => toggleSidebar()}
-              className="p-1 hover:bg-accent rounded-md transition-colors flex-shrink-0"
-              title="Collapse sidebar"
-            >
-              <PanelLeftClose className="w-4 h-4 text-muted-foreground" />
-            </button>
-          </div>
-        )}
-        {collapsed && (
+        <div className="flex items-center justify-between">
+          {!collapsed && <LogoWithTagline />}
           <button
             onClick={() => toggleSidebar()}
-            className="p-1 hover:bg-accent rounded-md transition-colors mx-auto"
-            title="Expand sidebar"
+            className={`p-1 hover:bg-accent rounded-md transition-colors flex-shrink-0 ${collapsed ? "mx-auto" : ""}`}
+            title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            <PanelLeftOpen className="w-4 h-4 text-muted-foreground" />
+            {collapsed ? (
+              <PanelLeftOpen className="w-4 h-4 text-muted-foreground" />
+            ) : (
+              <PanelLeftClose className="w-4 h-4 text-muted-foreground" />
+            )}
           </button>
-        )}
+        </div>
         {!collapsed && (
           <h2 className="font-heading text-sm font-semibold tracking-tight text-foreground truncate">
             My Content
