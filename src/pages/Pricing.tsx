@@ -188,7 +188,7 @@ const Pricing = () => {
 
           {/* Pro tier */}
           <div className="relative rounded-xl border border-border bg-card/50 p-6 flex flex-col">
-            <div className="space-y-3 mb-6">
+            <div className="space-y-3 mb-6 md:min-h-[140px]">
               <h3 className="font-heading text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                 Pro
               </h3>
