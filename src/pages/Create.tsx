@@ -21,6 +21,7 @@ const DRAFT_KEY = "lazy-quotes-draft";
 
 const Create = () => {
   const { user, signOut, isPro } = useAuth();
+  const { quotes, loading: quotesLoading, saveQuote, deleteQuote } = useUserQuotes();
   const navigate = useNavigate();
   const [editorState, setEditorState] = useState<QuoteEditorState>(() => {
     try {
@@ -203,6 +204,10 @@ const Create = () => {
             onSelectQuote={handleSelectQuote}
             onNewQuote={handleNewQuote}
             currentEditorState={editorState}
+            quotes={quotes}
+            loading={quotesLoading}
+            saveQuote={saveQuote}
+            deleteQuote={deleteQuote}
           />
           <div className="flex-1 flex flex-col min-w-0 bg-background">
             {mainContent}
