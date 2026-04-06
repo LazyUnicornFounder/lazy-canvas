@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useNavigate } from "react-router-dom";
-import { LogOut, User, Download, Shield, ChevronDown, Printer, Save } from "lucide-react";
+import { LogOut, User, Download, Shield, ChevronDown, Printer, Save, Pencil } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useUserQuotes, type UserQuote } from "@/hooks/useUserQuotes";
