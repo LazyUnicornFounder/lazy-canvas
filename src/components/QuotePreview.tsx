@@ -491,12 +491,14 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       </div>
     ) : null;
 
+    const isGlass = !!t.glass;
+
     return (
       <div
         ref={ref}
         className={`${aspectRatio !== "custom" ? aspectClasses[aspectRatio] : ""} w-full max-w-lg max-h-full relative overflow-hidden`}
         style={{
-          backgroundColor: backgroundColor || t.bg,
+          backgroundColor: isGlass ? (backgroundColor || "transparent") : (backgroundColor || t.bg),
           color: t.text,
           ...(aspectRatio === "custom" && customWidth && customHeight ? { aspectRatio: `${customWidth} / ${customHeight}` } : {}),
           ...(borderStyle !== "none" && borderWidth > 0 ? { border: `${borderWidth}px ${borderStyle} ${borderColor}`, boxSizing: "border-box" as const } : {}),
@@ -527,8 +529,21 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             }}
           />
         )}
-        {backgroundImage && (
+        {backgroundImage && !isGlass && (
           <div className="absolute inset-0" style={{ backgroundColor: backgroundColor || t.bg, opacity: 1 - backgroundOpacity }} />
+        )}
+        {/* Glass overlay */}
+        {isGlass && t.glass && (
+          <div
+            className="absolute inset-0"
+            style={{
+              background: t.glass.gradient,
+              backdropFilter: `blur(${t.glass.blur}px)`,
+              WebkitBackdropFilter: `blur(${t.glass.blur}px)`,
+              border: `1px solid ${t.glass.borderGlow}`,
+              boxShadow: `inset 0 1px 1px 0 rgba(255,255,255,0.15), 0 4px 30px rgba(0,0,0,0.1)`,
+            }}
+          />
         )}
         {/* Inner padding — nothing goes beyond this */}
         <div className="absolute inset-0 flex flex-col" style={{ padding: `clamp(${12 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth * 1.5 : 0)}px, ${4 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth * 0.8 : 0)}%, ${32 + (borderStyle !== "none" && borderWidth > 0 ? borderWidth * 1.5 : 0)}px)` }}>
