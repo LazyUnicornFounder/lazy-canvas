@@ -687,7 +687,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 <button
                   key={opt.value}
                   onClick={() => set("font", opt.value)}
-                  className={`px-4 py-2 text-sm rounded-md border transition-all ${opt.preview} ${
+                  className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
                     state.font === opt.value
                       ? "bg-foreground text-background border-foreground"
                       : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
@@ -703,7 +703,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 <button
                   key={opt.value}
                   onClick={() => set("font", opt.value)}
-                  className={`px-4 py-2 text-sm rounded-md border transition-all ${opt.preview} ${
+                  className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
                     state.font === opt.value
                       ? "bg-foreground text-background border-foreground"
                       : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
@@ -719,7 +719,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 <button
                   key={opt.value}
                   onClick={() => set("font", opt.value)}
-                  className={`px-4 py-2 text-sm rounded-md border transition-all ${opt.preview} ${
+                  className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
                     state.font === opt.value
                       ? "bg-foreground text-background border-foreground"
                       : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
@@ -735,7 +735,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 <button
                   key={opt.value}
                   onClick={() => set("font", opt.value)}
-                  className={`px-4 py-2 text-sm rounded-md border transition-all ${opt.preview} ${
+                  className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
                     state.font === opt.value
                       ? "bg-foreground text-background border-foreground"
                       : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
