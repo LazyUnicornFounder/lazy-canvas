@@ -19,7 +19,7 @@ const proFeatures = [
   { text: "Image filters", included: true },
   { text: "Word colors", included: true },
   { text: "No watermark", included: true },
-  { text: "Save unlimited quotes", included: true },
+  { text: "Save unlimited designs", included: true },
   { text: "Re-edit your quotes", included: true },
 ];
 
