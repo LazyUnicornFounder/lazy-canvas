@@ -144,6 +144,7 @@ const Index = () => {
       const blob = await toImageBlob(target, {
         cacheBust: true,
         pixelRatio: scale,
+        filter: (node: HTMLElement) => !node?.hasAttribute?.("data-export-exclude"),
       });
 
       if (blob) {
@@ -159,6 +160,7 @@ const Index = () => {
       logging: false,
       backgroundColor: null,
       onclone: (clonedDocument) => {
+        clonedDocument.querySelectorAll("[data-export-exclude]").forEach((el) => el.remove());
         sanitizeExportStyles(clonedDocument.body);
       },
     });
