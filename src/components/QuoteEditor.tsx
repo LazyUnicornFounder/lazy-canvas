@@ -722,7 +722,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 }`}
                 style={{
                   ...(opt.isGlass
-                    ? { background: opt.swatch, backdropFilter: "blur(8px)" }
+                    ? { background: opt.swatch }
                     : { backgroundColor: opt.swatch }),
                 }}
               />
