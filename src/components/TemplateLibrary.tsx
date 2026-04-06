@@ -3136,7 +3136,7 @@ const PREVIEW_QUOTES: Record<string, { text: string; author: string }> = {
 interface TemplateLibraryProps {
   onApply: (state: Partial<QuoteEditorState>) => void;
   backgroundOpacity: number;
-  onOpacityChange: (value: number) => void;
+  onOpacityChange?: (value: number) => void;
   defaultCategory?: string;
 }
 
@@ -3275,19 +3275,21 @@ export default function TemplateLibrary({ onApply, backgroundOpacity, onOpacityC
       </div>
 
       {/* Opacity slider */}
-      <div className="flex items-center gap-3">
-        <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step={0.05}
-          value={backgroundOpacity}
-          onChange={(e) => onOpacityChange(parseFloat(e.target.value))}
-          className="w-1/4 accent-foreground h-1"
-        />
-        <span className="text-xs text-muted-foreground w-8 text-right">{Math.round(backgroundOpacity * 100)}%</span>
-      </div>
+      {onOpacityChange && (
+        <div className="flex items-center gap-3">
+          <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.05}
+            value={backgroundOpacity}
+            onChange={(e) => onOpacityChange(parseFloat(e.target.value))}
+            className="w-1/4 accent-foreground h-1"
+          />
+          <span className="text-xs text-muted-foreground w-8 text-right">{Math.round(backgroundOpacity * 100)}%</span>
+        </div>
+      )}
 
       {filtered.length === 0 && (
         <p className="text-xs text-muted-foreground text-center py-6">

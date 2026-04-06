@@ -26,7 +26,7 @@ const DRAFT_KEY = "lazy-quotes-draft";
 
 const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
   const navigate = useNavigate();
-  const [bgOpacity, setBgOpacity] = useState(0.4);
+  const [bgOpacity] = useState(0.4);
 
   useEffect(() => {
     document.title = config.title;
@@ -107,7 +107,6 @@ const MarketingPage = ({ config }: { config: MarketingPageConfig }) => {
             <TemplateLibrary
               onApply={handleApplyTemplate}
               backgroundOpacity={bgOpacity}
-              onOpacityChange={setBgOpacity}
               defaultCategory={config.templateCategory}
             />
           </div>
