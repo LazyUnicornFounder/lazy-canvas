@@ -74,7 +74,7 @@ export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEd
         <SidebarSeparator />
 
         <SidebarGroup>
-          <SidebarGroupLabel>Saved Quotes</SidebarGroupLabel>
+          <SidebarGroupLabel>Saved Content</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {loading ? (
