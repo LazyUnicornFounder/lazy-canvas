@@ -168,6 +168,7 @@ const Create = () => {
                     showWatermark={isFreeUser}
                     showQuotationMarks={editorState.showQuotationMarks}
                     photoStroke={editorState.photoStroke}
+                     onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
                   />
               </div>
               <button

@@ -224,6 +224,15 @@ const getShadowStyle = (shadow: TextShadow, opacity: number): string => {
   );
 };
 
+const FONT_SIZE_MIN = 0.8;
+const FONT_SIZE_MAX = 6;
+const FONT_SIZE_STEP = 0.05;
+
+const clampFontSizeToStep = (value: number) => {
+  const clamped = Math.min(Math.max(value, FONT_SIZE_MIN), FONT_SIZE_MAX);
+  return Number((Math.floor((clamped + Number.EPSILON) / FONT_SIZE_STEP) * FONT_SIZE_STEP).toFixed(2));
+};
+
 // Render quote text with colored words
 const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = [], showQuotes = false) => {
   const activeColoredWords = coloredWords
@@ -306,6 +315,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     const [scale, setScale] = useState(1);
     const [fontLoaded, setFontLoaded] = useState(0);
     const peakVisualRef = useRef(0);
+    const lastSafeFontSizeRef = useRef(0);
     const nonFontDepsKeyRef = useRef("");
 
     // Force re-render when font finishes loading
@@ -335,6 +345,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       const depsKey = `${quote}|${letterSpacing}|${lineHeight}|${font}|${aspectRatio}|${textAlign}|${authorFontSize}|${authorFont}|${authorName}|${authorPosition}|${socials}|${borderWidth}|${borderStyle}|${fontLoaded}|${isBold}|${isItalic}|${showQuotationMarks}`;
       if (depsKey !== nonFontDepsKeyRef.current) {
         peakVisualRef.current = 0;
+        lastSafeFontSizeRef.current = 0;
         nonFontDepsKeyRef.current = depsKey;
       }
 
@@ -370,6 +381,26 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
         content.style.transform = previousTransform;
         content.style.transformOrigin = previousOrigin;
 
+        const fitsAtRequestedSize = nextScale >= 0.999;
+
+        if (fitsAtRequestedSize) {
+          lastSafeFontSizeRef.current = Math.max(lastSafeFontSizeRef.current, fontSize);
+        }
+
+        const fallbackSafeFontSize = clampFontSizeToStep(fontSize * nextScale);
+        const safeFontSize = Math.min(
+          fontSize,
+          lastSafeFontSizeRef.current > 0
+            ? clampFontSizeToStep(lastSafeFontSizeRef.current)
+            : fallbackSafeFontSize
+        );
+
+        if (!fitsAtRequestedSize && onAutoFontSize && safeFontSize < fontSize - 0.001) {
+          setScale(Math.min(safeFontSize / fontSize, 1));
+          onAutoFontSize(safeFontSize);
+          return;
+        }
+
         // Track peak visual size so text never shrinks as fontSize increases
         const visualProduct = fontSize * nextScale;
         if (visualProduct >= peakVisualRef.current - 0.001) {
@@ -384,7 +415,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
       } else {
         setScale(1);
       }
-    }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign, authorFontSize, authorFont, authorName, authorPosition, socials, socialPlatform, authorPhoto, photoShape, photoStroke, showQuotationMarks, coloredWords, isBold, isItalic, fontLoaded, borderWidth, borderStyle]);
+    }, [quote, fontSize, letterSpacing, lineHeight, font, aspectRatio, textAlign, authorFontSize, authorFont, authorName, authorPosition, socials, socialPlatform, authorPhoto, photoShape, photoStroke, showQuotationMarks, coloredWords, isBold, isItalic, fontLoaded, borderWidth, borderStyle, onAutoFontSize]);
 
     const hasAuthor = authorName || authorPhoto || socials;
     const isDetached = authorPosition !== "below-quote";
