@@ -663,6 +663,30 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
             </button>
           ))}
         </div>
+        {/* Wallpapers */}
+        <div className="mt-3">
+          <p className="text-[10px] font-heading text-muted-foreground mb-2 uppercase tracking-wider">Wallpapers</p>
+          <div className="flex flex-wrap gap-2">
+            {WALLPAPER_CATEGORIES.map((cat) => (
+              <button
+                key={cat.label}
+                onClick={() => applyWallpaper(cat)}
+                disabled={loadingWallpaper !== null}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-heading rounded-md border transition-all ${
+                  loadingWallpaper === cat.label
+                    ? "border-primary bg-primary/10 text-foreground"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                } disabled:opacity-50`}
+              >
+                <span>{cat.emoji}</span>
+                <span>{cat.label}</span>
+                {loadingWallpaper === cat.label && (
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
       </ControlSection>
       {/* Quote */}
       <div className="md:col-span-2">
