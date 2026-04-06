@@ -43,7 +43,7 @@ export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEd
     <Sidebar collapsible="icon" className="border-r border-border">
       <SidebarHeader className="p-3">
         <h2 className="font-heading text-sm font-semibold tracking-tight text-foreground truncate">
-          My Quotes
+          My Content
         </h2>
       </SidebarHeader>
 
@@ -55,7 +55,7 @@ export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEd
               <SidebarMenuItem>
                 <SidebarMenuButton onClick={onNewQuote} className="text-primary">
                   <Plus className="w-4 h-4" />
-                  <span>New Quote</span>
+                  <span>New Content</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
@@ -63,7 +63,7 @@ export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEd
               <SidebarMenuItem>
                 <SidebarMenuButton onClick={handleSave} className="text-muted-foreground">
                   <FileText className="w-4 h-4" />
-                  <span>{activeQuoteId ? "Save changes" : "Save quote"}</span>
+                  <span>{activeQuoteId ? "Save changes" : "Save content"}</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
