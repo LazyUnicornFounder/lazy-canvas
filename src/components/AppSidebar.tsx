@@ -86,7 +86,7 @@ export function AppSidebar({ activeQuoteId, onSelectQuote, onNewQuote, currentEd
               ) : quotes.length === 0 ? (
                 <SidebarMenuItem>
                   <SidebarMenuButton disabled>
-                    <span className="text-xs text-muted-foreground">No saved quotes yet</span>
+                    <span className="text-xs text-muted-foreground">No saved designs yet</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ) : (

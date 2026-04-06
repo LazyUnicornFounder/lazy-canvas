@@ -124,7 +124,7 @@ const Admin = () => {
       <div className="flex-1 min-w-0 flex flex-col">
         <header className="border-b border-border px-6 py-4">
           <h1 className="font-heading text-lg font-semibold tracking-tight text-foreground capitalize">
-            {section === "slideshow" ? "Slideshow Quotes" : "Users"}
+            {section === "slideshow" ? "Slideshow Designs" : "Users"}
           </h1>
         </header>
 
