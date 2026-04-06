@@ -2,18 +2,20 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { lovable } from "@/integrations/lovable/index";
-import { LogOut, ArrowLeft, Images, Users, ChevronLeft, ChevronRight, Megaphone } from "lucide-react";
+import { LogOut, ArrowLeft, Images, Users, ChevronLeft, ChevronRight, Megaphone, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 import AdminSlideshow from "@/components/AdminSlideshow";
 import AdminUsers from "@/components/AdminUsers";
 import AdminWhatsNew from "@/components/AdminWhatsNew";
+import AdminMessages from "@/components/AdminMessages";
 
-type AdminSection = "slideshow" | "users" | "whats_new";
+type AdminSection = "slideshow" | "users" | "whats_new" | "messages";
 
 const NAV_ITEMS: { id: AdminSection; label: string; icon: typeof Images }[] = [
   { id: "slideshow", label: "Slideshow", icon: Images },
   { id: "users", label: "Users", icon: Users },
   { id: "whats_new", label: "What's New", icon: Megaphone },
+  { id: "messages", label: "Messages", icon: MessageCircle },
 ];
 
 const Admin = () => {
@@ -126,7 +128,7 @@ const Admin = () => {
       <div className="flex-1 min-w-0 flex flex-col">
         <header className="border-b border-border px-6 py-4">
           <h1 className="font-heading text-lg font-semibold tracking-tight text-foreground capitalize">
-            {section === "slideshow" ? "Slideshow Designs" : section === "users" ? "Users" : "What's New"}
+            {section === "slideshow" ? "Slideshow Designs" : section === "users" ? "Users" : section === "whats_new" ? "What's New" : "Messages"}
           </h1>
         </header>
 
@@ -134,6 +136,7 @@ const Admin = () => {
           {section === "slideshow" && <AdminSlideshow />}
           {section === "users" && <AdminUsers />}
           {section === "whats_new" && <AdminWhatsNew />}
+          {section === "messages" && <AdminMessages />}
         </main>
       </div>
     </div>
