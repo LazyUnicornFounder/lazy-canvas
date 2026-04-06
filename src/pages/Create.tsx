@@ -2,7 +2,6 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { Download, LogOut, ArrowLeft } from "lucide-react";
-import { toast } from "sonner";
 import DesignPreview, {
   type SocialPlatform,
 } from "@/components/DesignPreview";
@@ -14,6 +13,16 @@ import DesignEditor, {
 import AuthModal from "@/components/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useUserDesigns, type UserDesign } from "@/hooks/useUserDesigns";
 
@@ -36,9 +45,14 @@ const Create = () => {
   const [activeDesignId, setActiveQuoteId] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showProUpgradePrompt, setShowProUpgradePrompt] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
   const isFreeUser = !isPro;
+
+  const openProEditPrompt = useCallback(() => {
+    setShowProUpgradePrompt(true);
+  }, []);
 
   const handleDownload = useCallback(async () => {
     if (!previewRef.current) return;
@@ -64,7 +78,7 @@ const Create = () => {
 
   const handleSelectDesign = (quote: UserDesign) => {
     if (!isPro) {
-      toast.error("Re-editing saved designs is a Pro feature. Upgrade to Pro to unlock!");
+      openProEditPrompt();
       return;
     }
     setActiveQuoteId(quote.id);
@@ -136,56 +150,79 @@ const Create = () => {
           </div>
 
           <div className="hidden lg:flex sticky top-4 flex-shrink-0 flex-col gap-3" style={{ width: "clamp(260px, 25vw, 320px)" }}>
-              <div className="w-full">
-                  <DesignPreview
-                    ref={previewRef}
-                    quote={editorState.quote}
-                    authorName={editorState.authorName}
-                    authorPhoto={editorState.authorPhoto}
-                    photoShape={editorState.photoShape}
-                    socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
-                    socials={socials}
-                    aspectRatio="square"
-                    font={editorState.font}
-                    theme={editorState.theme}
-                    backgroundImage={editorState.backgroundImage}
-                    backgroundOpacity={editorState.backgroundOpacity}
-                    backgroundBlur={editorState.backgroundBlur}
-                    backgroundFilter={editorState.backgroundFilter}
-                    fontSize={editorState.fontSize}
-                    textAlign={editorState.textAlign}
-                    letterSpacing={editorState.letterSpacing}
-                    lineHeight={editorState.lineHeight}
-                    textColor={editorState.textColor}
-                    authorFontSize={editorState.authorFontSize}
-                    authorColor={editorState.authorColor}
-                    authorFont={editorState.authorFont}
-                    textShadow={editorState.textShadow}
-                    authorPosition={editorState.authorPosition}
-                    backgroundColor={editorState.backgroundColor}
-                    isBold={editorState.isBold}
-                    isItalic={editorState.isItalic}
-                    coloredWords={editorState.coloredWords}
-                    showWatermark={isFreeUser}
-                    showQuotationMarks={editorState.showQuotationMarks}
-                    photoStroke={editorState.photoStroke}
-                    logo={editorState.logo}
-                    logoPosition={editorState.logoPosition}
-                    logoSize={editorState.logoSize}
-                     onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
-                  />
-              </div>
-              <button
-                onClick={handleDownload}
-                disabled={downloading}
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
-              >
-                <Download className="w-4 h-4" />
-                {downloading ? "Exporting…" : "Download PNG"}
-              </button>
+            <div className="w-full">
+              <DesignPreview
+                ref={previewRef}
+                quote={editorState.quote}
+                authorName={editorState.authorName}
+                authorPhoto={editorState.authorPhoto}
+                photoShape={editorState.photoShape}
+                socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
+                socials={socials}
+                aspectRatio="square"
+                font={editorState.font}
+                theme={editorState.theme}
+                backgroundImage={editorState.backgroundImage}
+                backgroundOpacity={editorState.backgroundOpacity}
+                backgroundBlur={editorState.backgroundBlur}
+                backgroundFilter={editorState.backgroundFilter}
+                fontSize={editorState.fontSize}
+                textAlign={editorState.textAlign}
+                letterSpacing={editorState.letterSpacing}
+                lineHeight={editorState.lineHeight}
+                textColor={editorState.textColor}
+                authorFontSize={editorState.authorFontSize}
+                authorColor={editorState.authorColor}
+                authorFont={editorState.authorFont}
+                textShadow={editorState.textShadow}
+                authorPosition={editorState.authorPosition}
+                backgroundColor={editorState.backgroundColor}
+                isBold={editorState.isBold}
+                isItalic={editorState.isItalic}
+                coloredWords={editorState.coloredWords}
+                showWatermark={isFreeUser}
+                showQuotationMarks={editorState.showQuotationMarks}
+                photoStroke={editorState.photoStroke}
+                logo={editorState.logo}
+                logoPosition={editorState.logoPosition}
+                logoSize={editorState.logoSize}
+                onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
+              />
+            </div>
+            <button
+              onClick={handleDownload}
+              disabled={downloading}
+              className="flex items-center justify-center gap-2 w-full py-2.5 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
+            >
+              <Download className="w-4 h-4" />
+              {downloading ? "Exporting…" : "Download PNG"}
+            </button>
           </div>
         </div>
       </main>
+
+      <AlertDialog open={showProUpgradePrompt} onOpenChange={setShowProUpgradePrompt}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-heading">This is a Pro feature</AlertDialogTitle>
+            <AlertDialogDescription className="text-sm text-muted-foreground">
+              Upgrade to Pro to re-edit your saved designs.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="flex-col sm:flex-col gap-2">
+            <AlertDialogAction
+              onClick={() => {
+                setShowProUpgradePrompt(false);
+                navigate("/pricing");
+              }}
+              className="w-full"
+            >
+              Upgrade to Pro
+            </AlertDialogAction>
+            <AlertDialogCancel className="w-full mt-0">Maybe later</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <AuthModal
         open={showAuthModal}
@@ -208,6 +245,7 @@ const Create = () => {
             loading={designsLoading}
             saveDesign={saveDesign}
             deleteDesign={deleteDesign}
+            onLockedEdit={openProEditPrompt}
           />
           <div className="flex-1 flex flex-col min-w-0 bg-background">
             {mainContent}

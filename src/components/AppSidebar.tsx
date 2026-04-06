@@ -1,5 +1,4 @@
-import { Plus, FileText, Trash2, Crown, ChevronUp, LogOut, CreditCard, Pencil } from "lucide-react";
-import { toast } from "sonner";
+import { Plus, FileText, Trash2, Crown, LogOut, CreditCard, Pencil } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import type { UserDesign } from "@/hooks/useUserDesigns";
@@ -30,9 +29,20 @@ interface AppSidebarProps {
   loading: boolean;
   saveDesign: (id: string | null, title: string, editorState: DesignEditorState) => Promise<any>;
   deleteDesign: (id: string) => Promise<void>;
+  onLockedEdit?: () => void;
 }
 
-export function AppSidebar({ activeDesignId, onSelectDesign, onNewDesign, currentEditorState, designs, loading, saveDesign, deleteDesign }: AppSidebarProps) {
+export function AppSidebar({
+  activeDesignId,
+  onSelectDesign,
+  onNewDesign,
+  currentEditorState,
+  designs,
+  loading,
+  saveDesign,
+  deleteDesign,
+  onLockedEdit,
+}: AppSidebarProps) {
   const { user, signOut, isPro } = useAuth();
   const navigate = useNavigate();
   const { state } = useSidebar();
@@ -46,6 +56,15 @@ export function AppSidebar({ activeDesignId, onSelectDesign, onNewDesign, curren
       ? text.slice(0, 40) + (text.length > 40 ? "…" : "")
       : "Untitled";
     await saveDesign(activeDesignId, title, currentEditorState);
+  };
+
+  const handleLockedEdit = () => {
+    if (onLockedEdit) {
+      onLockedEdit();
+      return;
+    }
+
+    navigate("/pricing");
   };
 
   return (
@@ -63,7 +82,6 @@ export function AppSidebar({ activeDesignId, onSelectDesign, onNewDesign, curren
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {/* New Design */}
               <SidebarMenuItem>
                 <SidebarMenuButton onClick={onNewDesign} className="text-primary">
                   <Plus className="w-4 h-4" />
@@ -71,7 +89,6 @@ export function AppSidebar({ activeDesignId, onSelectDesign, onNewDesign, curren
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
-              {/* Save current */}
               <SidebarMenuItem>
                 <SidebarMenuButton onClick={handleSave} className="text-muted-foreground">
                   <FileText className="w-4 h-4" />
@@ -117,12 +134,7 @@ export function AppSidebar({ activeDesignId, onSelectDesign, onNewDesign, curren
                           showOnHover
                           onClick={(e) => {
                             e.stopPropagation();
-                            toast.info("Upgrade to Pro to edit your saved designs", {
-                              action: {
-                                label: "Upgrade",
-                                onClick: () => navigate("/pricing"),
-                              },
-                            });
+                            handleLockedEdit();
                           }}
                         >
                           <Pencil className="w-3.5 h-3.5 text-muted-foreground" />
@@ -149,7 +161,6 @@ export function AppSidebar({ activeDesignId, onSelectDesign, onNewDesign, curren
       <SidebarFooter>
         <SidebarSeparator />
 
-        {/* Subscription tier */}
         <div className="p-3 space-y-2">
           <div className="flex items-center gap-2">
             <Crown className="w-4 h-4 text-muted-foreground" />
@@ -166,7 +177,6 @@ export function AppSidebar({ activeDesignId, onSelectDesign, onNewDesign, curren
 
         <SidebarSeparator />
 
-        {/* User info + sign out */}
         <div className="p-3 flex items-center gap-2">
           <div className="flex-1 min-w-0">
             <p className="text-xs text-muted-foreground truncate">{user?.email}</p>

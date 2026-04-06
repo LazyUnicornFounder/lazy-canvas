@@ -858,6 +858,7 @@ const Index = () => {
             loading={designsLoading}
             saveDesign={saveDesign}
             deleteDesign={deleteDesign}
+            onLockedEdit={openProEditPrompt}
           />
           {pageContent}
         </div>
