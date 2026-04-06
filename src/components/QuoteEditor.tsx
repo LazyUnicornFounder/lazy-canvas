@@ -714,7 +714,11 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                     ? "border-foreground scale-110"
                     : "border-border group-hover:border-foreground/30"
                 }`}
-                style={{ backgroundColor: opt.swatch }}
+                style={{
+                  ...(opt.isGlass
+                    ? { background: opt.swatch, backdropFilter: "blur(8px)" }
+                    : { backgroundColor: opt.swatch }),
+                }}
               />
               <span className="text-[10px] font-heading text-muted-foreground">{opt.label}</span>
             </button>
