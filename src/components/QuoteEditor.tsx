@@ -1074,7 +1074,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                   src={state.authorPhoto}
                   alt="Author"
                   className={`border border-border ${
-                    state.photoShape === "none" ? "rounded-md max-w-[5rem] max-h-[5rem]" :
+                    state.photoShape === "none" ? "max-w-[5rem] max-h-[5rem]" :
                     state.photoShape === "circle" ? "w-16 h-16 rounded-full object-cover" :
                     state.photoShape === "square" ? "w-16 h-16 rounded-none object-cover" :
                     state.photoShape === "rounded-square" ? "w-16 h-16 rounded-lg object-cover" :
