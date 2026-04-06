@@ -230,7 +230,7 @@ const Index = () => {
     } else if (hasPro) {
       const target = previewRef.current || mobilePreviewRef.current;
       if (target) {
-        html2canvas(target, { scale: 1, useCORS: true, logging: false, backgroundColor: null })
+        html2canvas(target, { scale: 1, useCORS: true, logging: false, backgroundColor: null, onclone: (doc) => { doc.querySelectorAll("[data-export-exclude]").forEach((el) => el.remove()); } })
           .then((canvas) => {
             setProUpgradeSnapshot(canvas.toDataURL("image/png"));
             const ctx = canvas.getContext("2d");
