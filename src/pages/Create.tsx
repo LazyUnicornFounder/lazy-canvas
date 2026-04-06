@@ -15,7 +15,7 @@ import AuthModal from "@/components/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import type { UserQuote } from "@/hooks/useUserQuotes";
+import { useUserQuotes, type UserQuote } from "@/hooks/useUserQuotes";
 
 const DRAFT_KEY = "lazy-quotes-draft";
 

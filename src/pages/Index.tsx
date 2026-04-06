@@ -68,7 +68,7 @@ const sanitizeExportStyles = (root: ParentNode) => {
 
 const Index = () => {
   const { user, signOut, isPro, isAdmin } = useAuth();
-  const { saveQuote } = useUserQuotes();
+  const { quotes, loading: quotesLoading, saveQuote, deleteQuote } = useUserQuotes();
   const navigate = useNavigate();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<"login" | "signup">("signup");
@@ -845,6 +845,10 @@ const Index = () => {
             onSelectQuote={handleSelectQuote}
             onNewQuote={handleNewQuote}
             currentEditorState={editorState}
+            quotes={quotes}
+            loading={quotesLoading}
+            saveQuote={saveQuote}
+            deleteQuote={deleteQuote}
           />
           {pageContent}
         </div>
