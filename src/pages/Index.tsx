@@ -592,6 +592,7 @@ const Index = () => {
         open={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onSuccess={() => navigate("/create")}
+        defaultMode={authModalMode}
       />
 
       {/* Signup prompt after download for non-logged-in users */}
