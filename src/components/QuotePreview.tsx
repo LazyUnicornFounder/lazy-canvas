@@ -440,7 +440,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     const hasAuthor = authorName || authorPhoto || socials;
     const isDetached = authorPosition !== "below-quote";
 
-    const authorBlock = hasAuthor ? (
+    const authorInner = hasAuthor ? (
       <div
         className="flex items-center gap-3"
         style={{
@@ -448,8 +448,8 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
             !isDetached
               ? textAlign === "center" ? "center" : textAlign === "right" ? "flex-end" : "flex-start"
               : authorPosition === "bottom-center" ? "center" : authorPosition === "bottom-right" ? "flex-end" : "flex-start",
-          width: "100%",
-          ...(!isDetached ? { marginTop: "1.5rem" } : {}),
+          width: glassAuthorPill ? undefined : "100%",
+          ...(!isDetached && !glassAuthorPill ? { marginTop: "1.5rem" } : {}),
         }}
       >
         {authorPhoto && (
@@ -493,6 +493,26 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           )}
         </div>
       </div>
+    ) : null;
+
+    const authorBlock = hasAuthor ? (
+      glassAuthorPill ? (
+        <div
+          style={{
+            display: "inline-flex",
+            ...(!isDetached ? { marginTop: "1.5rem", alignSelf: textAlign === "center" ? "center" : textAlign === "right" ? "flex-end" : "flex-start" } : {}),
+            padding: "0.4rem 0.8rem",
+            borderRadius: "999px",
+            background: "rgba(255,255,255,0.12)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.2)",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.08), inset 0 1px 1px rgba(255,255,255,0.15)",
+          }}
+        >
+          {authorInner}
+        </div>
+      ) : authorInner
     ) : null;
 
     const isGlass = !!t.glass;
