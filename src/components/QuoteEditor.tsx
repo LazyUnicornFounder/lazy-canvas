@@ -391,7 +391,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
     }
   }, [state, onChange]);
 
-
+  const imageToBase64 = async (src: string): Promise<string> => {
     if (src.startsWith("data:")) return src;
     const response = await fetch(src);
     const blob = await response.blob();
