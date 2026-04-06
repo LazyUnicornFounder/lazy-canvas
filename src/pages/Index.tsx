@@ -455,6 +455,22 @@ const Index = () => {
           )}
         </div>
         <div className="relative w-full mt-2 max-w-[280px] mx-auto flex gap-2">
+          {user && activeQuoteId && (
+            <button
+              onClick={() => {
+                if (!isPro) {
+                  toast.info("Upgrade to Pro to edit your saved designs", {
+                    action: { label: "Upgrade", onClick: () => navigate("/pricing") },
+                  });
+                  return;
+                }
+              }}
+              className="flex items-center justify-center gap-1.5 px-3 py-2 border border-border text-foreground font-heading text-xs font-medium rounded-md hover:bg-accent transition-colors"
+            >
+              <Pencil className="w-3.5 h-3.5" />
+              Edit
+            </button>
+          )}
           <button
             onClick={() => {
               if (!user) { setAuthModalMode("signup"); setShowAuthModal(true); return; }
@@ -566,6 +582,22 @@ const Index = () => {
                 )}
             </div>
             <div className="flex items-center gap-2">
+              {user && activeQuoteId && (
+                <button
+                  onClick={() => {
+                    if (!isPro) {
+                      toast.info("Upgrade to Pro to edit your saved designs", {
+                        action: { label: "Upgrade", onClick: () => navigate("/pricing") },
+                      });
+                      return;
+                    }
+                  }}
+                  className="flex items-center justify-center gap-2 px-4 py-2 border border-border text-foreground font-heading text-sm font-medium rounded-md hover:bg-accent transition-colors"
+                >
+                  <Pencil className="w-4 h-4" />
+                  Edit
+                </button>
+              )}
               <button
                 onClick={() => {
                   if (!user) { setAuthModalMode("signup"); setShowAuthModal(true); return; }
