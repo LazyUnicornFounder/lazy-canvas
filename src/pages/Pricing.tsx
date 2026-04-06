@@ -31,7 +31,7 @@ const featureRows: [string, boolean, boolean][] = [
 
 const Pricing = () => {
   const navigate = useNavigate();
-  const { user, isPro, signOut } = useAuth();
+  const { user, isPro, proLoading, signOut } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<"login" | "signup">("signup");
   const [checkoutLoading, setCheckoutLoading] = useState(false);
@@ -208,7 +208,7 @@ const Pricing = () => {
               onClick={() => handleCta("Free")}
               className="w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 bg-foreground text-background disabled:opacity-50 mt-auto"
             >
-              {user && !isPro ? "Current Plan" : "Get Started"}
+              {user && !isPro && !proLoading ? "Current Plan" : !user ? "Get Started" : proLoading ? "..." : "Get Started"}
             </button>
           </div>
 
@@ -249,7 +249,7 @@ const Pricing = () => {
               disabled={checkoutLoading}
               className="w-full py-2.5 rounded-md font-heading text-sm font-medium transition-opacity hover:opacity-90 bg-foreground text-background disabled:opacity-50 mt-auto"
             >
-              {isPro ? "Current Plan" : checkoutLoading ? "Loading..." : "Start 14-day free trial"}
+              {proLoading ? "..." : isPro ? "Current Plan" : checkoutLoading ? "Loading..." : "Start 14-day free trial"}
             </button>
           </div>
         </div>

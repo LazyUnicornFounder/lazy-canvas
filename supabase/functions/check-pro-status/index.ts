@@ -6,6 +6,9 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const POLAR_PRO_MONTHLY_ID = "5513f675-e192-4626-815d-375b75d84e43";
+const POLAR_PRO_YEARLY_ID = "3652d762-6798-41e9-89d5-3603e0f5a6f5";
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -38,31 +41,29 @@ serve(async (req) => {
       });
     }
 
-    // Check for active subscription via Polar
-    const response = await fetch(
-      `https://api.polar.sh/v1/subscriptions/?external_customer_id=${user.id}&active=true&product_id=5513f675-e192-4626-815d-375b75d84e43`,
-      {
-        headers: {
-          Authorization: `Bearer ${POLAR_ACCESS_TOKEN}`,
-        },
+    // Check for active subscription via Polar — check both monthly and yearly products
+    let hasActiveSubscription = false;
+
+    for (const productId of [POLAR_PRO_MONTHLY_ID, POLAR_PRO_YEARLY_ID]) {
+      const response = await fetch(
+        `https://api.polar.sh/v1/subscriptions/?external_customer_id=${user.id}&active=true&product_id=${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${POLAR_ACCESS_TOKEN}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.items && data.items.length > 0) {
+          hasActiveSubscription = true;
+          break;
+        }
+      } else {
+        console.error(`Polar API error for product ${productId}: ${response.status}`);
       }
-    );
-
-    if (!response.ok) {
-      console.error(`Polar API error: ${response.status}`);
-      // Fall back to checking user_roles table
-      const { data: roles } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id);
-      const roleList = (roles || []).map((r: any) => r.role);
-      return new Response(JSON.stringify({ isPro: roleList.includes("pro") || roleList.includes("admin") }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
     }
-
-    const data = await response.json();
-    const hasActiveSubscription = data.items && data.items.length > 0;
 
     // Also check user_roles as fallback (for admin)
     const { data: roles } = await supabase
