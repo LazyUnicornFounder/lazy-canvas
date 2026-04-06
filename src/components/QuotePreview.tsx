@@ -305,7 +305,6 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
     const contentRef = useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
     const [fontLoaded, setFontLoaded] = useState(0);
-    const [fontLoaded, setFontLoaded] = useState(0);
 
     // Force re-render when font finishes loading
     useEffect(() => {
