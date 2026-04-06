@@ -20,7 +20,7 @@ const proFeatures = [
   { text: "Word colors", included: true },
   { text: "No watermark", included: true },
   { text: "Save unlimited designs", included: true },
-  { text: "Re-edit your quotes", included: true },
+  { text: "Re-edit your designs", included: true },
 ];
 
 const freeFeatures = [
