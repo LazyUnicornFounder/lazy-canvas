@@ -1354,7 +1354,7 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
                 { value: "rounded-square" as const, label: "Rounded", preview: "rounded-lg", w: 32, h: 32 },
                 { value: "rectangle" as const, label: "Rectangle", preview: "rounded-md", w: 40, h: 28 },
                 { value: "oval" as const, label: "Oval", preview: "rounded-full", w: 36, h: 28 },
-                { value: "hexagon" as const, label: "Hexagon", preview: "rounded-none", w: 32, h: 32 },
+                { value: "hexagon" as const, label: "Hexagon", preview: "rounded-none", w: 28, h: 28 },
               ]).map((shape) => (
                 <button
                   key={shape.value}
@@ -1385,21 +1385,6 @@ const QuoteEditor = ({ state: rawState, onChange, isPro = false }: QuoteEditorPr
               ))}
             </div>
           </div>
-          {state.authorPhoto && (
-            <div className="flex items-center gap-3">
-              <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Stroke</span>
-              <button
-                onClick={() => set("photoStroke", !state.photoStroke)}
-                className={`px-3 py-1.5 text-[10px] font-heading font-medium rounded-md border transition-all ${
-                  state.photoStroke
-                    ? "bg-foreground text-background border-foreground"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                }`}
-              >
-                {state.photoStroke ? "On" : "Off"}
-              </button>
-            </div>
-          )}
         </div>
       </ControlSection>
 
