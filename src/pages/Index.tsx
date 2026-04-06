@@ -199,7 +199,7 @@ const Index = () => {
     }
   }, [downloadBlob, renderPreviewBlob, user]);
 
-  const pendingFreeDownload = useRef(false);
+  
 
   const handleDownloadFreeVersion = useCallback(() => {
     setShowProUpgradePrompt(false);
