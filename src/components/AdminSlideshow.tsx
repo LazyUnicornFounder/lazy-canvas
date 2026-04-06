@@ -66,7 +66,7 @@ const AdminSlideshow = () => {
 
   const handleSave = async () => {
     if (!editorState.quote.trim()) {
-      toast.error("Please enter a quote");
+      toast.error("Please enter a design");
       return;
     }
     setSaving(true);
@@ -106,10 +106,10 @@ const AdminSlideshow = () => {
     });
     setSaving(false);
     if (error) {
-      toast.error("Failed to save quote");
+      toast.error("Failed to save design");
       console.error(error);
     } else {
-      toast.success("Quote saved to slideshow!");
+      toast.success("Design saved to slideshow!");
       setEditorState(DEFAULT_EDITOR_STATE);
       loadQuotes();
     }
@@ -118,7 +118,7 @@ const AdminSlideshow = () => {
   const handleDelete = async (id: string) => {
     const { error } = await supabase.from("slideshow_quotes").delete().eq("id", id);
     if (!error) {
-      toast.success("Quote deleted");
+      toast.success("Design deleted");
       loadQuotes();
     }
   };

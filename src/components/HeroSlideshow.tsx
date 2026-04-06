@@ -66,7 +66,7 @@ const HeroSlideshow = () => {
   if (quotes.length === 0) {
     return (
       <div className="aspect-square w-full max-w-md bg-card border border-border rounded-lg flex items-center justify-center">
-        <p className="text-muted-foreground text-sm italic">Quotes coming soon...</p>
+        <p className="text-muted-foreground text-sm italic">Designs coming soon...</p>
       </div>
     );
   }

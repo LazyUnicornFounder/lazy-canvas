@@ -118,7 +118,7 @@ const QuoteGallery = ({ hideWrapper = false }: { hideWrapper?: boolean }) => {
   if (quotes.length === 0) {
     const empty = (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <p className="text-muted-foreground text-sm">Coming soon — be the first to share a quote!</p>
+        <p className="text-muted-foreground text-sm">Coming soon — be the first to share a design!</p>
       </div>
     );
     if (hideWrapper) return empty;

@@ -23,11 +23,11 @@ const GalleryPromptDialog = ({ open, onClose, onConfirm }: GalleryPromptDialogPr
         <AlertDialogHeader>
           <AlertDialogTitle className="font-heading">Share to Gallery?</AlertDialogTitle>
           <AlertDialogDescription className="text-sm text-muted-foreground">
-            Would you like to feature this quote in our{" "}
+            Would you like to feature this design in our{" "}
             <Link to="/gallery" className="underline text-foreground hover:text-primary transition-colors" onClick={onClose}>
               community Gallery
             </Link>
-            ? No personal details will be shown — just the quote image.
+            ? No personal details will be shown — just the design image.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
