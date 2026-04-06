@@ -365,6 +365,7 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
           backgroundColor: backgroundColor || t.bg,
           color: t.text,
           ...(aspectRatio === "custom" && customWidth && customHeight ? { aspectRatio: `${customWidth} / ${customHeight}` } : {}),
+          ...(borderStyle !== "none" && borderWidth > 0 ? { border: `${borderWidth}px ${borderStyle} ${borderColor}`, boxSizing: "border-box" as const } : {}),
         }}
       >
         {backgroundImage && (
