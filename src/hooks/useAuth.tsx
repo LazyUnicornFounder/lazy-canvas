@@ -8,6 +8,7 @@ interface AuthContextType {
   loading: boolean;
   isAdmin: boolean;
   isPro: boolean;
+  proLoading: boolean;
   signOut: () => Promise<void>;
   refreshProStatus: () => Promise<void>;
 }
@@ -18,6 +19,7 @@ const AuthContext = createContext<AuthContextType>({
   loading: true,
   isAdmin: false,
   isPro: false,
+  proLoading: true,
   signOut: async () => {},
   refreshProStatus: async () => {},
 });
@@ -29,6 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [isPro, setIsPro] = useState(false);
+  const [proLoading, setProLoading] = useState(true);
 
   const isAdmin = user?.email === ADMIN_EMAIL;
 
@@ -53,8 +56,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const refreshProStatus = async () => {
     if (!user) {
       setIsPro(false);
+      setProLoading(false);
       return;
     }
+    setProLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("check-pro-status");
       if (!error && data) {
@@ -68,6 +73,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         .eq("user_id", user.id);
       const roleList = (roles || []).map((r) => r.role);
       setIsPro(roleList.includes("pro") || roleList.includes("admin"));
+    } finally {
+      setProLoading(false);
     }
   };
 
@@ -101,7 +108,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, isAdmin, isPro, signOut, refreshProStatus }}>
+    <AuthContext.Provider value={{ user, session, loading, isAdmin, isPro, proLoading, signOut, refreshProStatus }}>
       {children}
     </AuthContext.Provider>
   );
