@@ -487,7 +487,7 @@ const Index = () => {
 
       {/* Mobile sticky preview */}
       <div className="lg:hidden sticky top-0 z-20 bg-background border-b border-border px-4 py-3">
-        <div className="max-w-[280px] mx-auto relative">
+        <div className="max-w-[280px] max-h-[50vh] mx-auto relative overflow-hidden rounded-lg">
           <DesignPreview
             key={`mobile-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
             ref={mobilePreviewRef}
