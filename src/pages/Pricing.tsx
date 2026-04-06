@@ -13,7 +13,7 @@ const tiers = [
   {
     name: "Free",
     price: "$0",
-    period: "forever",
+    period: "",
     description: "Create and save unlimited quotes.",
     cta: "Get Started",
     highlighted: false,
