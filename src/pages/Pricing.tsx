@@ -19,6 +19,7 @@ const proFeatures = [
   { text: "Image filters", included: true },
   { text: "Word colors", included: true },
   { text: "No watermark", included: true },
+  { text: "All formats & sizes", included: true },
   { text: "Save unlimited designs", included: true },
   { text: "Re-edit your designs", included: true },
 ];
@@ -34,6 +35,7 @@ const freeFeatures = [
   { text: "Image filters", included: false },
   { text: "Word colors", included: false },
   
+  { text: "All formats & sizes", included: false },
   { text: "No watermark", included: false },
 ];
 
