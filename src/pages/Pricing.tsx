@@ -220,15 +220,15 @@ const Pricing = () => {
               <h3 className="font-heading text-sm font-semibold uppercase tracking-widest text-muted-foreground">
                 Pro
               </h3>
-              <div className="flex items-baseline gap-1">
+              <div className="flex items-baseline gap-2">
                 <span className="font-heading text-4xl font-bold text-foreground">{proPrice}</span>
                 <span className="text-sm text-muted-foreground">{proPeriod}</span>
                 {billingInterval === "yearly" && (
                   <span className="text-xs text-muted-foreground ml-1">($48/year)</span>
                 )}
+                <span className="text-xs font-medium text-primary">14-day free trial · Cancel anytime.</span>
               </div>
               <p className="text-sm text-muted-foreground">Everything in Free, plus premium tools.</p>
-              <p className="text-xs font-medium text-primary">14-day free trial · Cancel anytime.</p>
             </div>
 
             <ul className="space-y-2.5 flex-1 mb-6">
