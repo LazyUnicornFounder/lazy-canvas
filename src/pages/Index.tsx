@@ -186,41 +186,69 @@ const Index = () => {
   }, []);
 
   const renderPreviewBlob = useCallback(async (target: HTMLElement, scale: number) => {
-    try {
-      const blob = await toImageBlob(target, {
-        cacheBust: true,
-        pixelRatio: scale,
-        filter: (node: HTMLElement) => !node?.hasAttribute?.("data-export-exclude"),
-      });
+    // For print-ready exports, temporarily enlarge the element to get true high-res rendering
+    const isPrintScale = scale > 3;
+    let originalWidth = "";
+    let originalMinWidth = "";
+    let parent = target.parentElement;
+    let originalParentWidth = "";
 
-      if (blob) {
-        return blob;
-      }
-    } catch (error) {
-      console.warn("Primary export failed, falling back to canvas export", error);
+    if (isPrintScale && parent) {
+      originalWidth = target.style.width;
+      originalMinWidth = target.style.minWidth;
+      originalParentWidth = parent.style.width;
+      // Expand container so the preview renders at a larger base size
+      parent.style.width = "800px";
+      target.style.width = "800px";
+      target.style.minWidth = "800px";
+      // Wait for layout to recalculate
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
     }
 
-    const canvas = await html2canvas(target, {
-      scale,
-      useCORS: true,
-      logging: false,
-      backgroundColor: null,
-      onclone: (clonedDocument) => {
-        clonedDocument.querySelectorAll("[data-export-exclude]").forEach((el) => el.remove());
-        sanitizeExportStyles(clonedDocument.body);
-      },
-    });
+    try {
+      try {
+        const blob = await toImageBlob(target, {
+          cacheBust: true,
+          pixelRatio: isPrintScale ? 4 : scale,
+          filter: (node: HTMLElement) => !node?.hasAttribute?.("data-export-exclude"),
+        });
 
-    return await new Promise<Blob>((resolve, reject) => {
-      canvas.toBlob((blob) => {
         if (blob) {
-          resolve(blob);
-          return;
+          return blob;
         }
+      } catch (error) {
+        console.warn("Primary export failed, falling back to canvas export", error);
+      }
 
-        reject(new Error("Failed to create PNG"));
-      }, "image/png");
-    });
+      const canvas = await html2canvas(target, {
+        scale: isPrintScale ? 4 : scale,
+        useCORS: true,
+        logging: false,
+        backgroundColor: null,
+        onclone: (clonedDocument) => {
+          clonedDocument.querySelectorAll("[data-export-exclude]").forEach((el) => el.remove());
+          sanitizeExportStyles(clonedDocument.body);
+        },
+      });
+
+      return await new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            resolve(blob);
+            return;
+          }
+
+          reject(new Error("Failed to create PNG"));
+        }, "image/png");
+      });
+    } finally {
+      // Restore original dimensions
+      if (isPrintScale && parent) {
+        target.style.width = originalWidth;
+        target.style.minWidth = originalMinWidth;
+        parent.style.width = originalParentWidth;
+      }
+    }
   }, []);
 
   const performDownloadOnly = useCallback(async (scale: number = 3, showGuestPrompt = true) => {
