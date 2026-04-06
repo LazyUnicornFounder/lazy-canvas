@@ -185,7 +185,7 @@ const Index = () => {
       const suffix = scale > 3 ? "-print" : "";
       downloadBlob(blob, `quote${suffix}-${Date.now()}.png`);
 
-      if (!user && showGuestPrompt) {
+      if (!user && showGuestPrompt && !localStorage.getItem("lazy-quotes-signup-dismissed")) {
         window.setTimeout(() => setShowSignupPrompt(true), 300);
       }
     } catch (err) {
