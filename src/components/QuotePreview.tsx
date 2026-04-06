@@ -429,7 +429,18 @@ const QuotePreview = forwardRef<HTMLDivElement, QuotePreviewProps>(
               opacity: backgroundOpacity,
               filter: [
                 backgroundBlur > 0 ? `blur(${backgroundBlur}px)` : "",
-                BG_FILTERS.find(f => f.value === backgroundFilter)?.css || "",
+                (() => {
+                  const raw = BG_FILTERS.find(f => f.value === backgroundFilter)?.css || "";
+                  if (!raw || filterIntensity >= 1) return raw;
+                  if (filterIntensity <= 0) return "";
+                  // Scale numeric values toward their neutral points
+                  return raw.replace(/([\w-]+)\(([\d.]+)\)/g, (_, fn, val) => {
+                    const v = parseFloat(val);
+                    const neutral = ["brightness", "contrast", "saturate"].includes(fn) ? 1 : 0;
+                    const scaled = neutral + (v - neutral) * filterIntensity;
+                    return `${fn}(${scaled.toFixed(3)})`;
+                  });
+                })(),
               ].filter(Boolean).join(" ") || undefined,
               transform: backgroundBlur > 0 ? "scale(1.05)" : undefined,
             }}
