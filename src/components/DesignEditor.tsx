@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow, LayoutGrid, Eraser, Loader2, Search, Trash2, FolderOpen } from "lucide-react";
+import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow, LayoutGrid, Eraser, Loader2, Search, Trash2, FolderOpen, Type, User, Square, Ruler, SlidersHorizontal, Layers, Camera } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { EMOJI_CATEGORIES } from "@/data/emojis";
 import TemplateLibrary from "@/components/TemplateLibrary";
@@ -550,1092 +550,623 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
     reader.readAsDataURL(file);
   };
 
+  const [activePanel, setActivePanel] = useState<string | null>("text");
+
+  const PANELS = [
+    { id: "text", icon: Type, label: "Text" },
+    { id: "font", icon: SlidersHorizontal, label: "Font" },
+    { id: "templates", icon: LayoutGrid, label: "Templates" },
+    { id: "background", icon: ImageIcon, label: "Background" },
+    { id: "theme", icon: Palette, label: "Theme" },
+    { id: "colors", icon: Rainbow, label: "Colors" },
+    { id: "author", icon: User, label: "Author" },
+    { id: "photo", icon: Camera, label: "Photo" },
+    { id: "border", icon: Square, label: "Border" },
+    { id: "format", icon: Layers, label: "Format" },
+    { id: "units", icon: Ruler, label: "Units" },
+  ];
+
   return (
-    <div className="grid grid-cols-1 gap-4">
-      {/* Templates */}
-      <div className="">
-        <ControlSection label="Templates" pro={!isPro} onProClick={goToPricing}>
-          <TemplateLibrary
-            onApply={(partial) => {
-              onChange({
-                ...state,
-                ...partial,
-                socialPlatform: state.socialPlatform,
-                socialUsername: state.socialUsername,
-                website: state.website,
-                authorPhoto: state.authorPhoto,
-              });
-            }}
-          />
-          {/* Wallpapers — PRO */}
-          <div className="mt-3">
-            <ControlSection label="Wallpapers" pro={!isPro} onProClick={goToPricing}>
-              <div className="flex flex-wrap gap-2">
-                {WALLPAPER_CATEGORIES.map((cat) => (
+    <div className="flex h-full">
+      {/* Thin icon sidebar */}
+      <div className="flex flex-col items-center gap-0.5 py-2 px-1 border-r border-border bg-card/50 flex-shrink-0 w-12">
+        {PANELS.map((panel) => {
+          const Icon = panel.icon;
+          const isActive = activePanel === panel.id;
+          return (
+            <button
+              key={panel.id}
+              onClick={() => setActivePanel(isActive ? null : panel.id)}
+              className={`flex flex-col items-center gap-0.5 p-1.5 rounded-md transition-all w-full ${
+                isActive
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+              }`}
+              title={panel.label}
+            >
+              <Icon className="w-4 h-4" />
+              <span className="text-[7px] font-heading font-medium leading-tight">{panel.label}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Expandable panel content */}
+      {activePanel && (
+        <div className="flex-1 min-w-0 overflow-y-auto lg:scrollbar-thin p-3 space-y-4">
+
+          {activePanel === "text" && (
+            <ControlSection label="Text">
+              <div className="relative">
+                <textarea
+                  ref={designTextareaRef}
+                  value={state.quote}
+                  onChange={(e) => set("quote", e.target.value)}
+                  placeholder="Start typing..."
+                  rows={3}
+                  className="w-full bg-transparent border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 resize-none font-body"
+                />
+                <div className="absolute bottom-2 right-2 flex items-center gap-0.5">
                   <button
-                    key={cat.label}
-                    onClick={() => applyWallpaper(cat)}
-                    disabled={loadingWallpaper !== null}
-                    className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-heading rounded-md border transition-all ${
-                      loadingWallpaper === cat.label
-                        ? "border-primary bg-primary/10 text-foreground"
-                        : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                    } disabled:opacity-50`}
+                    onClick={() => set("showQuotationMarks", !state.showQuotationMarks)}
+                    className={`p-1.5 rounded-md transition-colors text-xs font-bold select-none ${state.showQuotationMarks ? "bg-accent text-foreground" : "hover:bg-accent text-muted-foreground"}`}
+                    type="button"
+                    title={state.showQuotationMarks ? "Remove quotation marks" : "Add quotation marks"}
                   >
-                    <span>{cat.emoji}</span>
-                    <span>{cat.label}</span>
-                    {loadingWallpaper === cat.label && (
-                      <Loader2 className="w-3 h-3 animate-spin" />
-                    )}
+                    &ldquo;&rdquo;
                   </button>
-                ))}
+                  <button
+                    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                    className="p-1.5 rounded-md hover:bg-accent transition-colors"
+                    type="button"
+                  >
+                    <Smile className="w-4 h-4 text-muted-foreground" />
+                  </button>
+                  {showEmojiPicker && (
+                    <div ref={emojiPickerRef} className="absolute bottom-8 right-0 bg-card border border-border rounded-lg shadow-xl z-50 w-72">
+                      <div className="flex gap-1 px-2 pt-2 pb-1 border-b border-border overflow-x-auto">
+                        {EMOJI_CATEGORIES.map((cat, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setEmojiCategory(i)}
+                            className={`text-base p-1 rounded transition-colors flex-shrink-0 ${emojiCategory === i ? "bg-accent" : "hover:bg-accent/50"}`}
+                            type="button"
+                          >
+                            {cat.name}
+                          </button>
+                        ))}
+                      </div>
+                      <div className="grid grid-cols-8 gap-1 p-2 max-h-52 overflow-y-auto">
+                        {EMOJI_CATEGORIES[emojiCategory].emojis.map((emoji, i) => (
+                          <button
+                            key={`${emoji}-${i}`}
+                            onClick={() => insertEmoji(emoji)}
+                            className="w-7 h-7 flex items-center justify-center text-base hover:bg-accent rounded transition-colors"
+                            type="button"
+                          >
+                            {emoji}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </ControlSection>
-          </div>
-          {/* Search Images */}
-          <div className="space-y-2 mt-3">
-            <div className="flex items-center gap-2 px-1 text-xs font-heading font-medium text-muted-foreground">
-              <Search className="w-3.5 h-3.5" />
-              Search Images
-            </div>
-            <div className="space-y-2">
-              <form
-                onSubmit={(e) => { e.preventDefault(); searchPexels(pexelsQuery); }}
-                className="flex gap-1.5"
-              >
-                <input
-                  type="text"
-                  value={pexelsQuery}
-                  onChange={(e) => setPexelsQuery(e.target.value)}
-                  placeholder="e.g. mountains, ocean, city…"
-                  className="flex-1 px-2.5 py-1.5 text-xs rounded-md border border-border bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20"
-                />
-                <button
-                  type="submit"
-                  disabled={pexelsLoading || !pexelsQuery.trim()}
-                  className="px-3 py-1.5 text-xs font-heading font-medium rounded-md bg-foreground text-background hover:opacity-90 transition-opacity disabled:opacity-50"
-                >
-                  {pexelsLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : "Go"}
-                </button>
-              </form>
-              {pexelsResults.length > 0 && (
-                <div className="grid grid-cols-3 gap-1.5 max-h-[200px] overflow-y-auto rounded-md">
-                  {pexelsResults.map((photo) => (
-                    <button
-                      key={photo.id}
-                      onClick={() => {
-                        set("backgroundImage", photo.src.large);
-                      }}
-                      className="relative aspect-square rounded-md overflow-hidden border border-border hover:border-foreground/30 transition-all hover:scale-[1.03] active:scale-[0.97]"
-                    >
-                      <img src={photo.src.medium} alt={`Photo by ${photo.photographer}`} className="w-full h-full object-cover" loading="lazy" />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-1">
-                        <span className="text-[8px] text-white/80 truncate block">{photo.photographer}</span>
+          )}
+
+          {activePanel === "font" && (
+            <ControlSection label="Font">
+              <div className="space-y-2">
+                <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Serif</p>
+                <div className="flex flex-wrap gap-2">
+                  {SERIF_FONTS.map((opt) => (
+                    <button key={opt.value} onClick={() => set("font", opt.value)} className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${state.font === opt.value ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{opt.label}</button>
+                  ))}
+                </div>
+                <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Sans-serif</p>
+                <div className="flex flex-wrap gap-2">
+                  {SANS_FONTS.map((opt) => (
+                    <button key={opt.value} onClick={() => set("font", opt.value)} className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${state.font === opt.value ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{opt.label}</button>
+                  ))}
+                </div>
+                <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Cursive</p>
+                <div className="flex flex-wrap gap-2">
+                  {CURSIVE_FONTS.map((opt) => (
+                    <button key={opt.value} onClick={() => set("font", opt.value)} className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${state.font === opt.value ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{opt.label}</button>
+                  ))}
+                </div>
+                <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Futuristic</p>
+                <div className="flex flex-wrap gap-2">
+                  {FUTURISTIC_FONTS.map((opt) => (
+                    <button key={opt.value} onClick={() => set("font", opt.value)} className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${state.font === opt.value ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{opt.label}</button>
+                  ))}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 mt-3">
+                <button onClick={() => set("isBold", !state.isBold)} className={`px-3 py-1.5 text-sm rounded-md border font-bold transition-all ${state.isBold ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>B</button>
+                <button onClick={() => set("isItalic", !state.isItalic)} className={`px-3 py-1.5 text-sm rounded-md border italic transition-all ${state.isItalic ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>I</button>
+                <button onClick={() => set("showQuotationMarks", !state.showQuotationMarks)} className={`px-3 py-1.5 text-sm rounded-md border font-playfair transition-all ${state.showQuotationMarks ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`} title="Quotation marks">&ldquo;&rdquo;</button>
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Size</span>
+                <input type="range" min={0.8} max={6} step={0.05} value={state.fontSize} onChange={(e) => set("fontSize", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.fontSize.toFixed(1)}</span>
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Spacing</span>
+                <input type="range" min={-0.05} max={0.3} step={0.005} value={state.letterSpacing} onChange={(e) => set("letterSpacing", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.letterSpacing.toFixed(2)}</span>
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Leading</span>
+                <input type="range" min={1} max={3} step={0.05} value={state.lineHeight} onChange={(e) => set("lineHeight", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.lineHeight.toFixed(1)}</span>
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
+                <input type="color" value={state.textColor || "#1a1a1a"} onChange={(e) => set("textColor", e.target.value)} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
+                {state.textColor && <button onClick={() => set("textColor", "")} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">Reset</button>}
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Shadow</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {(["none", "soft", "hard", "glow", "outline"] as const).map((s) => (
+                    <button key={s} onClick={() => set("textShadow", s)} className={`px-3 py-1.5 text-[10px] font-heading font-medium rounded-md border transition-all capitalize ${state.textShadow === s ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{s}</button>
+                  ))}
+                </div>
+              </div>
+              {state.textShadow !== "none" && (
+                <div className="flex items-center gap-3 mt-3">
+                  <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
+                  <input type="range" min={0.1} max={1} step={0.05} value={state.shadowOpacity} onChange={(e) => set("shadowOpacity", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                  <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{(state.shadowOpacity * 100).toFixed(0)}%</span>
+                </div>
+              )}
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Align</span>
+                <div className="flex gap-1.5">
+                  {(["left", "center", "right"] as const).map((a) => (
+                    <button key={a} onClick={() => set("textAlign", a)} className={`px-3 py-1.5 text-[10px] font-heading font-medium rounded-md border transition-all capitalize ${state.textAlign === a ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{a}</button>
+                  ))}
+                </div>
+              </div>
+            </ControlSection>
+          )}
+
+          {activePanel === "templates" && (
+            <ControlSection label="Templates" pro={!isPro} onProClick={goToPricing}>
+              <TemplateLibrary
+                onApply={(partial) => {
+                  onChange({
+                    ...state,
+                    ...partial,
+                    socialPlatform: state.socialPlatform,
+                    socialUsername: state.socialUsername,
+                    website: state.website,
+                    authorPhoto: state.authorPhoto,
+                  });
+                }}
+              />
+              <div className="mt-3">
+                <ControlSection label="Wallpapers" pro={!isPro} onProClick={goToPricing}>
+                  <div className="flex flex-wrap gap-2">
+                    {WALLPAPER_CATEGORIES.map((cat) => (
+                      <button
+                        key={cat.label}
+                        onClick={() => applyWallpaper(cat)}
+                        disabled={loadingWallpaper !== null}
+                        className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-heading rounded-md border transition-all ${loadingWallpaper === cat.label ? "border-primary bg-primary/10 text-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"} disabled:opacity-50`}
+                      >
+                        <span>{cat.emoji}</span>
+                        <span>{cat.label}</span>
+                        {loadingWallpaper === cat.label && <Loader2 className="w-3 h-3 animate-spin" />}
+                      </button>
+                    ))}
+                  </div>
+                </ControlSection>
+              </div>
+              <div className="space-y-2 mt-3">
+                <div className="flex items-center gap-2 px-1 text-xs font-heading font-medium text-muted-foreground">
+                  <Search className="w-3.5 h-3.5" />
+                  Search Images
+                </div>
+                <div className="space-y-2">
+                  <form onSubmit={(e) => { e.preventDefault(); searchPexels(pexelsQuery); }} className="flex gap-1.5">
+                    <input type="text" value={pexelsQuery} onChange={(e) => setPexelsQuery(e.target.value)} placeholder="e.g. mountains, ocean, city…" className="flex-1 px-2.5 py-1.5 text-xs rounded-md border border-border bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20" />
+                    <button type="submit" disabled={pexelsLoading || !pexelsQuery.trim()} className="px-3 py-1.5 text-xs font-heading font-medium rounded-md bg-foreground text-background hover:opacity-90 transition-opacity disabled:opacity-50">
+                      {pexelsLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : "Go"}
+                    </button>
+                  </form>
+                  {pexelsResults.length > 0 && (
+                    <div className="grid grid-cols-3 gap-1.5 max-h-[200px] overflow-y-auto rounded-md">
+                      {pexelsResults.map((photo) => (
+                        <button key={photo.id} onClick={() => set("backgroundImage", photo.src.large)} className="relative aspect-square rounded-md overflow-hidden border border-border hover:border-foreground/30 transition-all hover:scale-[1.03] active:scale-[0.97]">
+                          <img src={photo.src.medium} alt={`Photo by ${photo.photographer}`} className="w-full h-full object-cover" loading="lazy" />
+                          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-1">
+                            <span className="text-[8px] text-white/80 truncate block">{photo.photographer}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  {pexelsResults.length > 0 && (
+                    <p className="text-[9px] text-muted-foreground">Photos by <a href="https://www.pexels.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Pexels</a></p>
+                  )}
+                </div>
+              </div>
+              {isPro && user && (
+                <div className="space-y-2 mt-3">
+                  <div className="flex items-center gap-2 px-1 text-xs font-heading font-medium text-muted-foreground">
+                    <FolderOpen className="w-3.5 h-3.5" />
+                    My Images
+                  </div>
+                  <div className="space-y-2">
+                    <input ref={userImageInputRef} type="file" accept="image/*" className="hidden" onChange={async (e) => { const file = e.target.files?.[0]; if (!file) return; await uploadUserImage(file); e.target.value = ""; }} />
+                    <button onClick={() => userImageInputRef.current?.click()} disabled={uploadingUserImage} className="flex items-center gap-2 px-3 py-1.5 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all disabled:opacity-50">
+                      {uploadingUserImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
+                      {uploadingUserImage ? "Uploading…" : "Upload Image"}
+                    </button>
+                    {userImages.length > 0 && (
+                      <div className="grid grid-cols-3 gap-1.5 max-h-[200px] overflow-y-auto rounded-md">
+                        {userImages.map((img) => (
+                          <div key={img.id} className="relative group aspect-square rounded-md overflow-hidden border border-border hover:border-foreground/30 transition-all">
+                            <button onClick={() => set("backgroundImage", img.file_url)} className="w-full h-full">
+                              <img src={img.file_url} alt={img.file_name} className="w-full h-full object-cover" loading="lazy" />
+                            </button>
+                            <button onClick={() => deleteUserImage(img.id)} className="absolute top-1 right-1 p-1 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                              <Trash2 className="w-2.5 h-2.5 text-white" />
+                            </button>
+                          </div>
+                        ))}
                       </div>
+                    )}
+                    {userImages.length === 0 && <p className="text-[10px] text-muted-foreground">Upload images to build your personal library.</p>}
+                  </div>
+                </div>
+              )}
+            </ControlSection>
+          )}
+
+          {activePanel === "background" && (
+            <ControlSection label="Background" pro={!isPro} onProClick={goToPricing}>
+              <input ref={bgInputRef} type="file" accept="image/*" onChange={handleBgUpload} className="hidden" />
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
+                  <input type="color" value={state.backgroundColor || "#ffffff"} onChange={(e) => set("backgroundColor", e.target.value)} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
+                  {state.backgroundColor && <button onClick={() => set("backgroundColor", "")} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">Reset</button>}
+                </div>
+                <div className="flex items-center gap-3">
+                  <button onClick={() => bgInputRef.current?.click()} className="flex items-center gap-2 px-4 py-2 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
+                    <Upload className="w-3.5 h-3.5" />
+                    {state.backgroundImage ? "Change image" : "Upload image"}
+                  </button>
+                  {state.backgroundImage && (
+                    <>
+                      <button onClick={() => set("backgroundImage", null)} className="text-xs text-muted-foreground hover:text-foreground transition-colors">Delete</button>
+                      <button onClick={handleRemoveBgImage} disabled={removingBgImage} className="flex items-center gap-1 text-xs font-heading text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50">
+                        {removingBgImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <Eraser className="w-3 h-3" />}
+                        {removingBgImage ? "Removing…" : "Remove BG"}
+                      </button>
+                    </>
+                  )}
+                </div>
+                {state.backgroundImage && (
+                  <>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
+                      <input type="range" min={0.1} max={1} step={0.05} value={state.backgroundOpacity} onChange={(e) => set("backgroundOpacity", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Blur</span>
+                      <input type="range" min={0} max={20} step={1} value={state.backgroundBlur} onChange={(e) => set("backgroundBlur", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                    </div>
+                  </>
+                )}
+              </div>
+              {/* Filters */}
+              <div className="mt-4">
+                <p className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest mb-2">Filters</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {BG_FILTERS.map((f) => (
+                    <button key={f.value} onClick={() => set("backgroundFilter", f.value)} className={`px-2.5 py-1 text-[10px] font-heading font-medium rounded-md border transition-all ${state.backgroundFilter === f.value ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{f.label}</button>
+                  ))}
+                </div>
+                {state.backgroundFilter !== "none" && (
+                  <div className="flex items-center gap-3 mt-2">
+                    <label className="text-xs text-muted-foreground font-heading w-16">Intensity</label>
+                    <input type="range" min={0} max={1} step={0.05} value={state.filterIntensity} onChange={(e) => set("filterIntensity", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                    <span className="text-xs text-muted-foreground w-8 text-right">{Math.round(state.filterIntensity * 100)}%</span>
+                  </div>
+                )}
+              </div>
+            </ControlSection>
+          )}
+
+          {activePanel === "theme" && (
+            <>
+              <ControlSection label="Theme">
+                <div className="flex flex-wrap gap-3">
+                  {THEME_OPTIONS.map((opt) => (
+                    <button key={opt.value} onClick={() => onChange({ ...state, theme: opt.value, backgroundColor: "" })} className="flex flex-col items-center gap-1.5 group">
+                      <div className={`w-10 h-10 rounded-full border-2 transition-all ${state.theme === opt.value ? "border-foreground scale-110" : "border-border group-hover:border-foreground/30"}`} style={{ ...(opt.isGlass ? { background: opt.swatch } : { backgroundColor: opt.swatch }) }} />
+                      <span className="text-[10px] font-heading text-muted-foreground">{opt.label}</span>
                     </button>
                   ))}
                 </div>
-              )}
-              {pexelsResults.length > 0 && (
-                <p className="text-[9px] text-muted-foreground">Photos by <a href="https://www.pexels.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Pexels</a></p>
-              )}
-            </div>
-          </div>
-          {/* My Images — PRO */}
-          {isPro && user && (
-            <div className="space-y-2 mt-3">
-              <div className="flex items-center gap-2 px-1 text-xs font-heading font-medium text-muted-foreground">
-                <FolderOpen className="w-3.5 h-3.5" />
-                My Images
-              </div>
+              </ControlSection>
+              <ControlSection label="Border">
+                <div className="space-y-3">
+                  <div className="flex flex-wrap gap-2">
+                    {(["none", "solid", "dashed", "dotted", "double"] as const).map((style) => (
+                      <button key={style} onClick={() => set("borderStyle", style)} className={`px-2.5 py-1.5 text-xs font-heading rounded-md border transition-all capitalize ${state.borderStyle === style ? "border-foreground bg-foreground/10 text-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{style}</button>
+                    ))}
+                  </div>
+                  {state.borderStyle !== "none" && (
+                    <>
+                      <div className="flex items-center gap-3">
+                        <label className="text-xs text-muted-foreground font-heading w-14">Width</label>
+                        <input type="range" min={1} max={20} step={1} value={state.borderWidth} onChange={(e) => set("borderWidth", Number(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                        <span className="text-xs text-muted-foreground w-8 text-right">{state.borderWidth}px</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <label className="text-xs text-muted-foreground font-heading w-14">Color</label>
+                        <input type="color" value={state.borderColor} onChange={(e) => set("borderColor", e.target.value)} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
+                        <span className="text-xs text-muted-foreground">{state.borderColor}</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </ControlSection>
+            </>
+          )}
+
+          {activePanel === "colors" && (
+            <ControlSection label="Word Colors" pro={!isPro} onProClick={goToPricing}>
+              <p className="text-[10px] text-muted-foreground mb-2">Color specific words or phrases in your text.</p>
               <div className="space-y-2">
-                <input
-                  ref={userImageInputRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (!file) return;
-                    await uploadUserImage(file);
-                    e.target.value = "";
-                  }}
-                />
-                <button
-                  onClick={() => userImageInputRef.current?.click()}
-                  disabled={uploadingUserImage}
-                  className="flex items-center gap-2 px-3 py-1.5 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all disabled:opacity-50"
-                >
-                  {uploadingUserImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
-                  {uploadingUserImage ? "Uploading…" : "Upload Image"}
+                {(state.coloredWords || []).map((cw, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <input value={cw.text} onChange={(e) => { const updated = [...state.coloredWords]; updated[i] = { ...updated[i], text: e.target.value }; set("coloredWords", updated); }} placeholder="Word or phrase" className="flex-1 bg-transparent border border-border rounded-md px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body" />
+                    {cw.color === "rainbow" ? (
+                      <div className="w-8 h-8 rounded-md border border-border cursor-pointer flex items-center justify-center" style={{ background: "linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #00cc00, #0088ff, #8800ff)" }} onClick={() => { const updated = [...state.coloredWords]; updated[i] = { ...updated[i], color: "#ff0000" }; set("coloredWords", updated); }} title="Switch to solid color" />
+                    ) : (
+                      <input type="color" value={cw.color} onChange={(e) => { const updated = [...state.coloredWords]; updated[i] = { ...updated[i], color: e.target.value }; set("coloredWords", updated); }} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
+                    )}
+                    <button onClick={() => { const updated = [...state.coloredWords]; updated[i] = { ...updated[i], color: cw.color === "rainbow" ? "#ff0000" : "rainbow" }; set("coloredWords", updated); }} className={`p-1.5 rounded-md border text-[10px] transition-all ${cw.color === "rainbow" ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground"}`} title="Rainbow / multicolor">
+                      <Rainbow className="w-3.5 h-3.5" />
+                    </button>
+                    <button onClick={() => { const updated = state.coloredWords.filter((_, j) => j !== i); set("coloredWords", updated); }} className="p-1.5 rounded-md border border-border text-muted-foreground hover:text-foreground transition-all">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ))}
+                <button onClick={() => set("coloredWords", [...state.coloredWords, { text: "", color: "#ff0000" }])} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all" type="button">
+                  <Plus className="w-3 h-3" />
+                  Add colored word
                 </button>
-                {userImages.length > 0 && (
-                  <div className="grid grid-cols-3 gap-1.5 max-h-[200px] overflow-y-auto rounded-md">
-                    {userImages.map((img) => (
-                      <div key={img.id} className="relative group aspect-square rounded-md overflow-hidden border border-border hover:border-foreground/30 transition-all">
-                        <button
-                          onClick={() => set("backgroundImage", img.file_url)}
-                          className="w-full h-full"
-                        >
-                          <img src={img.file_url} alt={img.file_name} className="w-full h-full object-cover" loading="lazy" />
-                        </button>
-                        <button
-                          onClick={() => deleteUserImage(img.id)}
-                          className="absolute top-1 right-1 p-1 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          <Trash2 className="w-2.5 h-2.5 text-white" />
-                        </button>
+              </div>
+            </ControlSection>
+          )}
+
+          {activePanel === "author" && (
+            <ControlSection label="Author">
+              <div className="space-y-3">
+                <input value={state.authorName} onChange={(e) => set("authorName", e.target.value)} placeholder="Your name" className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body" />
+                <div className="flex gap-2">
+                  <select value={state.socialPlatform} onChange={(e) => set("socialPlatform", e.target.value)} className="bg-transparent border border-border rounded-md px-2 py-2.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body">
+                    {SOCIAL_PLATFORMS.map((p) => <option key={p.value} value={p.value} className="bg-card">{p.label}</option>)}
+                  </select>
+                  <input value={state.socialUsername} onChange={(e) => set("socialUsername", e.target.value)} placeholder="username" className="flex-1 bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body" />
+                </div>
+                <input value={state.website} onChange={(e) => set("website", e.target.value)} placeholder="website.com" className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body" />
+              </div>
+              <div className="space-y-2 mt-3">
+                <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Author Font</p>
+                <div className="flex flex-wrap gap-2">
+                  {[...SERIF_FONTS, ...SANS_FONTS, ...CURSIVE_FONTS, ...FUTURISTIC_FONTS].map((opt) => (
+                    <button key={opt.value} onClick={() => set("authorFont", opt.value)} className={`px-2.5 py-1 text-[10px] rounded-md border transition-all ${opt.preview} ${state.authorFont === opt.value ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{opt.label}</button>
+                  ))}
+                </div>
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-10">Size</span>
+                <input type="range" min={0.5} max={3} step={0.05} value={state.authorFontSize} onChange={(e) => set("authorFontSize", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.authorFontSize.toFixed(1)}</span>
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
+                <input type="color" value={state.authorColor || "#1a1a1a"} onChange={(e) => set("authorColor", e.target.value)} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
+                {state.authorColor && <button onClick={() => set("authorColor", "")} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">Reset</button>}
+              </div>
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Position</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {([{ value: "below-quote" as const, label: "Below" }, { value: "bottom-left" as const, label: "BL" }, { value: "bottom-center" as const, label: "BC" }, { value: "bottom-right" as const, label: "BR" }]).map((pos) => (
+                    <button key={pos.value} onClick={() => set("authorPosition", pos.value)} className={`px-2.5 py-1 text-[10px] font-heading font-medium rounded-md border transition-all ${state.authorPosition === pos.value ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{pos.label}</button>
+                  ))}
+                </div>
+              </div>
+            </ControlSection>
+          )}
+
+          {activePanel === "photo" && (
+            <div className="space-y-4">
+              <ControlSection label="Photo">
+                <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    {state.authorPhoto ? (
+                      <div className="relative group">
+                        <img src={state.authorPhoto} alt="Author" className="w-12 h-12 rounded-lg object-cover" />
+                      </div>
+                    ) : (
+                      <button onClick={() => fileInputRef.current?.click()} className="w-12 h-12 rounded-lg border-2 border-dashed border-muted-foreground/40 flex flex-col items-center justify-center hover:border-foreground/50 transition-colors gap-0.5">
+                        <ImageIcon className="w-3.5 h-3.5 text-muted-foreground" />
+                        <span className="text-[7px] font-heading text-muted-foreground uppercase tracking-wider">Upload</span>
+                      </button>
+                    )}
+                    {state.authorPhoto && (
+                      <div className="flex flex-col gap-0.5">
+                        <button onClick={() => fileInputRef.current?.click()} className="text-[11px] font-heading text-muted-foreground hover:text-foreground transition-colors">Change</button>
+                        <button onClick={() => set("authorPhoto", null)} className="flex items-center gap-1 text-[11px] font-heading text-destructive hover:text-destructive/80 transition-colors"><Trash2 className="w-3 h-3" />Delete</button>
+                        {isPro && (
+                          <button onClick={handleRemoveBg} disabled={removingBg} className="flex items-center gap-1 text-[11px] font-heading text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50">
+                            {removingBg ? <Loader2 className="w-3 h-3 animate-spin" /> : <Eraser className="w-3 h-3" />}
+                            {removingBg ? "Removing…" : "Remove BG"}
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1">Shape</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {([{ value: "none" as const, label: "Orig" }, { value: "circle" as const, label: "Circle" }, { value: "square" as const, label: "Square" }, { value: "rounded-square" as const, label: "Round" }, { value: "rectangle" as const, label: "Rect" }, { value: "oval" as const, label: "Oval" }, { value: "hexagon" as const, label: "Hex" }]).map((shape) => (
+                        <button key={shape.value} onClick={() => set("photoShape", shape.value)} className={`px-2 py-1 text-[9px] font-heading font-medium rounded-md border transition-all ${state.photoShape === shape.value ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{shape.label}</button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </ControlSection>
+
+              <ControlSection label="Logo" pro={!isPro} onProClick={goToPricing}>
+                <input ref={logoInputRef} type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" />
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    {state.logo ? (
+                      <div className="relative group">
+                        <img src={state.logo} alt="Logo" className="w-12 h-12 rounded-lg object-contain bg-muted/30" />
+                      </div>
+                    ) : (
+                      <button onClick={() => logoInputRef.current?.click()} className="w-12 h-12 rounded-lg border-2 border-dashed border-muted-foreground/40 flex flex-col items-center justify-center hover:border-foreground/50 transition-colors gap-0.5">
+                        <ImageIcon className="w-3.5 h-3.5 text-muted-foreground" />
+                        <span className="text-[7px] font-heading text-muted-foreground uppercase tracking-wider">Logo</span>
+                      </button>
+                    )}
+                    {state.logo ? (
+                      <div className="flex flex-col gap-0.5">
+                        <button onClick={() => logoInputRef.current?.click()} className="text-[11px] font-heading text-muted-foreground hover:text-foreground transition-colors">Change</button>
+                        <button onClick={() => set("logo", null)} className="flex items-center gap-1 text-[11px] font-heading text-destructive hover:text-destructive/80 transition-colors"><Trash2 className="w-3 h-3" />Delete</button>
+                      </div>
+                    ) : (
+                      <button onClick={() => logoInputRef.current?.click()} className="text-[11px] font-heading text-muted-foreground hover:text-foreground transition-colors">Upload logo</button>
+                    )}
+                  </div>
+                  {state.logo && (
+                    <>
+                      <div>
+                        <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1">Position</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {([{ value: "top-left" as const, label: "TL" }, { value: "top-center" as const, label: "TC" }, { value: "top-right" as const, label: "TR" }, { value: "center" as const, label: "C" }, { value: "bottom-left" as const, label: "BL" }, { value: "bottom-center" as const, label: "BC" }, { value: "bottom-right" as const, label: "BR" }]).map((pos) => (
+                            <button key={pos.value} onClick={() => set("logoPosition", pos.value)} className={`px-2 py-1 text-[9px] font-heading font-medium rounded-md border transition-all ${state.logoPosition === pos.value ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"}`}>{pos.label}</button>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Size</span>
+                        <input type="range" min={1} max={10} step={0.25} value={state.logoSize} onChange={(e) => set("logoSize", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                        <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.logoSize.toFixed(1)}</span>
+                      </div>
+                      {state.photoStroke !== undefined && (
+                        <label className="flex items-center gap-2 mt-1 cursor-pointer">
+                          <input type="checkbox" checked={!!state.photoStroke} onChange={(e) => set("photoStroke", e.target.checked)} className="accent-foreground" />
+                          <span className="text-xs text-muted-foreground">Photo border</span>
+                        </label>
+                      )}
+                    </>
+                  )}
+                </div>
+              </ControlSection>
+            </div>
+          )}
+
+          {activePanel === "format" && (
+            <ControlSection label="Format" pro={!isPro} onProClick={goToPricing}>
+              {[
+                { heading: "Digital", groups: DIGITAL_FORMAT_GROUPS },
+                { heading: "Physical", groups: PHYSICAL_FORMAT_GROUPS },
+              ].map(({ heading, groups }, sectionIdx) => (
+                <div key={heading}>
+                  {sectionIdx > 0 && <hr className="my-3 border-border" />}
+                  <p className="text-[11px] font-heading font-semibold text-foreground uppercase tracking-wider mb-2">{heading}</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-3 gap-y-2">
+                    {groups.map((group) => (
+                      <div key={group.label} className="min-w-0">
+                        <p className="text-[9px] text-foreground/70 uppercase tracking-wider mb-1">{group.label}</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {group.options.map((opt) => {
+                            const ratioMap: Record<string, [number, number]> = {
+                              square: [1, 1], "1.91:1": [1.91, 1], "3:1": [3, 1], "4:1": [4, 1], "820:312": [820, 312],
+                              a4: [210, 297], a3: [297, 420], a2: [420, 594], a1: [594, 841], a0: [841, 1189],
+                              letter: [8.5, 11], legal: [8.5, 14], tabloid: [11, 17],
+                              "poster-18x24": [18, 24], "poster-24x36": [24, 36], "banner-2x5": [2, 5],
+                              "ios-screenshot": [1290, 2796], "ios-ipad": [2048, 2732], "android-phone": [1080, 1920],
+                              "android-tablet": [1920, 1200], "mac-screenshot": [2880, 1800], "app-icon": [1, 1],
+                              "iphone-wallpaper": [1179, 2556], "android-wallpaper": [1080, 2400], "lock-screen": [1170, 2532],
+                              "business-card": [3.5, 2],
+                            };
+                            const [w, h] = ratioMap[opt.value] || opt.value.split(":").map(Number);
+                            const physicalScaleMap: Record<string, number> = { a0: 1, a1: 0.85, a2: 0.7, a3: 0.58, a4: 0.48, tabloid: 0.85, legal: 0.7, letter: 0.6, "poster-24x36": 1, "poster-18x24": 0.8, "banner-2x5": 1 };
+                            const physicalScale = physicalScaleMap[opt.value] || 1;
+                            const iconMaxDim = 28;
+                            const scale = (iconMaxDim / Math.max(w, h)) * physicalScale;
+                            const boxW = Math.max(6, Math.round(w * scale));
+                            const boxH = Math.max(6, Math.round(h * scale));
+                            const isActive = state.aspectRatio === opt.value;
+                            return (
+                              <button key={opt.value} onClick={() => set("aspectRatio", opt.value)} className={`flex flex-col items-center gap-0.5 p-1 rounded border transition-all ${isActive ? "border-foreground bg-foreground/5" : "border-border hover:border-foreground/30"}`} title={opt.label}>
+                                <div className={`border ${isActive ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`} style={{ width: boxW, height: boxH }} />
+                                <span className={`text-[8px] leading-tight font-heading ${isActive ? "text-foreground font-semibold" : "text-muted-foreground"}`}>{opt.label}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
                       </div>
                     ))}
                   </div>
-                )}
-                {userImages.length === 0 && (
-                  <p className="text-[10px] text-muted-foreground">Upload images to build your personal library.</p>
-                )}
-              </div>
-            </div>
-          )}
-        </ControlSection>
-      </div>
-
-      {/* Background — PRO */}
-      <div>
-      <ControlSection label="Background" pro={!isPro} onProClick={goToPricing}>
-        <input ref={bgInputRef} type="file" accept="image/*" onChange={handleBgUpload} className="hidden" />
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
-            <input type="color" value={state.backgroundColor || "#ffffff"} onChange={(e) => set("backgroundColor", e.target.value)} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
-            {state.backgroundColor && (
-              <button onClick={() => set("backgroundColor", "")} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">Reset</button>
-            )}
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => bgInputRef.current?.click()}
-              className="flex items-center gap-2 px-4 py-2 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
-            >
-              <Upload className="w-3.5 h-3.5" />
-              {state.backgroundImage ? "Change image" : "Upload image"}
-            </button>
-            {state.backgroundImage && (
-              <>
-                <button onClick={() => set("backgroundImage", null)} className="text-xs text-muted-foreground hover:text-foreground transition-colors">Delete</button>
-                <button
-                  onClick={handleRemoveBgImage}
-                  disabled={removingBgImage}
-                  className="flex items-center gap-1 text-xs font-heading text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
-                >
-                  {removingBgImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <Eraser className="w-3 h-3" />}
-                  {removingBgImage ? "Removing…" : "Remove BG"}
-                </button>
-              </>
-            )}
-          </div>
-          {state.backgroundImage && (
-            <>
-              <div className="flex items-center gap-3">
-                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
-                <input type="range" min={0.1} max={1} step={0.05} value={state.backgroundOpacity} onChange={(e) => set("backgroundOpacity", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Blur</span>
-                <input type="range" min={0} max={20} step={1} value={state.backgroundBlur} onChange={(e) => set("backgroundBlur", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
-              </div>
-            </>
-          )}
-        </div>
-      </ControlSection>
-      </div>
-
-      {/* Filters — PRO */}
-      <div>
-      <ControlSection label="Filters" pro={!isPro} onProClick={goToPricing}>
-        <div className="flex flex-wrap gap-1.5">
-          {BG_FILTERS.map((f) => (
-            <button
-              key={f.value}
-              onClick={() => set("backgroundFilter", f.value)}
-              className={`px-2.5 py-1 text-[10px] font-heading font-medium rounded-md border transition-all ${
-                state.backgroundFilter === f.value
-                  ? "bg-foreground text-background border-foreground"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-              }`}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-        {state.backgroundFilter !== "none" && (
-          <div className="flex items-center gap-3 mt-2">
-            <label className="text-xs text-muted-foreground font-heading w-16">Intensity</label>
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step={0.05}
-              value={state.filterIntensity}
-              onChange={(e) => set("filterIntensity", parseFloat(e.target.value))}
-              className="w-1/2 max-w-[140px] accent-foreground h-1"
-            />
-            <span className="text-xs text-muted-foreground w-8 text-right">{Math.round(state.filterIntensity * 100)}%</span>
-          </div>
-        )}
-      </ControlSection>
-      </div>
-
-      {/* Theme */}
-      <ControlSection label="Theme">
-        <div className="flex flex-wrap gap-3">
-          {THEME_OPTIONS.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => onChange({ ...state, theme: opt.value, backgroundColor: "" })}
-              className="flex flex-col items-center gap-1.5 group"
-            >
-              <div
-                className={`w-10 h-10 rounded-full border-2 transition-all ${
-                  state.theme === opt.value
-                    ? "border-foreground scale-110"
-                    : "border-border group-hover:border-foreground/30"
-                }`}
-                style={{
-                  ...(opt.isGlass
-                    ? { background: opt.swatch }
-                    : { backgroundColor: opt.swatch }),
-                }}
-              />
-              <span className="text-[10px] font-heading text-muted-foreground">{opt.label}</span>
-            </button>
-          ))}
-        </div>
-      </ControlSection>
-
-      {/* Border */}
-      <ControlSection label="Border">
-        <div className="space-y-3">
-          <div className="flex flex-wrap gap-2">
-            {(["none", "solid", "dashed", "dotted", "double"] as const).map((style) => (
-              <button
-                key={style}
-                onClick={() => set("borderStyle", style)}
-                className={`px-2.5 py-1.5 text-xs font-heading rounded-md border transition-all capitalize ${
-                  state.borderStyle === style
-                    ? "border-foreground bg-foreground/10 text-foreground"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                }`}
-              >
-                {style}
-              </button>
-            ))}
-          </div>
-          {state.borderStyle !== "none" && (
-            <>
-              <div className="flex items-center gap-3">
-                <label className="text-xs text-muted-foreground font-heading w-14">Width</label>
-                <input
-                  type="range"
-                  min={1}
-                  max={20}
-                  step={1}
-                  value={state.borderWidth}
-                  onChange={(e) => set("borderWidth", Number(e.target.value))}
-                  className="w-1/2 max-w-[140px] accent-foreground h-1"
-                />
-                <span className="text-xs text-muted-foreground w-8 text-right">{state.borderWidth}px</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <label className="text-xs text-muted-foreground font-heading w-14">Color</label>
-                <input
-                  type="color"
-                  value={state.borderColor}
-                  onChange={(e) => set("borderColor", e.target.value)}
-                  className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent"
-                />
-                <span className="text-xs text-muted-foreground">{state.borderColor}</span>
-              </div>
-            </>
-          )}
-        </div>
-      </ControlSection>
-
-      {/* Text */}
-      <div className="">
-        <ControlSection label="Text">
-          <div className="relative">
-            <textarea
-              ref={designTextareaRef}
-              value={state.quote}
-              onChange={(e) => set("quote", e.target.value)}
-              placeholder="Start typing..."
-              rows={3}
-              className="w-full bg-transparent border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 resize-none font-body"
-            />
-            <div className="absolute bottom-2 right-2 flex items-center gap-0.5">
-              <button
-                onClick={() => set("showQuotationMarks", !state.showQuotationMarks)}
-                className={`p-1.5 rounded-md transition-colors text-xs font-bold select-none ${state.showQuotationMarks ? "bg-accent text-foreground" : "hover:bg-accent text-muted-foreground"}`}
-                type="button"
-                title={state.showQuotationMarks ? "Remove quotation marks" : "Add quotation marks"}
-              >
-                &ldquo;&rdquo;
-              </button>
-              <button
-                onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                className="p-1.5 rounded-md hover:bg-accent transition-colors"
-                type="button"
-              >
-                <Smile className="w-4 h-4 text-muted-foreground" />
-              </button>
-              {showEmojiPicker && (
-                <div ref={emojiPickerRef} className="absolute bottom-8 right-0 bg-card border border-border rounded-lg shadow-xl z-50 w-72">
-                  <div className="flex gap-1 px-2 pt-2 pb-1 border-b border-border overflow-x-auto">
-                    {EMOJI_CATEGORIES.map((cat, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setEmojiCategory(i)}
-                        className={`text-base p-1 rounded transition-colors flex-shrink-0 ${emojiCategory === i ? "bg-accent" : "hover:bg-accent/50"}`}
-                        type="button"
-                      >
-                        {cat.name}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-8 gap-1 p-2 max-h-52 overflow-y-auto">
-                    {EMOJI_CATEGORIES[emojiCategory].emojis.map((emoji, i) => (
-                      <button
-                        key={`${emoji}-${i}`}
-                        onClick={() => insertEmoji(emoji)}
-                        className="w-7 h-7 flex items-center justify-center text-base hover:bg-accent rounded transition-colors"
-                        type="button"
-                      >
-                        {emoji}
-                      </button>
-                    ))}
-                  </div>
                 </div>
-              )}
-            </div>
-          </div>
-        </ControlSection>
-      </div>
-
-      {/* Font */}
-      <div className="">
-        <ControlSection label="Font">
-          <div className="space-y-2">
-            <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Serif</p>
-            <div className="flex flex-wrap gap-2">
-              {SERIF_FONTS.map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => set("font", opt.value)}
-                  className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
-                    state.font === opt.value
-                      ? "bg-foreground text-background border-foreground"
-                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                  }`}
-                >
-                  {opt.label}
-                </button>
               ))}
-            </div>
-            <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Sans-serif</p>
-            <div className="flex flex-wrap gap-2">
-              {SANS_FONTS.map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => set("font", opt.value)}
-                  className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
-                    state.font === opt.value
-                      ? "bg-foreground text-background border-foreground"
-                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                  }`}
-                >
-                  {opt.label}
+              <hr className="my-3 border-border" />
+              <p className="text-[11px] font-heading font-semibold text-foreground uppercase tracking-wider mb-2">Custom Size</p>
+              <div className="flex items-end gap-2">
+                <button onClick={() => set("aspectRatio", "custom")} className={`flex flex-col items-center gap-1 p-1.5 rounded-md border transition-all ${state.aspectRatio === "custom" ? "border-foreground bg-foreground/5" : "border-border hover:border-foreground/30"}`}>
+                  <div className={`border ${state.aspectRatio === "custom" ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`} style={{ width: Math.round((state.customWidth / Math.max(state.customWidth, state.customHeight)) * 36), height: Math.round((state.customHeight / Math.max(state.customWidth, state.customHeight)) * 36) }} />
+                  <span className={`text-[9px] font-heading ${state.aspectRatio === "custom" ? "text-foreground font-semibold" : "text-muted-foreground"}`}>Custom</span>
                 </button>
-              ))}
-            </div>
-            <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Cursive</p>
-            <div className="flex flex-wrap gap-2">
-              {CURSIVE_FONTS.map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => set("font", opt.value)}
-                  className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
-                    state.font === opt.value
-                      ? "bg-foreground text-background border-foreground"
-                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-            <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Futuristic</p>
-            <div className="flex flex-wrap gap-2">
-              {FUTURISTIC_FONTS.map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => set("font", opt.value)}
-                  className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
-                    state.font === opt.value
-                      ? "bg-foreground text-background border-foreground"
-                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-center gap-2 mt-3">
-            <button
-              onClick={() => set("isBold", !state.isBold)}
-              className={`px-3 py-1.5 text-sm rounded-md border font-bold transition-all ${
-                state.isBold
-                  ? "bg-foreground text-background border-foreground"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-              }`}
-            >
-              B
-            </button>
-            <button
-              onClick={() => set("isItalic", !state.isItalic)}
-              className={`px-3 py-1.5 text-sm rounded-md border italic transition-all ${
-                state.isItalic
-                  ? "bg-foreground text-background border-foreground"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-              }`}
-            >
-              I
-            </button>
-            <button
-              onClick={() => set("showQuotationMarks", !state.showQuotationMarks)}
-              className={`px-3 py-1.5 text-sm rounded-md border font-playfair transition-all ${
-                state.showQuotationMarks
-                  ? "bg-foreground text-background border-foreground"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-              }`}
-              title="Quotation marks"
-            >
-              &ldquo;&rdquo;
-            </button>
-          </div>
-          <div className="flex items-center gap-3 mt-3">
-            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Size</span>
-            <input type="range" min={0.8} max={6} step={0.05} value={state.fontSize} onChange={(e) => set("fontSize", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
-            <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.fontSize.toFixed(1)}</span>
-          </div>
-          <div className="flex items-center gap-3 mt-3">
-            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Spacing</span>
-            <input type="range" min={-0.05} max={0.3} step={0.005} value={state.letterSpacing} onChange={(e) => set("letterSpacing", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
-            <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.letterSpacing.toFixed(2)}</span>
-          </div>
-          <div className="flex items-center gap-3 mt-3">
-            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Leading</span>
-            <input type="range" min={1} max={3} step={0.05} value={state.lineHeight} onChange={(e) => set("lineHeight", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
-            <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.lineHeight.toFixed(1)}</span>
-          </div>
-          <div className="flex items-center gap-3 mt-3">
-            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
-            <input type="color" value={state.textColor || "#1a1a1a"} onChange={(e) => set("textColor", e.target.value)} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
-            {state.textColor && (
-              <button onClick={() => set("textColor", "")} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">Reset</button>
-            )}
-          </div>
-          <div className="flex items-center gap-3 mt-3">
-            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Shadow</span>
-            <div className="flex gap-1.5">
-              {(["none", "soft", "hard", "glow", "outline"] as const).map((s) => (
-                <button
-                  key={s}
-                  onClick={() => set("textShadow", s)}
-                  className={`px-3 py-1.5 text-[10px] font-heading font-medium rounded-md border transition-all capitalize ${
-                    state.textShadow === s
-                      ? "bg-foreground text-background border-foreground"
-                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-          {state.textShadow !== "none" && (
-            <div className="flex items-center gap-3 mt-3">
-              <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
-              <input type="range" min={0.1} max={1} step={0.05} value={state.shadowOpacity} onChange={(e) => set("shadowOpacity", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
-              <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{(state.shadowOpacity * 100).toFixed(0)}%</span>
-            </div>
-          )}
-          <div className="flex items-center gap-3 mt-3">
-            <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Align</span>
-            <div className="flex gap-1.5">
-              {(["left", "center", "right"] as const).map((a) => (
-                <button
-                  key={a}
-                  onClick={() => set("textAlign", a)}
-                  className={`px-3 py-1.5 text-[10px] font-heading font-medium rounded-md border transition-all capitalize ${
-                    state.textAlign === a
-                      ? "bg-foreground text-background border-foreground"
-                      : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                  }`}
-                >
-                  {a}
-                </button>
-              ))}
-            </div>
-          </div>
-        </ControlSection>
-      </div>
-
-      {/* Word Colors — PRO */}
-      <div className="">
-        <ControlSection label="Word Colors" pro={!isPro} onProClick={goToPricing}>
-          <p className="text-[10px] text-muted-foreground mb-2">
-            Color specific words or phrases in your text.
-          </p>
-          <div className="space-y-2">
-            {(state.coloredWords || []).map((cw, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <input
-                  value={cw.text}
-                  onChange={(e) => {
-                    const updated = [...state.coloredWords];
-                    updated[i] = { ...updated[i], text: e.target.value };
-                    set("coloredWords", updated);
-                  }}
-                  placeholder="Word or phrase"
-                  className="flex-1 bg-transparent border border-border rounded-md px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
-                />
-                {cw.color === "rainbow" ? (
-                  <div
-                    className="w-8 h-8 rounded-md border border-border cursor-pointer flex items-center justify-center"
-                    style={{ background: "linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #00cc00, #0088ff, #8800ff)" }}
-                    onClick={() => {
-                      const updated = [...state.coloredWords];
-                      updated[i] = { ...updated[i], color: "#ff0000" };
-                      set("coloredWords", updated);
-                    }}
-                    title="Switch to solid color"
-                  />
-                ) : (
-                  <input
-                    type="color"
-                    value={cw.color}
-                    onChange={(e) => {
-                      const updated = [...state.coloredWords];
-                      updated[i] = { ...updated[i], color: e.target.value };
-                      set("coloredWords", updated);
-                    }}
-                    className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent"
-                  />
-                )}
-                <button
-                  onClick={() => {
-                    const updated = [...state.coloredWords];
-                    updated[i] = { ...updated[i], color: cw.color === "rainbow" ? "#ff0000" : "rainbow" };
-                    set("coloredWords", updated);
-                  }}
-                  className={`p-1.5 rounded-md border text-[10px] transition-all ${
-                    cw.color === "rainbow"
-                      ? "bg-foreground text-background border-foreground"
-                      : "border-border text-muted-foreground hover:text-foreground"
-                  }`}
-                  title="Rainbow / multicolor"
-                >
-                  <Rainbow className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  onClick={() => {
-                    const updated = state.coloredWords.filter((_, j) => j !== i);
-                    set("coloredWords", updated);
-                  }}
-                  className="p-1.5 rounded-md border border-border text-muted-foreground hover:text-foreground transition-all"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            ))}
-            <button
-              onClick={() => set("coloredWords", [...state.coloredWords, { text: "", color: "#ff0000" }])}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all"
-              type="button"
-            >
-              <Plus className="w-3 h-3" />
-              Add colored word
-            </button>
-          </div>
-        </ControlSection>
-      </div>
-
-      {/* Author */}
-      <ControlSection label="Author">
-        <div className="space-y-3">
-          <input
-            value={state.authorName}
-            onChange={(e) => set("authorName", e.target.value)}
-            placeholder="Your name"
-            className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
-          />
-          <div className="flex gap-2">
-            <select
-              value={state.socialPlatform}
-              onChange={(e) => set("socialPlatform", e.target.value)}
-              className="bg-transparent border border-border rounded-md px-2 py-2.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
-            >
-              {SOCIAL_PLATFORMS.map((p) => (
-                <option key={p.value} value={p.value} className="bg-card">{p.label}</option>
-              ))}
-            </select>
-            <input
-              value={state.socialUsername}
-              onChange={(e) => set("socialUsername", e.target.value)}
-              placeholder="username"
-              className="flex-1 bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
-            />
-          </div>
-          <input
-            value={state.website}
-            onChange={(e) => set("website", e.target.value)}
-            placeholder="website.com"
-            className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 font-body"
-          />
-        </div>
-        <div className="space-y-2 mt-3">
-          <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Serif</p>
-          <div className="flex flex-wrap gap-2">
-            {SERIF_FONTS.map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => set("authorFont", opt.value)}
-                className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
-                  state.authorFont === opt.value
-                    ? "bg-foreground text-background border-foreground"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-          <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Sans-serif</p>
-          <div className="flex flex-wrap gap-2">
-            {SANS_FONTS.map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => set("authorFont", opt.value)}
-                className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
-                  state.authorFont === opt.value
-                    ? "bg-foreground text-background border-foreground"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-          <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Cursive</p>
-          <div className="flex flex-wrap gap-2">
-            {CURSIVE_FONTS.map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => set("authorFont", opt.value)}
-                className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
-                  state.authorFont === opt.value
-                    ? "bg-foreground text-background border-foreground"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-          <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider pt-1">Futuristic</p>
-          <div className="flex flex-wrap gap-2">
-            {FUTURISTIC_FONTS.map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => set("authorFont", opt.value)}
-                className={`px-3 py-1.5 text-xs rounded-md border transition-all ${opt.preview} ${
-                  state.authorFont === opt.value
-                    ? "bg-foreground text-background border-foreground"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="flex items-center gap-3 mt-3">
-          <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-10">Size</span>
-          <input type="range" min={0.5} max={3} step={0.05} value={state.authorFontSize} onChange={(e) => set("authorFontSize", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
-          <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.authorFontSize.toFixed(1)}</span>
-        </div>
-        <div className="flex items-center gap-3 mt-3">
-          <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
-          <input type="color" value={state.authorColor || "#1a1a1a"} onChange={(e) => set("authorColor", e.target.value)} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
-          {state.authorColor && (
-            <button onClick={() => set("authorColor", "")} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">Reset</button>
-          )}
-        </div>
-        <div className="flex items-center gap-3 mt-3">
-          <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Position</span>
-          <div className="flex flex-wrap gap-1.5">
-            {([
-              { value: "below-quote" as const, label: "Below Text" },
-              { value: "bottom-left" as const, label: "Bottom Left" },
-              { value: "bottom-center" as const, label: "Bottom Center" },
-              { value: "bottom-right" as const, label: "Bottom Right" },
-            ]).map((pos) => (
-              <button
-                key={pos.value}
-                onClick={() => set("authorPosition", pos.value)}
-                className={`px-3 py-1.5 text-[10px] font-heading font-medium rounded-md border transition-all ${
-                  state.authorPosition === pos.value
-                    ? "bg-foreground text-background border-foreground"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                }`}
-              >
-                {pos.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </ControlSection>
-
-      {/* Photo & Logo stacked */}
-      <div className="flex flex-col gap-4">
-        <ControlSection label="Photo">
-          <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              {state.authorPhoto ? (
-                <div className="relative group">
-                  <img src={state.authorPhoto} alt="Author" className="w-12 h-12 rounded-lg object-cover" />
-                </div>
-              ) : (
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="w-12 h-12 rounded-lg border-2 border-dashed border-muted-foreground/40 flex flex-col items-center justify-center hover:border-foreground/50 transition-colors gap-0.5"
-                >
-                  <ImageIcon className="w-3.5 h-3.5 text-muted-foreground" />
-                  <span className="text-[7px] font-heading text-muted-foreground uppercase tracking-wider">Upload</span>
-                </button>
-              )}
-              {state.authorPhoto && (
-                <div className="flex flex-col gap-0.5">
-                  <button onClick={() => fileInputRef.current?.click()} className="text-[11px] font-heading text-muted-foreground hover:text-foreground transition-colors">Change</button>
-                  <button onClick={() => set("authorPhoto", null)} className="flex items-center gap-1 text-[11px] font-heading text-destructive hover:text-destructive/80 transition-colors"><Trash2 className="w-3 h-3" />Delete</button>
-                  {isPro && (
-                    <button onClick={handleRemoveBg} disabled={removingBg} className="flex items-center gap-1 text-[11px] font-heading text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50">
-                      {removingBg ? <Loader2 className="w-3 h-3 animate-spin" /> : <Eraser className="w-3 h-3" />}
-                      {removingBg ? "Removing…" : "Remove BG"}
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
-            <div>
-              <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1">Shape</p>
-              <div className="flex flex-wrap gap-1.5">
-                {([
-                  { value: "none" as const, label: "Orig" },
-                  { value: "circle" as const, label: "Circle" },
-                  { value: "square" as const, label: "Square" },
-                  { value: "rounded-square" as const, label: "Round" },
-                  { value: "rectangle" as const, label: "Rect" },
-                  { value: "oval" as const, label: "Oval" },
-                  { value: "hexagon" as const, label: "Hex" },
-                ]).map((shape) => (
-                  <button
-                    key={shape.value}
-                    onClick={() => set("photoShape", shape.value)}
-                    className={`px-2 py-1 text-[9px] font-heading font-medium rounded-md border transition-all ${
-                      state.photoShape === shape.value
-                        ? "bg-foreground text-background border-foreground"
-                        : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                    }`}
-                  >
-                    {shape.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </ControlSection>
-
-        <ControlSection label="Logo" pro={!isPro} onProClick={goToPricing}>
-          <input ref={logoInputRef} type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" />
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              {state.logo ? (
-                <div className="relative group">
-                  <img src={state.logo} alt="Logo" className="w-12 h-12 rounded-lg object-contain bg-muted/30" />
-                </div>
-              ) : (
-                <button
-                  onClick={() => logoInputRef.current?.click()}
-                  className="w-12 h-12 rounded-lg border-2 border-dashed border-muted-foreground/40 flex flex-col items-center justify-center hover:border-foreground/50 transition-colors gap-0.5"
-                >
-                  <ImageIcon className="w-3.5 h-3.5 text-muted-foreground" />
-                  <span className="text-[7px] font-heading text-muted-foreground uppercase tracking-wider">Logo</span>
-                </button>
-              )}
-              {state.logo ? (
-                <div className="flex flex-col gap-0.5">
-                  <button onClick={() => logoInputRef.current?.click()} className="text-[11px] font-heading text-muted-foreground hover:text-foreground transition-colors">Change</button>
-                  <button onClick={() => set("logo", null)} className="flex items-center gap-1 text-[11px] font-heading text-destructive hover:text-destructive/80 transition-colors"><Trash2 className="w-3 h-3" />Delete</button>
-                </div>
-              ) : (
-                <button onClick={() => logoInputRef.current?.click()} className="text-[11px] font-heading text-muted-foreground hover:text-foreground transition-colors">Upload logo</button>
-              )}
-            </div>
-            {state.logo && (
-              <>
-                <div>
-                  <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider mb-1">Position</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {([
-                      { value: "top-left" as const, label: "TL" },
-                      { value: "top-center" as const, label: "TC" },
-                      { value: "top-right" as const, label: "TR" },
-                      { value: "center" as const, label: "C" },
-                      { value: "bottom-left" as const, label: "BL" },
-                      { value: "bottom-center" as const, label: "BC" },
-                      { value: "bottom-right" as const, label: "BR" },
-                    ]).map((pos) => (
-                      <button
-                        key={pos.value}
-                        onClick={() => set("logoPosition", pos.value)}
-                        className={`px-2 py-1 text-[9px] font-heading font-medium rounded-md border transition-all ${
-                          state.logoPosition === pos.value
-                            ? "bg-foreground text-background border-foreground"
-                            : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-                        }`}
-                      >
-                        {pos.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Size</span>
-                  <input type="range" min="1" max="9" step="0.25" value={state.logoSize} onChange={(e) => set("logoSize", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
-                </div>
-              </>
-            )}
-          </div>
-        </ControlSection>
-      </div>
-
-      <div className="space-y-4">
-        <ControlSection label="Format" pro={!isPro} onProClick={goToPricing}>
-          {[
-            { heading: "Digital", groups: DIGITAL_FORMAT_GROUPS },
-            { heading: "Physical", groups: PHYSICAL_FORMAT_GROUPS },
-          ].map(({ heading, groups }, sectionIdx) => (
-            <div key={heading}>
-              {sectionIdx > 0 && <hr className="my-3 border-border" />}
-              <p className="text-[11px] font-heading font-semibold text-foreground uppercase tracking-wider mb-2">{heading}</p>
-               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-3 gap-y-2">
-                {groups.map((group) => (
-                  <div key={group.label} className="min-w-0">
-                    <p className="text-[9px] text-foreground/70 uppercase tracking-wider mb-1">{group.label}</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {group.options.map((opt) => {
-                        const ratioMap: Record<string, [number, number]> = {
-                          square: [1, 1],
-                          "1.91:1": [1.91, 1], "3:1": [3, 1], "4:1": [4, 1], "820:312": [820, 312],
-                          a4: [210, 297], a3: [297, 420], a2: [420, 594], a1: [594, 841], a0: [841, 1189],
-                          letter: [8.5, 11], legal: [8.5, 14], tabloid: [11, 17],
-                          "poster-18x24": [18, 24], "poster-24x36": [24, 36], "banner-2x5": [2, 5],
-                          "ios-screenshot": [1290, 2796], "ios-ipad": [2048, 2732], "android-phone": [1080, 1920],
-                          "android-tablet": [1920, 1200], "mac-screenshot": [2880, 1800], "app-icon": [1, 1],
-                          "iphone-wallpaper": [1179, 2556], "android-wallpaper": [1080, 2400], "lock-screen": [1170, 2532],
-                          "business-card": [3.5, 2],
-                        };
-                        const sizeMap: Record<string, string> = {
-                          square: "1080 × 1080 px",
-                          "9:16": "1080 × 1920 px",
-                          "1.91:1": "1200 × 628 px",
-                          "16:9": "1920 × 1080 px",
-                          "3:1": "1500 × 500 px",
-                          "4:1": "1584 × 396 px",
-                          "820:312": "820 × 312 px",
-                          "2:3": "1000 × 1500 px",
-                          "3:4": "1080 × 1440 px",
-                          "4:3": "1440 × 1080 px",
-                          "3:2": "1500 × 1000 px",
-                          "1:2": "1080 × 2160 px",
-                          "2:1": "2160 × 1080 px",
-                          a4: "21 × 29.7 cm",
-                          a3: "29.7 × 42 cm",
-                          a2: "42 × 59.4 cm",
-                          a1: "59.4 × 84.1 cm",
-                          a0: "84.1 × 118.9 cm",
-                          letter: "8.5 × 11 in",
-                          legal: "8.5 × 14 in",
-                          tabloid: "11 × 17 in",
-                          "poster-18x24": "5400 × 7200 px",
-                          "poster-24x36": "7200 × 10800 px",
-                          "banner-2x5": "3600 × 9000 px",
-                          "ios-screenshot": "1290 × 2796 px",
-                          "ios-ipad": "2048 × 2732 px",
-                          "android-phone": "1080 × 1920 px",
-                          "android-tablet": "1920 × 1200 px",
-                          "mac-screenshot": "2880 × 1800 px",
-                          "app-icon": "1024 × 1024 px",
-                          "iphone-wallpaper": "1179 × 2556 px",
-                          "android-wallpaper": "1080 × 2400 px",
-                          "lock-screen": "1170 × 2532 px",
-                          "business-card": "3.5 × 2 in",
-                        };
-                        const [w, h] = ratioMap[opt.value] || opt.value.split(":").map(Number);
-                        // For A-series, vary the icon size to reflect physical size differences
-                        const physicalScaleMap: Record<string, number> = {
-                          a0: 1, a1: 0.85, a2: 0.7, a3: 0.58, a4: 0.48,
-                          tabloid: 0.85, legal: 0.7, letter: 0.6,
-                          "poster-24x36": 1, "poster-18x24": 0.8, "banner-2x5": 1,
-                        };
-                        const physicalScale = physicalScaleMap[opt.value] || 1;
-                        const maxDim = 36;
-                        const iconMaxDim = 28;
-                        const scale = (iconMaxDim / Math.max(w, h)) * physicalScale;
-                        const boxW = Math.max(6, Math.round(w * scale));
-                        const boxH = Math.max(6, Math.round(h * scale));
-                        const isActive = state.aspectRatio === opt.value;
-                        const sizeLabel = sizeMap[opt.value] || opt.value;
-                        return (
-                          <button
-                            key={opt.value}
-                            onClick={() => set("aspectRatio", opt.value)}
-                            className={`flex flex-col items-center gap-0.5 p-1 rounded border transition-all ${
-                              isActive
-                                ? "border-foreground bg-foreground/5"
-                                : "border-border hover:border-foreground/30"
-                            }`}
-                            title={`${opt.label} — ${sizeLabel}`}
-                          >
-                            <div
-                              className={`border ${isActive ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`}
-                              style={{ width: boxW, height: boxH }}
-                            />
-                            <span className={`text-[8px] leading-tight font-heading ${isActive ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
-                              {opt.label}
-                            </span>
-                          </button>
-                        );
-                      })}
+                <div className="flex-1 flex flex-col gap-2">
+                  <div className="flex gap-2">
+                    <div className="flex-1">
+                      <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">W</label>
+                      <input type="number" min={0.01} step={customUnit === "px" ? 1 : 0.1} defaultValue={customUnit === "px" ? state.customWidth : Number(pxToUnit(state.customWidth, customUnit, customDpi).toFixed(2))} key={`w-${customUnit}-${state.aspectRatio === "custom" ? "" : state.customWidth}`} onChange={(e) => { const val = parseFloat(e.target.value); if (!isNaN(val) && val > 0) { const px = unitToPx(val, customUnit, customDpi); onChange({ ...state, customWidth: Math.round(px), aspectRatio: "custom" }); } }} onBlur={(e) => { const val = parseFloat(e.target.value); if (isNaN(val) || val <= 0) { e.target.value = customUnit === "px" ? String(state.customWidth) : pxToUnit(state.customWidth, customUnit, customDpi).toFixed(2); } }} className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20" />
+                    </div>
+                    <div className="flex-1">
+                      <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">H</label>
+                      <input type="number" min={0.01} step={customUnit === "px" ? 1 : 0.1} defaultValue={customUnit === "px" ? state.customHeight : Number(pxToUnit(state.customHeight, customUnit, customDpi).toFixed(2))} key={`h-${customUnit}-${state.aspectRatio === "custom" ? "" : state.customHeight}`} onChange={(e) => { const val = parseFloat(e.target.value); if (!isNaN(val) && val > 0) { const px = unitToPx(val, customUnit, customDpi); onChange({ ...state, customHeight: Math.round(px), aspectRatio: "custom" }); } }} onBlur={(e) => { const val = parseFloat(e.target.value); if (isNaN(val) || val <= 0) { e.target.value = customUnit === "px" ? String(state.customHeight) : pxToUnit(state.customHeight, customUnit, customDpi).toFixed(2); } }} className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20" />
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
-
-          {/* Custom Size */}
-          <hr className="my-3 border-border" />
-          <p className="text-[11px] font-heading font-semibold text-foreground uppercase tracking-wider mb-2">Custom Size</p>
-          <div className="flex items-end gap-2">
-            <button
-              onClick={() => set("aspectRatio", "custom")}
-              className={`flex flex-col items-center gap-1 p-1.5 rounded-md border transition-all ${
-                state.aspectRatio === "custom"
-                  ? "border-foreground bg-foreground/5"
-                  : "border-border hover:border-foreground/30"
-              }`}
-              title={`Custom — ${state.customWidth} × ${state.customHeight} px`}
-            >
-              <div
-                className={`border ${state.aspectRatio === "custom" ? "border-foreground bg-foreground/10" : "border-muted-foreground/40"}`}
-                style={{
-                  width: Math.round((state.customWidth / Math.max(state.customWidth, state.customHeight)) * 36),
-                  height: Math.round((state.customHeight / Math.max(state.customWidth, state.customHeight)) * 36),
-                }}
-              />
-              <span className={`text-[9px] font-heading ${state.aspectRatio === "custom" ? "text-foreground font-semibold" : "text-muted-foreground"}`}>
-                Custom
-              </span>
-            </button>
-            <div className="flex-1 flex flex-col gap-2">
-              <div className="flex gap-2">
-                <div className="flex-1">
-                  <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">W</label>
-                  <input
-                    type="number"
-                    min={0.01}
-                    step={customUnit === "px" ? 1 : 0.1}
-                    defaultValue={customUnit === "px" ? state.customWidth : Number(pxToUnit(state.customWidth, customUnit, customDpi).toFixed(2))}
-                    key={`w-${customUnit}-${state.aspectRatio === "custom" ? "" : state.customWidth}`}
-                    onChange={(e) => {
-                      const val = parseFloat(e.target.value);
-                      if (!isNaN(val) && val > 0) {
-                        const px = unitToPx(val, customUnit, customDpi);
-                        onChange({ ...state, customWidth: Math.round(px), aspectRatio: "custom" });
-                      }
-                    }}
-                    onBlur={(e) => {
-                      const val = parseFloat(e.target.value);
-                      if (isNaN(val) || val <= 0) {
-                        e.target.value = customUnit === "px" ? String(state.customWidth) : pxToUnit(state.customWidth, customUnit, customDpi).toFixed(2);
-                      }
-                    }}
-                    className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
-                  />
-                </div>
-                <div className="flex-1">
-                  <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">H</label>
-                  <input
-                    type="number"
-                    min={0.01}
-                    step={customUnit === "px" ? 1 : 0.1}
-                    defaultValue={customUnit === "px" ? state.customHeight : Number(pxToUnit(state.customHeight, customUnit, customDpi).toFixed(2))}
-                    key={`h-${customUnit}-${state.aspectRatio === "custom" ? "" : state.customHeight}`}
-                    onChange={(e) => {
-                      const val = parseFloat(e.target.value);
-                      if (!isNaN(val) && val > 0) {
-                        const px = unitToPx(val, customUnit, customDpi);
-                        onChange({ ...state, customHeight: Math.round(px), aspectRatio: "custom" });
-                      }
-                    }}
-                    onBlur={(e) => {
-                      const val = parseFloat(e.target.value);
-                      if (isNaN(val) || val <= 0) {
-                        e.target.value = customUnit === "px" ? String(state.customHeight) : pxToUnit(state.customHeight, customUnit, customDpi).toFixed(2);
-                      }
-                    }}
-                    className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
-                  />
+                  <div className="flex gap-2">
+                    <div className="flex-1">
+                      <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">Unit</label>
+                      <select value={customUnit} onChange={(e) => setCustomUnit(e.target.value as Unit)} className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20">
+                        {UNIT_OPTIONS.map((u) => <option key={u.value} value={u.value}>{u.label}</option>)}
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <div className="flex-1">
-                  <label className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1 block">Unit</label>
-                  <select
-                    value={customUnit}
-                    onChange={(e) => setCustomUnit(e.target.value as Unit)}
-                    className="w-full px-2 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-1 focus:ring-foreground/20"
-                  >
-                    {UNIT_OPTIONS.map((u) => <option key={u.value} value={u.value}>{u.label}</option>)}
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ControlSection>
-      </div>
+            </ControlSection>
+          )}
 
-      {/* Unit Converter */}
-      <div className="">
-        <ControlSection label="Unit Converter">
-          <UnitCalculator />
-        </ControlSection>
-      </div>
+          {activePanel === "units" && (
+            <ControlSection label="Unit Converter">
+              <UnitCalculator />
+            </ControlSection>
+          )}
 
-
+        </div>
+      )}
     </div>
   );
 };
