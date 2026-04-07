@@ -602,7 +602,7 @@ const Index = () => {
             </div>
           </div>
           {/* Mobile editor */}
-          <div className="flex-1 min-w-0 flex flex-col lg:hidden">
+          <div className="flex-1 min-w-0 flex flex-col lg:hidden overflow-hidden">
             <div className="flex-1 min-h-0">
               <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} />
             </div>

@@ -553,7 +553,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
   return (
     <div className="grid grid-cols-1 gap-4">
       {/* Templates */}
-      <div className="md:col-span-2">
+      <div className="">
         <ControlSection label="Templates" pro={!isPro} onProClick={goToPricing}>
           <TemplateLibrary
             onApply={(partial) => {
@@ -860,7 +860,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
       </ControlSection>
 
       {/* Text */}
-      <div className="md:col-span-2">
+      <div className="">
         <ControlSection label="Text">
           <div className="relative">
             <textarea
@@ -921,7 +921,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
       </div>
 
       {/* Font */}
-      <div className="md:col-span-2">
+      <div className="">
         <ControlSection label="Font">
           <div className="space-y-2">
             <p className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Serif</p>
@@ -1091,7 +1091,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
       </div>
 
       {/* Word Colors — PRO */}
-      <div className="md:col-span-2">
+      <div className="">
         <ControlSection label="Word Colors" pro={!isPro} onProClick={goToPricing}>
           <p className="text-[10px] text-muted-foreground mb-2">
             Color specific words or phrases in your text.
@@ -1431,7 +1431,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
         </ControlSection>
       </div>
 
-      <div className="space-y-4 md:col-span-2">
+      <div className="space-y-4">
         <ControlSection label="Format" pro={!isPro} onProClick={goToPricing}>
           {[
             { heading: "Digital", groups: DIGITAL_FORMAT_GROUPS },
@@ -1629,7 +1629,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
       </div>
 
       {/* Unit Converter */}
-      <div className="md:col-span-2">
+      <div className="">
         <ControlSection label="Unit Converter">
           <UnitCalculator />
         </ControlSection>
