@@ -477,8 +477,7 @@ const Index = () => {
 
       {/* Mobile sticky preview */}
       <div className="lg:hidden sticky top-0 z-20 bg-background border-b border-border px-4 py-3">
-        <div className="max-w-[280px] max-h-[50vh] mx-auto overflow-hidden rounded-lg">
-          <div className="relative w-fit mx-auto">
+        <div className="max-w-[280px] max-h-[50vh] mx-auto overflow-hidden rounded-lg relative">
             <DesignPreview
               key={`mobile-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
               ref={mobilePreviewRef}
@@ -535,7 +534,6 @@ const Index = () => {
                 Pro
               </span>
             )}
-          </div>
         </div>
         <div className="relative w-full mt-2 max-w-[280px] mx-auto flex gap-2">
           {user && (
@@ -611,8 +609,7 @@ const Index = () => {
           </div>
           {/* Preview — right (fills remaining space) */}
           <div className="hidden lg:flex flex-1 min-w-0 flex-col gap-3 sticky top-6 self-start transition-all duration-300 items-center justify-start">
-            <div className="overflow-hidden" style={{ width: getPreviewContainerWidth(editorState.aspectRatio, editorState.customWidth, editorState.customHeight), maxWidth: '100%' }}>
-              <div className="relative w-fit mx-auto">
+            <div className="overflow-hidden relative" style={{ width: getPreviewContainerWidth(editorState.aspectRatio, editorState.customWidth, editorState.customHeight), maxWidth: '100%' }}>
                 <DesignPreview
                   key={`desktop-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
                   ref={previewRef}
@@ -676,7 +673,6 @@ const Index = () => {
                     Pro
                   </span>
                 )}
-              </div>
             </div>
             <div className="flex items-center gap-2">
               {user && (
