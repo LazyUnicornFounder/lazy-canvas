@@ -427,14 +427,10 @@ const Index = () => {
       <header className="border-b border-border">
         <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1400px] mx-auto">
           <div className="flex items-center gap-6">
-            {!user && (
-              <>
-                <LogoWithTagline />
-                <MainNav />
-              </>
-            )}
+            {!user && <LogoWithTagline />}
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
+            {!user && <MainNav />}
             {user ? (
               <>
                 {isAdmin && (
