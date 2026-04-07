@@ -635,7 +635,7 @@ const Index = () => {
                    onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
                  />
             </div>
-            <div className="flex items-center gap-2 justify-end">
+            <div className="flex items-center gap-2 justify-end" style={{ width: getPreviewContainerWidth(editorState.aspectRatio, editorState.customWidth, editorState.customHeight), maxWidth: '100%' }}>
               {user && (
                 <button
                   onClick={handleLockedEditAttempt}
