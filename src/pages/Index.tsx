@@ -452,20 +452,12 @@ const Index = () => {
                 </button>
               </>
             ) : (
-              <>
-                <button
-                  onClick={() => { setAuthModalMode("login"); setShowAuthModal(true); }}
-                  className="text-sm font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Sign in
-                </button>
-                <button
-                  onClick={() => { setAuthModalMode("signup"); setShowAuthModal(true); }}
-                  className="px-4 py-2 bg-foreground text-background font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity"
-                >
-                  Get started free
-                </button>
-              </>
+              <button
+                onClick={() => { setAuthModalMode("login"); setShowAuthModal(true); }}
+                className="px-4 py-2 bg-foreground text-background font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity"
+              >
+                Sign in
+              </button>
             )}
           </div>
         </div>
