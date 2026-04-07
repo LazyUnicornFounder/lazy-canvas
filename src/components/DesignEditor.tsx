@@ -655,7 +655,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
                     <Smile className="w-4 h-4 text-muted-foreground" />
                   </button>
                   {showEmojiPicker && (
-                    <div ref={emojiPickerRef} className="absolute bottom-8 left-0 right-0 sm:left-auto sm:right-0 bg-card border border-border rounded-lg shadow-xl z-50 w-auto sm:w-72 max-w-[calc(100vw-2rem)]">
+                    <div ref={emojiPickerRef} className="fixed sm:absolute bottom-20 sm:bottom-8 left-4 right-4 sm:left-auto sm:right-0 bg-card border border-border rounded-lg shadow-xl z-[100] sm:w-72">
                       <div className="flex gap-1 px-2 pt-2 pb-1 border-b border-border overflow-x-auto">
                         {EMOJI_CATEGORIES.map((cat, i) => (
                           <button
