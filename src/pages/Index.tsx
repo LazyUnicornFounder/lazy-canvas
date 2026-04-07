@@ -585,7 +585,7 @@ const Index = () => {
         </div>
       </div>
 
-      <section className="min-h-[calc(100vh-4rem)] flex justify-center px-4 sm:px-6">
+      <section className="min-h-[calc(100vh-4rem)] px-4 sm:px-6">
         <div className="w-full flex gap-6 py-4">
           {/* Left — editor */}
           <div className="hidden lg:flex flex-col flex-shrink-0 w-[456px] xl:w-[496px]">
