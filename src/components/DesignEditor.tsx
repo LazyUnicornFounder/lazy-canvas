@@ -1159,7 +1159,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
             </ControlSection>
           )}
 
-        </div>
+    </>
   ) : null;
 
   // ── Mobile layout: bottom tab bar + sliding panel ──
