@@ -567,7 +567,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
   ];
 
   return (
-    <div className="flex h-full" onMouseLeave={() => setActivePanel(null)}>
+    <div className="relative flex h-full overflow-visible" onMouseLeave={() => setActivePanel(null)}>
       {/* Thin icon sidebar */}
       <div className="flex flex-col items-center gap-1.5 py-3 px-2.5 border-r border-border bg-card/50 flex-shrink-0 w-24">
         {PANELS.map((panel) => {
@@ -596,7 +596,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
 
       {/* Expandable panel content */}
       {activePanel && (
-        <div className="flex-1 min-w-0 overflow-y-auto lg:scrollbar-thin p-3 space-y-4">
+        <div className="flex-1 min-w-0 overflow-y-auto p-3 space-y-4 lg:absolute lg:left-full lg:top-0 lg:z-30 lg:ml-3 lg:w-[320px] lg:min-w-[320px] xl:w-[360px] lg:max-h-[calc(100vh-8rem)] lg:rounded-xl lg:border lg:border-border lg:bg-background lg:shadow-xl lg:scrollbar-thin">
 
           {activePanel === "text" && (
             <ControlSection label="Text">
