@@ -110,6 +110,13 @@ interface DesignPreviewProps {
   logoPosition?: "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right" | "center";
   logoSize?: number;
   onAutoFontSize?: (newSize: number) => void;
+  textOffsetX?: number;
+  textOffsetY?: number;
+  authorOffsetX?: number;
+  authorOffsetY?: number;
+  logoOffsetX?: number;
+  logoOffsetY?: number;
+  onOffsetChange?: (field: string, x: number, y: number) => void;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
