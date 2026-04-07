@@ -587,9 +587,11 @@ const Index = () => {
 
       <section className="min-h-[calc(100vh-4rem)] flex justify-center px-4 sm:px-6">
         <div className="w-full flex gap-6 py-4">
-          {/* Left — editor toolbar with overlay panels */}
-          <div className="hidden lg:block relative z-20 w-24 flex-shrink-0 overflow-visible">
-            <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} />
+          {/* Left — editor */}
+          <div className="hidden lg:flex flex-col flex-shrink-0 w-[456px] xl:w-[496px]">
+            <div className="flex-1 min-h-0 overflow-y-auto lg:scrollbar-thin">
+              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} />
+            </div>
           </div>
           {/* Mobile editor */}
           <div className="flex-1 min-w-0 flex flex-col lg:hidden overflow-hidden">
@@ -598,7 +600,7 @@ const Index = () => {
             </div>
           </div>
           {/* Preview — right (fills remaining space) */}
-           <div className="hidden lg:flex flex-1 min-w-0 flex-col gap-3 sticky top-6 self-start transition-all duration-300 items-center justify-center lg:translate-x-12">
+           <div className="hidden lg:flex flex-1 min-w-0 flex-col gap-3 sticky top-6 self-start transition-all duration-300 items-center justify-center lg:translate-x-[56px]">
              <div className="overflow-hidden relative" style={{ width: getPreviewContainerWidth(editorState.aspectRatio, editorState.customWidth, editorState.customHeight), maxWidth: '100%' }}>
                 <DesignPreview
                   key={`desktop-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
