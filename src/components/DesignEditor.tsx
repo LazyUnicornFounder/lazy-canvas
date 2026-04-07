@@ -550,10 +550,53 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
     reader.readAsDataURL(file);
   };
 
+  const [activePanel, setActivePanel] = useState<string | null>("text");
+
+  const PANELS = [
+    { id: "text", icon: Type, label: "Text" },
+    { id: "font", icon: SlidersHorizontal, label: "Font" },
+    { id: "templates", icon: LayoutGrid, label: "Templates" },
+    { id: "background", icon: ImageIcon, label: "Background" },
+    { id: "theme", icon: Palette, label: "Theme" },
+    { id: "colors", icon: Rainbow, label: "Colors" },
+    { id: "author", icon: User, label: "Author" },
+    { id: "photo", icon: Camera, label: "Photo" },
+    { id: "border", icon: Square, label: "Border" },
+    { id: "format", icon: Layers, label: "Format" },
+    { id: "units", icon: Ruler, label: "Units" },
+  ];
+
   return (
-    <div className="grid grid-cols-1 gap-4">
-      {/* Templates */}
-      <div className="">
+    <div className="flex h-full">
+      {/* Thin icon sidebar */}
+      <div className="flex flex-col items-center gap-0.5 py-2 px-1 border-r border-border bg-card/50 flex-shrink-0 w-12">
+        {PANELS.map((panel) => {
+          const Icon = panel.icon;
+          const isActive = activePanel === panel.id;
+          return (
+            <button
+              key={panel.id}
+              onClick={() => setActivePanel(isActive ? null : panel.id)}
+              className={`flex flex-col items-center gap-0.5 p-1.5 rounded-md transition-all w-full ${
+                isActive
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+              }`}
+              title={panel.label}
+            >
+              <Icon className="w-4 h-4" />
+              <span className="text-[7px] font-heading font-medium leading-tight">{panel.label}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Expandable panel content */}
+      {activePanel && (
+        <div className="flex-1 min-w-0 overflow-y-auto lg:scrollbar-thin p-3 space-y-4">
+
+      {activePanel === "templates" && (
+        <>
         <ControlSection label="Templates" pro={!isPro} onProClick={goToPricing}>
           <TemplateLibrary
             onApply={(partial) => {
