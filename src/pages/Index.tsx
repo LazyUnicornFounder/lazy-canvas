@@ -684,20 +684,11 @@ const Index = () => {
           </div>
         </div>
       </section>
-      {/* About */}
+      {/* Footer */}
       <section className="border-t border-border px-4 sm:px-6 py-8">
         <div className="max-w-[1400px] mx-auto">
           <p className="text-xs text-muted-foreground">
-            Lazy Canvas is part of{" "}
-            <a
-              href="https://lazyfactoryventures.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-foreground transition-colors"
-            >
-              Lazy Factory Ventures
-            </a>
-            .
+            © 2026 Lazy Canvas. All rights reserved.
           </p>
         </div>
       </section>
