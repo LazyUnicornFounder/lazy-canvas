@@ -567,7 +567,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
   ];
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full" onMouseLeave={() => setActivePanel(null)}>
       {/* Thin icon sidebar */}
       <div className="flex flex-col items-center gap-1.5 py-3 px-2.5 border-r border-border bg-card/50 flex-shrink-0 w-24">
         {PANELS.map((panel) => {
