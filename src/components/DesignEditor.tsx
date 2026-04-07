@@ -557,7 +557,12 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (editorRootRef.current && !editorRootRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      // Close panel only when clicking truly outside — not in the editor itself or its parent column container
+      const editorColumn = editorRootRef.current?.closest('.flex.flex-col.flex-shrink-0');
+      const isInsideEditor = editorRootRef.current?.contains(target);
+      const isInsideColumn = editorColumn?.contains(target);
+      if (!isInsideEditor && !isInsideColumn) {
         setActivePanel(null);
       }
     };
