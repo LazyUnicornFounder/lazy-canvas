@@ -355,6 +355,7 @@ interface DesignEditorProps {
 }
 
 const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, downloading = false }: DesignEditorProps) => {
+  const isMobile = useIsMobile();
   // Normalize state to handle old saved states missing new fields
   const state: DesignEditorState = { ...DEFAULT_EDITOR_STATE, ...rawState, coloredWords: rawState.coloredWords || [], photoShape: rawState.photoShape || "none" };
   const navigate = useNavigate();
