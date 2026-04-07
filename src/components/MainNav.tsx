@@ -92,22 +92,12 @@ export function LogoWithTagline({ onClick }: { onClick?: () => void }) {
       className="flex items-center gap-2 cursor-pointer"
       onClick={onClick || (() => navigate("/"))}
     >
-      <div className="flex flex-col">
-        <div className="flex items-center gap-1.5">
-          <span className="font-orbitron text-sm sm:text-lg font-bold text-foreground select-none uppercase tracking-widest leading-tight">
-            Lazy
-          </span>
-          <span className="px-1.5 py-0.5 text-[9px] font-heading font-bold uppercase tracking-wider bg-red-500 text-white rounded-sm leading-none">
-            Beta
-          </span>
-        </div>
-        <span className="font-orbitron text-sm sm:text-lg font-bold text-foreground select-none uppercase tracking-widest leading-tight">
-          Canvas
-        </span>
-        <span className="text-xs sm:text-sm text-muted-foreground font-heading tracking-wide">
-          Design content for anything.
-        </span>
-      </div>
+      <span className="font-orbitron text-sm sm:text-lg font-bold text-foreground select-none uppercase tracking-widest leading-tight whitespace-nowrap">
+        Lazy Canvas
+      </span>
+      <span className="px-1.5 py-0.5 text-[9px] font-heading font-bold uppercase tracking-wider bg-red-500 text-white rounded-sm leading-none">
+        Beta
+      </span>
     </div>
   );
 }
