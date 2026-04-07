@@ -577,6 +577,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
             <button
               key={panel.id}
               onClick={() => setActivePanel(isActive ? null : panel.id)}
+              onMouseEnter={() => setActivePanel(panel.id)}
               className={`flex flex-col items-center gap-0.5 p-1.5 rounded-md transition-all w-full ${
                 isActive
                   ? "bg-foreground text-background"
