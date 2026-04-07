@@ -622,11 +622,19 @@ const DesignPreview = forwardRef<HTMLDivElement, DesignPreviewProps>(
             <div
               ref={contentRef}
               style={{
-                textAlign, maxWidth: "90%", width: "90%",
-                transform: `scale(${scale}) translate(${textOffsetX}%, ${textOffsetY}%)`,
+                textAlign,
+                maxWidth: "90%",
+                width: "90%",
+                position: "absolute",
+                left: `${50 + textOffsetX}%`,
+                top: `${50 + textOffsetY}%`,
+                transform: `translate(-50%, -50%) scale(${scale})`,
                 transformOrigin: "center center",
-                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                willChange: scale < 1 || dragging?.target === "text" ? "transform" : undefined,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                willChange: scale < 1 || dragging?.target === "text" ? "transform, left, top" : undefined,
                 cursor: onOffsetChange ? (dragging?.target === "text" ? "grabbing" : "grab") : undefined,
                 userSelect: dragging ? "none" as const : undefined,
               }}
