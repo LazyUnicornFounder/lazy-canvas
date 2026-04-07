@@ -551,6 +551,17 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
   };
 
   const [activePanel, setActivePanel] = useState<string | null>("text");
+  const editorRootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (editorRootRef.current && !editorRootRef.current.contains(e.target as Node)) {
+        setActivePanel(null);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   const PANELS = [
     { id: "text", icon: Type, label: "Text" },
@@ -567,7 +578,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
   ];
 
   return (
-    <div className="flex h-full">
+    <div ref={editorRootRef} className="flex h-full">
       {/* Thin icon sidebar */}
       <div className="flex flex-col items-center gap-1.5 py-3 px-2.5 border-r border-border bg-card/50 flex-shrink-0 w-24">
         {PANELS.map((panel) => {
