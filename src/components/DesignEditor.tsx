@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow, LayoutGrid, Eraser, Loader2, Search, Trash2, FolderOpen, Type, User, Square, Ruler, SlidersHorizontal, Layers, Camera } from "lucide-react";
+import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow, LayoutGrid, Eraser, Loader2, Search, Trash2, FolderOpen, Type, User, Square, Ruler, SlidersHorizontal, Layers, Camera, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { EMOJI_CATEGORIES } from "@/data/emojis";
 import TemplateLibrary from "@/components/TemplateLibrary";
@@ -349,9 +349,11 @@ interface DesignEditorProps {
   state: DesignEditorState;
   onChange: (state: DesignEditorState) => void;
   isPro?: boolean;
+  onDownload?: () => void;
+  downloading?: boolean;
 }
 
-const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditorProps) => {
+const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, downloading = false }: DesignEditorProps) => {
   // Normalize state to handle old saved states missing new fields
   const state: DesignEditorState = { ...DEFAULT_EDITOR_STATE, ...rawState, coloredWords: rawState.coloredWords || [], photoShape: rawState.photoShape || "none" };
   const navigate = useNavigate();
@@ -580,7 +582,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
   return (
     <div ref={editorRootRef} className="flex h-full">
       {/* Thin icon sidebar */}
-      <div className="flex flex-col items-center gap-1.5 py-3 px-2.5 border-r border-border bg-card/50 flex-shrink-0 w-24">
+      <div className="flex flex-col items-center gap-1.5 py-3 px-2.5 border-r border-border bg-card/50 flex-shrink-0 w-24 justify-between">
         {PANELS.map((panel) => {
           const Icon = panel.icon;
           const isActive = activePanel === panel.id;
@@ -603,6 +605,20 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
             </button>
           );
         })}
+        <div className="flex-1" />
+        {onDownload && (
+          <button
+            onClick={onDownload}
+            disabled={downloading}
+            className="flex flex-col items-center gap-1.5 p-2.5 rounded-md transition-all w-full bg-foreground text-background hover:opacity-90 disabled:opacity-50"
+            title="Download"
+          >
+            <Download className="w-5 h-5 shrink-0" />
+            <span className="text-center text-[10px] font-heading font-medium leading-none whitespace-nowrap">
+              {downloading ? "Exporting…" : "Download"}
+            </span>
+          </button>
+        )}
       </div>
 
       {/* Expandable panel content */}

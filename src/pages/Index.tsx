@@ -563,13 +563,13 @@ const Index = () => {
           {/* Left — editor */}
           <div className="hidden lg:flex flex-col flex-shrink-0 w-[456px] xl:w-[496px]">
             <div className="flex-1 min-h-0 overflow-y-auto lg:scrollbar-thin">
-              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} />
+              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
             </div>
           </div>
           {/* Mobile editor */}
           <div className="flex-1 min-w-0 flex flex-col lg:hidden overflow-hidden">
             <div className="flex-1 min-h-0">
-              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} />
+              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
             </div>
           </div>
           {/* Preview — right (fills remaining space) */}
@@ -634,52 +634,6 @@ const Index = () => {
                    }}
                    onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
                  />
-            </div>
-            <div className="flex items-center gap-2 justify-end" style={{ width: getPreviewContainerWidth(editorState.aspectRatio, editorState.customWidth, editorState.customHeight), maxWidth: '100%' }}>
-              {user && (
-                <button
-                  onClick={handleLockedEditAttempt}
-                  className="flex items-center justify-center gap-2 px-4 py-2 border border-border text-foreground font-heading text-sm font-medium rounded-md hover:bg-accent transition-colors"
-                >
-                  <Pencil className="w-4 h-4" />
-                  Edit
-                </button>
-              )}
-              <div className="relative">
-                <div className="flex">
-                  <button
-                    onClick={() => handleDownloadClick(3)}
-                    disabled={downloading}
-                    className="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-heading text-sm font-medium rounded-l-md hover:opacity-90 transition-opacity disabled:opacity-50"
-                  >
-                    <Download className="w-4 h-4" />
-                    {downloading ? "Exporting…" : "Download"}
-                  </button>
-                  <button
-                    onClick={() => setDownloadMenuOpen(!downloadMenuOpen)}
-                    disabled={downloading}
-                    className="px-2.5 bg-primary text-primary-foreground rounded-r-md border-l border-primary-foreground/20 hover:opacity-90 transition-opacity disabled:opacity-50"
-                  >
-                    <ChevronDown className="w-4 h-4" />
-                  </button>
-                </div>
-                {downloadMenuOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-popover border border-border rounded-md shadow-lg z-30 overflow-hidden">
-                    <button
-                      onClick={() => { setDownloadMenuOpen(false); handleDownloadClick(3); }}
-                      className="w-full px-3 py-2.5 text-sm text-left hover:bg-accent flex items-center gap-2"
-                    >
-                      <Download className="w-3.5 h-3.5" /> Web (Standard)
-                    </button>
-                    <button
-                      onClick={() => { setDownloadMenuOpen(false); handleDownloadClick(6); }}
-                      className="w-full px-3 py-2.5 text-sm text-left hover:bg-accent flex items-center gap-2"
-                    >
-                      <Printer className="w-3.5 h-3.5" /> Print-Ready (High-Res)
-                    </button>
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         </div>
