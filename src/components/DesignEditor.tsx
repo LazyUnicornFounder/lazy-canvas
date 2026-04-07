@@ -550,7 +550,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
     reader.readAsDataURL(file);
   };
 
-  const [activePanel, setActivePanel] = useState<string | null>("text");
+  const [activePanel, setActivePanel] = useState<string | null>(null);
   const editorRootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
