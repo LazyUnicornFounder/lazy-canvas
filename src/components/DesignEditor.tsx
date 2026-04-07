@@ -833,20 +833,20 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
             <ControlSection label="Background" pro={!isPro} onProClick={goToPricing}>
               <input ref={bgInputRef} type="file" accept="image/*" onChange={handleBgUpload} className="hidden" />
               <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Color</span>
-                  <input type="color" value={state.backgroundColor || "#ffffff"} onChange={(e) => set("backgroundColor", e.target.value)} className="w-8 h-8 rounded-md border border-border cursor-pointer bg-transparent" />
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                  <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14 shrink-0">Color</span>
+                  <input type="color" value={state.backgroundColor || "#ffffff"} onChange={(e) => set("backgroundColor", e.target.value)} className="w-8 h-8 shrink-0 rounded-md border border-border cursor-pointer bg-transparent" />
                   {state.backgroundColor && <button onClick={() => set("backgroundColor", "")} className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">Reset</button>}
                 </div>
-                <div className="flex items-center gap-3">
-                  <button onClick={() => bgInputRef.current?.click()} className="flex items-center gap-2 px-4 py-2 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
+                <div className="flex flex-wrap items-center gap-2">
+                  <button onClick={() => bgInputRef.current?.click()} className="inline-flex items-center gap-2 px-4 py-2 text-xs font-heading font-medium rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-all">
                     <Upload className="w-3.5 h-3.5" />
                     {state.backgroundImage ? "Change image" : "Upload image"}
                   </button>
                   {state.backgroundImage && (
                     <>
                       <button onClick={() => set("backgroundImage", null)} className="text-xs text-muted-foreground hover:text-foreground transition-colors">Delete</button>
-                      <button onClick={handleRemoveBgImage} disabled={removingBgImage} className="flex items-center gap-1 text-xs font-heading text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50">
+                      <button onClick={handleRemoveBgImage} disabled={removingBgImage} className="inline-flex items-center gap-1 text-xs font-heading text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50">
                         {removingBgImage ? <Loader2 className="w-3 h-3 animate-spin" /> : <Eraser className="w-3 h-3" />}
                         {removingBgImage ? "Removing…" : "Remove BG"}
                       </button>
@@ -856,17 +856,18 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
                 {state.backgroundImage && (
                   <>
                     <div className="flex items-center gap-3">
-                      <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Opacity</span>
-                      <input type="range" min={0.1} max={1} step={0.05} value={state.backgroundOpacity} onChange={(e) => set("backgroundOpacity", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                      <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14 shrink-0">Opacity</span>
+                      <input type="range" min={0.1} max={1} step={0.05} value={state.backgroundOpacity} onChange={(e) => set("backgroundOpacity", parseFloat(e.target.value))} className="flex-1 min-w-0 accent-foreground h-1" />
+                      <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{Math.round(state.backgroundOpacity * 100)}%</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Blur</span>
-                      <input type="range" min={0} max={20} step={1} value={state.backgroundBlur} onChange={(e) => set("backgroundBlur", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                      <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14 shrink-0">Blur</span>
+                      <input type="range" min={0} max={20} step={1} value={state.backgroundBlur} onChange={(e) => set("backgroundBlur", parseFloat(e.target.value))} className="flex-1 min-w-0 accent-foreground h-1" />
+                      <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{Math.round(state.backgroundBlur)}px</span>
                     </div>
                   </>
                 )}
               </div>
-              {/* Filters */}
               <div className="mt-4">
                 <p className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest mb-2">Filters</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -876,8 +877,8 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false }: DesignEditor
                 </div>
                 {state.backgroundFilter !== "none" && (
                   <div className="flex items-center gap-3 mt-2">
-                    <label className="text-xs text-muted-foreground font-heading w-16">Intensity</label>
-                    <input type="range" min={0} max={1} step={0.05} value={state.filterIntensity} onChange={(e) => set("filterIntensity", parseFloat(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                    <label className="text-xs text-muted-foreground font-heading w-16 shrink-0">Intensity</label>
+                    <input type="range" min={0} max={1} step={0.05} value={state.filterIntensity} onChange={(e) => set("filterIntensity", parseFloat(e.target.value))} className="flex-1 min-w-0 accent-foreground h-1" />
                     <span className="text-xs text-muted-foreground w-8 text-right">{Math.round(state.filterIntensity * 100)}%</span>
                   </div>
                 )}
