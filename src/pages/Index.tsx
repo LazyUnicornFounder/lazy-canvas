@@ -567,7 +567,7 @@ const Index = () => {
             </div>
           </div>
           {/* Mobile editor — fixed bottom tab bar */}
-          <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30">
+          <div className="lg:hidden">
             <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
           </div>
           {/* Preview — right (fills remaining space) */}
