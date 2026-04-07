@@ -47,7 +47,7 @@ const getPreviewContainerWidth = (aspectRatio: string, customW?: number, customH
   if (!ratio) ratio = 1;
   // Height-first: fill viewport height, compute width from ratio
   const offsetPx = 100;
-  return `clamp(180px, calc((100vh - ${offsetPx}px) * ${ratio.toFixed(4)}), 500px)`;
+  return `clamp(180px, calc((100vh - ${offsetPx}px) * ${ratio.toFixed(4)}), 700px)`;
 };
 
 const sanitizeExportStyles = (root: ParentNode) => {
