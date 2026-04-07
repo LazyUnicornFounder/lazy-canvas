@@ -266,6 +266,12 @@ export interface DesignEditorState {
   logo: string | null;
   logoPosition: "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right" | "center";
   logoSize: number;
+  textOffsetX: number;
+  textOffsetY: number;
+  authorOffsetX: number;
+  authorOffsetY: number;
+  logoOffsetX: number;
+  logoOffsetY: number;
 }
 
 export const BG_FILTERS: { value: string; label: string; css: string }[] = [
@@ -331,6 +337,12 @@ export const DEFAULT_EDITOR_STATE: DesignEditorState = {
   logo: null,
   logoPosition: "bottom-right",
   logoSize: 2.5,
+  textOffsetX: 0,
+  textOffsetY: 0,
+  authorOffsetX: 0,
+  authorOffsetY: 0,
+  logoOffsetX: 0,
+  logoOffsetY: 0,
 };
 
 interface DesignEditorProps {
