@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow, LayoutGrid, Eraser, Loader2, Search, Trash2, FolderOpen, Type, User, Square, Ruler, SlidersHorizontal, Layers, Camera, Download } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { supabase } from "@/integrations/supabase/client";
 import { EMOJI_CATEGORIES } from "@/data/emojis";
 import TemplateLibrary from "@/components/TemplateLibrary";
@@ -354,6 +355,7 @@ interface DesignEditorProps {
 }
 
 const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, downloading = false }: DesignEditorProps) => {
+  const isMobile = useIsMobile();
   // Normalize state to handle old saved states missing new fields
   const state: DesignEditorState = { ...DEFAULT_EDITOR_STATE, ...rawState, coloredWords: rawState.coloredWords || [], photoShape: rawState.photoShape || "none" };
   const navigate = useNavigate();
@@ -581,51 +583,9 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
     { id: "units", icon: Ruler, label: "Units" },
   ];
 
-  return (
-    <div ref={editorRootRef} className="flex h-full">
-      {/* Thin icon sidebar */}
-      <div className="flex flex-col items-center gap-1.5 py-3 px-2.5 border-r border-border bg-card/50 flex-shrink-0 w-24 justify-between">
-        {PANELS.map((panel) => {
-          const Icon = panel.icon;
-          const isActive = activePanel === panel.id;
-          return (
-            <button
-              key={panel.id}
-              onClick={() => setActivePanel(isActive ? null : panel.id)}
-              onMouseEnter={() => setActivePanel(panel.id)}
-              className={`flex flex-col items-center gap-1.5 p-2.5 rounded-md transition-all w-full ${
-                isActive
-                  ? "bg-foreground text-background"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
-              }`}
-              title={panel.label}
-            >
-              <Icon className="w-5 h-5 shrink-0" />
-              <span className="text-center text-[10px] font-heading font-medium leading-none whitespace-nowrap">
-                {panel.label}
-              </span>
-            </button>
-          );
-        })}
-        <div className="flex-1" />
-        {onDownload && (
-          <button
-            onClick={onDownload}
-            disabled={downloading}
-            className="flex flex-col items-center gap-1.5 p-2.5 rounded-md transition-all w-full bg-foreground text-background hover:opacity-90 disabled:opacity-50"
-            title="Download"
-          >
-            <Download className="w-5 h-5 shrink-0" />
-            <span className="text-center text-[10px] font-heading font-medium leading-none whitespace-nowrap">
-              {downloading ? "Exporting…" : "Download"}
-            </span>
-          </button>
-        )}
-      </div>
-
-      {/* Expandable panel content */}
-      {activePanel && (
-        <div className="flex-1 min-w-0 overflow-y-auto lg:scrollbar-thin p-3 space-y-4">
+  // Panel content shared between mobile and desktop
+  const panelContent = activePanel ? (
+    <div className="flex-1 min-w-0 overflow-y-auto lg:scrollbar-thin p-3 space-y-4">
 
           {activePanel === "text" && (
             <ControlSection label="Text">
@@ -1200,7 +1160,109 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
           )}
 
         </div>
-      )}
+  ) : null;
+
+  // ── Mobile layout: bottom tab bar + sliding panel ──
+  if (isMobile) {
+    return (
+      <div ref={editorRootRef} className="relative">
+        {/* Bottom sheet panel overlay */}
+        {activePanel && (
+          <>
+            <div
+              className="fixed inset-0 bg-black/40 z-40"
+              onClick={() => setActivePanel(null)}
+            />
+            <div className="fixed bottom-[60px] left-0 right-0 z-50 bg-card border-t border-border rounded-t-2xl shadow-2xl max-h-[60vh] overflow-y-auto animate-in slide-in-from-bottom-4 duration-200">
+              <div className="sticky top-0 bg-card z-10 flex items-center justify-between px-4 py-2 border-b border-border">
+                <span className="text-xs font-heading font-semibold uppercase tracking-widest">
+                  {PANELS.find(p => p.id === activePanel)?.label}
+                </span>
+                <button onClick={() => setActivePanel(null)} className="p-1 rounded-md hover:bg-accent">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="p-3 space-y-4">
+                {panelContent?.props?.children}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Fixed bottom tab bar */}
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border safe-area-pb">
+          <div className="flex items-center overflow-x-auto scrollbar-none gap-0.5 px-1 py-1.5">
+            {PANELS.map((panel) => {
+              const Icon = panel.icon;
+              const isActive = activePanel === panel.id;
+              return (
+                <button
+                  key={panel.id}
+                  onClick={() => setActivePanel(isActive ? null : panel.id)}
+                  className={`flex flex-col items-center gap-0.5 px-2.5 py-1.5 rounded-md transition-all flex-shrink-0 min-w-[52px] ${
+                    isActive
+                      ? "bg-foreground text-background"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+                  <span className="text-[9px] font-heading font-medium leading-none whitespace-nowrap">
+                    {panel.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Desktop layout: vertical sidebar + expandable panel ──
+  return (
+    <div ref={editorRootRef} className="flex h-full">
+      {/* Thin icon sidebar */}
+      <div className="flex flex-col items-center gap-1.5 py-3 px-2.5 border-r border-border bg-card/50 flex-shrink-0 w-24 justify-between">
+        {PANELS.map((panel) => {
+          const Icon = panel.icon;
+          const isActive = activePanel === panel.id;
+          return (
+            <button
+              key={panel.id}
+              onClick={() => setActivePanel(isActive ? null : panel.id)}
+              onMouseEnter={() => setActivePanel(panel.id)}
+              className={`flex flex-col items-center gap-1.5 p-2.5 rounded-md transition-all w-full ${
+                isActive
+                  ? "bg-foreground text-background"
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+              }`}
+              title={panel.label}
+            >
+              <Icon className="w-5 h-5 shrink-0" />
+              <span className="text-center text-[10px] font-heading font-medium leading-none whitespace-nowrap">
+                {panel.label}
+              </span>
+            </button>
+          );
+        })}
+        <div className="flex-1" />
+        {onDownload && (
+          <button
+            onClick={onDownload}
+            disabled={downloading}
+            className="flex flex-col items-center gap-1.5 p-2.5 rounded-md transition-all w-full bg-foreground text-background hover:opacity-90 disabled:opacity-50"
+            title="Download"
+          >
+            <Download className="w-5 h-5 shrink-0" />
+            <span className="text-center text-[10px] font-heading font-medium leading-none whitespace-nowrap">
+              {downloading ? "Exporting…" : "Download"}
+            </span>
+          </button>
+        )}
+      </div>
+
+      {/* Expandable panel content */}
+      {panelContent}
     </div>
   );
 };

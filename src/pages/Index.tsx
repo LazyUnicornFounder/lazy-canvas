@@ -455,8 +455,8 @@ const Index = () => {
       </header>
 
       {/* Mobile sticky preview */}
-      <div className="lg:hidden sticky top-0 z-20 bg-background border-b border-border px-4 py-3">
-        <div className="max-w-[280px] max-h-[50vh] mx-auto overflow-hidden rounded-lg relative">
+      <div className="lg:hidden sticky top-0 z-20 bg-background border-b border-border px-4 py-3 pb-3 mb-0">
+        <div className="max-w-[340px] max-h-[55vh] mx-auto overflow-hidden rounded-lg relative">
             <DesignPreview
               key={`mobile-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
               ref={mobilePreviewRef}
@@ -510,7 +510,7 @@ const Index = () => {
               onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
             />
         </div>
-        <div className="relative w-full mt-2 max-w-[280px] mx-auto flex gap-2">
+        <div className="relative w-full mt-2 max-w-[340px] mx-auto flex gap-2">
           {user && (
             <button
               onClick={handleLockedEditAttempt}
@@ -558,19 +558,17 @@ const Index = () => {
         </div>
       </div>
 
-      <section className="min-h-[calc(100vh-4rem)] px-4 sm:px-6">
+      <section className="min-h-[calc(100vh-4rem)] px-4 sm:px-6 pb-[70px] lg:pb-0">
         <div className="w-full flex gap-6 py-4">
-          {/* Left — editor */}
+          {/* Left — editor (desktop) */}
           <div data-editor-column className="hidden lg:flex flex-col flex-shrink-0 w-[456px] xl:w-[496px]">
             <div className="flex-1 min-h-0 overflow-y-auto lg:scrollbar-thin">
               <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
             </div>
           </div>
-          {/* Mobile editor */}
-          <div className="flex-1 min-w-0 flex flex-col lg:hidden overflow-hidden">
-            <div className="flex-1 min-h-0">
-              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
-            </div>
+          {/* Mobile editor — fixed bottom tab bar */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30">
+            <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
           </div>
           {/* Preview — right (fills remaining space) */}
            <div className="hidden lg:flex flex-1 min-w-0 flex-col gap-3 sticky top-6 self-start transition-all duration-300 items-center justify-center min-h-[calc(100vh-80px)]">
