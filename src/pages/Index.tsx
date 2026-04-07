@@ -588,7 +588,7 @@ const Index = () => {
       <section className="min-h-[calc(100vh-4rem)] flex justify-center px-4 sm:px-6">
         <div className="w-full flex gap-6 lg:gap-8 py-4">
           {/* Left — editor (fixed narrow width) */}
-          <div className="hidden lg:flex flex-col flex-shrink-0 w-[420px] xl:w-[460px]">
+          <div className="hidden lg:flex flex-col flex-shrink-0 w-[360px] xl:w-[400px]">
             <div className="flex-1 min-h-0 overflow-y-auto lg:scrollbar-thin">
               <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} />
             </div>
