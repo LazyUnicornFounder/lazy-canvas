@@ -520,16 +520,6 @@ const Index = () => {
               Edit
             </button>
           )}
-          <button
-            onClick={() => {
-              if (!user) { localStorage.setItem(DRAFT_KEY, JSON.stringify(editorState)); setPendingSaveAfterAuth(true); setAuthModalMode("signup"); setShowAuthModal(true); return; }
-              handleSaveDesign();
-            }}
-            className="flex items-center justify-center gap-1.5 px-3 py-2 border border-border text-foreground font-heading text-xs font-medium rounded-md hover:bg-accent transition-colors"
-          >
-            <Save className="w-3.5 h-3.5" />
-            Save
-          </button>
           <div className="relative flex-1">
             <div className="flex w-full">
               <button
@@ -655,16 +645,6 @@ const Index = () => {
                   Edit
                 </button>
               )}
-              <button
-                onClick={() => {
-                  if (!user) { localStorage.setItem(DRAFT_KEY, JSON.stringify(editorState)); setPendingSaveAfterAuth(true); setAuthModalMode("signup"); setShowAuthModal(true); return; }
-                  handleSaveDesign();
-                }}
-                className="flex items-center justify-center gap-2 px-4 py-2 border border-border text-foreground font-heading text-sm font-medium rounded-md hover:bg-accent transition-colors"
-              >
-                <Save className="w-4 h-4" />
-                Save
-              </button>
               <div className="relative">
                 <div className="flex">
                   <button
