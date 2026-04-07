@@ -654,7 +654,15 @@ const DesignPreview = forwardRef<HTMLDivElement, DesignPreviewProps>(
           </div>
           {/* Detached author positions */}
           {isDetached && authorBlock && (
-            <div className="relative z-10 pt-2">
+            <div
+              className="relative z-10 pt-2"
+              style={{
+                transform: `translate(${authorOffsetX}%, ${authorOffsetY}%)`,
+                cursor: onOffsetChange ? (dragging?.target === "author" ? "grabbing" : "grab") : undefined,
+                userSelect: dragging ? "none" as const : undefined,
+              }}
+              onMouseDown={(e) => startDrag("author", e)}
+            >
               {authorBlock}
             </div>
           )}
