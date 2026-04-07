@@ -641,6 +641,19 @@ const Index = () => {
                    logo={editorState.logo}
                    logoPosition={editorState.logoPosition}
                    logoSize={editorState.logoSize}
+                   textOffsetX={editorState.textOffsetX}
+                   textOffsetY={editorState.textOffsetY}
+                   authorOffsetX={editorState.authorOffsetX}
+                   authorOffsetY={editorState.authorOffsetY}
+                   logoOffsetX={editorState.logoOffsetX}
+                   logoOffsetY={editorState.logoOffsetY}
+                   onOffsetChange={(field, x, y) => {
+                     setEditorState((prev) => ({
+                       ...prev,
+                       [`${field}OffsetX`]: x,
+                       [`${field}OffsetY`]: y,
+                     }));
+                   }}
                    onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
                  />
                 {isFreeUser && usesProFeatures(editorState) && (
