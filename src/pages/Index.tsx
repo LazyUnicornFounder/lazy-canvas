@@ -573,7 +573,7 @@ const Index = () => {
             </div>
           </div>
           {/* Preview — right (fills remaining space) */}
-           <div className="hidden lg:flex flex-1 min-w-0 flex-col gap-3 sticky top-6 self-start transition-all duration-300 items-center justify-center">
+           <div className="hidden lg:flex flex-1 min-w-0 flex-col gap-3 sticky top-6 self-start transition-all duration-300 items-center justify-center min-h-[calc(100vh-80px)]">
              <div className="overflow-hidden relative" style={{ width: getPreviewContainerWidth(editorState.aspectRatio, editorState.customWidth, editorState.customHeight), maxWidth: '100%' }}>
                 <DesignPreview
                   key={`desktop-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
