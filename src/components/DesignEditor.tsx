@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow, LayoutGrid, Eraser, Loader2, Search, Trash2, FolderOpen, Type, User, Square, Ruler, SlidersHorizontal, Layers, Camera, Download } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
