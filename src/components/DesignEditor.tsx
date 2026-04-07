@@ -1190,7 +1190,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
         )}
 
         {/* Fixed bottom tab bar */}
-        <div className="fixed bottom-0 left-0 right-0 z-40 bg-card border-t border-border safe-area-pb">
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border safe-area-pb">
           <div className="flex items-center overflow-x-auto scrollbar-none gap-0.5 px-1 py-1.5">
             {PANELS.map((panel) => {
               const Icon = panel.icon;
