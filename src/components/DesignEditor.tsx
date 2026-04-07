@@ -1183,7 +1183,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
                 </button>
               </div>
               <div className="p-3 space-y-4">
-                {panelContent?.props?.children}
+                {panelInner}
               </div>
             </div>
           </>
