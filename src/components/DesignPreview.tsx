@@ -672,17 +672,20 @@ const DesignPreview = forwardRef<HTMLDivElement, DesignPreviewProps>(
               className="absolute z-20"
               style={{
                 ...(logoPosition === "center"
-                  ? { top: "50%", left: "50%", transform: "translate(-50%, -50%)" }
+                  ? { top: "50%", left: "50%", transform: `translate(calc(-50% + ${logoOffsetX}%), calc(-50% + ${logoOffsetY}%))` }
                   : {
                       ...(logoPosition.includes("top") ? { top: "clamp(8px, 3%, 16px)" } : {}),
                       ...(logoPosition.includes("bottom") ? { bottom: "clamp(8px, 3%, 16px)" } : {}),
                       ...(logoPosition.includes("left") ? { left: "clamp(8px, 3%, 16px)" } : {}),
                       ...(logoPosition.includes("right") ? { right: "clamp(8px, 3%, 16px)" } : {}),
                       ...(logoPosition === "top-center" || logoPosition === "bottom-center"
-                        ? { left: "50%", transform: "translateX(-50%)" }
-                        : {}),
+                        ? { left: "50%", transform: `translate(calc(-50% + ${logoOffsetX}%), ${logoOffsetY}%)` }
+                        : { transform: `translate(${logoOffsetX}%, ${logoOffsetY}%)` }),
                     }),
+                cursor: onOffsetChange ? (dragging?.target === "logo" ? "grabbing" : "grab") : undefined,
+                userSelect: dragging ? "none" as const : undefined,
               }}
+              onMouseDown={(e) => startDrag("logo", e)}
             >
               <img
                 src={logo}
