@@ -511,6 +511,7 @@ const Index = () => {
               isItalic={editorState.isItalic}
               coloredWords={editorState.coloredWords}
               showWatermark={false}
+              showProBadge={isFreeUser && usesProFeatures(editorState)}
               showQuotationMarks={editorState.showQuotationMarks}
               photoStroke={editorState.photoStroke}
               customWidth={editorState.customWidth}
@@ -529,11 +530,6 @@ const Index = () => {
               logoOffsetY={editorState.logoOffsetY}
               onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
             />
-            {isFreeUser && usesProFeatures(editorState) && (
-              <span className="absolute top-2 right-2 z-40 px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded-full shadow-sm pointer-events-none select-none opacity-80" data-export-exclude>
-                Pro
-              </span>
-            )}
         </div>
         <div className="relative w-full mt-2 max-w-[280px] mx-auto flex gap-2">
           {user && (
@@ -643,6 +639,7 @@ const Index = () => {
                   isItalic={editorState.isItalic}
                   coloredWords={editorState.coloredWords}
                   showWatermark={false}
+                  showProBadge={isFreeUser && usesProFeatures(editorState)}
                   showQuotationMarks={editorState.showQuotationMarks}
                   photoStroke={editorState.photoStroke}
                   customWidth={editorState.customWidth}
@@ -668,11 +665,6 @@ const Index = () => {
                    }}
                    onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
                  />
-                {isFreeUser && usesProFeatures(editorState) && (
-                  <span className="absolute top-2 right-2 z-40 px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded-full shadow-sm pointer-events-none select-none opacity-80" data-export-exclude>
-                    Pro
-                  </span>
-                )}
             </div>
             <div className="flex items-center gap-2">
               {user && (

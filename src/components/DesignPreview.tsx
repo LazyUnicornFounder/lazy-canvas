@@ -99,6 +99,7 @@ interface DesignPreviewProps {
   isItalic: boolean;
   coloredWords?: ColoredWord[];
   showWatermark?: boolean;
+  showProBadge?: boolean;
   showQuotationMarks?: boolean;
   photoStroke?: boolean;
   customWidth?: number;
@@ -356,7 +357,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = [], show
 };
 
 const DesignPreview = forwardRef<HTMLDivElement, DesignPreviewProps>(
-  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", filterIntensity = 1, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showQuotationMarks = false, photoStroke = false, customWidth, customHeight, borderWidth = 0, borderColor = "#000000", borderStyle = "none", logo, logoPosition = "bottom-right", logoSize = 2.5, onAutoFontSize, textOffsetX = 0, textOffsetY = 0, authorOffsetX = 0, authorOffsetY = 0, logoOffsetX = 0, logoOffsetY = 0, onOffsetChange }, ref) => {
+  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", filterIntensity = 1, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showProBadge = false, showQuotationMarks = false, photoStroke = false, customWidth, customHeight, borderWidth = 0, borderColor = "#000000", borderStyle = "none", logo, logoPosition = "bottom-right", logoSize = 2.5, onAutoFontSize, textOffsetX = 0, textOffsetY = 0, authorOffsetX = 0, authorOffsetY = 0, logoOffsetX = 0, logoOffsetY = 0, onOffsetChange }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
@@ -705,6 +706,13 @@ const DesignPreview = forwardRef<HTMLDivElement, DesignPreviewProps>(
                   objectFit: "contain",
                 }}
               />
+            </div>
+          )}
+          {showProBadge && (
+            <div className="absolute top-0 right-0 z-30 m-[clamp(8px,3%,16px)]" data-export-exclude>
+              <span className="inline-flex items-center rounded-full bg-primary px-2 py-0.5 font-heading text-[10px] font-bold uppercase tracking-wider text-primary-foreground opacity-80 shadow-sm">
+                Pro
+              </span>
             </div>
           )}
           {/* Watermark */}
