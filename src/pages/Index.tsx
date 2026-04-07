@@ -563,13 +563,13 @@ const Index = () => {
           {/* Left — editor */}
           <div className="hidden lg:flex flex-col flex-shrink-0 w-[456px] xl:w-[496px]">
             <div className="flex-1 min-h-0 overflow-y-auto lg:scrollbar-thin">
-              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} />
+              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
             </div>
           </div>
           {/* Mobile editor */}
           <div className="flex-1 min-w-0 flex flex-col lg:hidden overflow-hidden">
             <div className="flex-1 min-h-0">
-              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} />
+              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
             </div>
           </div>
           {/* Preview — right (fills remaining space) */}
