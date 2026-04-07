@@ -425,41 +425,32 @@ const Index = () => {
   const pageContent = (
     <div className={user ? "flex-1 flex flex-col min-w-0 bg-background" : "min-h-screen bg-background"}>
       <header className="border-b border-border">
-        <div className="px-4 sm:px-6 py-4 flex items-center justify-between max-w-[1400px] mx-auto">
-          <div className="flex items-center gap-6">
-            {!user && <LogoWithTagline />}
-          </div>
-          <div className="flex items-center gap-2 sm:gap-4">
-            {!user && <MainNav />}
-            {user ? (
-              <>
-                {isAdmin && (
-                  <button
-                    onClick={() => navigate("/admin")}
-                    className="p-2 hover:bg-accent rounded-md transition-colors"
-                    title="Admin"
-                  >
-                    <Shield className="w-4 h-4 text-muted-foreground" />
-                  </button>
-                )}
-                <span className="text-xs text-muted-foreground hidden sm:block">{user.email}</span>
+        <div className="px-4 sm:px-6 py-4 flex items-center max-w-[1400px] mx-auto">
+          {user ? (
+            <div className="flex items-center gap-2 sm:gap-4 ml-auto">
+              {isAdmin && (
                 <button
-                  onClick={signOut}
+                  onClick={() => navigate("/admin")}
                   className="p-2 hover:bg-accent rounded-md transition-colors"
-                  title="Sign out"
+                  title="Admin"
                 >
-                  <LogOut className="w-4 h-4 text-muted-foreground" />
+                  <Shield className="w-4 h-4 text-muted-foreground" />
                 </button>
-              </>
-            ) : (
+              )}
+              <span className="text-xs text-muted-foreground hidden sm:block">{user.email}</span>
               <button
-                onClick={() => { setAuthModalMode("login"); setShowAuthModal(true); }}
-                className="px-4 py-2 bg-foreground text-background font-heading text-sm font-medium rounded-md hover:opacity-90 transition-opacity"
+                onClick={signOut}
+                className="p-2 hover:bg-accent rounded-md transition-colors"
+                title="Sign out"
               >
-                Sign in
+                <LogOut className="w-4 h-4 text-muted-foreground" />
               </button>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="flex-1 flex justify-center">
+              <LogoWithTagline />
+            </div>
+          )}
         </div>
       </header>
 
