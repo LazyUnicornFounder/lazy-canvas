@@ -40,7 +40,7 @@ function NavDropdown({ label, links }: { label: string; links: { label: string; 
   }, []);
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative" onMouseLeave={() => setOpen(false)}>
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1 text-xs font-heading font-medium text-muted-foreground hover:text-foreground transition-colors"
