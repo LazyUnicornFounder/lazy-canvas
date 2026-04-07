@@ -477,63 +477,65 @@ const Index = () => {
 
       {/* Mobile sticky preview */}
       <div className="lg:hidden sticky top-0 z-20 bg-background border-b border-border px-4 py-3">
-        <div className="max-w-[280px] max-h-[50vh] mx-auto relative overflow-hidden rounded-lg">
-          <DesignPreview
-            key={`mobile-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
-            ref={mobilePreviewRef}
-            quote={editorState.quote}
-            authorName={editorState.authorName}
-            authorPhoto={editorState.authorPhoto}
-            photoShape={editorState.photoShape}
-            socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
-            socials={socials}
-            aspectRatio={editorState.aspectRatio}
-            font={editorState.font}
-            theme={editorState.theme}
-            backgroundImage={editorState.backgroundImage}
-            backgroundOpacity={editorState.backgroundOpacity}
-            backgroundBlur={editorState.backgroundBlur}
-            backgroundFilter={editorState.backgroundFilter}
-            filterIntensity={editorState.filterIntensity}
-            fontSize={editorState.fontSize}
-            textAlign={editorState.textAlign}
-            letterSpacing={editorState.letterSpacing}
-            lineHeight={editorState.lineHeight}
-            textColor={editorState.textColor}
-            authorFontSize={editorState.authorFontSize}
-            authorColor={editorState.authorColor}
-            authorFont={editorState.authorFont}
-            textShadow={editorState.textShadow}
-            shadowOpacity={editorState.shadowOpacity}
-            authorPosition={editorState.authorPosition}
-            backgroundColor={editorState.backgroundColor}
-            isBold={editorState.isBold}
-            isItalic={editorState.isItalic}
-            coloredWords={editorState.coloredWords}
-            showWatermark={false}
-            showQuotationMarks={editorState.showQuotationMarks}
-            photoStroke={editorState.photoStroke}
-            customWidth={editorState.customWidth}
-            customHeight={editorState.customHeight}
-            borderWidth={editorState.borderWidth}
-            borderColor={editorState.borderColor}
-            borderStyle={editorState.borderStyle}
-            logo={editorState.logo}
-            logoPosition={editorState.logoPosition}
-            logoSize={editorState.logoSize}
-            textOffsetX={editorState.textOffsetX}
-            textOffsetY={editorState.textOffsetY}
-            authorOffsetX={editorState.authorOffsetX}
-            authorOffsetY={editorState.authorOffsetY}
-            logoOffsetX={editorState.logoOffsetX}
-            logoOffsetY={editorState.logoOffsetY}
-            onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
-          />
-          {isFreeUser && usesProFeatures(editorState) && (
-            <span className="absolute top-2 right-2 z-40 px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded-full shadow-sm pointer-events-none select-none opacity-80">
-              Pro
-            </span>
-          )}
+        <div className="max-w-[280px] max-h-[50vh] mx-auto overflow-hidden rounded-lg">
+          <div className="relative w-fit mx-auto">
+            <DesignPreview
+              key={`mobile-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
+              ref={mobilePreviewRef}
+              quote={editorState.quote}
+              authorName={editorState.authorName}
+              authorPhoto={editorState.authorPhoto}
+              photoShape={editorState.photoShape}
+              socialPlatform={editorState.socialUsername ? editorState.socialPlatform as SocialPlatform : undefined}
+              socials={socials}
+              aspectRatio={editorState.aspectRatio}
+              font={editorState.font}
+              theme={editorState.theme}
+              backgroundImage={editorState.backgroundImage}
+              backgroundOpacity={editorState.backgroundOpacity}
+              backgroundBlur={editorState.backgroundBlur}
+              backgroundFilter={editorState.backgroundFilter}
+              filterIntensity={editorState.filterIntensity}
+              fontSize={editorState.fontSize}
+              textAlign={editorState.textAlign}
+              letterSpacing={editorState.letterSpacing}
+              lineHeight={editorState.lineHeight}
+              textColor={editorState.textColor}
+              authorFontSize={editorState.authorFontSize}
+              authorColor={editorState.authorColor}
+              authorFont={editorState.authorFont}
+              textShadow={editorState.textShadow}
+              shadowOpacity={editorState.shadowOpacity}
+              authorPosition={editorState.authorPosition}
+              backgroundColor={editorState.backgroundColor}
+              isBold={editorState.isBold}
+              isItalic={editorState.isItalic}
+              coloredWords={editorState.coloredWords}
+              showWatermark={false}
+              showQuotationMarks={editorState.showQuotationMarks}
+              photoStroke={editorState.photoStroke}
+              customWidth={editorState.customWidth}
+              customHeight={editorState.customHeight}
+              borderWidth={editorState.borderWidth}
+              borderColor={editorState.borderColor}
+              borderStyle={editorState.borderStyle}
+              logo={editorState.logo}
+              logoPosition={editorState.logoPosition}
+              logoSize={editorState.logoSize}
+              textOffsetX={editorState.textOffsetX}
+              textOffsetY={editorState.textOffsetY}
+              authorOffsetX={editorState.authorOffsetX}
+              authorOffsetY={editorState.authorOffsetY}
+              logoOffsetX={editorState.logoOffsetX}
+              logoOffsetY={editorState.logoOffsetY}
+              onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
+            />
+            {isFreeUser && usesProFeatures(editorState) && (
+              <span className="absolute top-2 right-2 z-40 px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded-full shadow-sm pointer-events-none select-none opacity-80" data-export-exclude>
+                Pro
+              </span>
+            )}
+          </div>
         </div>
         <div className="relative w-full mt-2 max-w-[280px] mx-auto flex gap-2">
           {user && (
@@ -609,7 +611,8 @@ const Index = () => {
           </div>
           {/* Preview — right (fills remaining space) */}
           <div className="hidden lg:flex flex-1 min-w-0 flex-col gap-3 sticky top-6 self-start transition-all duration-300 items-center justify-start">
-            <div className="overflow-hidden relative" style={{ width: getPreviewContainerWidth(editorState.aspectRatio, editorState.customWidth, editorState.customHeight), maxWidth: '100%' }}>
+            <div className="overflow-hidden" style={{ width: getPreviewContainerWidth(editorState.aspectRatio, editorState.customWidth, editorState.customHeight), maxWidth: '100%' }}>
+              <div className="relative w-fit mx-auto">
                 <DesignPreview
                   key={`desktop-${editorState.font}-${editorState.authorFont}-${editorState.isBold}-${editorState.isItalic}`}
                   ref={previewRef}
@@ -669,10 +672,11 @@ const Index = () => {
                    onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
                  />
                 {isFreeUser && usesProFeatures(editorState) && (
-                  <span className="absolute top-2 right-2 z-40 px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded-full shadow-sm pointer-events-none select-none opacity-80">
+                  <span className="absolute top-2 right-2 z-40 px-2 py-0.5 text-[10px] font-heading font-bold uppercase tracking-wider bg-primary text-primary-foreground rounded-full shadow-sm pointer-events-none select-none opacity-80" data-export-exclude>
                     Pro
                   </span>
                 )}
+              </div>
             </div>
             <div className="flex items-center gap-2">
               {user && (
