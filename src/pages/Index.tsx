@@ -566,11 +566,9 @@ const Index = () => {
               <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
             </div>
           </div>
-          {/* Mobile editor */}
-          <div className="flex-1 min-w-0 flex flex-col lg:hidden overflow-hidden">
-            <div className="flex-1 min-h-0">
-              <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
-            </div>
+          {/* Mobile editor — bottom tab bar handled by DesignEditor */}
+          <div className="lg:hidden">
+            <DesignEditor state={editorState} onChange={handleEditorChange} isPro={isPro} onDownload={() => handleDownloadClick(3)} downloading={downloading} />
           </div>
           {/* Preview — right (fills remaining space) */}
            <div className="hidden lg:flex flex-1 min-w-0 flex-col gap-3 sticky top-6 self-start transition-all duration-300 items-center justify-center min-h-[calc(100vh-80px)]">
