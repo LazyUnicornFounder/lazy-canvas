@@ -178,3 +178,16 @@ input[type="range"] {
 .safe-area-pb {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
+
+@keyframes reels-scroll-up {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.reels-scroll-up {
+  animation: reels-scroll-up linear infinite;
+}

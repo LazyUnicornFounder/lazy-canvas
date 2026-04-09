@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow, LayoutGrid, Eraser, Loader2, Search, Trash2, FolderOpen, Type, User, Square, Ruler, SlidersHorizontal, Layers, Camera, Download } from "lucide-react";
+import { Image as ImageIcon, X, Upload, Smile, Plus, Palette, Rainbow, LayoutGrid, Eraser, Loader2, Search, Trash2, FolderOpen, Type, User, Square, Ruler, SlidersHorizontal, Layers, Camera, Download, Film } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { supabase } from "@/integrations/supabase/client";
 import { EMOJI_CATEGORIES } from "@/data/emojis";
@@ -274,6 +274,8 @@ export interface DesignEditorState {
   authorOffsetY: number;
   logoOffsetX: number;
   logoOffsetY: number;
+  reelsText: string;
+  reelsSpeed: number;
 }
 
 export const BG_FILTERS: { value: string; label: string; css: string }[] = [
@@ -345,6 +347,8 @@ export const DEFAULT_EDITOR_STATE: DesignEditorState = {
   authorOffsetY: 0,
   logoOffsetX: 0,
   logoOffsetY: 0,
+  reelsText: "",
+  reelsSpeed: 15,
 };
 
 interface DesignEditorProps {
@@ -581,6 +585,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
     { id: "photo", icon: Camera, label: "Photo" },
     { id: "border", icon: Square, label: "Border" },
     { id: "format", icon: Layers, label: "Format" },
+    { id: "reels", icon: Film, label: "Reels" },
     { id: "units", icon: Ruler, label: "Units" },
   ];
 
@@ -1151,6 +1156,27 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
                   </div>
                 </div>
               </div>
+            </ControlSection>
+          )}
+
+          {activePanel === "reels" && (
+            <ControlSection label="Reels">
+              <p className="text-[10px] text-muted-foreground mb-2">Add text that scrolls up from the bottom of the canvas, like movie credits or Instagram Reels captions.</p>
+              <textarea
+                value={state.reelsText}
+                onChange={(e) => set("reelsText", e.target.value)}
+                placeholder={"Line 1\nLine 2\nLine 3\n..."}
+                rows={5}
+                className="w-full bg-transparent border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 resize-none font-body"
+              />
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Speed</span>
+                <input type="range" min={5} max={40} step={1} value={state.reelsSpeed} onChange={(e) => set("reelsSpeed", Number(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.reelsSpeed}s</span>
+              </div>
+              {state.reelsText && (
+                <button onClick={() => set("reelsText", "")} className="mt-2 text-xs text-muted-foreground hover:text-foreground transition-colors">Clear text</button>
+              )}
             </ControlSection>
           )}
 
