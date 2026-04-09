@@ -507,6 +507,8 @@ const Index = () => {
               authorOffsetY={editorState.authorOffsetY}
               logoOffsetX={editorState.logoOffsetX}
               logoOffsetY={editorState.logoOffsetY}
+              reelsText={editorState.reelsText}
+              reelsSpeed={editorState.reelsSpeed}
               onAutoFontSize={(size) => setEditorState((prev) => ({ ...prev, fontSize: size }))}
             />
         </div>
@@ -623,6 +625,8 @@ const Index = () => {
                    authorOffsetY={editorState.authorOffsetY}
                    logoOffsetX={editorState.logoOffsetX}
                    logoOffsetY={editorState.logoOffsetY}
+                   reelsText={editorState.reelsText}
+                   reelsSpeed={editorState.reelsSpeed}
                    onOffsetChange={(field, x, y) => {
                      setEditorState((prev) => ({
                        ...prev,
