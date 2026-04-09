@@ -348,7 +348,7 @@ export const DEFAULT_EDITOR_STATE: DesignEditorState = {
   logoOffsetX: 0,
   logoOffsetY: 0,
   reelsText: "",
-  reelsSpeed: 30,
+  reelsSpeed: 60,
 };
 
 interface DesignEditorProps {
@@ -1171,7 +1171,7 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
               />
               <div className="flex items-center gap-3 mt-3">
                 <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Speed</span>
-                <input type="range" min={5} max={120} step={1} value={state.reelsSpeed} onChange={(e) => set("reelsSpeed", Number(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                <input type="range" min={10} max={300} step={5} value={state.reelsSpeed} onChange={(e) => set("reelsSpeed", Number(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
                 <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.reelsSpeed}s</span>
               </div>
               {state.reelsText && (
