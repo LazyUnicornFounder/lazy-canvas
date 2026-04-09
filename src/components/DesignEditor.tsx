@@ -1159,6 +1159,27 @@ const DesignEditor = ({ state: rawState, onChange, isPro = false, onDownload, do
             </ControlSection>
           )}
 
+          {activePanel === "reels" && (
+            <ControlSection label="Reels">
+              <p className="text-[10px] text-muted-foreground mb-2">Add text that scrolls up from the bottom of the canvas, like movie credits or Instagram Reels captions.</p>
+              <textarea
+                value={state.reelsText}
+                onChange={(e) => set("reelsText", e.target.value)}
+                placeholder={"Line 1\nLine 2\nLine 3\n..."}
+                rows={5}
+                className="w-full bg-transparent border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 resize-none font-body"
+              />
+              <div className="flex items-center gap-3 mt-3">
+                <span className="text-[10px] font-heading text-muted-foreground uppercase tracking-widest w-14">Speed</span>
+                <input type="range" min={5} max={40} step={1} value={state.reelsSpeed} onChange={(e) => set("reelsSpeed", Number(e.target.value))} className="w-1/2 max-w-[140px] accent-foreground h-1" />
+                <span className="text-[10px] font-mono text-muted-foreground w-10 text-right">{state.reelsSpeed}s</span>
+              </div>
+              {state.reelsText && (
+                <button onClick={() => set("reelsText", "")} className="mt-2 text-xs text-muted-foreground hover:text-foreground transition-colors">Clear text</button>
+              )}
+            </ControlSection>
+          )}
+
           {activePanel === "units" && (
             <ControlSection label="Unit Converter">
               <UnitCalculator />
