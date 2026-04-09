@@ -490,7 +490,7 @@ const Index = () => {
               isItalic={editorState.isItalic}
               coloredWords={editorState.coloredWords}
               showWatermark={false}
-              showProBadge={isFreeUser && usesProFeatures(editorState)}
+              showProBadge={false}
               showQuotationMarks={editorState.showQuotationMarks}
               photoStroke={editorState.photoStroke}
               customWidth={editorState.customWidth}
@@ -608,7 +608,7 @@ const Index = () => {
                   isItalic={editorState.isItalic}
                   coloredWords={editorState.coloredWords}
                   showWatermark={false}
-                  showProBadge={isFreeUser && usesProFeatures(editorState)}
+                  showProBadge={false}
                   showQuotationMarks={editorState.showQuotationMarks}
                   photoStroke={editorState.photoStroke}
                   customWidth={editorState.customWidth}

@@ -710,13 +710,6 @@ const DesignPreview = forwardRef<HTMLDivElement, DesignPreviewProps>(
               />
             </div>
           )}
-          {showProBadge && (
-            <div className="absolute top-0 right-0 z-30 m-[clamp(8px,3%,16px)]" data-export-exclude>
-              <span className="inline-flex items-center rounded-full bg-primary px-2 py-0.5 font-heading text-[10px] font-bold uppercase tracking-wider text-primary-foreground opacity-80 shadow-sm">
-                Pro
-              </span>
-            </div>
-          )}
           {/* Reels scrolling text */}
           {reelsText && (
             <div className="absolute inset-0 z-15 overflow-hidden pointer-events-none">
