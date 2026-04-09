@@ -118,6 +118,8 @@ interface DesignPreviewProps {
   logoOffsetX?: number;
   logoOffsetY?: number;
   onOffsetChange?: (field: string, x: number, y: number) => void;
+  reelsText?: string;
+  reelsSpeed?: number;
 }
 
 const aspectClasses: Record<AspectRatio, string> = {
@@ -357,7 +359,7 @@ const renderColoredQuote = (text: string, coloredWords: ColoredWord[] = [], show
 };
 
 const DesignPreview = forwardRef<HTMLDivElement, DesignPreviewProps>(
-  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", filterIntensity = 1, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showProBadge = false, showQuotationMarks = false, photoStroke = false, customWidth, customHeight, borderWidth = 0, borderColor = "#000000", borderStyle = "none", logo, logoPosition = "bottom-right", logoSize = 2.5, onAutoFontSize, textOffsetX = 0, textOffsetY = 0, authorOffsetX = 0, authorOffsetY = 0, logoOffsetX = 0, logoOffsetY = 0, onOffsetChange }, ref) => {
+  ({ quote, authorName, authorPhoto, photoShape = "none", socials, socialPlatform, aspectRatio, font, theme, backgroundImage, backgroundOpacity, backgroundBlur = 0, backgroundFilter = "none", filterIntensity = 1, fontSize, textAlign, letterSpacing, lineHeight, textColor, authorFontSize, authorColor, authorFont, textShadow, shadowOpacity = 1, authorPosition, backgroundColor, isBold, isItalic, coloredWords, showWatermark, showProBadge = false, showQuotationMarks = false, photoStroke = false, customWidth, customHeight, borderWidth = 0, borderColor = "#000000", borderStyle = "none", logo, logoPosition = "bottom-right", logoSize = 2.5, onAutoFontSize, textOffsetX = 0, textOffsetY = 0, authorOffsetX = 0, authorOffsetY = 0, logoOffsetX = 0, logoOffsetY = 0, onOffsetChange, reelsText = "", reelsSpeed = 15 }, ref) => {
     const t = themeStyles[theme];
     const isPlaceholder = !quote;
 
