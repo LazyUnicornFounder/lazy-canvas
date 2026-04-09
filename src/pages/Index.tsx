@@ -289,89 +289,112 @@ const Index = () => {
   }, []);
 
   const renderReelsVideo = useCallback(async (target: HTMLElement): Promise<Blob> => {
-    const speed = editorState.reelsSpeed;
+    const durationSec = Math.min(editorState.reelsSpeed, 30);
     const fps = 30;
-    const totalFrames = speed * fps;
-    // Cap at 900 frames (30s) to keep it reasonable
-    const maxFrames = Math.min(totalFrames, 900);
+    const totalFrames = durationSec * fps;
 
-    // Stop the CSS animation so we can manually position text per frame
-    const reelsEl = target.querySelector('.reels-scroll-up') as HTMLElement | null;
-    if (!reelsEl) throw new Error("No reels element found");
+    // Hide reels text from the static capture
+    const reelsContainer = target.querySelector('.reels-scroll-up')?.parentElement as HTMLElement | null;
+    if (reelsContainer) reelsContainer.style.display = 'none';
 
-    // Get dimensions from the preview
+    // Capture static background once
     const rect = target.getBoundingClientRect();
     const scale = 2;
     const w = Math.round(rect.width * scale);
     const h = Math.round(rect.height * scale);
 
+    let bgImage: HTMLImageElement;
+    try {
+      const bgBlob = await renderPreviewBlob(target, scale);
+      bgImage = await new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = URL.createObjectURL(bgBlob);
+      });
+    } finally {
+      if (reelsContainer) reelsContainer.style.display = '';
+    }
+
+    // Prepare text lines
+    const lines = editorState.reelsText.split('\n');
+    const fontFamily = {
+      playfair: "'Playfair Display', serif", cormorant: "'Cormorant Garamond', serif",
+      bebas: "'Bebas Neue', sans-serif", mono: "'IBM Plex Mono', monospace",
+      heading: "'Space Grotesk', sans-serif", lora: "'Lora', serif", inter: "'Inter', sans-serif",
+      oswald: "'Oswald', sans-serif", merriweather: "'Merriweather', serif", raleway: "'Raleway', sans-serif",
+      dancing: "'Dancing Script', cursive", archivo: "'Archivo Black', sans-serif",
+      crimson: "'Crimson Text', serif", montserrat: "'Montserrat', sans-serif", poppins: "'Poppins', sans-serif",
+      pacifico: "'Pacifico', cursive", "great-vibes": "'Great Vibes', cursive", satisfy: "'Satisfy', cursive",
+      caveat: "'Caveat', cursive", "permanent-marker": "'Permanent Marker', cursive",
+      "shadows-into-light": "'Shadows Into Light', cursive", orbitron: "'Orbitron', sans-serif",
+      rajdhani: "'Rajdhani', sans-serif", audiowide: "'Audiowide', sans-serif",
+    }[editorState.font] || 'sans-serif';
+    const textFontSize = Math.max(editorState.fontSize * 0.5, 0.7) * 16 * scale;
+    const lineSpacing = textFontSize * 1.8;
+    const textBlockHeight = lines.length * lineSpacing;
+    const textColor = editorState.textColor || '#1a1a1a';
+    const align = editorState.textAlign;
+    const padX = w * 0.05;
+
+    // Canvas + recorder
     const canvas = document.createElement('canvas');
     canvas.width = w;
     canvas.height = h;
     const ctx = canvas.getContext('2d')!;
 
-    // Pause the CSS animation
-    const origAnimation = reelsEl.style.animation;
-    reelsEl.style.animation = 'none';
-
-    const chunks: Blob[] = [];
-    const stream = canvas.captureStream(0); // 0 = manual frame capture
+    const stream = canvas.captureStream(fps);
     const recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9', videoBitsPerSecond: 5_000_000 });
+    const chunks: Blob[] = [];
     recorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
-
     const done = new Promise<Blob>((resolve) => {
       recorder.onstop = () => resolve(new Blob(chunks, { type: 'video/webm' }));
     });
 
     recorder.start();
 
-    for (let frame = 0; frame < maxFrames; frame++) {
-      // Progress from 0 (text at bottom) to 1 (text scrolled past top)
-      const progress = frame / maxFrames;
-      // translateY from 100% to -100%
-      const translateY = 100 - progress * 200;
-      reelsEl.style.transform = `translateY(${translateY}%)`;
+    // Draw frames at ~30fps using requestAnimationFrame
+    let frame = 0;
+    const startTime = performance.now();
 
-      // Wait for paint
-      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    await new Promise<void>((resolve) => {
+      const drawFrame = () => {
+        const elapsed = (performance.now() - startTime) / 1000;
+        frame = Math.floor(elapsed * fps);
 
-      // Capture frame
-      const frameCanvas = await html2canvas(target, {
-        scale,
-        useCORS: true,
-        logging: false,
-        backgroundColor: null,
-        onclone: (doc) => {
-          doc.querySelectorAll("[data-export-exclude]").forEach((el) => el.remove());
-          sanitizeExportStyles(doc.body);
-          // Apply same transform in cloned doc
-          const clonedReels = doc.querySelector('.reels-scroll-up') as HTMLElement | null;
-          if (clonedReels) {
-            clonedReels.style.animation = 'none';
-            clonedReels.style.transform = `translateY(${translateY}%)`;
+        if (frame >= totalFrames) {
+          recorder.stop();
+          resolve();
+          return;
+        }
+
+        const progress = frame / totalFrames;
+        // Scroll from bottom (h) to above top (-textBlockHeight)
+        const y = h - progress * (h + textBlockHeight);
+
+        ctx.clearRect(0, 0, w, h);
+        ctx.drawImage(bgImage, 0, 0, w, h);
+
+        // Draw text
+        ctx.font = `${textFontSize}px ${fontFamily}`;
+        ctx.fillStyle = textColor;
+        ctx.textAlign = align === 'center' ? 'center' : align === 'right' ? 'right' : 'left';
+        const xPos = align === 'center' ? w / 2 : align === 'right' ? w - padX : padX;
+
+        for (let i = 0; i < lines.length; i++) {
+          const lineY = y + i * lineSpacing;
+          if (lineY > -lineSpacing && lineY < h + lineSpacing) {
+            ctx.fillText(lines[i] || ' ', xPos, lineY);
           }
-        },
-      });
+        }
 
-      ctx.clearRect(0, 0, w, h);
-      ctx.drawImage(frameCanvas, 0, 0, w, h);
-      (stream.getVideoTracks()[0] as any).requestFrame?.();
+        requestAnimationFrame(drawFrame);
+      };
+      requestAnimationFrame(drawFrame);
+    });
 
-      // Update progress toast every 30 frames
-      if (frame % 30 === 0) {
-        const pct = Math.round((frame / maxFrames) * 100);
-        toast.loading(`Recording video… ${pct}%`, { id: 'reels-recording' });
-      }
-    }
-
-    recorder.stop();
-    // Restore animation
-    reelsEl.style.animation = origAnimation;
-    reelsEl.style.transform = '';
-
-    toast.dismiss('reels-recording');
     return done;
-  }, [editorState.reelsSpeed]);
+  }, [editorState.reelsSpeed, editorState.reelsText, editorState.font, editorState.fontSize, editorState.textColor, editorState.textAlign, renderPreviewBlob]);
 
   const performDownloadOnly = useCallback(async (scale: number = 3, showGuestPrompt = true) => {
     const target = previewRef.current || mobilePreviewRef.current;
