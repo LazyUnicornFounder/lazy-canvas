@@ -838,6 +838,7 @@ const Index = () => {
         </AlertDialogContent>
       </AlertDialog>
 
+      <OpenSourceBanner />
       {!user && <SiteFooter />}
     </div>
   );
@@ -858,8 +859,7 @@ const Index = () => {
             onLockedEdit={handleLockedEditAttempt}
           />
           {pageContent}
-              <OpenSourceBanner />
-    </div>
+        </div>
       </SidebarProvider>
     );
   }
