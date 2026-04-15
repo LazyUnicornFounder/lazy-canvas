@@ -27,6 +27,7 @@ import { toBlob as toImageBlob } from "html-to-image";
 import DesignGallery from "@/components/DesignGallery";
 import { supabase } from "@/integrations/supabase/client";
 import OpenSourceBanner from "@/components/OpenSourceBanner";
+import PortfolioFooter from "@/components/PortfolioFooter";
 
 const DRAFT_KEY = "lazy-designs-draft";
 
@@ -859,7 +860,8 @@ const Index = () => {
             onLockedEdit={handleLockedEditAttempt}
           />
           {pageContent}
-        </div>
+              <PortfolioFooter />
+    </div>
       </SidebarProvider>
     );
   }

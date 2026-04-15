@@ -14,11 +14,13 @@ import Gallery from "./pages/Gallery.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import MarketingPage from "./pages/MarketingPage.tsx";
 import { MARKETING_PAGES } from "./pages/marketingConfigs.ts";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <TooltipProvider>
         <Toaster />
@@ -47,6 +49,7 @@ const App = () => (
       </TooltipProvider>
     </AuthProvider>
   </QueryClientProvider>
+    </ErrorBoundary>
 );
 
 export default App;
